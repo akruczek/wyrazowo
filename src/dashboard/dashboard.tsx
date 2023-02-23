@@ -1,35 +1,23 @@
 import * as React from 'react'
-import * as R from 'ramda'
-import { ScrollView } from 'react-native'
+import { Button, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { asyncReadFile } from '../core/read-file/read-file'
 import { LetterCard } from '../core/letter-card/letter-card'
-import { ALL_LETTERS_SORTED, LETTER_ANY, LETTER_SOAP } from '../core/letter-card/letter-card.constants'
-import { LetterCardsContainer, SelectedLetterCardWrapper, SelectedLettersContainer } from './dashboard.styled'
+import { LetterCardsContainer, SelectedLettersContainer } from './dashboard.styled'
+import { useSelectLetter } from './hooks/use-select-letter.hook'
 
 export const Dashboard = () => {
-  const MAX_SELECTED_LETTERS = 7
+  const { letters, selectedLetters, handleSelectLetter, handleDeselectLetter, isAnyLetterSelected } = useSelectLetter()
+  const d = React.useRef('')
 
-  const [ selectedLetters, updateSelectedLetters ] = React.useState<string[]>([])
-  const [ selectedAnyLettersIndexes, updateSelectedAnyLettersIndexes ] = React.useState<number[]>([])
+  React.useEffect(() => {
+    asyncReadFile('slowa').then((response: string[]) => {
+      console.log(response.length)
+    })
+  }, [])
 
-  const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_ANY, LETTER_ANY ]
+  const onPress = () => {
 
-  const handleSelectLetter = (letter: string, index: number) => () => {
-    if (letter === LETTER_ANY) {
-      if (R.includes(index, selectedAnyLettersIndexes)) {
-        updateSelectedAnyLettersIndexes(list => R.without([ index ], list))
-      } else {
-        updateSelectedAnyLettersIndexes(list => R.append(index, list))
-      }
-    } else {
-      if (selectedLetters?.length < MAX_SELECTED_LETTERS) {
-        updateSelectedLetters(R.append(letter, selectedLetters))
-      }
-    }
-  }
-
-  const handleDeselectLetter = (index: number) => () => {
-    updateSelectedLetters(R.remove(index, 1, selectedLetters))
   }
 
   return (
@@ -37,13 +25,11 @@ export const Dashboard = () => {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <SelectedLettersContainer>
           {selectedLetters.map((letter: string, index: number) => (
-            <SelectedLetterCardWrapper>
-              <LetterCard
-                key={`selected-letter-${letter}-${index}`}
-                onPress={handleDeselectLetter(index)}
-                content={letter}
-              />
-            </SelectedLetterCardWrapper>
+            <LetterCard
+              key={`selected-letter-${letter}-${index}`}
+              onPress={handleDeselectLetter(index)}
+              content={letter}
+            />
           ))}
         </SelectedLettersContainer>
 
@@ -52,11 +38,13 @@ export const Dashboard = () => {
             <LetterCard
               key={`letter-card-${letter}-${index}`}
               onPress={handleSelectLetter(letter, index)}
-              isSelected={selectedAnyLettersIndexes?.includes(index)}
+              isSelected={isAnyLetterSelected(index)}
               content={letter}
             />
           ))}
         </LetterCardsContainer>
+
+        <Button title="CHECK!" onPress={onPress} />
       </ScrollView>
     </SafeAreaView>
   )

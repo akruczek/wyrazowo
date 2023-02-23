@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { COLOR } from '../colors/colors.constants'
 import { TEXT_SIZE } from '../text/text.constants'
@@ -12,6 +13,7 @@ interface LetterCardContainerProps {
 
 export const LETTER_CARD_DEFAULT_SIZE = 50
 const LETTER_CARD_DEFAULT_CONTENT_SIZE = TEXT_SIZE.L
+const SELECTED_CARD_SPACE_SIZE = Math.floor(Dimensions.get('screen').width / 7 - LETTER_CARD_DEFAULT_SIZE)
 
 const getLetterCardContainerSize = R.propOr(LETTER_CARD_DEFAULT_SIZE, 'size')
 
@@ -50,6 +52,7 @@ export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress }) =
   border: 1px solid ${getLetterCardBorderColor};
   border-radius: ${getLetterCardBorderRadius}px;
   margin-bottom: 5px;
+  margin-right: ${SELECTED_CARD_SPACE_SIZE}px;
 `
 
 export const LetterCardContent = styled.Text`

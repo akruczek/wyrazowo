@@ -7,19 +7,16 @@ const SELECTED_CARD_SPACE_SIZE = Math.floor(Dimensions.get('screen').width / 7 -
 
 export const LetterCardsContainer = styled.View`
   flex-flow: row wrap;
-  justify-content: space-around;
+  margin-left: ${SELECTED_CARD_SPACE_SIZE - 5}px;
 `
 
 export const SelectedLettersContainer = styled.View`
   flex-flow: row wrap;
   margin-bottom: 50px;
+  margin-top: 10px;
   min-height: 60px;
   border-bottom-width: 1px;
   margin-horizontal: 2px;
   margin-bottom: 20px;
   border-bottom-color: ${COLOR.SLATE_GREY};
-`
-
-export const SelectedLetterCardWrapper = styled.View`
-  margin-right: ${SELECTED_CARD_SPACE_SIZE}px;
 `
