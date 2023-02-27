@@ -1,12 +1,11 @@
 import styled from 'styled-components/native'
 import RangeSlider from 'rn-range-slider'
 import { TEXT_SIZE } from '../text/text.constants'
-import { THUMB_SIZE } from './components/letter-slider-thumb/letter-slider-thumb.styled'
 
 export const LetterSliderContainer = styled.View`
   padding-horizontal: 10px;
   padding-top: 20px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 `
 
 export const LetterSliderBottomLabelBar = styled.View`

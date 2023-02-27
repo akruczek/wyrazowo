@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { LetterCardsContainer } from '../letters-grid/letters-grid.styled'
+import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import {
   PossibleWordsContainer, SearchingDatabaseContainer, WordsGroupContainer, WordsGroupHeadline, WordsGroupText,
 } from './possible-words-modal.styled'
@@ -63,12 +64,13 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                     {wordsGroup[0].length} LETTERS
                   </WordsGroupHeadline>
 
-                  {wordsGroup.map((word: string) => (
+                  {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <LetterCardsContainer key={word}>
                       {word.toUpperCase().split('').map((letter: string, index: number) => (
                         <LetterCard
                           key={`letter-card-${letter}-${index}`}
                           content={letter}
+                          onPress={() => console.warn(getWordPoints(word))}
                           size={40}
                           fontSize={TEXT_SIZE.M}
                         />

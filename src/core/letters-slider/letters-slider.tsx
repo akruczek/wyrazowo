@@ -27,7 +27,7 @@ export const LettersSlider = ({ onChange }: Props) => {
         renderThumb={renderLetterSliderThumb}
         renderRail={renderLetterSliderRail}
         renderRailSelected={() => null}
-        renderLabel={renderLetterSliderLabel}
+        renderLabel={renderLetterSliderLabel(defaultMin, defaultMax)}
         renderNotch={() => null}
         onValueChanged={onValueChanged}
         min={defaultMin}
