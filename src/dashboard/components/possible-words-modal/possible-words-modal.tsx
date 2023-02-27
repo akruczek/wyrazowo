@@ -4,9 +4,9 @@ import { ActivityIndicator, FlatList } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { LetterCardsContainer } from '../../../dashboard/dashboard.styled'
 import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { LetterCardsContainer } from '../letters-grid/letters-grid.styled'
 import {
   PossibleWordsContainer, SearchingDatabaseContainer, WordsGroupContainer, WordsGroupHeadline, WordsGroupText,
 } from './possible-words-modal.styled'

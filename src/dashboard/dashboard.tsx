@@ -1,14 +1,15 @@
 import * as React from 'react'
+import * as R from 'ramda'
 import { Button, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { InteractionManager } from 'react-native'
 import { Host } from 'react-native-portalize'
 import { asyncReadFile } from '../core/read-file/read-file'
-import { LetterCard } from '../core/letter-card/letter-card'
-import { LetterCardsContainer, SelectedLettersContainer } from './dashboard.styled'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
 import { findPossibleWords } from './helpers/find-possible-words.helper'
+import { LettersSlider } from '../core/letters-slider/letters-slider'
+import { SelectedLetters } from './components/selected-letters/selected-letters'
+import { LettersGrid } from './components/letters-grid/letters-grid'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<any>(null)
@@ -18,6 +19,8 @@ export const Dashboard = () => {
 
   const [ searchingTime, setSearchingTime ] = React.useState<number>(0)
   const searchingWordRef = React.useRef('')
+
+  const wordLengthRef = React.useRef<[ number, number ]>([ 1, 10 ])
 
   React.useEffect(() => {
     asyncReadFile('slowa').then(setAllWords)
@@ -30,7 +33,7 @@ export const Dashboard = () => {
       searchingWordRef.current = searchingWord
     }
 
-    findPossibleWords(allWords, selectedLetters, handleSetSearchingWord).then((possibleWords: string[]) => {
+    findPossibleWords(allWords, selectedLetters, wordLengthRef.current, handleSetSearchingWord).then((possibleWords: string[]) => {
       setPossibleWords(possibleWords)
       setSearchingTime(new Date().getTime() - searchingTime)
     })
@@ -44,33 +47,20 @@ export const Dashboard = () => {
     modalizeRef?.current?.open?.()
   }
 
-  return (
+  const onLengthChange = (minMax: [ number, number ]) => {
+    if (minMax.join('') !== wordLengthRef.current.join('')) {
+      wordLengthRef.current = minMax
+    }
+  }
+
+  return React.useMemo(() => (
     <Host>
       <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <SelectedLettersContainer>
-            {selectedLetters.map((letter: string, index: number) => (
-              <LetterCard
-                key={`selected-letter-${letter}-${index}`}
-                onPress={handleDeselectLetter(index)}
-                content={letter}
-              />
-            ))}
-          </SelectedLettersContainer>
-
-          <LetterCardsContainer>
-            {letters.map((letter: string, index: number) => (
-              <LetterCard
-                key={`letter-card-${letter}-${index}`}
-                onPress={handleSelectLetter(letter, index)}
-                isSelected={isAnyLetterSelected(index)}
-                content={letter}
-              />
-            ))}
-          </LetterCardsContainer>
-
+        <ScrollView scrollEnabled={false} contentInsetAdjustmentBehavior="automatic">
+          <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
+          <LettersGrid {...{ letters, handleSelectLetter, isAnyLetterSelected }} />
+          <LettersSlider onChange={onLengthChange} />
           <Button title="CHECK!" onPress={onPress} />
-
         </ScrollView>
 
         <PossibleWordsModal
@@ -81,5 +71,5 @@ export const Dashboard = () => {
         />
       </SafeAreaView>
     </Host>
-  )
+  ), [ selectedLetters, letters, possibleWords ])
 }

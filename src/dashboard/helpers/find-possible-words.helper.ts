@@ -4,6 +4,7 @@ import { LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
 export const findPossibleWords = async (
   allWords: string[],
   selectedLetters: string[],
+  wordLength: [ number, number ],
   handleSetSearchingWord: (searchingWord: string) => void,
 ) => new Promise<string[]>((resolve) => {
   // Time breakpoint for performance testing
@@ -13,6 +14,10 @@ export const findPossibleWords = async (
   const result = allWords.filter((word: string) => {
     // Call callback with word which is currently in verification
     if (handleSetSearchingWord) handleSetSearchingWord(word)
+
+    // If word which is currently in verification does not match word length selected from slider -> RETURN FALSE
+    const wordDoesNotMatchWordLength = word.length < wordLength[0] || word.length > wordLength[1]
+    if (wordDoesNotMatchWordLength) return false
 
     // If word which is currently in verification is longer than all possible letter -> RETURN FALSE
     const tooLongWord = word.length > selectedLetters.length
