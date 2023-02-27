@@ -11,6 +11,7 @@ import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper
 import {
   PossibleWordsContainer, SearchingDatabaseContainer, WordsGroupContainer, WordsGroupHeadline, WordsGroupText,
 } from './possible-words-modal.styled'
+import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 
 interface Props {
   possibleWords: string[];
@@ -21,6 +22,9 @@ interface Props {
 }
 
 export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClosed, searchingWordRef }: Props) => {
+  const wordDetailsModalRef = React.useRef<any>(null)
+  const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
+
   const { top: topInset } = useSafeAreaInsets()
 
   const getWordsByLettersCount = () => {
@@ -39,6 +43,11 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
       R.reverse,
       R.filter(R.complement(R.isNil)),
     )(wordsToDisplay)
+  }
+
+  const onLongPressWord = (word: string) => () => {
+    setDetailedWord(word)
+    wordDetailsModalRef?.current?.open?.()
   }
 
   return (
@@ -70,7 +79,7 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                         <LetterCard
                           key={`letter-card-${letter}-${index}`}
                           content={letter}
-                          onPress={() => console.warn(getWordPoints(word))}
+                          onLongPress={onLongPressWord(word)}
                           size={40}
                           fontSize={TEXT_SIZE.M}
                         />
@@ -84,6 +93,12 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
           </PossibleWordsContainer>
         )}
       </Modalize>
+
+      <WordDetailsModal
+        word={detailedWord}
+        topInset={topInset}
+        modalizeRef={wordDetailsModalRef}
+      />
     </Portal>
   )
 }

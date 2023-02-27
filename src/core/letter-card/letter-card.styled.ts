@@ -41,8 +41,8 @@ const getLetterCardBorderColor = R.ifElse(
   R.always(COLOR.DIM_GREY),
 )
 
-export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress }) => ({
-  activeOpacity: onPress ? 0.5 : 1,
+export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onLongPress }) => ({
+  activeOpacity: (onPress || onLongPress) ? 0.5 : 1,
 }))<LetterCardContainerProps>`
   justify-content: center;
   align-items: center;

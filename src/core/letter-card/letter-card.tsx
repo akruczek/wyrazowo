@@ -9,10 +9,11 @@ interface Props {
   isSelected?: boolean;
   horizontalMarginSize?: number;
   onPress?: () => void;
+  onLongPress?: () => void;
 }
 
-export const LetterCard = ({ content, size, fontSize, isSelected, horizontalMarginSize, onPress }: Props) => (
-  <LetterCardContainer {...{ onPress, content, size, isSelected, horizontalMarginSize }}>
+export const LetterCard = ({ content, size, fontSize, isSelected, horizontalMarginSize, onPress, onLongPress }: Props) => (
+  <LetterCardContainer {...{ onPress, onLongPress, content, size, isSelected, horizontalMarginSize }}>
     <LetterCardContent {...{ fontSize }} children={content} />
   </LetterCardContainer>
 )
