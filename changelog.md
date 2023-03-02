@@ -1,3 +1,11 @@
+## 0.1.2
+### Improved:
+- Words database security improvements
+
+## 0.1.1
+### Improved:
+- Words database security improvements
+
 ## 0.1.0
 ### Added:
 - Basic search engine which allow to search words up to 9 letters
