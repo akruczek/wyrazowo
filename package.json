@@ -1,6 +1,6 @@
 {
   "name": "scrabble-helper",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -16,8 +16,6 @@
     "ramda": "^0.28.0",
     "react": "18.2.0",
     "react-native": "0.71.3",
-    "react-native-bg-thread": "^1.2.0",
-    "react-native-file-asset": "^0.1.2",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-modal": "^13.0.1",

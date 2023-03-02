@@ -27,6 +27,6 @@ export const WordsGroupHeadline = styled.Text`
   margin-bottom: 5px;
 `
 
-export const WordsGroupText = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
+export const PossibleWordsLetterCardsContainer = styled.View`
+  flex-direction: row;
 `

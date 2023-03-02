@@ -2,7 +2,7 @@ import { COLOR } from '../../../core/colors/colors.constants'
 import styled from 'styled-components/native'
 
 export const SelectedLettersContainer = styled.View`
-  flex-flow: row wrap;
+  flex-direction: row;
   margin-bottom: 50px;
   margin-top: 10px;
   min-height: 60px;

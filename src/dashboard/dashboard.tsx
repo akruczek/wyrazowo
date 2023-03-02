@@ -8,14 +8,19 @@ import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
 import { findPossibleWords } from './helpers/find-possible-words.helper'
 import { LettersSlider } from '../core/letters-slider/letters-slider'
+import { LETTER_SOAP } from '../core/letter-card/letter-card.constants'
 import { SelectedLetters } from './components/selected-letters/selected-letters'
 import { LettersGrid } from './components/letters-grid/letters-grid'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<any>(null)
-  const { letters, selectedLetters, handleSelectLetter, handleDeselectLetter, isAnyLetterSelected } = useSelectLetter()
   const [ allWords, setAllWords ] = React.useState<string[]>([])
   const [ possibleWords, setPossibleWords ] = React.useState<string[]>([])
+
+  const {
+    letters, selectedLetters, selectedAnyLettersIndexes,
+    handleSelectLetter, handleDeselectLetter, isAnyLetterSelected,
+  } = useSelectLetter()
 
   const [ searchingTime, setSearchingTime ] = React.useState<number>(0)
   const searchingWordRef = React.useRef('')
@@ -33,7 +38,11 @@ export const Dashboard = () => {
       searchingWordRef.current = searchingWord
     }
 
-    findPossibleWords(allWords, selectedLetters, wordLengthRef.current, handleSetSearchingWord).then((possibleWords: string[]) => {
+    const _selectedLetters = selectedAnyLettersIndexes.length
+      ? [ ...selectedLetters, ...R.map(R.always(LETTER_SOAP))(selectedAnyLettersIndexes) ]
+      : selectedLetters
+
+    findPossibleWords(allWords, _selectedLetters, wordLengthRef.current, handleSetSearchingWord).then((possibleWords: string[]) => {
       setPossibleWords(possibleWords)
       setSearchingTime(new Date().getTime() - searchingTime)
     })
@@ -56,12 +65,10 @@ export const Dashboard = () => {
   return React.useMemo(() => (
     <Host>
       <SafeAreaView>
-        <ScrollView scrollEnabled={false} contentInsetAdjustmentBehavior="automatic">
-          <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
-          <LettersGrid {...{ letters, handleSelectLetter, isAnyLetterSelected }} />
-          <LettersSlider onChange={onLengthChange} />
-          <Button title="CHECK!" onPress={onPress} />
-        </ScrollView>
+        <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
+        <LettersGrid {...{ letters, handleSelectLetter, isAnyLetterSelected }} />
+        <LettersSlider onChange={onLengthChange} />
+        <Button title="CHECK!" onPress={onPress} />
 
         <PossibleWordsModal
           searchingWordRef={searchingWordRef}

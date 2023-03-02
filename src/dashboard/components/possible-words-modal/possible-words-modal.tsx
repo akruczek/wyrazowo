@@ -6,12 +6,12 @@ import { Modalize } from 'react-native-modalize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
-import { LetterCardsContainer } from '../letters-grid/letters-grid.styled'
 import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
-import {
-  PossibleWordsContainer, SearchingDatabaseContainer, WordsGroupContainer, WordsGroupHeadline, WordsGroupText,
-} from './possible-words-modal.styled'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
+import {
+  PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
+  WordsGroupContainer, WordsGroupHeadline,
+} from './possible-words-modal.styled'
 
 interface Props {
   possibleWords: string[];
@@ -58,6 +58,7 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
         onOpened={onOpened}
         onClosed={onClosed}
         disableScrollIfPossible
+        avoidKeyboardLikeIOS
         useNativeDriver
       >
         {!possibleWords?.length ? (
@@ -67,6 +68,8 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
         ) : (
           <PossibleWordsContainer>
             <FlatList
+              maxToRenderPerBatch={10}
+              scrollEnabled={false}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
                 <WordsGroupContainer key={wordsGroup.join('')}>
                   <WordsGroupHeadline>
@@ -74,7 +77,7 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                   </WordsGroupHeadline>
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
-                    <LetterCardsContainer key={word}>
+                    <PossibleWordsLetterCardsContainer key={word}>
                       {word.toUpperCase().split('').map((letter: string, index: number) => (
                         <LetterCard
                           key={`letter-card-${letter}-${index}`}
@@ -84,7 +87,7 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                           fontSize={TEXT_SIZE.M}
                         />
                       ))}
-                    </LetterCardsContainer>
+                    </PossibleWordsLetterCardsContainer>
                   ))}
                 </WordsGroupContainer>
               )}

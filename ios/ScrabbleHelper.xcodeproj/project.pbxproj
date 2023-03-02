@@ -12,7 +12,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		4C7D85C129A79FCE00565251 /* slowa.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D85C029A79FCE00565251 /* slowa.txt */; };
 		7699B88040F8A987B510C191 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -39,8 +38,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ScrabbleHelper/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScrabbleHelper-ScrabbleHelperTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-ScrabbleHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper.debug.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper/Pods-ScrabbleHelper.debug.xcconfig"; sourceTree = "<group>"; };
-		4C7D85BE29A79E9F00565251 /* slowa.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = slowa.txt; path = "../../../Downloads/sjp-20230129/slowa.txt"; sourceTree = "<group>"; };
-		4C7D85C029A79FCE00565251 /* slowa.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = slowa.txt; path = ../src/assets/slowa.txt; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-ScrabbleHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper.release.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper/Pods-ScrabbleHelper.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper-ScrabbleHelperTests/Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-ScrabbleHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScrabbleHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,8 +116,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				4C7D85BE29A79E9F00565251 /* slowa.txt */,
-				4C7D85C029A79FCE00565251 /* slowa.txt */,
 				13B07FAE1A68108700A75B9A /* ScrabbleHelper */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ScrabbleHelperTests */,
@@ -249,7 +244,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				4C7D85C129A79FCE00565251 /* slowa.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,14 +485,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 100;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ScrabbleHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -518,13 +512,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 100;
 				INFOPLIST_FILE = ScrabbleHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

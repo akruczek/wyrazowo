@@ -1,0 +1,6 @@
+## 0.1.0
+### Added:
+- Basic search engine which allow to search words up to 9 letters
+- Placeholder letters support
+- Words length configuration for optimization purpose
+- Word detail view with definition and points

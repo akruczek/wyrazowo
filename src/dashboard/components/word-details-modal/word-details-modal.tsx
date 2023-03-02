@@ -1,10 +1,13 @@
 import * as React from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 import { Modalize } from 'react-native-modalize'
+import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { LetterCardsContainer } from '../letters-grid/letters-grid.styled'
-import { WordDetailsDefinitionsContainer, WordDetailsDefinitionText, WordDetailsHeadlineText, WordDetailsModalContainer } from './word-details-modal.styled'
+import {
+  WordDetailsDefinitionsContainer, WordDetailsDefinitionText, WordDetailsHeadlineText, WordDetailsModalContainer
+} from './word-details-modal.styled'
 
 interface Props {
   word: string | null;
@@ -45,12 +48,13 @@ export const WordDetailsModal = ({ modalizeRef, word, topInset }: Props) => {
     <Modalize
       ref={modalizeRef}
       modalTopOffset={topInset}
+      avoidKeyboardLikeIOS
       useNativeDriver
     >
       {word ? (
         <WordDetailsModalContainer>
           <WordDetailsHeadlineText>
-            {word}
+            {word} ({getWordPoints(word)})
           </WordDetailsHeadlineText>
 
           <LetterCardsContainer>

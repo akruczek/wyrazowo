@@ -5,6 +5,7 @@ import { ALL_LETTERS_SORTED, LETTER_ANY, LETTER_SOAP } from '../../core/letter-c
 interface UseSelectLetter {
   letters: string[];
   selectedLetters: string[];
+  selectedAnyLettersIndexes: number[];
   handleSelectLetter: (letter: string, index: number) => () => void;
   handleDeselectLetter: (index: number) => () => void;
   isAnyLetterSelected: (index: number) => boolean;
@@ -40,5 +41,5 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   const isAnyLetterSelected = (index: number) => selectedAnyLettersIndexes?.includes(index)
 
-  return { letters, selectedLetters, handleSelectLetter, handleDeselectLetter, isAnyLetterSelected }
+  return { letters, selectedLetters, selectedAnyLettersIndexes, handleSelectLetter, handleDeselectLetter, isAnyLetterSelected }
 }
