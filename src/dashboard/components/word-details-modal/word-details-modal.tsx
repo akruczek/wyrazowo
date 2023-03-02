@@ -64,6 +64,7 @@ export const WordDetailsModal = ({ modalizeRef, word, topInset }: Props) => {
                 content={letter}
                 size={40}
                 fontSize={TEXT_SIZE.M}
+                withMargin
               />
             ))}
           </LetterCardsContainer>

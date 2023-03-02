@@ -8,20 +8,24 @@ import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
+import { CustomButton } from '../../../core/custom-button/custom-button'
 import {
   PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
+  SearchMoreButtonContainer,
   WordsGroupContainer, WordsGroupHeadline,
 } from './possible-words-modal.styled'
 
 interface Props {
   possibleWords: string[];
   modalizeRef: React.MutableRefObject<any>;
-  searchingWordRef: React.MutableRefObject<string>;
   onOpened: () => void;
   onClosed: () => void;
+  onLoadMore: () => void;
 }
 
-export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClosed, searchingWordRef }: Props) => {
+export const PossibleWordsModal = ({
+  possibleWords, modalizeRef, onOpened, onClosed, onLoadMore,
+}: Props) => {
   const wordDetailsModalRef = React.useRef<any>(null)
   const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
 
@@ -85,6 +89,7 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                           onLongPress={onLongPressWord(word)}
                           size={40}
                           fontSize={TEXT_SIZE.M}
+                          withMargin
                         />
                       ))}
                     </PossibleWordsLetterCardsContainer>
@@ -92,6 +97,11 @@ export const PossibleWordsModal = ({ possibleWords, modalizeRef, onOpened, onClo
                 </WordsGroupContainer>
               )}
               data={getWordsByLettersCount()}
+              ListFooterComponent={(
+                <SearchMoreButtonContainer>
+                  <CustomButton titleSize={TEXT_SIZE.XS} title="LOAD MORE...." onPress={onLoadMore} />
+                </SearchMoreButtonContainer>
+              )}
             />
           </PossibleWordsContainer>
         )}

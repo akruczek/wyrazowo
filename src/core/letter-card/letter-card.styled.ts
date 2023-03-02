@@ -41,6 +41,12 @@ const getLetterCardBorderColor = R.ifElse(
   R.always(COLOR.DIM_GREY),
 )
 
+const LetterCardContainerMarginRight = R.ifElse(
+  R.propSatisfies(Boolean, 'withMargin'),
+  R.always(SELECTED_CARD_SPACE_SIZE),
+  R.always(0),
+)
+
 export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onLongPress }) => ({
   activeOpacity: (onPress || onLongPress) ? 0.5 : 1,
 }))<LetterCardContainerProps>`
@@ -52,10 +58,11 @@ export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onL
   border: 1px solid ${getLetterCardBorderColor};
   border-radius: ${getLetterCardBorderRadius}px;
   margin-bottom: 5px;
-  margin-right: ${SELECTED_CARD_SPACE_SIZE}px;
+  margin-right: ${LetterCardContainerMarginRight}px;
 `
 
 export const LetterCardContent = styled.Text`
   font-size: ${getLetterCardContentFontSize}px;
   font-weight: bold;
+  color: ${COLOR.BLACK};
 `

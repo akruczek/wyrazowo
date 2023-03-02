@@ -14,6 +14,7 @@ export const SelectedLetters = ({ selectedLetters, handleDeselectLetter }: Props
         key={`selected-letter-${letter}-${index}`}
         onPress={handleDeselectLetter(index)}
         content={letter}
+        withMargin
       />
     ))}
   </SelectedLettersContainer>

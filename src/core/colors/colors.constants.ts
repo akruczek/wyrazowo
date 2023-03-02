@@ -1,5 +1,6 @@
 export enum COLOR {
   WHITE = '#FFFFFF',
+  BLACK = '#000000',
   WHITE_SMOKE = '#F5F5F5',
   GOLD = '#FFD700',
   DARK_SEA_GREEN = '#8FBC8F',

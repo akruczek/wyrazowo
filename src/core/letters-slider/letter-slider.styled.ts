@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
 import RangeSlider from 'rn-range-slider'
 import { TEXT_SIZE } from '../text/text.constants'
+import { COLOR } from '../colors/colors.constants'
 
 export const LetterSliderContainer = styled.View`
   padding-horizontal: 10px;
@@ -21,6 +22,7 @@ export const LetterSliderTopLabelBar = styled.View`
 
 export const LetterSliderBottomLabel = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
+  color: ${COLOR.BLACK};
   font-weight: bold;
   margin-left: 10px;
   margin-right: 5px;

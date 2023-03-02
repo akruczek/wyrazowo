@@ -1,19 +1,33 @@
 import * as R from 'ramda'
 import { LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
 
+interface PromiseReturn {
+  result: string[];
+  searchBreakIndex: number;
+}
+
 export const findPossibleWords = async (
   allWords: string[],
   selectedLetters: string[],
   wordLength: [ number, number ],
-  handleSetSearchingWord: (searchingWord: string) => void,
-) => new Promise<string[]>((resolve) => {
+  [ maxResults, searchIndex ]: [ number, number ],
+) => new Promise<PromiseReturn>((resolve) => {
   // Time breakpoint for performance testing
   // let time = new Date().getTime()
 
+  let resultsCount = 0
+  let searchBreakIndex = 0
+  const wordsToSearch = allWords.slice(searchIndex ?? 0)
+
   // Map all words from database
-  const result = allWords.filter((word: string) => {
-    // Call callback with word which is currently in verification
-    if (handleSetSearchingWord) handleSetSearchingWord(word)
+  const result = wordsToSearch.filter((word: string, wordIndex: number) => {
+    // If maxResult reached -> RETURN FALSE
+    if (resultsCount >= maxResults) {
+      if (!searchBreakIndex) {
+        searchBreakIndex = wordIndex
+      }
+      return false
+    }
 
     // If word which is currently in verification does not match word length selected from slider -> RETURN FALSE
     const wordDoesNotMatchWordLength = word.length < wordLength[0] || word.length > wordLength[1]
@@ -52,6 +66,7 @@ export const findPossibleWords = async (
 
       // When loop get to last character -> VERIFICATION TRUE 
       if (index === word?.length - 1) {
+        resultsCount += 1
         satisfiesLetters = true
       }
     })
@@ -61,5 +76,5 @@ export const findPossibleWords = async (
   })
 
   // Resolve with all possible words
-  resolve(result)
+  resolve({ result, searchBreakIndex })
 })

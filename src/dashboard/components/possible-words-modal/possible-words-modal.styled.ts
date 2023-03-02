@@ -24,9 +24,14 @@ export const WordsGroupContainer = styled.View`
 
 export const WordsGroupHeadline = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
+  color: ${COLOR.BLACK};
   margin-bottom: 5px;
 `
 
 export const PossibleWordsLetterCardsContainer = styled.View`
   flex-direction: row;
+`
+
+export const SearchMoreButtonContainer = styled.View`
+  margin-bottom: 20px;
 `

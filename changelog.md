@@ -1,3 +1,7 @@
+## 0.1.3
+### Improved:
+- Search engine optimization
+
 ## 0.1.2
 ### Improved:
 - Words database security improvements
