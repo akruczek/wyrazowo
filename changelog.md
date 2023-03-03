@@ -1,3 +1,8 @@
+## 0.1.4
+### Improved:
+- Search results UI
+- Words database optimization
+
 ## 0.1.3
 ### Improved:
 - Search engine optimization

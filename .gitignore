@@ -64,3 +64,4 @@ yarn-error.log
 
 # Words database
 /src/assets/slowa.ts
+/src/assets/slowa10.ts

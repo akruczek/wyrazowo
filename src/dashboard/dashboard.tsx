@@ -14,11 +14,11 @@ export const Dashboard = () => {
 
   const {
     letters, selectedLetters, selectedAnyLettersIndexes,
-    handleSelectLetter, handleDeselectLetter, isAnyLetterSelected,
+    handleSelectLetter, handleDeselectLetter, isAnyLetterSelected, soapCharactersIndexes,
   } = useSelectLetter()
 
   const {
-    possibleWords, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords,
+    possibleWords, noWordsFound, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords,
   } = useSearchPossibleWords(selectedLetters, selectedAnyLettersIndexes)
 
   return React.useMemo(() => (
@@ -35,6 +35,8 @@ export const Dashboard = () => {
           onOpened={searchPossibleWords}
           onLoadMore={searchMorePossibleWords}
           onClosed={clearPossibleWords}
+          soapCharactersIndexes={soapCharactersIndexes}
+          noWordsFound={noWordsFound}
         />
       </SafeAreaView>
     </Host>

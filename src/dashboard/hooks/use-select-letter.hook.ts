@@ -9,6 +9,7 @@ interface UseSelectLetter {
   handleSelectLetter: (letter: string, index: number) => () => void;
   handleDeselectLetter: (index: number) => () => void;
   isAnyLetterSelected: (index: number) => boolean;
+  soapCharactersIndexes: (letter: string) => number[];
 }
 
 export const useSelectLetter = (): UseSelectLetter => {
@@ -39,7 +40,25 @@ export const useSelectLetter = (): UseSelectLetter => {
     updateSelectedLetters(R.remove(index, 1, selectedLetters))
   }
 
-  const isAnyLetterSelected = (index: number) => selectedAnyLettersIndexes?.includes(index)
+  const isAnyLetterSelected = (index: number) => selectedAnyLettersIndexes.includes(index)
 
-  return { letters, selectedLetters, selectedAnyLettersIndexes, handleSelectLetter, handleDeselectLetter, isAnyLetterSelected }
+  const soapCharactersIndexes = (word: string) => {
+    let soapIndexes: number[] = []
+    let _letters = selectedLetters
+
+    word.toUpperCase().split('').filter((value: string) => value !== LETTER_SOAP).forEach((character: string, index: number) => {
+      if (_letters.includes(character)) {
+        _letters = R.remove(R.findIndex(R.equals(character), _letters), 1, _letters)
+      } else {
+        soapIndexes = R.append(index, soapIndexes)
+      }
+    })
+
+    return soapIndexes
+  }
+
+  return {
+    letters, selectedLetters, selectedAnyLettersIndexes,
+    handleSelectLetter, handleDeselectLetter, isAnyLetterSelected, soapCharactersIndexes,
+  }
 }

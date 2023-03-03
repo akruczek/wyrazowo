@@ -17,14 +17,16 @@ import {
 
 interface Props {
   possibleWords: string[];
+  noWordsFound: boolean;
   modalizeRef: React.MutableRefObject<any>;
   onOpened: () => void;
   onClosed: () => void;
   onLoadMore: () => void;
+  soapCharactersIndexes: (letter: string) => number[];
 }
 
 export const PossibleWordsModal = ({
-  possibleWords, modalizeRef, onOpened, onClosed, onLoadMore,
+  possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, onLoadMore, soapCharactersIndexes,
 }: Props) => {
   const wordDetailsModalRef = React.useRef<any>(null)
   const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
@@ -65,7 +67,13 @@ export const PossibleWordsModal = ({
         avoidKeyboardLikeIOS
         useNativeDriver
       >
-        {!possibleWords?.length ? (
+        {!possibleWords?.length ? noWordsFound ? (
+          <SearchingDatabaseContainer>
+            <WordsGroupHeadline>
+              No words found
+            </WordsGroupHeadline>
+          </SearchingDatabaseContainer>
+        ) : (
           <SearchingDatabaseContainer>
             <ActivityIndicator size="large" />
           </SearchingDatabaseContainer>
@@ -89,6 +97,7 @@ export const PossibleWordsModal = ({
                           onLongPress={onLongPressWord(word)}
                           size={40}
                           fontSize={TEXT_SIZE.M}
+                          isSelected={soapCharactersIndexes(word).includes(index)}
                           withMargin
                         />
                       ))}

@@ -6,6 +6,7 @@ import { asyncReadFile } from '../../core/read-file/read-file'
 
 interface UseSearchPossibleWords {
   possibleWords: string[];
+  noWordsFound: boolean;
   searchPossibleWords: () => void;
   searchMorePossibleWords: () => void;
   onLengthChange: (minMax: [ number, number ]) => void;
@@ -16,18 +17,18 @@ export const useSearchPossibleWords = (
   selectedLetters: string[],
   selectedAnyLettersIndexes: number[],
 ): UseSearchPossibleWords => {
-  const MAX_RESULTS_PER_SEARCH = 20
-  const resultSearchIndexRef = React.useRef(0)
   const wordLengthRef = React.useRef<[ number, number ]>([ 1, 10 ])
 
   const [ allWords, setAllWords ] = React.useState<string[]>([])
   const [ possibleWords, setPossibleWords ] = React.useState<string[]>([])
+  const [ noWordsFound, setNoWordsFound ] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     asyncReadFile('words').then(setAllWords)
   }, [])
 
   const searchPossibleWords = () => {
+    setNoWordsFound(false)
     const _selectedLetters = selectedAnyLettersIndexes.length
       ? [ ...selectedLetters, ...R.map(R.always(LETTER_SOAP))(selectedAnyLettersIndexes) ]
       : selectedLetters
@@ -36,14 +37,14 @@ export const useSearchPossibleWords = (
       allWords,
       _selectedLetters,
       wordLengthRef.current,
-      [ MAX_RESULTS_PER_SEARCH, 0 ],
-    ).then(({ result, searchBreakIndex }) => {
-      resultSearchIndexRef.current = searchBreakIndex
+    ).then((result: string[]) => {
+      setNoWordsFound(result?.length === 0)
       setPossibleWords(result)
     })
   }
 
   const searchMorePossibleWords = () => {
+    setNoWordsFound(false)
     const _selectedLetters = selectedAnyLettersIndexes.length
       ? [ ...selectedLetters, ...R.map(R.always(LETTER_SOAP))(selectedAnyLettersIndexes) ]
       : selectedLetters
@@ -52,9 +53,8 @@ export const useSearchPossibleWords = (
       allWords,
       _selectedLetters,
       wordLengthRef.current,
-      [ MAX_RESULTS_PER_SEARCH, resultSearchIndexRef.current ],
-    ).then(({ result, searchBreakIndex }) => {
-      resultSearchIndexRef.current = searchBreakIndex
+    ).then((result: string[]) => {
+      setNoWordsFound(result?.length === 0)
       setPossibleWords([ ...possibleWords, ...result ])
     })
   }
@@ -67,7 +67,8 @@ export const useSearchPossibleWords = (
 
   const clearPossibleWords = () => {
     setPossibleWords([])
+    setNoWordsFound(false)
   }
 
-  return { possibleWords, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords }
+  return { possibleWords, noWordsFound, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords }
 }
