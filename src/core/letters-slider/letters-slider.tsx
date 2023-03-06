@@ -4,7 +4,7 @@ import { renderLetterSliderRail } from './components/letter-slider-rail/letter-s
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import {
-  LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderContainer, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderContainer, LetterSliderLengthIcon, LetterSliderTopLabelBar
 } from './letter-slider.styled'
 
 interface Props {
@@ -17,9 +17,8 @@ export const LettersSlider = ({ onChange }: Props) => {
   return (
     <LetterSliderContainer>
       <LetterSliderTopLabelBar>
-        <LetterSliderBottomLabel>
-          Word length: {min} - {max}
-        </LetterSliderBottomLabel>
+        <LetterSliderLengthIcon />
+        <LetterSliderBottomLabel children={`${min} - ${max}`} />
       </LetterSliderTopLabelBar>
 
       <LetterSlider
@@ -36,13 +35,8 @@ export const LettersSlider = ({ onChange }: Props) => {
       />
 
       <LetterSliderBottomLabelBar>
-        <LetterSliderBottomLabel>
-          {defaultMin}
-        </LetterSliderBottomLabel>
-
-        <LetterSliderBottomLabel>
-          {defaultMax}
-        </LetterSliderBottomLabel>
+        <LetterSliderBottomLabel children={defaultMin} />
+        <LetterSliderBottomLabel children={defaultMax} />
       </LetterSliderBottomLabelBar>
     </LetterSliderContainer>
   )

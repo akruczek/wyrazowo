@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '../../../core/colors/colors.constants'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 
@@ -35,3 +36,9 @@ export const PossibleWordsLetterCardsContainer = styled.View`
 export const SearchMoreButtonContainer = styled.View`
   margin-bottom: 20px;
 `
+
+export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'cancel',
+  color: COLOR.SLATE_GREY,
+  size: TEXT_SIZE.XXL * 2,
+})``

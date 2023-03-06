@@ -9,7 +9,9 @@ import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { CustomButton } from '../../../core/custom-button/custom-button'
+import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import {
+  NoResultsFoundIcon,
   PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
   SearchMoreButtonContainer,
   WordsGroupContainer, WordsGroupHeadline,
@@ -60,7 +62,7 @@ export const PossibleWordsModal = ({
     <Portal>
       <Modalize
         ref={modalizeRef}
-        modalTopOffset={topInset}
+        modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT}
         onOpened={onOpened}
         onClosed={onClosed}
         disableScrollIfPossible
@@ -69,9 +71,7 @@ export const PossibleWordsModal = ({
       >
         {!possibleWords?.length ? noWordsFound ? (
           <SearchingDatabaseContainer>
-            <WordsGroupHeadline>
-              No words found
-            </WordsGroupHeadline>
+            <NoResultsFoundIcon />
           </SearchingDatabaseContainer>
         ) : (
           <SearchingDatabaseContainer>

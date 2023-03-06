@@ -8,6 +8,7 @@ import { SelectedLetters } from './components/selected-letters/selected-letters'
 import { LettersGrid } from './components/letters-grid/letters-grid'
 import { CustomButton } from '../core/custom-button/custom-button'
 import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
+import { SearchButtonIcon } from './dashboard.styled'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<any>(null)
@@ -27,7 +28,9 @@ export const Dashboard = () => {
         <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
         <LettersGrid {...{ letters, handleSelectLetter, isAnyLetterSelected }} />
         <LettersSlider onChange={onLengthChange} />
-        <CustomButton title="CHECK" onPress={modalizeRef?.current?.open} />
+        <CustomButton onPress={modalizeRef?.current?.open}>
+          <SearchButtonIcon />
+        </CustomButton>
 
         <PossibleWordsModal
           possibleWords={possibleWords}

@@ -7,8 +7,8 @@ export const CustomButtonContainer = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   align-self: center;
-  padding: 10px 30px;
-  border-radius: 15px;
+  padding: 10px 15px;
+  border-radius: 30px;
   background-color: ${COLOR.DODGER_BLUE};
 `
 
