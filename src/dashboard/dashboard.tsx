@@ -19,7 +19,7 @@ export const Dashboard = () => {
   } = useSelectLetter()
 
   const {
-    possibleWords, noWordsFound, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords,
+    possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords,
   } = useSearchPossibleWords(selectedLetters, selectedAnyLettersIndexes)
 
   return React.useMemo(() => (
@@ -36,7 +36,6 @@ export const Dashboard = () => {
           possibleWords={possibleWords}
           modalizeRef={modalizeRef}
           onOpened={searchPossibleWords}
-          onLoadMore={searchMorePossibleWords}
           onClosed={clearPossibleWords}
           soapCharactersIndexes={soapCharactersIndexes}
           noWordsFound={noWordsFound}

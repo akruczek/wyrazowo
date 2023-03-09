@@ -8,12 +8,10 @@ import { LetterCard } from '../../../core/letter-card/letter-card'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
-import { CustomButton } from '../../../core/custom-button/custom-button'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
+import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import {
-  NoResultsFoundIcon,
-  PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
-  SearchMoreButtonContainer,
+  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
   WordsGroupContainer, WordsGroupHeadline,
 } from './possible-words-modal.styled'
 
@@ -23,40 +21,15 @@ interface Props {
   modalizeRef: React.MutableRefObject<any>;
   onOpened: () => void;
   onClosed: () => void;
-  onLoadMore: () => void;
   soapCharactersIndexes: (letter: string) => number[];
 }
 
 export const PossibleWordsModal = ({
-  possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, onLoadMore, soapCharactersIndexes,
+  possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
-  const wordDetailsModalRef = React.useRef<any>(null)
-  const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
-
   const { top: topInset } = useSafeAreaInsets()
-
-  const getWordsByLettersCount = () => {
-    let wordsToDisplay: string[][] = []
-
-    const words = R.sortWith(
-      [ R.descend(R.prop('length')) ],
-      possibleWords
-    )
-
-    words.forEach((word: string) => {
-      wordsToDisplay[word.length] = R.append(word, wordsToDisplay[word.length] ?? [])
-    })
-
-    return R.pipe<string[][][], string[][], string[][]>(
-      R.reverse,
-      R.filter(R.complement(R.isNil)),
-    )(wordsToDisplay)
-  }
-
-  const onLongPressWord = (word: string) => () => {
-    setDetailedWord(word)
-    wordDetailsModalRef?.current?.open?.()
-  }
+  const wordDetailsModalRef = React.useRef<any>(null)
+  const { onLongPressWord, getWordsByLettersCount, detailedWord } = useWordDetail(possibleWords, wordDetailsModalRef)
 
   return (
     <Portal>
@@ -82,11 +55,10 @@ export const PossibleWordsModal = ({
             <FlatList
               maxToRenderPerBatch={10}
               scrollEnabled={false}
+              data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
                 <WordsGroupContainer key={wordsGroup.join('')}>
-                  <WordsGroupHeadline>
-                    {wordsGroup[0].length} LETTERS
-                  </WordsGroupHeadline>
+                  <WordsGroupHeadline children={`${wordsGroup[0].length} LETTERS`} />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer key={word}>
@@ -104,12 +76,6 @@ export const PossibleWordsModal = ({
                     </PossibleWordsLetterCardsContainer>
                   ))}
                 </WordsGroupContainer>
-              )}
-              data={getWordsByLettersCount()}
-              ListFooterComponent={(
-                <SearchMoreButtonContainer>
-                  <CustomButton titleSize={TEXT_SIZE.XS} title="LOAD MORE...." onPress={onLoadMore} />
-                </SearchMoreButtonContainer>
               )}
             />
           </PossibleWordsContainer>

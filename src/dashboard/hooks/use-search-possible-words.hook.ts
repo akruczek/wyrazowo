@@ -8,7 +8,6 @@ interface UseSearchPossibleWords {
   possibleWords: string[];
   noWordsFound: boolean;
   searchPossibleWords: () => void;
-  searchMorePossibleWords: () => void;
   onLengthChange: (minMax: [ number, number ]) => void;
   clearPossibleWords: () => void;
 }
@@ -43,7 +42,7 @@ export const useSearchPossibleWords = (
     })
   }
 
-  const searchMorePossibleWords = () => {
+  const ___searchMorePossibleWords = () => {
     setNoWordsFound(false)
     const _selectedLetters = selectedAnyLettersIndexes.length
       ? [ ...selectedLetters, ...R.map(R.always(LETTER_SOAP))(selectedAnyLettersIndexes) ]
@@ -70,5 +69,5 @@ export const useSearchPossibleWords = (
     setNoWordsFound(false)
   }
 
-  return { possibleWords, noWordsFound, searchPossibleWords, searchMorePossibleWords, onLengthChange, clearPossibleWords }
+  return { possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords }
 }

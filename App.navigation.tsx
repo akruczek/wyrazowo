@@ -6,6 +6,7 @@ import { Mania } from './src/mania/mania'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
 import { More } from './src/more/more'
+import { Dictionary } from './src/dictionary/dictionary'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -27,6 +28,16 @@ export const AppNavigation = () => {
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name={SCREEN.DICTIONARY}
+          component={Dictionary}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
             ),
           }}
         />

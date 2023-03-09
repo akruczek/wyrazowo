@@ -1,3 +1,7 @@
+## 0.2.2
+### Added:
+- Dictionary
+
 ## 0.2.1
 ### Improved:
 - Navigation UI improvements

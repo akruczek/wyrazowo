@@ -33,10 +33,6 @@ export const PossibleWordsLetterCardsContainer = styled.View`
   flex-direction: row;
 `
 
-export const SearchMoreButtonContainer = styled.View`
-  margin-bottom: 20px;
-`
-
 export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
   name: 'cancel',
   color: COLOR.SLATE_GREY,
