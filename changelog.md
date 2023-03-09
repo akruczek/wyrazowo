@@ -1,3 +1,12 @@
+## 0.2.1
+### Improved:
+- Navigation UI improvements
+
+## 0.2.0
+### Added:
+- Additional tool - scrabblemania available from new navigation bar
+- UX/UI improvements
+
 ## 0.1.4
 ### Improved:
 - Search results UI

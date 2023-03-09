@@ -4,6 +4,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Dashboard } from './src/dashboard/dashboard'
 import { Mania } from './src/mania/mania'
 import { COLOR } from './src/core/colors/colors.constants'
+import { SCREEN } from './src/navigation/navigation.constants'
+import { More } from './src/more/more'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -20,23 +22,33 @@ export const AppNavigation = () => {
         // barStyle={{ paddingBottom: 48 }}
       >
         <Tab.Screen
-          name="Dashboard"
+          name={SCREEN.DASHBOARD}
+          component={Dashboard}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
           }}
-          component={Dashboard}
         />
 
         <Tab.Screen
-          name="Mania"
+          name={SCREEN.MANIA}
+          component={Mania}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="web" color={color} size={26} />
             ),
           }}
-          component={Mania}
+        />
+
+        <Tab.Screen
+          name={SCREEN.MORE}
+          component={More}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
+            ),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>

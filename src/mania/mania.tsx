@@ -11,6 +11,7 @@ export const Mania = () => {
     <ManiaSafeAreaContainer>
       <WebView
         source={{ uri }}
+        originWhitelist={['*']}
         renderLoading={() => <ActivityIndicator size="large" />}
       />
     </ManiaSafeAreaContainer>
