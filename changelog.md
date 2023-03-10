@@ -1,3 +1,7 @@
+## 0.3.0
+### Added:
+- App icons and Launch Screen
+
 ## 0.2.3
 ### Improved:
 - Search engine optimization (split database)
