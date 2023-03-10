@@ -1,3 +1,7 @@
+## 0.4.0
+### Improved:
+- Redesign Dashboard and Navigation
+
 ## 0.3.0
 ### Added:
 - App icons and Launch Screen

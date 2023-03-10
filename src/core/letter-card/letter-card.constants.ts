@@ -15,7 +15,6 @@ export const LETTERS_5 = [
 ]
 
 export const LETTER_SOAP = '?'
-export const LETTER_ANY = '﹡'
 
 export const ALL_LETTERS_SORTED = [
   'A',

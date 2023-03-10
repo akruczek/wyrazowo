@@ -31,6 +31,8 @@ export const LettersSlider = ({ onChange }: Props) => {
         onValueChanged={onValueChanged}
         min={defaultMin}
         max={defaultMax}
+        low={min}
+        high={max}
         floatingLabel
       />
 

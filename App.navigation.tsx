@@ -1,4 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
+import { useTheme } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Dashboard } from './src/dashboard/dashboard'
@@ -7,20 +8,24 @@ import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
 import { More } from './src/more/more'
 import { Dictionary } from './src/dictionary/dictionary'
+import { genericShadow } from './src/core/shadow/shadow.constants'
+import { TouchableOpacity } from 'react-native'
 
 const Tab = createMaterialBottomTabNavigator();
 
 export const AppNavigation = () => {
+  const theme = useTheme();
+  theme.colors.secondaryContainer = "transparent"
+
   return (
     <NavigationContainer>
       <Tab.Navigator
-        inactiveColor={COLOR.WHITE_SMOKE}
-        activeColor={COLOR.BLACK}
-        barStyle={{ backgroundColor: COLOR.SLATE_GREY }}
+        inactiveColor={COLOR.SLATE_GREY}
+        activeColor={COLOR.DODGER_BLUE}
+        barStyle={{ backgroundColor: COLOR.WHITE, ...genericShadow }}
         labeled={false}
-        shifting={true}
-        // translucent navigation bar on Android
-        // barStyle={{ paddingBottom: 48 }}
+        sceneAnimationType="shifting"
+        sceneAnimationEnabled
       >
         <Tab.Screen
           name={SCREEN.DASHBOARD}

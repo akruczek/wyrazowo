@@ -6,10 +6,9 @@ import { LetterCardsContainer } from './letters-grid.styled'
 interface Props {
   letters: string[];
   handleSelectLetter: (letter: string, index: number) => () => void;
-  isAnyLetterSelected: (index: number) => boolean;
 }
 
-export const LettersGrid = ({ letters, handleSelectLetter, isAnyLetterSelected }: Props) => (
+export const LettersGrid = ({ letters, handleSelectLetter }: Props) => (
   <>
     {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (
       <LetterCardsContainer key={String(lettersRow)}>
@@ -17,7 +16,6 @@ export const LettersGrid = ({ letters, handleSelectLetter, isAnyLetterSelected }
           <LetterCard
             key={`letter-card-${letter}-${index}`}
             onPress={handleSelectLetter(letter, (7 * rowIndex) + index)}
-            isSelected={isAnyLetterSelected((7 * rowIndex) + index)}
             content={letter}
           />
         ))}

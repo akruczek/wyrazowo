@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Host } from 'react-native-portalize'
+import { View } from 'react-native'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
 import { LettersSlider } from '../core/letters-slider/letters-slider'
@@ -8,29 +8,32 @@ import { SelectedLetters } from './components/selected-letters/selected-letters'
 import { LettersGrid } from './components/letters-grid/letters-grid'
 import { CustomButton } from '../core/custom-button/custom-button'
 import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
-import { SearchButtonIcon } from './dashboard.styled'
+import { DashboardSafeArea, SearchButtonIcon } from './dashboard.styled'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<any>(null)
 
   const {
-    letters, selectedLetters, selectedAnyLettersIndexes,
-    handleSelectLetter, handleDeselectLetter, isAnyLetterSelected, soapCharactersIndexes,
+    letters, selectedLetters, handleSelectLetter, handleDeselectLetter, soapCharactersIndexes,
   } = useSelectLetter()
 
   const {
     possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords,
-  } = useSearchPossibleWords(selectedLetters, selectedAnyLettersIndexes)
+  } = useSearchPossibleWords(selectedLetters)
 
   return React.useMemo(() => (
     <Host>
-      <SafeAreaView>
+      <DashboardSafeArea>
         <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
-        <LettersGrid {...{ letters, handleSelectLetter, isAnyLetterSelected }} />
-        <LettersSlider onChange={onLengthChange} />
-        <CustomButton onPress={modalizeRef?.current?.open}>
-          <SearchButtonIcon />
-        </CustomButton>
+
+        <View>
+          <LettersGrid {...{ letters, handleSelectLetter }} />
+          <LettersSlider onChange={onLengthChange} />
+          <CustomButton onPress={modalizeRef?.current?.open}>
+            <SearchButtonIcon />
+          </CustomButton>
+
+        </View>
 
         <PossibleWordsModal
           possibleWords={possibleWords}
@@ -40,7 +43,7 @@ export const Dashboard = () => {
           soapCharactersIndexes={soapCharactersIndexes}
           noWordsFound={noWordsFound}
         />
-      </SafeAreaView>
+      </DashboardSafeArea>
     </Host>
-  ), [ selectedLetters, letters, possibleWords, selectedAnyLettersIndexes.length ])
+  ), [ selectedLetters, letters, possibleWords ])
 }

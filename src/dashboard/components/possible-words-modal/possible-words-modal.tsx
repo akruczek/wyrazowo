@@ -35,7 +35,7 @@ export const PossibleWordsModal = ({
     <Portal>
       <Modalize
         ref={modalizeRef}
-        modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT}
+        modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT + 30}
         onOpened={onOpened}
         onClosed={onClosed}
         disableScrollIfPossible
