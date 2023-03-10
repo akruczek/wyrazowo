@@ -11,8 +11,8 @@ interface UseLettersSlider {
 export const useLettersSlider = (
   onChange: (minMax: [ number, number ]) => void,
 ): UseLettersSlider => {
-  const DEFAULT_MIN = 1
-  const DEFAULT_MAX = 10
+  const DEFAULT_MIN = 2
+  const DEFAULT_MAX = 9
 
   const [ min, setMin ] = React.useState(DEFAULT_MIN)
   const [ max, setMax ] = React.useState(DEFAULT_MAX)

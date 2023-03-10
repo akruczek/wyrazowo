@@ -63,5 +63,4 @@ yarn-error.log
 .metro-health-check*
 
 # Words database
-/src/assets/slowa.ts
-/src/assets/slowa10.ts
+/src/assets/slowa*.ts

@@ -42,5 +42,5 @@ export const Dashboard = () => {
         />
       </SafeAreaView>
     </Host>
-  ), [ selectedLetters, letters, possibleWords ])
+  ), [ selectedLetters, letters, possibleWords, selectedAnyLettersIndexes.length ])
 }

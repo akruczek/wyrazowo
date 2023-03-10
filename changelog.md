@@ -1,3 +1,7 @@
+## 0.2.3
+### Improved:
+- Search engine optimization (split database)
+
 ## 0.2.2
 ### Added:
 - Dictionary

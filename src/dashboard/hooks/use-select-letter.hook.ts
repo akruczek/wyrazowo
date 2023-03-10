@@ -25,9 +25,9 @@ export const useSelectLetter = (): UseSelectLetter => {
   const handleSelectLetter = (letter: string, index: number) => () => {
     if (R.equals(letter, LETTER_ANY)) {
       if (R.includes(index, selectedAnyLettersIndexes)) {
-        updateSelectedAnyLettersIndexes(list => R.without([ index ], list))
+        updateSelectedAnyLettersIndexes(R.without([ index ]))
       } else {
-        updateSelectedAnyLettersIndexes(list => R.append(index, list))
+        updateSelectedAnyLettersIndexes(R.append(index))
       }
     } else {
       if (hasMaxSelectedLetters) {
