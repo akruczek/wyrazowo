@@ -24,14 +24,6 @@ export const useSearchPossibleWords = (selectedLetters: string[]): UseSearchPoss
     })
   }, [ selectedLetters ])
 
-  const ___searchMorePossibleWords = React.useCallback(() => {
-    setNoWordsFound(false)
-    findPossibleWords(selectedLetters, wordLengthRef.current).then((result: string[]) => {
-      setNoWordsFound(result?.length === 0)
-      setPossibleWords([ ...possibleWords, ...result ])
-    })
-  }, [ selectedLetters ])
-
   const onLengthChange = (minMax: [ number, number ]) => {
     if (minMax.join('') !== wordLengthRef.current.join('')) {
       wordLengthRef.current = minMax

@@ -19,8 +19,8 @@ interface Props {
   possibleWords: string[];
   noWordsFound: boolean;
   modalizeRef: React.MutableRefObject<any>;
-  onOpened: () => void;
-  onClosed: () => void;
+  onOpened?: () => void;
+  onClosed?: () => void;
   soapCharactersIndexes: (letter: string) => number[];
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Host } from 'react-native-portalize'
-import { View } from 'react-native'
+import { Button, View } from 'react-native'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
 import { LettersSlider } from '../core/letters-slider/letters-slider'
@@ -21,6 +21,13 @@ export const Dashboard = () => {
     possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords,
   } = useSearchPossibleWords(selectedLetters)
 
+  const onSearch = () => {
+    modalizeRef?.current?.open()
+    setTimeout(() => {
+      searchPossibleWords()
+    }, 200)
+  }
+
   return React.useMemo(() => (
     <Host>
       <DashboardSafeArea>
@@ -29,7 +36,7 @@ export const Dashboard = () => {
         <View>
           <LettersGrid {...{ letters, handleSelectLetter }} />
           <LettersSlider onChange={onLengthChange} />
-          <CustomButton onPress={modalizeRef?.current?.open}>
+          <CustomButton onPress={onSearch}>
             <SearchButtonIcon />
           </CustomButton>
 
@@ -38,7 +45,6 @@ export const Dashboard = () => {
         <PossibleWordsModal
           possibleWords={possibleWords}
           modalizeRef={modalizeRef}
-          onOpened={searchPossibleWords}
           onClosed={clearPossibleWords}
           soapCharactersIndexes={soapCharactersIndexes}
           noWordsFound={noWordsFound}

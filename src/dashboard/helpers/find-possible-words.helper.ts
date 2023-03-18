@@ -11,10 +11,19 @@ import slowa9 from '../../assets/slowa9'
 
 const allWordsByLength = ['', '', slowa2, slowa3, slowa4, slowa5, slowa6, slowa7, slowa8, slowa9]
 
+const log = (enabled: boolean, wordFilter: string | null, word: string, message: string) => {
+  if (enabled && (word === wordFilter || !wordFilter)) {
+    console.log(message)
+  }
+}
+
 export const findPossibleWords = async (
   selectedLetters: string[],
   [ minLength, maxLength ]: [ number, number ],
 ) => new Promise<string[]>((resolve) => {
+  const LOGS_ENABLED = false
+  const LOGS_WORD_FILTER = ''
+
   const allWords = R.times(
     (index: number) => allWordsByLength[minLength + index].split(','),
     maxLength - minLength + 1
@@ -23,12 +32,17 @@ export const findPossibleWords = async (
   // Map all words from database for specific length
   const result = allWords
     .filter((word: string) => {
+      const _log = (message: string) => log(LOGS_ENABLED, LOGS_WORD_FILTER, word, message)
+
       // If word which is currently in verification is longer than all possible letter -> RETURN FALSE
       const tooLongWord = word.length > selectedLetters.length
+      _log(`#1 ${word}, tooLongWord: ${tooLongWord}`)
       if (tooLongWord) return false
 
       let soap_letters = selectedLetters.filter((letter: string) => letter === LETTER_SOAP)
+      _log(`#2 ${word}, soap_letters: ${soap_letters}`)
       let _letters = selectedLetters.filter((letter: string) => letter !== LETTER_SOAP)
+      _log(`#3 ${word}, _letters: ${_letters}`)
       let satisfiesLetters: null | boolean = null
 
       // Map all word characters (uppercase)
@@ -39,8 +53,11 @@ export const findPossibleWords = async (
         const missingChar = !_letters.includes(char)
         const noSoapAvailable = !soap_letters.length
 
+        _log(`#4 ${word}, char: ${char}, missingChar: ${missingChar}, noSoapAvailable: ${noSoapAvailable}`)
+
         // If there is no character and no soap available -> VERIFICATION FALSE
         if (missingChar && noSoapAvailable) {
+          _log(`#5 ${word}, char: ${char}, satisfiesLetters: FALSE`)
           satisfiesLetters = false
           return
         }
@@ -54,11 +71,17 @@ export const findPossibleWords = async (
           _letters = R.remove(charIndex, 1, _letters)
         }
 
+        _log(`#6 ${word}, char: ${char}, soap_letters: ${soap_letters}`)
+        _log(`#7 ${word}, char: ${char}, _letters: ${_letters}`)
+
         // When loop get to last character -> VERIFICATION TRUE 
         if (index === word?.length - 1) {
+          _log(`#8 ${word}, char: ${char}, satisfiesLetters: TRUE`)
           satisfiesLetters = true
         }
       })
+
+      _log(`#9 ${word}, satisfiesLetters: ${satisfiesLetters}`)
 
       // Return verification flag
       return satisfiesLetters

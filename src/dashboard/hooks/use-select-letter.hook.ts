@@ -29,7 +29,7 @@ export const useSelectLetter = (): UseSelectLetter => {
     updateSelectedLetters(R.remove(index, 1, selectedLetters))
   }
 
-  const soapCharactersIndexes = (word: string) => {
+  const soapCharactersIndexes = React.useCallback((word: string) => {
     let soapIndexes: number[] = []
     let _letters = selectedLetters
 
@@ -42,7 +42,7 @@ export const useSelectLetter = (): UseSelectLetter => {
     })
 
     return soapIndexes
-  }
+  }, [ selectedLetters ])
 
   return {
     letters, selectedLetters, handleSelectLetter, handleDeselectLetter, soapCharactersIndexes,

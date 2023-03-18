@@ -1,3 +1,7 @@
+## 0.4.1
+### Fixed:
+- Fix issue with wrong result when using soap letters
+
 ## 0.4.0
 ### Improved:
 - Redesign Dashboard and Navigation
