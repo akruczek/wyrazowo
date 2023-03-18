@@ -1,3 +1,7 @@
+## 0.4.2
+### Improved:
+- Word details modal UI improvements
+
 ## 0.4.1
 ### Fixed:
 - Fix issue with wrong result when using soap letters
