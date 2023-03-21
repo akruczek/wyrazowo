@@ -1,3 +1,10 @@
+## 0.4.3
+### Added
+- Clear selected words button
+
+### Improved:
+- Dashboard buttons UI and UX improvements
+
 ## 0.4.2
 ### Improved:
 - Word details modal UI improvements
@@ -29,6 +36,8 @@
 ## 0.2.0
 ### Added:
 - Additional tool - scrabblemania available from new navigation bar
+
+### Improved:
 - UX/UI improvements
 
 ## 0.1.4

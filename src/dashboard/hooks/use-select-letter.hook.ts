@@ -8,6 +8,7 @@ interface UseSelectLetter {
   handleSelectLetter: (letter: string, index: number) => () => void;
   handleDeselectLetter: (index: number) => () => void;
   soapCharactersIndexes: (letter: string) => number[];
+  handleClearSelectedLetters: () => void;
 }
 
 export const useSelectLetter = (): UseSelectLetter => {
@@ -29,6 +30,10 @@ export const useSelectLetter = (): UseSelectLetter => {
     updateSelectedLetters(R.remove(index, 1, selectedLetters))
   }
 
+  const handleClearSelectedLetters = () => {
+    updateSelectedLetters([])
+  }
+
   const soapCharactersIndexes = React.useCallback((word: string) => {
     let soapIndexes: number[] = []
     let _letters = selectedLetters
@@ -45,6 +50,7 @@ export const useSelectLetter = (): UseSelectLetter => {
   }, [ selectedLetters ])
 
   return {
-    letters, selectedLetters, handleSelectLetter, handleDeselectLetter, soapCharactersIndexes,
+    letters, selectedLetters,
+    handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters,
   }
 }

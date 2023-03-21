@@ -10,7 +10,19 @@ export const SearchButtonIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.L,
 })``
 
+export const ClearLettersButtonIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'close-outline',
+  color: COLOR.WHITE_SMOKE,
+  size: TEXT_SIZE.L,
+})``
+
 export const DashboardSafeArea = styled(SafeAreaView)`
   justify-content: space-between;
   height: 100%;
+`
+
+export const DashboardButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  padding-bottom: 10px;
 `
