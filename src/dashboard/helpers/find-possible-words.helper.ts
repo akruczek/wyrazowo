@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
+import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '../../core/letter-card/letter-card.constants'
 import slowa2 from '../../assets/slowa2'
 import slowa3 from '../../assets/slowa3'
 import slowa4 from '../../assets/slowa4'
@@ -39,10 +39,22 @@ export const findPossibleWords = async (
       _log(`#1 ${word}, tooLongWord: ${tooLongWord}`)
       if (tooLongWord) return false
 
-      let soap_letters = selectedLetters.filter((letter: string) => letter === LETTER_SOAP)
+      let soap_letters = selectedLetters
+        .filter((letter: string) => letter === LETTER_SOAP)
+
       _log(`#2 ${word}, soap_letters: ${soap_letters}`)
-      let _letters = selectedLetters.filter((letter: string) => letter !== LETTER_SOAP)
+
+      let custom_soap_letters = selectedLetters
+        .filter((letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER))
+        .map((customSoapLetters: string) => customSoapLetters.split(LETTER_SOAP_PLACEHOLDER))
+
+      _log(`#2.1 ${word}, custom_soap_letters: ${custom_soap_letters}`)
+
+      let _letters = selectedLetters
+        .filter((letter: string) => letter !== LETTER_SOAP && !letter.includes(LETTER_SOAP_PLACEHOLDER))
+
       _log(`#3 ${word}, _letters: ${_letters}`)
+
       let satisfiesLetters: null | boolean = null
 
       // Map all word characters (uppercase)
@@ -52,19 +64,37 @@ export const findPossibleWords = async (
 
         const missingChar = !_letters.includes(char)
         const noSoapAvailable = !soap_letters.length
+        const noCustomSoapAvailable = !custom_soap_letters.length
 
-        _log(`#4 ${word}, char: ${char}, missingChar: ${missingChar}, noSoapAvailable: ${noSoapAvailable}`)
+        _log(`#4 ${word}, char: ${char}, missingChar: ${missingChar}, noSoapAvailable: ${noSoapAvailable}, noCustomSoapAvailable: ${noCustomSoapAvailable}`)
 
         // If there is no character and no soap available -> VERIFICATION FALSE
-        if (missingChar && noSoapAvailable) {
+        if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
           _log(`#5 ${word}, char: ${char}, satisfiesLetters: FALSE`)
           satisfiesLetters = false
           return
         }
 
         if (missingChar) {
-          // If there is no character but soap available -> use one soap
-          soap_letters = R.dropLast(1, soap_letters)
+          const customSoapLetterAvailableIndexes = custom_soap_letters
+            .map((customSoapLetters: string[], index: number) => customSoapLetters.includes(char) ? index : false)
+            .filter((index: number | false) => index !== false) as number[]
+
+          _log(`#5.1 ${word}, char: ${char}, customSoapLetterAvailableIndexes: ${customSoapLetterAvailableIndexes}`)
+
+          // If there is character available in custom soap letters -> use one custom soap
+          if (customSoapLetterAvailableIndexes.length) {
+            custom_soap_letters = R.remove(customSoapLetterAvailableIndexes[0], 1, custom_soap_letters)
+          } else {
+            // If no more soap available -> VERIFICATION FALSE
+            if (noSoapAvailable) {
+              satisfiesLetters = false
+              return
+            } else {
+              // If there is no character but soap available -> use one soap
+              soap_letters = R.dropLast(1, soap_letters)
+            }
+          }
         } else {
           // If there is given character -> drop one character
           const charIndex = _letters.findIndex((_char: string) => _char === char)

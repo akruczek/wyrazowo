@@ -16,6 +16,10 @@ export const LETTERS_5 = [
 
 export const LETTER_SOAP = '?'
 
+export const LETTER_SOAP_PLACEHOLDER = '*'
+
+export const LETTER_EMPTY = ''
+
 export const ALL_LETTERS_SORTED = [
   'A',
   'Ą',

@@ -5,7 +5,7 @@ import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../core/letter-card/letter-c
 interface UseSelectLetter {
   letters: string[];
   selectedLetters: string[];
-  handleSelectLetter: (letter: string, index: number) => () => void;
+  handleSelectLetter: (letter: string) => void;
   handleDeselectLetter: (index: number) => () => void;
   soapCharactersIndexes: (letter: string) => number[];
   handleClearSelectedLetters: () => void;
@@ -20,7 +20,7 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
-  const handleSelectLetter = (letter: string, index: number) => () => {
+  const handleSelectLetter = (letter: string) => {
     if (hasMaxSelectedLetters) {
       updateSelectedLetters(R.append(letter, selectedLetters))
     }

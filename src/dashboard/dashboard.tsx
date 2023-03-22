@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Host } from 'react-native-portalize'
+import { Modalize } from 'react-native-modalize'
 import { View } from 'react-native'
+import { SoapLetterModal } from './components/soap-letter-modal/soap-letter-modal'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
 import { LettersSlider } from '../core/letters-slider/letters-slider'
@@ -9,12 +11,13 @@ import { LettersGrid } from './components/letters-grid/letters-grid'
 import { CustomButton } from '../core/custom-button/custom-button'
 import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
 import { COLOR } from '../core/colors/colors.constants'
+import { LETTER_SOAP_PLACEHOLDER } from '../core/letter-card/letter-card.constants'
 import {
   ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, SearchButtonIcon,
 } from './dashboard.styled'
 
 export const Dashboard = () => {
-  const modalizeRef = React.useRef<any>(null)
+  const modalizeRef = React.useRef<Modalize>(null)
 
   const {
     letters, selectedLetters,
@@ -32,13 +35,27 @@ export const Dashboard = () => {
     }, 200)
   }
 
+  const soapModalizeRef = React.useRef<Modalize>(null)
+
+  const handleLongPress = () => {
+    soapModalizeRef?.current?.open?.()
+  }
+
+  const onSelectSoapLetters = (soapLetters: string[]) => {
+    if (soapLetters.length === 1) {
+      handleSelectLetter(soapLetters[0])
+    } else {
+      handleSelectLetter(soapLetters.join(LETTER_SOAP_PLACEHOLDER))
+    }
+  }
+
   return React.useMemo(() => (
     <Host>
       <DashboardSafeArea>
         <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
 
         <View>
-          <LettersGrid {...{ letters, handleSelectLetter }} />
+          <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
           <LettersSlider onChange={onLengthChange} />
 
           <DashboardButtonsContainer>
@@ -69,6 +86,12 @@ export const Dashboard = () => {
           onClosed={clearPossibleWords}
           soapCharactersIndexes={soapCharactersIndexes}
           noWordsFound={noWordsFound}
+        />
+
+        <SoapLetterModal
+          letters={letters}
+          modalizeRef={soapModalizeRef}
+          onSelectSoapLetters={onSelectSoapLetters}
         />
       </DashboardSafeArea>
     </Host>

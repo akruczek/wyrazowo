@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import { Dimensions } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import styled from 'styled-components/native'
 import { COLOR } from '../colors/colors.constants'
 import { TEXT_SIZE } from '../text/text.constants'
@@ -9,6 +10,8 @@ interface LetterCardContainerProps {
   size?: number;
   fontSize?: number;
   content?: string;
+  selectable?: boolean;
+  selectedLetters?: string[];
 }
 
 export const LETTER_CARD_DEFAULT_SIZE = 50
@@ -26,14 +29,25 @@ const getLetterCardContentFontSize = R.propOr(LETTER_CARD_DEFAULT_CONTENT_SIZE, 
 
 const isContentSatisfiesList = (list: string[]) => R.propSatisfies(R.includes(R.__, list), 'content')
 
-const getLetterCardContainerBackgroundColor = R.cond([
-  [ R.propSatisfies(Boolean, 'isSelected'), R.always(COLOR.FLORAL_WHITE) ],
-  [ isContentSatisfiesList(LETTERS_1), R.always(COLOR.GOLD) ],
-  [ isContentSatisfiesList(LETTERS_2), R.always(COLOR.DARK_SEA_GREEN) ],
-  [ isContentSatisfiesList(LETTERS_3), R.always(COLOR.DODGER_BLUE) ],
-  [ isContentSatisfiesList(LETTERS_5), R.always(COLOR.FIRE_BRICK) ],
-  [ R.T, R.always(COLOR.WHITE_SMOKE) ],
-])
+const getLetterCardContainerBackgroundColor = R.ifElse(
+  R.either(
+    R.both(
+      R.propSatisfies(Boolean, 'selectable'),
+      ({ selectedLetters, content }: LetterCardContainerProps) =>
+        (selectedLetters as string[])?.includes?.(content ?? ''),
+    ),
+    R.propSatisfies(R.complement(Boolean), 'selectable'),
+  ),
+  R.cond([
+    [ R.propSatisfies(Boolean, 'isSelected'), R.always(COLOR.FLORAL_WHITE) ],
+    [ isContentSatisfiesList(LETTERS_1), R.always(COLOR.GOLD) ],
+    [ isContentSatisfiesList(LETTERS_2), R.always(COLOR.DARK_SEA_GREEN) ],
+    [ isContentSatisfiesList(LETTERS_3), R.always(COLOR.DODGER_BLUE) ],
+    [ isContentSatisfiesList(LETTERS_5), R.always(COLOR.FIRE_BRICK) ],
+    [ R.T, R.always(COLOR.WHITE_SMOKE) ],
+  ]),
+  R.always(COLOR.WHITE_SMOKE),
+)
 
 const getLetterCardBorderColor = R.ifElse(
   R.propSatisfies(Boolean, 'isSelected'),
@@ -59,6 +73,22 @@ export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onL
   border-radius: ${getLetterCardBorderRadius}px;
   margin-bottom: 5px;
   margin-right: ${LetterCardContainerMarginRight}px;
+`
+
+const getMultiLetterCardBorderRadius = R.pipe(
+  getLetterCardBorderRadius,
+  R.dec,
+)
+
+export const MultiLetterCardGradient = styled(LinearGradient).attrs({
+  colors: [ COLOR.FIRE_BRICK, COLOR.DODGER_BLUE, COLOR.GOLD, COLOR.DARK_SEA_GREEN ],
+})`
+  justify-content: center;
+  align-items: center;
+  border-radius: ${getMultiLetterCardBorderRadius}px;
+  margin-right: ${LetterCardContainerMarginRight}px;
+  width: 100%;
+  height: 100%;
 `
 
 export const LetterCardContent = styled.Text`

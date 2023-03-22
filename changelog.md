@@ -1,3 +1,8 @@
+### 0.5.0
+### Added
+- Configurable soap letters
+- App version info in more tab
+
 ## 0.4.3
 ### Added
 - Clear selected words button
