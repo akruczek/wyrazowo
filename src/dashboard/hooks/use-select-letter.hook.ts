@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
+import { goPremiumAlert } from '../../core/alerts/go-premium-alert'
 
 interface UseSelectLetter {
   letters: string[];
@@ -13,15 +14,20 @@ interface UseSelectLetter {
 
 export const useSelectLetter = (): UseSelectLetter => {
   const MAX_SELECTED_LETTERS = 14
+  const MAX_NO_PREMIUM_SELECTED_LETTERS = 9
 
   const [ selectedLetters, updateSelectedLetters ] = React.useState<string[]>([])
 
   const hasMaxSelectedLetters = selectedLetters?.length < MAX_SELECTED_LETTERS
+  const hasMaxNoPremiumSelectedLetters = selectedLetters?.length > MAX_NO_PREMIUM_SELECTED_LETTERS
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
   const handleSelectLetter = (letter: string) => {
-    if (hasMaxSelectedLetters) {
+    if (hasMaxNoPremiumSelectedLetters) {
+      // TODO: Go Premium
+      goPremiumAlert()
+    } else if (hasMaxSelectedLetters) {
       updateSelectedLetters(R.append(letter, selectedLetters))
     }
   }
@@ -34,9 +40,9 @@ export const useSelectLetter = (): UseSelectLetter => {
     updateSelectedLetters([])
   }
 
-  const soapCharactersIndexes = React.useCallback((word: string) => {
+  const soapCharactersIndexes = React.useCallback((word: string, _selectedLetters?: string[]) => {
     let soapIndexes: number[] = []
-    let _letters = selectedLetters
+    let _letters = _selectedLetters ?? selectedLetters
 
     word.toUpperCase().split('').filter((value: string) => value !== LETTER_SOAP).forEach((character: string, index: number) => {
       if (_letters.includes(character)) {

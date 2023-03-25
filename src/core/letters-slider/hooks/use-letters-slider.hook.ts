@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Alert, InteractionManager } from 'react-native'
+import { goPremiumAlert } from '../../alerts/go-premium-alert'
 
 interface UseLettersSlider {
   min: number;
@@ -34,18 +35,7 @@ export const useLettersSlider = (
       onChange([ _min, BLOCK_MAX ])
 
       if (new Date().getTime() - alertDebounceTimeRef.current > 3000) {
-        setTimeout(() => {
-          Alert.alert('Want longer results?', 'Buy PREMIUM Plan for only $9.99 / month', [
-            {
-              text: 'Cancel',
-              onPress: () => null,
-            },
-            {
-              text: 'Go Premium',
-              onPress: () => null,
-            }
-          ])
-        }, 1000)
+        setTimeout(goPremiumAlert, 1000)
       }
 
       alertDebounceTimeRef.current = new Date().getTime()

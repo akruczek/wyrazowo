@@ -1,3 +1,7 @@
+### 0.6.0
+### Added
+- Search history
+
 ### 0.5.0
 ### Added
 - Configurable soap letters

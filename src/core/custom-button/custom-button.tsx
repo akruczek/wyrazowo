@@ -10,7 +10,7 @@ interface Props {
   titleSize?: TEXT_SIZE;
   invisible?: boolean;
   color?: COLOR;
-  onPress: () => void;
+  onPress: (args?: any) => void;
 }
 
 export const CustomButton = ({ title, children, titleSize, invisible, color, onPress }: Props) => {

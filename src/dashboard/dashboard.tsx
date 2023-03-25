@@ -11,9 +11,11 @@ import { LettersGrid } from './components/letters-grid/letters-grid'
 import { CustomButton } from '../core/custom-button/custom-button'
 import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
 import { COLOR } from '../core/colors/colors.constants'
-import { LETTER_SOAP_PLACEHOLDER } from '../core/letter-card/letter-card.constants'
+import { useSoapModal } from './hooks/use-soap-modal.hook'
+import { useSearchHistory } from './hooks/use-search-history-modal.hook'
+import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
 import {
-  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, SearchButtonIcon,
+  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
 
 export const Dashboard = () => {
@@ -24,6 +26,9 @@ export const Dashboard = () => {
     handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters,
   } = useSelectLetter()
 
+  const { handleLongPress, onSelectSoapLetters, soapModalizeRef } = useSoapModal(handleSelectLetter)
+  const { historyModalizeRef, openHistoryModal, historyAvailable, setHistoryAvailable } = useSearchHistory()
+
   const {
     possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords,
   } = useSearchPossibleWords(selectedLetters)
@@ -31,22 +36,9 @@ export const Dashboard = () => {
   const onSearch = () => {
     modalizeRef?.current?.open()
     setTimeout(() => {
+      setHistoryAvailable(true)
       searchPossibleWords()
     }, 200)
-  }
-
-  const soapModalizeRef = React.useRef<Modalize>(null)
-
-  const handleLongPress = () => {
-    soapModalizeRef?.current?.open?.()
-  }
-
-  const onSelectSoapLetters = (soapLetters: string[]) => {
-    if (soapLetters.length === 1) {
-      handleSelectLetter(soapLetters[0])
-    } else {
-      handleSelectLetter(soapLetters.join(LETTER_SOAP_PLACEHOLDER))
-    }
   }
 
   return React.useMemo(() => (
@@ -59,8 +51,12 @@ export const Dashboard = () => {
           <LettersSlider onChange={onLengthChange} />
 
           <DashboardButtonsContainer>
-            <CustomButton onPress={() => null} invisible>
-              <SearchButtonIcon />
+            <CustomButton
+              color={COLOR.DARK_SEA_GREEN}
+              onPress={openHistoryModal}
+              invisible={!historyAvailable}
+            >
+              <HistoryButtonIcon />
             </CustomButton>
 
             <CustomButton
@@ -79,6 +75,13 @@ export const Dashboard = () => {
             </CustomButton>
           </DashboardButtonsContainer>
         </View>
+
+        <SearchHistoryModal
+          historyModalizeRef={historyModalizeRef}
+          soapCharactersIndexes={soapCharactersIndexes}
+          historyAvailable={historyAvailable}
+          setHistoryAvailable={setHistoryAvailable}
+        />
 
         <PossibleWordsModal
           possibleWords={possibleWords}

@@ -11,6 +11,8 @@ export const useWordDetail = (
   possibleWords: string[],
   wordDetailsModalRef: React.MutableRefObject<any>,
 ): UseWordDetail => {
+  const MAX_RESULTS = 99
+
   const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
 
   const getWordsByLettersCount = () => {
@@ -18,7 +20,7 @@ export const useWordDetail = (
 
     const words = R.sortWith(
       [ R.descend(R.prop('length')) ],
-      possibleWords
+      R.slice(0, MAX_RESULTS, possibleWords),
     )
 
     words.forEach((word: string) => {

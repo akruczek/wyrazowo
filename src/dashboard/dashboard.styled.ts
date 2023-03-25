@@ -16,6 +16,12 @@ export const ClearLettersButtonIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.L,
 })``
 
+export const HistoryButtonIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'history',
+  color: COLOR.WHITE_SMOKE,
+  size: TEXT_SIZE.L,
+})``
+
 export const DashboardSafeArea = styled(SafeAreaView)`
   justify-content: space-between;
   height: 100%;
