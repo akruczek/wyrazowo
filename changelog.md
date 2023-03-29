@@ -1,3 +1,8 @@
+### 0.6.1
+### Fixed
+- Search history custom soap UI
+- Search history words empty state
+
 ### 0.6.0
 ### Added
 - Search history

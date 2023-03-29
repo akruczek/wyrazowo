@@ -25,7 +25,7 @@ export const LetterCard = ({
     style={genericShadow}
     {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters }}
   >
-    <MultiLetterCardGradient>
+    <MultiLetterCardGradient size={size}>
       <LetterCardContent {...{ fontSize }} children={content} />
     </MultiLetterCardGradient>
   </LetterCardContainer>

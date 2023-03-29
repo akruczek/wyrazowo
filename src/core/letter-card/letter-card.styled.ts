@@ -80,9 +80,13 @@ const getMultiLetterCardBorderRadius = R.pipe(
   R.dec,
 )
 
+interface MultiLetterCardGradientProps {
+  size?: number;
+}
+
 export const MultiLetterCardGradient = styled(LinearGradient).attrs({
   colors: [ COLOR.FIRE_BRICK, COLOR.DODGER_BLUE, COLOR.GOLD, COLOR.DARK_SEA_GREEN ],
-})`
+})<MultiLetterCardGradientProps>`
   justify-content: center;
   align-items: center;
   border-radius: ${getMultiLetterCardBorderRadius}px;

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ActivityIndicator, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { Portal } from 'react-native-portalize'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -7,9 +7,8 @@ import { Storage } from '../../../core/storage/storage'
 import { STORAGE_KEY } from '../../../core/storage/storage.constants'
 import { SearchResultModel } from '../../../core/storage/storage.models'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
-import { NoResultsFoundIcon } from '../possible-words-modal/possible-words-modal.styled'
 import { SearchHistoryModalItem } from './search-history-modal-item'
-import { SearchHistoryModalContainer, SearchHistoryModalNoResultsWrapper } from './search-history-modal.styled'
+import { SearchHistoryModalContainer } from './search-history-modal.styled'
 
 interface Props {
   historyModalizeRef: React.MutableRefObject<any>;
