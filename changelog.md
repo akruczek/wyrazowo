@@ -1,3 +1,7 @@
+### 0.6.2
+### Added
+- Possibility to search more than 100 results
+
 ### 0.6.1
 ### Fixed
 - Search history custom soap UI

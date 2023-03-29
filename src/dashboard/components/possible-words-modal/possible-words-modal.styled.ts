@@ -38,3 +38,19 @@ export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
   color: COLOR.SLATE_GREY,
   size: TEXT_SIZE.XXL * 2,
 })``
+
+export const PossibleWordsModalFooterContainer = styled.View`
+  padding-bottom: 30px;
+`
+
+export const PossibleWordsModalFooterButton = styled.TouchableOpacity`
+  padding: 20px 50px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+`
+
+export const PossibleWordsModalFooterButtonText = styled.Text`
+  font-size: ${TEXT_SIZE.S}px;
+  color: ${COLOR.DODGER_BLUE};
+`

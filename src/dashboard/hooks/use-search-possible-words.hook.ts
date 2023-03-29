@@ -37,7 +37,6 @@ export const useSearchPossibleWords = (selectedLetters: string[]): UseSearchPoss
   }
 
   const searchPossibleWords = React.useCallback(async () => {
-    console.log(selectedLetters, wordLengthRef.current)
     setNoWordsFound(false)
 
     const searchWords = () => {

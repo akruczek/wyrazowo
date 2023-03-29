@@ -10,6 +10,7 @@ import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
+import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import {
   NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
   WordsGroupContainer, WordsGroupHeadline,
@@ -29,7 +30,10 @@ export const PossibleWordsModal = ({
 }: Props) => {
   const { top: topInset } = useSafeAreaInsets()
   const wordDetailsModalRef = React.useRef<any>(null)
-  const { onLongPressWord, getWordsByLettersCount, detailedWord } = useWordDetail(possibleWords, wordDetailsModalRef)
+
+  const {
+    onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
+  } = useWordDetail(possibleWords, wordDetailsModalRef)
 
   return (
     <Portal>
@@ -77,6 +81,7 @@ export const PossibleWordsModal = ({
                   ))}
                 </WordsGroupContainer>
               )}
+              ListFooterComponent={() => <PossibleWordsModalFooter onPress={loadMore} {...{ maxReached, isPending }} />}
             />
           </PossibleWordsContainer>
         )}
