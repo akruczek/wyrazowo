@@ -1,17 +1,24 @@
-### 0.6.2
+## 0.7.0
+### Added
+- Haptic feedback option
+
+### Improved
+- More tab UI improvements
+
+## 0.6.2
 ### Added
 - Possibility to search more than 100 results
 
-### 0.6.1
+## 0.6.1
 ### Fixed
 - Search history custom soap UI
 - Search history words empty state
 
-### 0.6.0
+## 0.6.0
 ### Added
 - Search history
 
-### 0.5.0
+## 0.5.0
 ### Added
 - Configurable soap letters
 - App version info in more tab

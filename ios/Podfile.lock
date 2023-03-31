@@ -429,6 +429,8 @@ PODS:
     - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
+  - RNReactNativeHapticFeedback (1.14.0):
+    - React-Core
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
@@ -504,6 +506,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -605,6 +608,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNReactNativeHapticFeedback:
+    :path: "../node_modules/react-native-haptic-feedback"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -665,6 +670,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 09fc8595e6d6f6d5abf16b23a56b257d9c6b7c5b
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
+  RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608

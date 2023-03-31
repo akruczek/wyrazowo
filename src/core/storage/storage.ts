@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export const Storage = {
   set: async (key: string, value: string): Promise<void | null> => {
     try {
-      const result = await AsyncStorage.setItem(`@${key}`, value)
+      const result = await AsyncStorage.setItem(`@${key}`, String(value))
       return result
     } catch (error) {
       return null

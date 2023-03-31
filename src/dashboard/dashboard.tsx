@@ -14,12 +14,17 @@ import { COLOR } from '../core/colors/colors.constants'
 import { useSoapModal } from './hooks/use-soap-modal.hook'
 import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
+import { useRehydrateStore } from '../core/hooks/use-rehydrate-store.hook'
+import { STORAGE_KEY } from '../core/storage/storage.constants'
+import { setHapticFeedbackEnabledAction } from '../settings/store/settings.slice'
 import {
   ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)
+
+  useRehydrateStore(STORAGE_KEY.HAPTIC_FEEDBACK_ENABLED, setHapticFeedbackEnabledAction)
 
   const {
     letters, selectedLetters,

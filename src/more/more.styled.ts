@@ -8,9 +8,14 @@ interface MoreContainerProps {
 
 export const MoreContainer = styled.View<MoreContainerProps>`
   padding: 10px;
+  flex: 1;
   margin-top: ${R.propOr(0, 'topInset')}px;
 `
 
 export const MoreDisplayText = styled.Text`
   font-size: ${TEXT_SIZE.S}px;
+`
+
+export const MoreActivityIndicatorWrapper = styled.View`
+  margin-top: 30px;
 `
