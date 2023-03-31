@@ -12,6 +12,7 @@ interface LetterCardContainerProps {
   content?: string;
   selectable?: boolean;
   selectedLetters?: string[];
+  noMargin?: boolean;
 }
 
 export const LETTER_CARD_DEFAULT_SIZE = 50
@@ -71,8 +72,7 @@ export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onL
   height: ${getLetterCardContainerSize}px;
   border: 1px solid ${getLetterCardBorderColor};
   border-radius: ${getLetterCardBorderRadius}px;
-  margin-bottom: 5px;
-  margin-right: ${LetterCardContainerMarginRight}px;
+  ${(props: LetterCardContainerProps) => props.noMargin ? '' : `margin-bottom: 5px; margin-right: ${LetterCardContainerMarginRight(props)}px;`}
 `
 
 const getMultiLetterCardBorderRadius = R.pipe(

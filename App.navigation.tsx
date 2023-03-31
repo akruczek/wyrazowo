@@ -10,6 +10,7 @@ import { More } from './src/more/more'
 import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
 import { TouchableOpacity } from 'react-native'
+import { Playground } from './src/playground/playground'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -43,6 +44,16 @@ export const AppNavigation = () => {
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name={SCREEN.PLAYGROUND}
+          component={Playground}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
             ),
           }}
         />

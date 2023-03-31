@@ -1,3 +1,7 @@
+## 0.8.0
+### Added
+- Basic sandbox playground
+
 ## 0.7.1
 ### Fixed
 - Haptic feedback on android

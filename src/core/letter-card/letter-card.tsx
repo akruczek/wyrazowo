@@ -13,17 +13,18 @@ interface Props {
   selectable?: boolean;
   selectedLetters?: string[];
   multiLetter?: boolean;
+  noMargin?: boolean;
   onPress?: () => void;
   onLongPress?: () => void;
 }
 
 export const LetterCard = ({
-  content, size, fontSize, isSelected, withMargin, horizontalMarginSize, selectable, selectedLetters, multiLetter,
+  content, size, fontSize, isSelected, withMargin, horizontalMarginSize, selectable, selectedLetters, multiLetter, noMargin,
   onPress, onLongPress
 }: Props) => multiLetter ? (
   <LetterCardContainer
     style={genericShadow}
-    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters }}
+    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
   >
     <MultiLetterCardGradient size={size}>
       <LetterCardContent {...{ fontSize }} children={content} />
@@ -32,7 +33,7 @@ export const LetterCard = ({
 ) : (
   <LetterCardContainer
     style={genericShadow}
-    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters }}
+    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
   >
     <LetterCardContent {...{ fontSize }} children={content} />
   </LetterCardContainer>
