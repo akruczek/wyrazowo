@@ -60,6 +60,7 @@ export const Dashboard = () => {
               color={COLOR.DARK_SEA_GREEN}
               onPress={openHistoryModal}
               invisible={!historyAvailable}
+              withHaptic
             >
               <HistoryButtonIcon />
             </CustomButton>
@@ -67,6 +68,7 @@ export const Dashboard = () => {
             <CustomButton
               invisible={selectedLetters.length < 2}
               onPress={onSearch}
+              withHaptic
             >
               <SearchButtonIcon />
             </CustomButton>
@@ -75,6 +77,7 @@ export const Dashboard = () => {
               color={COLOR.FIRE_BRICK}
               invisible={!selectedLetters.length}
               onPress={handleClearSelectedLetters}
+              withHaptic
             >
               <ClearLettersButtonIcon />
             </CustomButton>

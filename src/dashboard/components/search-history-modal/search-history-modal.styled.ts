@@ -34,6 +34,7 @@ export const SearchHistoryModalItemContainer = styled.TouchableOpacity.attrs(({ 
 
 export const SearchHistoryModalItemText = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
+  color: ${COLOR.BLACK};
   font-weight: bold;
   margin-left: 5px;
 `

@@ -20,5 +20,6 @@ const getListedOptionHeadline = R.propOr(TEXT_SIZE.M, 'titleSize')
 
 export const ListedOptionHeadline = styled.Text<ListedOptionHeadlineProps>`
   font-size: ${getListedOptionHeadline}px;
+  color: ${COLOR.BLACK};
   font-weight: 500;
 `

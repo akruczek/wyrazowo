@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import Haptic from 'react-native-haptic-feedback'
 import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '../../core/alerts/go-premium-alert'
+import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
 
 interface UseSelectLetter {
   letters: string[];
@@ -19,13 +19,15 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   const [ selectedLetters, updateSelectedLetters ] = React.useState<string[]>([])
 
+  const { triggerHaptic } = useHapticFeedback()
+
   const hasMaxSelectedLetters = selectedLetters?.length < MAX_SELECTED_LETTERS
   const hasMaxNoPremiumSelectedLetters = selectedLetters?.length > MAX_NO_PREMIUM_SELECTED_LETTERS
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
   const handleSelectLetter = (letter: string) => {
-    Haptic.trigger('impactLight', { enableVibrateFallback: true, ignoreAndroidSystemSettings: true })
+    triggerHaptic()
 
     if (hasMaxNoPremiumSelectedLetters) {
       // TODO: Go Premium
@@ -36,6 +38,7 @@ export const useSelectLetter = (): UseSelectLetter => {
   }
 
   const handleDeselectLetter = (index: number) => () => {
+    triggerHaptic()
     updateSelectedLetters(R.remove(index, 1, selectedLetters))
   }
 

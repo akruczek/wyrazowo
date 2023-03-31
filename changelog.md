@@ -1,3 +1,8 @@
+## 0.7.1
+### Fixed
+- Haptic feedback on android
+- Font color on android dark theme
+
 ## 0.7.0
 ### Added
 - Haptic feedback option
