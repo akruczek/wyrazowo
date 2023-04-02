@@ -8,7 +8,7 @@ import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexe
 import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
 import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
 import {
-  GestureLetterCardsBottomArrowWrapper, GestureLetterCardsContainer,
+  GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper, GestureLetterCardsContainer,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper,
 } from './gesture-letters-grid.styled'
 
@@ -24,11 +24,13 @@ export const GestureLettersGrid = ({
   const { incrementIndex, decrementIndex, minReached, maxReached, visibleIndex, pagingState } =
     useGestureLettersIndexes()
 
-  const { getInitialYPosition, getInitialXPosition, getInitialY } =
+  const { getInitialYPosition, getInitialXPosition, getInitialY, topInset, bottomInset } =
     useGestureLettersInitialCoords(visibleIndex)
 
   return (
     <>
+      <GestureLetterCardsBackground {...{ topInset, bottomInset }} />
+
       <GestureLettersGridArrow
         condition={minReached}
         onPress={decrementIndex}

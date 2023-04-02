@@ -3,6 +3,8 @@ import styled from 'styled-components/native'
 import { RESPONSIVE } from '../../../core/responsive/responsive'
 import { COLOR } from '../../../core/colors/colors.constants'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
+import { LETTER_CARD_DEFAULT_SIZE } from '../../../core/letter-card/letter-card.styled'
 
 export const GestureLetterCardsContainer = styled.View`
   flex-direction: row;
@@ -70,4 +72,17 @@ export const GestureLetterCardsPagingStateText = styled.Text<GestureLetterCardsA
   position: absolute;
   top: ${getGestureLetterCardsPagingStateText}px;
   right: 10px;
+`
+
+interface GestureLetterCardsBackgroundProps {
+  topInset: number;
+  bottomInset: number;
+}
+
+export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgroundProps>`
+  width: 100%;
+  height: 800px;
+  top: ${({ topInset, bottomInset }) => -(RESPONSIVE.HEIGHT() - RESPONSIVE.WIDTH() - BOTTOM_NAVIGATION_HEIGHT - topInset - bottomInset) + bottomInset + LETTER_CARD_DEFAULT_SIZE - 30}px;
+  position: absolute;
+  background-color: ${COLOR.WHITE_SMOKE};
 `

@@ -1,8 +1,12 @@
+## 0.8.2
+### Fixed
+- Playground layout on android
+
 ## 0.8.1
 ### Fixed
 - Playground shadows on android
-- Dashboard UI from small devices
-- Playground UI from small devices
+- Dashboard UI for small devices
+- Playground UI for small devices
 
 ### Improved
 - Playground draggable letter layout
