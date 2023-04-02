@@ -1,3 +1,12 @@
+## 0.8.1
+### Fixed
+- Playground shadows on android
+- Dashboard UI from small devices
+- Playground UI from small devices
+
+### Improved
+- Playground draggable letter layout
+
 ## 0.8.0
 ### Added
 - Basic sandbox playground

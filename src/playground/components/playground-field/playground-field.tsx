@@ -17,7 +17,6 @@ export const PlaygroundField = ({ type, fieldRefs, selectedLetters, index, onPre
   return (
     <PlaygroundFieldContainer
       ref={ref => { fieldRefs[index] = ref }}
-      style={genericLightShadow}
       type={type}
     >
       <PlaygroundFieldContent {...{ type, index, selectedLetters, onPress }} />

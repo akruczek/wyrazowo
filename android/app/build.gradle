@@ -98,8 +98,8 @@ android {
         applicationId "com.scrabblehelper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 800
-        versionName "0.8.0"
+        versionCode 801
+        versionName "0.8.1"
     }
 
     splits {

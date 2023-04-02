@@ -9,3 +9,7 @@ export const SelectedLettersContainer = styled.View`
   margin-horizontal: 2px;
   border-bottom-color: ${COLOR.SLATE_GREY};
 `
+
+export const SelectedLettersContainersWrapper = styled.View`
+  margin-bottom: 10px;
+`

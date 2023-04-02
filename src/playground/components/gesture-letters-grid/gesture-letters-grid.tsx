@@ -1,14 +1,16 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { Dimensions, PanResponderGestureState, GestureResponderEvent, View } from 'react-native'
-import { LetterCard } from '../../../core/letter-card/letter-card'
-import { GestureLetterCardsContainer } from './gesture-letters-grid.styled'
-import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
-import { noop } from '../../../core/noop/noop'
 import Draggable from 'react-native-draggable'
-import { LETTER_CARD_DEFAULT_SIZE } from '../../../core/letter-card/letter-card.styled'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
+import { PanResponderGestureState, GestureResponderEvent } from 'react-native'
+import { LetterCard } from '../../../core/letter-card/letter-card'
+import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
+import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexes.hook'
+import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
+import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
+import {
+  GestureLetterCardsBottomArrowWrapper, GestureLetterCardsContainer,
+  GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper,
+} from './gesture-letters-grid.styled'
 
 interface Props {
   onDragRelease: (letter: string) => (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
@@ -19,25 +21,25 @@ export const GestureLettersGrid = ({
 }: Props) => {
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
-  const { top: topInset, bottom: bottomInset } = useSafeAreaInsets()
+  const { incrementIndex, decrementIndex, minReached, maxReached, visibleIndex, pagingState } =
+    useGestureLettersIndexes()
 
-  const getInitialYPosition = (rowIndex: number) => {
-    const { height, width } = Dimensions.get('screen')
-    const baseY = height - width - topInset - bottomInset - BOTTOM_NAVIGATION_HEIGHT - LETTER_CARD_DEFAULT_SIZE
-    const paddingOffset = rowIndex !== 0 ? (1 * rowIndex) : 0
-
-    return -baseY + (LETTER_CARD_DEFAULT_SIZE * rowIndex) + paddingOffset
-  }
-
-  const getInitialXPosition = (index: number) => {
-    const paddingOffset = ((LETTER_CARD_DEFAULT_SIZE / 7) - 1) / 2
-
-    return LETTER_CARD_DEFAULT_SIZE * index + (((LETTER_CARD_DEFAULT_SIZE / 7) - 1) * index) + paddingOffset
-  }
+  const { getInitialYPosition, getInitialXPosition, getInitialY } =
+    useGestureLettersInitialCoords(visibleIndex)
 
   return (
     <>
-      {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (
+      <GestureLettersGridArrow
+        condition={minReached}
+        onPress={decrementIndex}
+        getInitialY={getInitialY}
+        icon="arrow-up"
+        Wrapper={GestureLetterCardsTopArrowWrapper}
+      />
+
+      <GestureLetterCardsPagingStateText y={getInitialY()} children={`${pagingState[0]} / ${pagingState[1]}`} />
+
+      {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (rowIndex >= visibleIndex && rowIndex <= visibleIndex + 1) ? (
         <GestureLetterCardsContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <Draggable
@@ -51,7 +53,15 @@ export const GestureLettersGrid = ({
             </Draggable>
           ))}
         </GestureLetterCardsContainer>
-      ))}
+      ) : null)}
+
+      <GestureLettersGridArrow
+        condition={maxReached}
+        onPress={incrementIndex}
+        getInitialY={getInitialY}
+        icon="arrow-down"
+        Wrapper={GestureLetterCardsBottomArrowWrapper}
+      />
     </>
   )
 }

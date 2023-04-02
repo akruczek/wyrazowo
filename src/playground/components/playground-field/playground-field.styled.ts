@@ -1,13 +1,13 @@
 import * as R from 'ramda'
-import { Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { COLOR } from '../../../core/colors/colors.constants'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
+import { RESPONSIVE } from '../../../core/responsive/responsive'
 
 const PLAYGROUND_FIELD_SPACING = 3
 export const PLAYGROUND_SPACING_MULTIPLIER = 2.2
-export const PLAYGROUND_FIELD_SIZE = (Dimensions.get('screen').width / 15) - PLAYGROUND_FIELD_SPACING
+export const PLAYGROUND_FIELD_SIZE = (RESPONSIVE.WIDTH() / 15) - PLAYGROUND_FIELD_SPACING
 
 const addOpacity = (color: COLOR) => `${color}80`
 

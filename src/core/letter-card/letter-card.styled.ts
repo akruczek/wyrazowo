@@ -1,10 +1,10 @@
 import * as R from 'ramda'
-import { Dimensions } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import styled from 'styled-components/native'
 import { COLOR } from '../colors/colors.constants'
 import { TEXT_SIZE } from '../text/text.constants'
 import { LETTERS_1, LETTERS_2, LETTERS_3, LETTERS_5 } from './letter-card.constants'
+import { RESPONSIVE } from '../responsive/responsive'
 
 interface LetterCardContainerProps {
   size?: number;
@@ -15,9 +15,9 @@ interface LetterCardContainerProps {
   noMargin?: boolean;
 }
 
-export const LETTER_CARD_DEFAULT_SIZE = 50
+export const LETTER_CARD_DEFAULT_SIZE = RESPONSIVE.WIDTH(12.7)
 const LETTER_CARD_DEFAULT_CONTENT_SIZE = TEXT_SIZE.L
-const SELECTED_CARD_SPACE_SIZE = Math.floor(Dimensions.get('screen').width / 7 - LETTER_CARD_DEFAULT_SIZE)
+const SELECTED_CARD_SPACE_SIZE = Math.floor(RESPONSIVE.WIDTH() / 7 - LETTER_CARD_DEFAULT_SIZE)
 
 const getLetterCardContainerSize = R.propOr(LETTER_CARD_DEFAULT_SIZE, 'size')
 

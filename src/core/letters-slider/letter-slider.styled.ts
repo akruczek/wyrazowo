@@ -5,9 +5,7 @@ import { TEXT_SIZE } from '../text/text.constants'
 import { COLOR } from '../colors/colors.constants'
 
 export const LetterSliderContainer = styled.View`
-  padding-horizontal: 10px;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  padding: 2px 10px;
 `
 
 export const LetterSliderBottomLabelBar = styled.View`
