@@ -7,10 +7,17 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import kotlin.concurrent.thread
 
 class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
     override fun getName(): String {
         return "DBModule"
+    }
+
+    private fun sendProgressEvent(progress: Int) {
+        reactApplicationContext
+            .getJSModule(RCTDeviceEventEmitter::class.java)
+            .emit("searchEngineProgress", progress)
     }
 
     @ReactMethod
@@ -18,7 +25,6 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
         allWords: String,
         selectedLetters: String,
     ): Any {
-
         val LETTER_SOAP = "?"
         val LETTER_SOAP_PLACEHOLDER = "*"
 
@@ -28,15 +34,9 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
         val selectedLetters = gson.fromJson<ArrayList<String>>(selectedLetters, object :TypeToken<ArrayList<String>>(){}.type).toMutableList()
         val filterWords = mutableListOf<String>()
 
-        words.forEach { word ->
-            val tooLongWord = word.length > selectedLetters.size
-
-            if (tooLongWord) {
-                return false
-            }
-
+        words.forEachIndexed { wordIndex, word ->
             val soap_letters = selectedLetters
-                .filter { it === LETTER_SOAP }
+                .filter { it == LETTER_SOAP }
                 .toMutableList()
 
             var custom_soap_letters = selectedLetters
@@ -68,13 +68,13 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
                 if (missingChar) {
                     val customSoapLetterAvailableIndexes = custom_soap_letters
                         .mapIndexed { index, customSoapLetters ->
-                            if (customSoapLetters.contains(char as Any)) {
-                                return index
+                            if (customSoapLetters.contains(char)) {
+                                index
                             } else {
-                                return -1
+                                -1
                             }
                         }
-                        .filter { return it !== -1 }
+                        .filter { it != -1 }
 
                     if (customSoapLetterAvailableIndexes.isNotEmpty()) {
                         custom_soap_letters.removeAt(customSoapLetterAvailableIndexes[0])

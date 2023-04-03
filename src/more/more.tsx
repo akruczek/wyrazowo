@@ -46,7 +46,7 @@ export const More = () => {
 
   const renderItem = ({ item: { title, value, hidden, onChange } }: { item: MoreOption<any> }) => hidden ? (
     null
-  ) : value ? (
+  ) : value !== undefined ? (
     <ListedOption title={title}>
       <CustomSwitch defaultValue={value} onValueChange={onChange} />
     </ListedOption>
@@ -89,6 +89,7 @@ export const More = () => {
             <ActivityIndicator size="large" />
           </MoreActivityIndicatorWrapper>
         )}
+        keyExtractor={({ title }) => title}
         extraData={nativeSearchEngineEnabled}
         data={getOptions()}
       />

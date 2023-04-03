@@ -1,3 +1,7 @@
+## 0.9.2
+### Fixed
+- Soap characters in Native search engine for android
+
 ## 0.9.1
 ### Added
 - Native search engine for android (beta)

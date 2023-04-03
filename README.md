@@ -11,5 +11,6 @@
 ### Tech Stack:
 - React Native 71
 - Typescript 4
+- Kotlin 1.8
 - Ramda
 - Styled Components 5

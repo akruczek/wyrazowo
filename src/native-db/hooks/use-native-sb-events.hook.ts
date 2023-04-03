@@ -20,9 +20,9 @@ export const useNativeDBEvents = (
     return () => {
       if (Platform.OS === 'ios') {
         eventEmitter.removeAllListeners(NativeModules.EventEmitter)
+      } else {
+        DeviceEventEmitter.removeAllListeners('findPossibleWordsResult')
       }
-
-      DeviceEventEmitter.removeAllListeners('findPossibleWordsResult')
     }
   }, [])
 }
