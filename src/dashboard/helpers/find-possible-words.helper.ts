@@ -29,6 +29,9 @@ export const findPossibleWords = async (
     maxLength - minLength + 1
   ).flat().reverse()
 
+  // TODO: native implementation
+  // DB.findPossibleWords(allWords)
+
   // Map all words from database for specific length
   const result = allWords
     .filter((word: string) => {

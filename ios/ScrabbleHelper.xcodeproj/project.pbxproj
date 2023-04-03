@@ -12,6 +12,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4CD6012129DAACFE00DECACB /* DBModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012029DAACFE00DECACB /* DBModule.swift */; };
+		4CD6012229DAACFE00DECACB /* DBModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012029DAACFE00DECACB /* DBModule.swift */; };
+		4CD6012429DAADBD00DECACB /* DBModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012329DAADBD00DECACB /* DBModule.m */; };
+		4CD6012929DADB1C00DECACB /* RCTEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012829DADB1C00DECACB /* RCTEventEmitter.m */; };
+		4CD6012B29DADE6100DECACB /* RCTEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012A29DADE6100DECACB /* RCTEventEmitter.swift */; };
 		7699B88040F8A987B510C191 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,6 +43,12 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ScrabbleHelper/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-ScrabbleHelper-ScrabbleHelperTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScrabbleHelper-ScrabbleHelperTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-ScrabbleHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper.debug.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper/Pods-ScrabbleHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		4CD6011529DAAB9600DECACB /* ScrabbleHelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScrabbleHelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		4CD6012029DAACFE00DECACB /* DBModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModule.swift; sourceTree = "<group>"; };
+		4CD6012329DAADBD00DECACB /* DBModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBModule.m; sourceTree = "<group>"; };
+		4CD6012729DADAE700DECACB /* RCTEventEmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTEventEmitter.h; sourceTree = "<group>"; };
+		4CD6012829DADB1C00DECACB /* RCTEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTEventEmitter.m; sourceTree = "<group>"; };
+		4CD6012A29DADE6100DECACB /* RCTEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTEventEmitter.swift; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-ScrabbleHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper.release.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper/Pods-ScrabbleHelper.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig"; path = "Target Support Files/Pods-ScrabbleHelper-ScrabbleHelperTests/Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-ScrabbleHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScrabbleHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +103,11 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4CD6012029DAACFE00DECACB /* DBModule.swift */,
+				4CD6012329DAADBD00DECACB /* DBModule.m */,
+				4CD6012729DADAE700DECACB /* RCTEventEmitter.h */,
+				4CD6012829DADB1C00DECACB /* RCTEventEmitter.m */,
+				4CD6012A29DADE6100DECACB /* RCTEventEmitter.swift */,
 			);
 			name = ScrabbleHelper;
 			sourceTree = "<group>";
@@ -122,6 +138,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				4CD6011529DAAB9600DECACB /* ScrabbleHelper-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -204,10 +221,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1430;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -405,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* ScrabbleHelperTests.m in Sources */,
+				4CD6012229DAACFE00DECACB /* DBModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +431,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD6012929DADB1C00DECACB /* RCTEventEmitter.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				4CD6012429DAADBD00DECACB /* DBModule.m in Sources */,
+				4CD6012B29DADE6100DECACB /* RCTEventEmitter.swift in Sources */,
+				4CD6012129DAACFE00DECACB /* DBModule.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,7 +455,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-ScrabbleHelper-ScrabbleHelperTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -451,6 +476,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akruczek.scrabblehelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ScrabbleHelperTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScrabbleHelper.app/ScrabbleHelper";
 			};
 			name = Debug;
@@ -459,7 +487,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-ScrabbleHelper-ScrabbleHelperTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ScrabbleHelperTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -475,6 +505,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akruczek.scrabblehelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ScrabbleHelperTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScrabbleHelper.app/ScrabbleHelper";
 			};
 			name = Release;
@@ -486,7 +518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 802;
+				CURRENT_PROJECT_VERSION = 900;
 				DEVELOPMENT_TEAM = JC3MA5W475;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ScrabbleHelper/Info.plist;
@@ -495,7 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.9.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -503,6 +535,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akruczek.scrabblehelper;
 				PRODUCT_NAME = ScrabbleHelper;
+				SWIFT_OBJC_BRIDGING_HEADER = "ScrabbleHelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -516,7 +549,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 802;
+				CURRENT_PROJECT_VERSION = 900;
 				DEVELOPMENT_TEAM = JC3MA5W475;
 				INFOPLIST_FILE = ScrabbleHelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -524,7 +557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.9.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -532,6 +565,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akruczek.scrabblehelper;
 				PRODUCT_NAME = ScrabbleHelper;
+				SWIFT_OBJC_BRIDGING_HEADER = "ScrabbleHelper-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -17,8 +17,6 @@ export const useHapticFeedback = (): UseHapticFeedback => {
         ignoreAndroidSystemSettings: true,
       }
 
-      console.log('HAPTTTT!')
-  
       Haptic.trigger(type ?? 'impactLight', options ?? defaultOptions)
     }
   }, [ hapticFeedbackEnabled ])
