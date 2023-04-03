@@ -5,10 +5,12 @@ import { STORAGE_KEY } from '../../core/storage/storage.constants'
 
 export interface SettingsState {
   hapticFeedbackEnabled: boolean;
+  nativeSearchEngineEnabled: boolean;
 }
 
 const initialState: SettingsState = {
   hapticFeedbackEnabled: true,
+  nativeSearchEngineEnabled: false,
 }
 
 export const settingsSlice = createSlice({
@@ -19,11 +21,15 @@ export const settingsSlice = createSlice({
       Storage.set(STORAGE_KEY.HAPTIC_FEEDBACK_ENABLED, String(action.payload))
       state.hapticFeedbackEnabled = action.payload
     },
+    setNativeSearchEngineEnabledAction: (state, action: PayloadAction<boolean>) => {
+      Storage.set(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, String(action.payload))
+      state.nativeSearchEngineEnabled = action.payload
+    }
   },
 })
 
 export const {
-  setHapticFeedbackEnabledAction,
+  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction,
 } = settingsSlice.actions
 
 export const settingsReducer = settingsSlice.reducer

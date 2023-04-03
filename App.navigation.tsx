@@ -9,7 +9,6 @@ import { SCREEN } from './src/navigation/navigation.constants'
 import { More } from './src/more/more'
 import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
-import { TouchableOpacity } from 'react-native'
 import { Playground } from './src/playground/playground'
 
 const Tab = createMaterialBottomTabNavigator();

@@ -1,3 +1,8 @@
+## 0.9.1
+### Added
+- Native search engine for android (beta)
+- Clearing search history from more tab
+
 ## 0.9.0
 ### Technical
 - Native search engine foundation iOS

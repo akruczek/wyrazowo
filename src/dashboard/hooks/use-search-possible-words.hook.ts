@@ -1,9 +1,10 @@
 import * as React from 'react'
-import * as R from 'ramda'
 import { Storage } from '../../core/storage/storage'
 import { STORAGE_KEY } from '../../core/storage/storage.constants'
 import { SearchResultModel } from '../../core/storage/storage.models'
 import { findPossibleWords } from '../helpers/find-possible-words.helper'
+import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
+import { useNativeDBEvents } from '../../native-db/hooks/use-native-sb-events.hook'
 
 interface UseSearchPossibleWords {
   possibleWords: string[];
@@ -13,9 +14,18 @@ interface UseSearchPossibleWords {
   clearPossibleWords: () => void;
 }
 
-export const useSearchPossibleWords = (selectedLetters: string[]): UseSearchPossibleWords => {
+export const useSearchPossibleWords = (
+  selectedLetters: string[],
+  nativeSearchEngineEnabled: boolean | null,
+): UseSearchPossibleWords => {
+  const selectedLettersRef = React.useRef(selectedLetters)
+
   const wordLengthRef = React.useRef<[ number, number ]>([ 1, 10 ])
   const savedResultRef = React.useRef<SearchResultModel[]>([])
+
+  React.useEffect(() => {
+    selectedLettersRef.current = selectedLetters
+  }, [ selectedLetters ])
 
   const [ possibleWords, setPossibleWords ] = React.useState<string[]>([])
   const [ noWordsFound, setNoWordsFound ] = React.useState<boolean>(false)
@@ -26,24 +36,33 @@ export const useSearchPossibleWords = (selectedLetters: string[]): UseSearchPoss
     Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(updatedDataToSave))
   }
 
-  const saveResult = (result: string[]) => {
-    const dataToSave: SearchResultModel = {
+  const saveResult = React.useCallback((result: string[]) => {
+    const getDataToSave: () => SearchResultModel = () => ({
       wordLength: wordLengthRef.current,
       timestamp: new Date().getTime(),
-      selectedLetters, result,
-    }
+      selectedLetters: selectedLettersRef.current,
+      result,
+    })
 
-    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([ dataToSave, ...savedResultRef.current ]))
+    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([ getDataToSave(), ...savedResultRef.current ]))
+  }, [ selectedLetters ])
+
+  const resultsCallback = (result: string[]) => {
+    setNoWordsFound(result?.length === 0)
+    setPossibleWords(result)
+    saveResult(result)
   }
+
+  useNativeDBEvents(resultsCallback)
 
   const searchPossibleWords = React.useCallback(async () => {
     setNoWordsFound(false)
 
     const searchWords = () => {
-      findPossibleWords(selectedLetters, wordLengthRef.current).then((result: string[]) => {
-        setNoWordsFound(result?.length === 0)
-        setPossibleWords(result)
-        saveResult(result)
+      findPossibleWords(selectedLetters, wordLengthRef.current, nativeSearchEngineEnabled).then((result: string[]) => {
+        if (!result.includes(NATIVE_DB_TAG)) {
+          resultsCallback(result)
+        }
       })
     }
 

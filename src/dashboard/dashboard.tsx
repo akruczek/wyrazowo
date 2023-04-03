@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Host } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize'
 import { View } from 'react-native'
+import { useSelector } from 'react-redux'
+import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { SoapLetterModal } from './components/soap-letter-modal/soap-letter-modal'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
 import { PossibleWordsModal } from './components/possible-words-modal/possible-words-modal'
@@ -16,7 +18,7 @@ import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
 import { useRehydrateStore } from '../core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '../core/storage/storage.constants'
-import { setHapticFeedbackEnabledAction } from '../settings/store/settings.slice'
+import { setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction } from '../settings/store/settings.slice'
 import {
   ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
@@ -25,6 +27,9 @@ export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)
 
   useRehydrateStore(STORAGE_KEY.HAPTIC_FEEDBACK_ENABLED, setHapticFeedbackEnabledAction)
+  useRehydrateStore(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, setNativeSearchEngineEnabledAction)
+
+  const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
 
   const {
     letters, selectedLetters,
@@ -36,7 +41,7 @@ export const Dashboard = () => {
 
   const {
     possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords,
-  } = useSearchPossibleWords(selectedLetters)
+  } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled)
 
   const onSearch = () => {
     modalizeRef?.current?.open()

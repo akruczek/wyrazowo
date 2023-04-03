@@ -8,6 +8,8 @@ import slowa6 from '../../assets/slowa6'
 import slowa7 from '../../assets/slowa7'
 import slowa8 from '../../assets/slowa8'
 import slowa9 from '../../assets/slowa9'
+import { DB } from '../../native-db/native-db'
+import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 
 const allWordsByLength = ['', '', slowa2, slowa3, slowa4, slowa5, slowa6, slowa7, slowa8, slowa9]
 
@@ -20,6 +22,7 @@ const log = (enabled: boolean, wordFilter: string | null, word: string, message:
 export const findPossibleWords = async (
   selectedLetters: string[],
   [ minLength, maxLength ]: [ number, number ],
+  nativeSearchEngineEnabled: boolean | null,
 ) => new Promise<string[]>((resolve) => {
   const LOGS_ENABLED = false
   const LOGS_WORD_FILTER = ''
@@ -29,8 +32,12 @@ export const findPossibleWords = async (
     maxLength - minLength + 1
   ).flat().reverse()
 
-  // TODO: native implementation
-  // DB.findPossibleWords(allWords)
+  // Native search engine (native DBModule)
+  if (nativeSearchEngineEnabled) {
+    DB.findPossibleWords(allWords, selectedLetters)
+    resolve([ NATIVE_DB_TAG ])
+    return [ NATIVE_DB_TAG ]
+  }
 
   // Map all words from database for specific length
   const result = allWords
