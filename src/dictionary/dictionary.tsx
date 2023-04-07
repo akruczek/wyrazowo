@@ -1,18 +1,24 @@
 import * as React from 'react'
-import WebView from 'react-native-webview'
-import { ActivityIndicator } from 'react-native'
-import { DictionarySafeAreaContainer } from './dictionary.styled'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useWordDefinitions } from '../dashboard/hooks/use-word-definitions.hook'
+import { useDictionaryWord } from './hooks/use-dictionary-word.hook'
+import { DictionaryDefinitions } from './components/dictionary-definitions/dictionary-definitions'
+import { DictionarySafeAreaContainer, DictionaryStatusBar, DictionaryTextInput } from './dictionary.styled'
+import { DictionaryButtons } from './components/dictionary-buttons/dictionary-buttons'
+import { DictionaryHeader } from './components/dictionary-header/dictionary-header'
 
 export const Dictionary = () => {
-  const uri = 'https://sjp.pl'
+  const { top: topInset } = useSafeAreaInsets()
+  const { state, word, isPending, wordFromDB, handlePressRandom, handleChange, onSearch } = useDictionaryWord()
+  const { definitions } = useWordDefinitions(wordFromDB)
 
   return (
     <DictionarySafeAreaContainer>
-      <WebView
-        source={{ uri }}
-        originWhitelist={['*']}
-        renderLoading={() => <ActivityIndicator size="large" />}
-      />
+      <DictionaryStatusBar />
+      <DictionaryHeader {...{ topInset, handlePressRandom }} />
+      <DictionaryTextInput onChange={handleChange} value={word} state={state} />
+      <DictionaryDefinitions {...{ isPending, wordFromDB, state, definitions }} />
+      <DictionaryButtons onSearch={onSearch} />
     </DictionarySafeAreaContainer>
   )
 }

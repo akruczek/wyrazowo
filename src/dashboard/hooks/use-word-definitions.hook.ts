@@ -27,6 +27,10 @@ export const useWordDefinitions = (
     if (word) {
       fetchWordFromSjp()
     }
+
+    if (word === null) {
+      setDefinitions(null)
+    }
   }, [ word ])
 
   return { definitions }

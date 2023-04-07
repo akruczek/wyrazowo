@@ -1,3 +1,10 @@
+## 0.10.0
+### Added
+- Native dictionary search engine
+
+### Improved
+- Dictionary redesign
+
 ## 0.9.3
 ### Added
 - Native search engine for iOS

@@ -21,3 +21,12 @@ export const genericLightShadow = {
   shadowRadius: 2,
   elevation: 3,
 }
+
+export const genericTextShadow = {
+  textShadowColor: COLOR.DIM_GREY,
+  textShadowOffset: {
+    width: -1,
+    height: 1,
+  },
+  textShadowRadius: 10,
+}

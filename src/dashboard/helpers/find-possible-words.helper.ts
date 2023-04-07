@@ -11,7 +11,7 @@ import slowa9 from '../../assets/slowa9'
 import { DB } from '../../native-db/native-db'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 
-const allWordsByLength = ['', '', slowa2, slowa3, slowa4, slowa5, slowa6, slowa7, slowa8, slowa9]
+export const allWordsByLength = ['', '', slowa2, slowa3, slowa4, slowa5, slowa6, slowa7, slowa8, slowa9]
 
 const log = (enabled: boolean, wordFilter: string | null, word: string, message: string) => {
   if (enabled && (word === wordFilter || !wordFilter)) {
