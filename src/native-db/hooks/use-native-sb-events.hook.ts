@@ -12,8 +12,8 @@ export const useNativeDBEvents = (
         resultCallback(JSON.parse(result))
       })
     } else {
-      eventEmitter.addListener('findPossibleWordsResult', (result: string) => {
-        console.log('FROM NATIVE iOS: findPossibleWordsResult: ', result)
+      eventEmitter.addListener('findPossibleWordsResult', (result: string[]) => {
+        resultCallback(result)
       })
     }
 

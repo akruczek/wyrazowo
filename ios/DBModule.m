@@ -10,6 +10,7 @@
 
 @interface RCT_EXTERN_MODULE(DBModule, NSObject)
   RCT_EXTERN_METHOD(findPossibleWords:
-    (NSString *) param
+    (NSString*)allWords
+    selectedLetters:(NSString*)
   )
 @end

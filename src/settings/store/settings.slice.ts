@@ -10,7 +10,7 @@ export interface SettingsState {
 
 const initialState: SettingsState = {
   hapticFeedbackEnabled: true,
-  nativeSearchEngineEnabled: false,
+  nativeSearchEngineEnabled: true,
 }
 
 export const settingsSlice = createSlice({

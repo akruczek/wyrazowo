@@ -4,4 +4,4 @@ export const hapticFeedbackEnabledSelector = (state: RootState) =>
   state?.settings?.hapticFeedbackEnabled ?? true
 
 export const nativeSearchEngineEnabledSelector = (state: RootState) =>
-  state?.settings?.nativeSearchEngineEnabled ?? false
+  state?.settings?.nativeSearchEngineEnabled ?? true

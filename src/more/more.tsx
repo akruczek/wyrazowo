@@ -68,14 +68,13 @@ export const More = () => {
         onChange: handleChangeHapticFeedback,
       },
       {
-        title: 'Native search Engine (beta)',
+        title: 'Native search Engine',
         value: !!nativeSearchEngineEnabled,
         onChange: handleChangeNativeSearchEngine,
       },
       {
         title: 'Clear search history',
         onChange: handleClearSearchHistory,
-        hidden: Platform.OS === 'ios',
       }
     ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, isPending ])
 

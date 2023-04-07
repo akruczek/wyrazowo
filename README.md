@@ -12,5 +12,7 @@
 - React Native 71
 - Typescript 4
 - Kotlin 1.8
-- Ramda
+- Swift 5
 - Styled Components 5
+- React Native Reanimated 3
+- Ramda

@@ -1,10 +1,17 @@
+## 0.9.3
+### Added
+- Native search engine for iOS
+
+### Fixed
+- Clear history option visibility for iOS
+
 ## 0.9.2
 ### Fixed
 - Soap characters in Native search engine for android
 
 ## 0.9.1
 ### Added
-- Native search engine for android (beta)
+- Native search engine for android
 - Clearing search history from more tab
 
 ## 0.9.0

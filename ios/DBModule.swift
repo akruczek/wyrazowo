@@ -21,11 +21,82 @@ import Foundation
     }
   }
   
-  @objc public func findPossibleWords(
-    _ allWords: String
+  @objc func findPossibleWords(
+    _ allWords: String,
+    selectedLetters: String
   ) -> String {
-    NSLog("#SH", allWords)
-    EventEmitter.emitter.sendEvent(withName: "findPossibleWordsResult", body: allWords)
+    let LETTER_SOAP = "?"
+    let LETTER_SOAP_PLACEHOLDER = "*"
+
+    let allWordsArray: [String] = allWords.toJSON() as! [String]
+    let selectedLettersArray: [String] = selectedLetters.toJSON() as! [String]
+    var filterWords: [String] = []
+
+    for word in allWordsArray {
+      var soap_letters: [String] = selectedLettersArray
+        .filter { $0 == LETTER_SOAP }
+
+      var custom_soap_letters: [[String]] = selectedLettersArray
+        .filter { $0.contains(LETTER_SOAP_PLACEHOLDER) }
+        .map { $0.components(separatedBy: LETTER_SOAP_PLACEHOLDER) }
+
+      var letters: [String] = selectedLettersArray
+        .filter { $0 != LETTER_SOAP && !$0.contains(LETTER_SOAP_PLACEHOLDER) }
+
+      var satisfiesLetters: Int = -1
+
+      for (index, char) in word.uppercased().enumerated() {
+        if (satisfiesLetters != -1) {
+          break
+        }
+
+        let missingChar = !letters.contains(String(char))
+        let noSoapAvailable = soap_letters.count == 0
+        let noCustomSoapAvailable = custom_soap_letters.count == 0
+
+        if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
+          satisfiesLetters = 0
+          break
+        }
+
+        if (missingChar) {
+          var customSoapLetterAvailableIndexes: [Int] = []
+
+          for (index, customSoapLetters) in custom_soap_letters.enumerated() {
+            if (customSoapLetters.contains(String(char))) {
+              customSoapLetterAvailableIndexes.append(index)
+            }
+          }
+
+          if (customSoapLetterAvailableIndexes.isEmpty) {
+            if (noSoapAvailable) {
+              satisfiesLetters = 0
+              break
+            } else {
+              soap_letters.removeLast()
+            }
+          } else {
+            custom_soap_letters.remove(at: customSoapLetterAvailableIndexes[0])
+          }
+        } else {
+          let charIndex: Int = letters.firstIndex(where: { String($0) == String(char) }) ?? -1
+
+          if (charIndex >= 0) {
+            letters.remove(at: charIndex)
+          }
+        }
+
+        if (index == word.count - 1) {
+          satisfiesLetters = 1
+        }
+      }
+
+      if (satisfiesLetters > 0) {
+        filterWords.append(word)
+      }
+    }
+
+    EventEmitter.emitter.sendEvent(withName: "findPossibleWordsResult", body: filterWords)
     return allWords
   }
 }
