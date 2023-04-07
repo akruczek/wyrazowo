@@ -1,3 +1,8 @@
+## 0.10.1
+### Improved
+- Status bar colors handling on dashboard and dictionary screens
+- Dictionary search input UI improvements
+
 ## 0.10.0
 ### Added
 - Native dictionary search engine

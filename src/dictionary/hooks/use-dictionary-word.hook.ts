@@ -20,9 +20,9 @@ export const useDictionaryWord = (): UseDictionaryWord => {
   const [ wordFromDB, setWordFromDB ] = React.useState<null | string>(null)
 
   const handlePressRandom = () => {
+    setPending(true)
     setWord('')
     setState(null)
-    setPending(true)
     setWordFromDB(null)
 
     setTimeout(() => {
@@ -54,6 +54,7 @@ export const useDictionaryWord = (): UseDictionaryWord => {
     }
 
     setPending(true)
+
     setTimeout(() => {
       const _wordFromDB = R.pipe<string[], any[], string | undefined>(
         R.split(','),
@@ -64,12 +65,13 @@ export const useDictionaryWord = (): UseDictionaryWord => {
         ),
       )(allWordsByLength[word.length] ?? longWordsByLength[word.length] ?? [])
 
-      setPending(false)
       setState(!!_wordFromDB?.length)
 
       if (_wordFromDB?.length) {
         setWordFromDB(_wordFromDB)
       }
+
+      setPending(false)
     })
   }
 

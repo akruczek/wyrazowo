@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Host } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -18,9 +17,12 @@ import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
 import { useRehydrateStore } from '../core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '../core/storage/storage.constants'
-import { setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction } from '../settings/store/settings.slice'
 import {
-  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardSafeArea, HistoryButtonIcon, SearchButtonIcon,
+  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction,
+} from '../settings/store/settings.slice'
+import {
+  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardHost, DashboardSafeArea,
+  DashboardStatusBar, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
 
 export const Dashboard = () => {
@@ -52,8 +54,9 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Host>
+    <DashboardHost>
       <DashboardSafeArea>
+        <DashboardStatusBar />
         <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
 
         <View>
@@ -110,6 +113,6 @@ export const Dashboard = () => {
           onSelectSoapLetters={onSelectSoapLetters}
         />
       </DashboardSafeArea>
-    </Host>
+    </DashboardHost>
   ), [ selectedLetters, letters, possibleWords ])
 }

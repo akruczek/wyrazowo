@@ -20,7 +20,8 @@ const getCustomTextInputStyledTextColor = R.cond([
 ])
 
 export const CustomTextInputStyled = styled.TextInput.attrs({
-  placeholder: 'Search for word...'
+  placeholder: 'Search for word...',
+  placeholderTextColor: COLOR.DIM_GREY_LIGHTER,
 })<CustomTextInputStyledProps>`
   height: 50px;
   border-bottom-width: 1.5px;

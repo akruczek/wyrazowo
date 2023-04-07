@@ -10,4 +10,5 @@ export enum COLOR {
   FLORAL_WHITE = '#FFFAF0',
   DARK_RED = '#8B0000',
   DIM_GREY = '#696969',
+  DIM_GREY_LIGHTER = '#A5A5A5',
 }
