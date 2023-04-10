@@ -9,7 +9,7 @@ import {
 
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
-  defaultValues: [ number, number, number, number ] | [],
+  defaultValues: [ number, number, number, number, number ] | [],
 }
 
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {

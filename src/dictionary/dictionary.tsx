@@ -29,7 +29,10 @@ export const Dictionary = () => {
       <DictionaryTextInput onChange={handleChange} value={word} state={state} />
       <DictionaryDefinitions {...{ isPending, wordFromDB, state, definitions }} />
       <DictionaryButtons onSearch={onSearch} />
-      <DictionaryCustomizeRandom modalizeRef={customizeRandomModalizeRef} {...{ onApply, onClear, isFilterActive }} />
+      <DictionaryCustomizeRandom
+        modalizeRef={customizeRandomModalizeRef}
+        {...{ onApply, onClear, isFilterActive, filtersRef }}
+      />
     </DictionarySafeAreaContainer>
   )
 }

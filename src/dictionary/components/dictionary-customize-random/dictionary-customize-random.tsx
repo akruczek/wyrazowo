@@ -3,6 +3,8 @@ import { Modalize } from 'react-native-modalize'
 import { LettersSlider } from '../../../core/letters-slider/letters-slider'
 import { CustomButton } from '../../../core/custom-button/custom-button'
 import { COLOR } from '../../../core/colors/colors.constants'
+import { DictionaryRandomFiltersModel } from '../../dictionary.models'
+import { useForceUpdate } from '../../../core/hooks/use-force-update.hook'
 import {
   DictionaryCustomizeRandomButtonsContainer, DictionaryCustomizeRandomContainer,
   DictionaryCustomizeRandomFilterButtonIcon, DictionaryCustomizeRandomClearButtonIcon,
@@ -10,12 +12,23 @@ import {
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize> | null;
+  isFilterActive: boolean;
+  filtersRef: React.MutableRefObject<null | DictionaryRandomFiltersModel>;
   onApply: (minMax: [ number, number ]) => void;
   onClear: () => void;
 }
 
-export const DictionaryCustomizeRandom = ({ modalizeRef, onApply, onClear }: Props) => {
-  const DEFAULT_SLIDER_VALUES: [ number, number, number, number ] = [ 15, 2, 15, 15 ]
+export const DictionaryCustomizeRandom = ({ modalizeRef, isFilterActive, filtersRef, onApply, onClear }: Props) => {
+  const forceUpdate = useForceUpdate()
+
+  const DEFAULT_SLIDER_VALUES: [ number, number, number, number, number ] = [
+    filtersRef?.current?.minMax?.[0] ?? 2,
+    filtersRef?.current?.minMax?.[1] ?? 15,
+    2,
+    15,
+    15,
+  ]
+
   const minMaxRef = React.useRef<[ number, number ] | null>(null)
 
   const onChangeMinMax = (minMax: [ number, number ]) => {
@@ -25,18 +38,20 @@ export const DictionaryCustomizeRandom = ({ modalizeRef, onApply, onClear }: Pro
   const handleApply = () => {
     modalizeRef?.current?.close?.()
 
-    if (minMaxRef.current) {
-      onApply(minMaxRef.current)
-    }
+    setTimeout(() => {
+      if (minMaxRef.current) {
+        onApply(minMaxRef.current)
+      }
+    })
   }
 
   const handleClear = () => {
     modalizeRef?.current?.close?.()
-    onClear()
+    setTimeout(onClear)
   }
 
   return (
-    <Modalize adjustToContentHeight ref={modalizeRef}>
+    <Modalize onOpen={forceUpdate} adjustToContentHeight ref={modalizeRef}>
       <DictionaryCustomizeRandomContainer>
         <LettersSlider onChange={onChangeMinMax} defaultValues={DEFAULT_SLIDER_VALUES} />
 
@@ -45,9 +60,11 @@ export const DictionaryCustomizeRandom = ({ modalizeRef, onApply, onClear }: Pro
             <DictionaryCustomizeRandomFilterButtonIcon />
           </CustomButton>
 
-          <CustomButton invisible={false} onPress={handleClear} color={COLOR.FIRE_BRICK} withHaptic>
-            <DictionaryCustomizeRandomClearButtonIcon />
-          </CustomButton>
+          {isFilterActive ? (
+            <CustomButton invisible={false} onPress={handleClear} color={COLOR.FIRE_BRICK} withHaptic>
+              <DictionaryCustomizeRandomClearButtonIcon />
+            </CustomButton>
+          ) : null}
         </DictionaryCustomizeRandomButtonsContainer>
       </DictionaryCustomizeRandomContainer>
     </Modalize>

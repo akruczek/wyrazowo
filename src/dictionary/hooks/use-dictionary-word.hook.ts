@@ -4,6 +4,7 @@ import { Modalize } from 'react-native-modalize'
 import { allWordsByLength } from '../../dashboard/helpers/find-possible-words.helper'
 import { longWordsByLength } from '../../dashboard/helpers/find-possible-long-words.helper'
 import { DictionaryRandomFiltersModel } from '../dictionary.models'
+import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
 
 interface UseDictionaryWord {
   state: boolean | null;
@@ -25,6 +26,8 @@ export const useDictionaryWord = (
   const [ isPending, setPending ] = React.useState(false)
   const [ wordFromDB, setWordFromDB ] = React.useState<null | string>(null)
 
+  const { triggerHaptic } = useHapticFeedback()
+
   const filterRandomResults = (word: string) => {
     if (filtersRef.current?.minMax) {
       return word.length >= filtersRef.current?.minMax[0] && word.length <= filtersRef.current?.minMax[1]
@@ -34,6 +37,7 @@ export const useDictionaryWord = (
   }
 
   const handlePressRandom = () => {
+    triggerHaptic()
     setPending(true)
     setWord('')
     setState(null)
@@ -91,6 +95,7 @@ export const useDictionaryWord = (
   }
 
   const handleLongPressRandom = () => {
+    triggerHaptic()
     customizeRandomModalizeRef?.current?.open?.()
   }
 

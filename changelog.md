@@ -1,3 +1,11 @@
+## 0.11.1
+### Improved
+- Dictionary random filters haptic feedback
+- Dictionary random filters UX improvements
+
+### Fixed
+- More tab labels
+
 ## 0.11.0
 ### Added
 - Dictionary random result min-max filter

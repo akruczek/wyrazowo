@@ -12,7 +12,7 @@ interface UseLettersSlider {
 
 export const useLettersSlider = (
   onChange: (minMax: [ number, number ]) => void,
-  [ defaultValue, defaultMin, defaultMax, blockMax ]: [ number, number, number, number ] | [],
+  [ defaultValueMin, defaultValueMax, defaultMin, defaultMax, blockMax ]: [ number, number, number, number, number ] | [],
 ): UseLettersSlider => {
   const alertDebounceTimeRef = React.useRef(new Date().getTime())
 
@@ -20,8 +20,8 @@ export const useLettersSlider = (
   const DEFAULT_MAX = defaultMax ?? 14
   const BLOCK_MAX = blockMax ?? 9
 
-  const [ min, setMin ] = React.useState(DEFAULT_MIN)
-  const [ max, setMax ] = React.useState(defaultValue ?? 8)
+  const [ min, setMin ] = React.useState(defaultValueMin ?? DEFAULT_MIN)
+  const [ max, setMax ] = React.useState(defaultValueMax ?? 8)
 
   const onValueChanged = (_min: number, _max: number) => {
     if (_max <= BLOCK_MAX) {
