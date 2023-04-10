@@ -1,7 +1,9 @@
 import * as React from 'react'
 import * as R from 'ramda'
+import { Modalize } from 'react-native-modalize'
 import { allWordsByLength } from '../../dashboard/helpers/find-possible-words.helper'
 import { longWordsByLength } from '../../dashboard/helpers/find-possible-long-words.helper'
+import { DictionaryRandomFiltersModel } from '../dictionary.models'
 
 interface UseDictionaryWord {
   state: boolean | null;
@@ -9,15 +11,27 @@ interface UseDictionaryWord {
   wordFromDB: string | null;
   word: string;
   handlePressRandom: () => void;
+  handleLongPressRandom: () => void;
   handleChange: (_word: string) => void;
   onSearch: () => void;
 }
 
-export const useDictionaryWord = (): UseDictionaryWord => {
+export const useDictionaryWord = (
+  customizeRandomModalizeRef: React.MutableRefObject<Modalize>,
+  filtersRef: React.MutableRefObject<DictionaryRandomFiltersModel | null>
+): UseDictionaryWord => {
   const [ word, setWord ] = React.useState('')
   const [ state, setState ] = React.useState<boolean | null>(null)
   const [ isPending, setPending ] = React.useState(false)
   const [ wordFromDB, setWordFromDB ] = React.useState<null | string>(null)
+
+  const filterRandomResults = (word: string) => {
+    if (filtersRef.current?.minMax) {
+      return word.length >= filtersRef.current?.minMax[0] && word.length <= filtersRef.current?.minMax[1]
+    }
+
+    return true
+  }
 
   const handlePressRandom = () => {
     setPending(true)
@@ -29,7 +43,8 @@ export const useDictionaryWord = (): UseDictionaryWord => {
       const getWords = (words: string[]) => words
         .map((str: string) => str.length > 0 ? str.split(',') : null)
         .filter((elements: string[] | null) => elements !== null)
-        .flat() as string[]
+        .flat<any, number>()
+        .filter(filterRandomResults)
   
       const allWords = [ ...getWords(allWordsByLength), ...getWords(longWordsByLength) ]
       const random = Math.floor(Math.random() * allWords.length)
@@ -75,5 +90,9 @@ export const useDictionaryWord = (): UseDictionaryWord => {
     })
   }
 
-  return { state, word, isPending, wordFromDB, handlePressRandom, handleChange, onSearch }
+  const handleLongPressRandom = () => {
+    customizeRandomModalizeRef?.current?.open?.()
+  }
+
+  return { state, word, isPending, wordFromDB, handlePressRandom, handleLongPressRandom, handleChange, onSearch }
 }

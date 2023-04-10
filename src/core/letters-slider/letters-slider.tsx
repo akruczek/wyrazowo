@@ -9,10 +9,11 @@ import {
 
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
+  defaultValues: [ number, number, number, number ] | [],
 }
 
-export const LettersSlider = ({ onChange }: Props) => {
-  const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange)
+export const LettersSlider = ({ onChange, defaultValues }: Props) => {
+  const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   return (
     <LetterSliderContainer>

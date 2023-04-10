@@ -1,3 +1,7 @@
+## 0.11.0
+### Added
+- Dictionary random result min-max filter
+
 ## 0.10.1
 ### Improved
 - Status bar colors handling on dashboard and dictionary screens

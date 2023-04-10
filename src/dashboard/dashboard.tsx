@@ -61,7 +61,7 @@ export const Dashboard = () => {
 
         <View>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
-          <LettersSlider onChange={onLengthChange} />
+          <LettersSlider onChange={onLengthChange} defaultValues={[]} />
 
           <DashboardButtonsContainer>
             <CustomButton

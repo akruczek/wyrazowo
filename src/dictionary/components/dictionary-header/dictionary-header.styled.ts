@@ -64,3 +64,15 @@ export const DictionaryRandomWordButtonContainer = styled.TouchableOpacity.attrs
   justify-content: center;
   align-items: center;
 `
+
+export const DictionaryRandomWordButtonFilterCircle = styled.View`
+  position: absolute;
+  z-index: 1;
+  elevation: 1;
+  left: -2px;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 8px;
+  background-color: ${COLOR.FIRE_BRICK};
+`
