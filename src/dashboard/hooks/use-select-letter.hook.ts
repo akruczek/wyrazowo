@@ -3,6 +3,9 @@ import * as R from 'ramda'
 import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '../../core/alerts/go-premium-alert'
 import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
+import { useNavigation } from '@react-navigation/native'
+import { SCREEN } from '../../navigation/navigation.constants'
+import { useIsPremium } from '../../core/hooks/use-is-premium.hook'
 
 interface UseSelectLetter {
   letters: string[];
@@ -15,7 +18,11 @@ interface UseSelectLetter {
 
 export const useSelectLetter = (): UseSelectLetter => {
   const MAX_SELECTED_LETTERS = 14
-  const MAX_NO_PREMIUM_SELECTED_LETTERS = 9
+
+  const isPremium = useIsPremium()
+
+  const MAX_NO_PREMIUM_SELECTED_LETTERS = isPremium ? 14 : 9
+  const navigation = useNavigation<any>()
 
   const [ selectedLetters, updateSelectedLetters ] = React.useState<string[]>([])
 
@@ -30,8 +37,9 @@ export const useSelectLetter = (): UseSelectLetter => {
     triggerHaptic()
 
     if (hasMaxNoPremiumSelectedLetters) {
-      // TODO: Go Premium
-      goPremiumAlert()
+      goPremiumAlert(() => {
+        navigation.navigate(SCREEN.MORE)
+      })
     } else if (hasMaxSelectedLetters) {
       updateSelectedLetters(R.append(letter, selectedLetters))
     }

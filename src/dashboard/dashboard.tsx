@@ -18,18 +18,20 @@ import { SearchHistoryModal } from './components/search-history-modal/search-his
 import { useRehydrateStore } from '../core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '../core/storage/storage.constants'
 import {
-  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction,
+  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setPremiumAction,
 } from '../settings/store/settings.slice'
 import {
   ClearLettersButtonIcon, DashboardButtonsContainer, DashboardHost, DashboardSafeArea,
   DashboardStatusBar, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
+import { useIsPremium } from '../core/hooks/use-is-premium.hook'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)
 
   useRehydrateStore(STORAGE_KEY.HAPTIC_FEEDBACK_ENABLED, setHapticFeedbackEnabledAction)
   useRehydrateStore(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, setNativeSearchEngineEnabledAction)
+  useRehydrateStore(STORAGE_KEY.PREMIUM, setPremiumAction)
 
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
 
@@ -53,6 +55,12 @@ export const Dashboard = () => {
     }, 200)
   }
 
+  const isPremium = useIsPremium()
+
+  const sliderDefaultValues: [ number, number, number, number, number ] = [
+    2, 8, 2, 14, isPremium ? 14 : 9,
+  ]
+
   return React.useMemo(() => (
     <DashboardHost>
       <DashboardSafeArea>
@@ -61,7 +69,7 @@ export const Dashboard = () => {
 
         <View>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
-          <LettersSlider onChange={onLengthChange} defaultValues={[]} />
+          <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
 
           <DashboardButtonsContainer>
             <CustomButton

@@ -5,11 +5,12 @@ interface Props {
   state?: boolean | null;
   value: string;
   maxLength?: number;
+  placeholder?: string;
   autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words';
   onChange: (value: string) => void;
 }
 
-export const CustomTextInput = ({ value, state, maxLength, autoCapitalize, onChange }: Props) => {
+export const CustomTextInput = ({ value, state, maxLength, autoCapitalize, placeholder, onChange }: Props) => {
   return (
     <CustomTextInputStyled
       maxLength={maxLength}
@@ -17,6 +18,7 @@ export const CustomTextInput = ({ value, state, maxLength, autoCapitalize, onCha
       state={state}
       onChangeText={onChange}
       autoCapitalize={autoCapitalize}
+      placeholder={placeholder}
     />
   )
 }

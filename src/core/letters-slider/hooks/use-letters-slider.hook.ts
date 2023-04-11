@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Alert, InteractionManager } from 'react-native'
 import { goPremiumAlert } from '../../alerts/go-premium-alert'
+import { useNavigation } from '@react-navigation/native'
+import { SCREEN } from '../../../navigation/navigation.constants'
 
 interface UseLettersSlider {
   min: number;
@@ -14,6 +15,7 @@ export const useLettersSlider = (
   onChange: (minMax: [ number, number ]) => void,
   [ defaultValueMin, defaultValueMax, defaultMin, defaultMax, blockMax ]: [ number, number, number, number, number ] | [],
 ): UseLettersSlider => {
+  const navigation = useNavigation<any>()
   const alertDebounceTimeRef = React.useRef(new Date().getTime())
 
   const DEFAULT_MIN = defaultMin ?? 2
@@ -29,14 +31,16 @@ export const useLettersSlider = (
       setMax(_max)
       onChange([ _min, _max ])
     } else {
-      // TODO: Go Premium
-
       setMin(_min)
       setMax(BLOCK_MAX)
       onChange([ _min, BLOCK_MAX ])
 
       if (new Date().getTime() - alertDebounceTimeRef.current > 3000) {
-        setTimeout(goPremiumAlert, 1000)
+        setTimeout(() => {
+          goPremiumAlert(() => {
+            navigation.navigate(SCREEN.MORE)
+          })
+        }, 1000)
       }
 
       alertDebounceTimeRef.current = new Date().getTime()

@@ -29,9 +29,10 @@ export const WordsGroupHeadline = styled.Text`
   margin-bottom: 5px;
 `
 
-export const PossibleWordsLetterCardsContainer = styled.View`
-  flex-direction: row;
-`
+export const PossibleWordsLetterCardsContainer = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})``
 
 export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
   name: 'cancel',

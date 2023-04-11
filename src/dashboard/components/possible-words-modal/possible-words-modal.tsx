@@ -65,7 +65,7 @@ export const PossibleWordsModal = ({
                   <WordsGroupHeadline children={`${wordsGroup[0].length} LETTERS`} />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
-                    <PossibleWordsLetterCardsContainer key={word}>
+                    <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>
                       {word.toUpperCase().split('').map((letter: string, index: number) => (
                         <LetterCard
                           key={`letter-card-${letter}-${index}`}

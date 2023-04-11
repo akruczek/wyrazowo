@@ -1,3 +1,10 @@
+## 0.12.0
+### Added
+- Premium plan activation via premium codes - no more limitations!
+
+### Improved
+- Android status bar UI
+
 ## 0.11.1
 ### Improved
 - Dictionary random filters haptic feedback

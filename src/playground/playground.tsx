@@ -10,6 +10,7 @@ import {
   PlaygroundBottomContainer,
   PlaygroundFlatList,
   PlaygroundSafeArea,
+  PlaygroundStatusBar,
 } from './playground.styled'
 
 export const Playground = () => {
@@ -53,6 +54,7 @@ export const Playground = () => {
 
   return (
     <PlaygroundSafeArea>
+      <PlaygroundStatusBar />
       <Zoom maximumZoomScale={PLAYGROUND_SPACING_MULTIPLIER}>
         <View ref={ref}>
           <PlaygroundFlatList

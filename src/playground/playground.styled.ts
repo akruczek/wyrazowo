@@ -1,10 +1,12 @@
 import styled from 'styled-components/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLOR } from '../core/colors/colors.constants'
+import { FocusAwareStatusBar } from '../core/focus-aware-status-bar/focus-aware-status-bar'
 
 export const PlaygroundSafeArea = styled(SafeAreaView)`
   justify-content: space-between;
   height: 100%;
+  background-color: ${COLOR.WHITE_SMOKE};
 `
 
 export const PlaygroundFlatList = styled.FlatList.attrs({
@@ -22,3 +24,9 @@ export const PlaygroundBottomContainer = styled.View`
   background-color: ${COLOR.WHITE_SMOKE};
   justify-content: center;
 `
+
+export const PlaygroundStatusBar = styled(FocusAwareStatusBar).attrs({
+  backgroundColor: COLOR.WHITE_SMOKE,
+  animated: true,
+  barStyle: 'dark-content',
+})``

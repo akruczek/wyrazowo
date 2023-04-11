@@ -16,6 +16,7 @@ export const DictionarySearchButtonContainer = styled.View`
 export const DictionaryTextInput = styled(CustomTextInput).attrs({
   autoCapitalize: 'characters',
   maxLength: 15,
+  placeholder: 'Search for word...',
 })``
 
 export const DictionaryStatusBar = styled(FocusAwareStatusBar).attrs({

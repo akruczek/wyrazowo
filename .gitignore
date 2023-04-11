@@ -64,3 +64,6 @@ yarn-error.log
 
 # Words database
 /src/assets/slowa*.ts
+
+# PREMIUM CODES
+/src/assets/premium-codes.ts
