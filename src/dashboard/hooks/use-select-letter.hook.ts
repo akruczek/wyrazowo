@@ -6,6 +6,8 @@ import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
 import { useNavigation } from '@react-navigation/native'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { useIsPremium } from '../../core/hooks/use-is-premium.hook'
+import { setSelectedLettersAction } from '../store/dashboard.slice'
+import { useDispatch } from 'react-redux'
 
 interface UseSelectLetter {
   letters: string[];
@@ -20,6 +22,7 @@ export const useSelectLetter = (): UseSelectLetter => {
   const MAX_SELECTED_LETTERS = 14
 
   const isPremium = useIsPremium()
+  const dispatch = useDispatch()
 
   const MAX_NO_PREMIUM_SELECTED_LETTERS = isPremium ? 14 : 9
   const navigation = useNavigation<any>()
@@ -32,6 +35,10 @@ export const useSelectLetter = (): UseSelectLetter => {
   const hasMaxNoPremiumSelectedLetters = selectedLetters?.length > MAX_NO_PREMIUM_SELECTED_LETTERS
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
+
+  React.useEffect(() => {
+    dispatch(setSelectedLettersAction(selectedLetters))
+  }, [ selectedLetters ])
 
   const handleSelectLetter = (letter: string) => {
     triggerHaptic()

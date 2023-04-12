@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { RESPONSIVE } from '../../../core/responsive/responsive'
 import { COLOR } from '../../../core/colors/colors.constants'
 import { TEXT_SIZE } from '../../../core/text/text.constants'
@@ -73,6 +74,38 @@ export const GestureLetterCardsPagingStateText = styled.Text<GestureLetterCardsA
   top: ${getGestureLetterCardsPagingStateText}px;
   right: 10px;
 `
+
+export const GestureLetterCardsUserSelectedLettersText = styled.Text<GestureLetterCardsArrowWrapperProps>`
+  font-size: ${TEXT_SIZE.S}px;
+  font-weight: bold;
+  color: ${COLOR.DIM_GREY};
+  position: absolute;
+  top: ${getGestureLetterCardsPagingStateText}px;
+  margin-top: -2.5px;
+  left: 31px;
+`
+
+export const GestureLetterCardsUserSelectedLettersIconContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    top: 2,
+    right: 30,
+    bottom: 2,
+    left: 5,
+  },
+})<GestureLetterCardsArrowWrapperProps>`
+  align-self: center;
+  position: absolute;
+  top: ${getGestureLetterCardsPagingStateText}px;
+  margin-top: -6px;
+  left: 5px;
+  z-index: 1;
+`
+
+export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'alpha-a-box',
+  color: COLOR.DIM_GREY,
+  size: 26,
+})``
 
 interface GestureLetterCardsBackgroundProps {
   topInset: number;
