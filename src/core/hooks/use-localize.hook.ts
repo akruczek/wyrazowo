@@ -7,8 +7,8 @@ import { languageCodeSelector } from '../../settings/store/settings.selectors'
 
 export const useLocalize = (): () => Localization => {
   const deviceLanguage = Platform.select({
-    ios: NativeModules.SettingsManager.settings.AppleLocale,
-    android: NativeModules.I18nManager.localeIdentifier,
+    ios: NativeModules?.SettingsManager?.settings?.AppleLocale,
+    android: NativeModules?.I18nManager?.localeIdentifier,
   })
 
   const _languageCode = useSelector(languageCodeSelector)
