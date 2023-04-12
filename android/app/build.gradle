@@ -26,8 +26,8 @@ android {
         applicationId "com.scrabblehelper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10010
-        versionName "1.1.0"
+        versionCode 10011
+        versionName "1.1.1"
     }
 
     splits {

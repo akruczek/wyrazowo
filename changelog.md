@@ -1,3 +1,7 @@
+## 1.1.1
+### Fixed
+- Android crash when locale identifier is not present
+
 ## 1.1.0
 ### Added
 - Possibility to force any language from more tab
