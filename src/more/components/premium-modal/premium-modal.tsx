@@ -6,6 +6,7 @@ import { premiumService } from '../../../core/premium-service/premium-service'
 import { CustomButton } from '../../../core/custom-button/custom-button'
 import { COLOR } from '../../../core/colors/colors.constants'
 import premiumCodes from '../../../assets/premium-codes'
+import { useLocalize } from '../../../core/hooks/use-localize.hook'
 import {
   PremiumModalButtonContainer, PremiumModalButtonIcon, PremiumModalContainer, PremiumModalTextInput,
 } from './premium-modal.styled'
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const PremiumModal = ({ modalizeRef }: Props) => {
+  const localize = useLocalize()
   const dispatch = useDispatch()
   const [ premiumCode, setPremiumCode ] = React.useState('')
   const [ state, setState ] = React.useState<boolean | null>(null)
@@ -37,7 +39,12 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
     <Portal>
       <Modalize ref={modalizeRef} adjustToContentHeight>
         <PremiumModalContainer>
-          <PremiumModalTextInput onChange={setPremiumCode} value={premiumCode} state={state} />
+          <PremiumModalTextInput
+            placeholder={`${localize().enter_premium_code}...`}
+            onChange={setPremiumCode}
+            value={premiumCode}
+            state={state}
+          />
 
           <PremiumModalButtonContainer>
             <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>

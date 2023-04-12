@@ -9,8 +9,11 @@ import { DictionaryButtons } from './components/dictionary-buttons/dictionary-bu
 import { DictionaryHeader } from './components/dictionary-header/dictionary-header'
 import { DictionaryCustomizeRandom } from './components/dictionary-customize-random/dictionary-customize-random'
 import { useDictionaryRandomFilters } from './hooks/use-dictionary-random-filters.hook'
+import { useLocalize } from '../core/hooks/use-localize.hook'
 
 export const Dictionary = () => {
+  const localize = useLocalize()
+
   const customizeRandomModalizeRef = React.useRef<Modalize & any>(null)
 
   const { top: topInset } = useSafeAreaInsets()
@@ -26,7 +29,12 @@ export const Dictionary = () => {
     <DictionarySafeAreaContainer>
       <DictionaryStatusBar />
       <DictionaryHeader {...{ topInset, handlePressRandom, isFilterActive, handleLongPressRandom }} />
-      <DictionaryTextInput onChange={handleChange} value={word} state={state} />
+      <DictionaryTextInput
+        placeholder={`${localize().search_for_word}...`}
+        onChange={handleChange}
+        value={word}
+        state={state}
+      />
       <DictionaryDefinitions {...{ isPending, wordFromDB, state, definitions }} />
       <DictionaryButtons onSearch={onSearch} />
       <DictionaryCustomizeRandom

@@ -16,8 +16,10 @@ import { Modalize } from 'react-native-modalize'
 import { MoreOption } from './more.models'
 import { useMoreOptions } from './hooks/use-more-options.hook'
 import { nativeSearchEngineEnabledSelector, premiumSelector } from '../settings/store/settings.selectors'
+import { useLocalize } from '../core/hooks/use-localize.hook'
 
 export const More = () => {
+  const localize = useLocalize()
   const { top: topInset } = useSafeAreaInsets()
 
   const premiumModalRef = React.useRef<Modalize | null>(null)
@@ -62,7 +64,10 @@ export const More = () => {
           data={getOptions()}
         />
 
-        <ListedOption titleSize={TEXT_SIZE.XS} title={`App version: ${app.version}`} />
+        <ListedOption
+          titleSize={TEXT_SIZE.XS}
+          title={`${localize().app_version}: ${app.version}`}
+        />
       </MoreContainer>
 
       <PremiumModal modalizeRef={premiumModalRef} />

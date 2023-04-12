@@ -10,7 +10,6 @@ export const PremiumModalContainer = styled.View`
 export const PremiumModalTextInput = styled(CustomTextInput).attrs({
   autoCapitalize: 'characters',
   maxLength: 15,
-  placeholder: 'Enter Premium Code',
 })``
 
 export const PremiumModalButtonContainer = styled.View`

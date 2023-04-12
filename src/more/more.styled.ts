@@ -8,11 +8,16 @@ interface MoreContainerProps {
   topInset: number;
 }
 
+const getMoreContainerPaddingTop = R.pipe(
+  R.propOr(0, 'topInset'),
+  R.add(10),
+)
+
 export const MoreContainer = styled.View<MoreContainerProps>`
   padding: 10px;
   flex: 1;
   background-color: ${COLOR.WHITE_SMOKE};
-  margin-top: ${R.propOr(0, 'topInset')}px;
+  padding-top: ${getMoreContainerPaddingTop}px;
 `
 
 export const MoreDisplayText = styled.Text`

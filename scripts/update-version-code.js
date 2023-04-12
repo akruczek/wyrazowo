@@ -9,18 +9,18 @@ fs.readFile('../package.json', 'utf8', (readPackageJsonError, packageJsonData) =
   const newVersion = process.argv[process.argv.length - 1]
 
   const oldVersionCode = [
+    Number(newVersion.split('.')[0]) * 100,
     oldVersion.split('.')[1],
-    oldVersion.split('.')[0],
     oldVersion.split('.')[2],
   ].join('')
 
   const newVersionCode = [
+    Number(newVersion.split('.')[0]) * 100,
     newVersion.split('.')[1],
-    newVersion.split('.')[0],
     newVersion.split('.')[2],
   ].join('')
 
-  console.log(`Updating: ${oldVersion} -> ${newVersion}`)
+  console.log(`Updating: ${oldVersion} (${oldVersionCode}) -> ${newVersion} (${newVersionCode})`)
 
   const newPackageJsonData = packageJsonData.replace(`"version": "${oldVersion}",`, `"version": "${newVersion}",`)
 

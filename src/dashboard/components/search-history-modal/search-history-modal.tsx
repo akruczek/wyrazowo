@@ -51,6 +51,7 @@ export const SearchHistoryModal = ({
               <SearchHistoryModalItem {...{ item, soapCharactersIndexes }} />
             )}
             data={searchHistory}
+            initialNumToRender={10}
             scrollEnabled={false}
           />
         </SearchHistoryModalContainer>

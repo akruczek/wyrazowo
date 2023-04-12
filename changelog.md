@@ -1,3 +1,16 @@
+## 1.0.0
+### Added
+- Full English and Polish languages support
+
+### Fixed
+- iOS status bar color on more tab
+
+### Improved
+- iOS native search engine optimization
+- Search history optimization
+- Dictionary UX improvements
+- Letter Cards UI improvements
+
 ## 0.12.0
 ### Added
 - Premium plan activation via premium codes - no more limitations!

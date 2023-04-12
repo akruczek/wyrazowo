@@ -53,7 +53,7 @@ const getLetterCardContainerBackgroundColor = R.ifElse(
 const getLetterCardBorderColor = R.ifElse(
   R.propSatisfies(Boolean, 'isSelected'),
   R.always(COLOR.DARK_RED),
-  R.always(COLOR.DIM_GREY),
+  R.always(COLOR.DIM_GREY_LIGHTER),
 )
 
 const LetterCardContainerMarginRight = R.ifElse(

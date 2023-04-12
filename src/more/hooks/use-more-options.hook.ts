@@ -10,6 +10,7 @@ import { STORAGE_KEY } from '../../core/storage/storage.constants'
 import { hapticFeedbackEnabledSelector } from '../../settings/store/settings.selectors'
 import { deactivatePremiumAlert } from '../../core/alerts/deactivate-premium-alert'
 import { premiumService } from '../../core/premium-service/premium-service'
+import { useLocalize } from '../../core/hooks/use-localize.hook'
 import {
   setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction,
 } from '../../settings/store/settings.slice'
@@ -32,6 +33,7 @@ export const useMoreOptions = (
   premium: number,
 ): UseMoreOptions => {
   const dispatch = useDispatch()
+  const localize = useLocalize()
 
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
 
@@ -67,23 +69,23 @@ export const useMoreOptions = (
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: 'Premium',
+        title: localize().premium,
         icon: 'star',
         iconColor: isPremium ? COLOR.GOLD : COLOR.DIM_GREY,
         onChange: isPremium ? undefined : handleOpenPremiumModal,
       },
       {
-        title: 'Haptic feedback',
+        title: localize().haptic_feedback,
         value: !!hapticFeedbackEnabled,
         onChange: handleChangeHapticFeedback,
       },
       {
-        title: 'Native search engine',
+        title: localize().native_search_engine,
         value: !!nativeSearchEngineEnabled,
         onChange: handleChangeNativeSearchEngine,
       },
       {
-        title: 'Clear search history',
+        title: localize().clear_search_history,
         onChange: handleClearSearchHistory,
         icon: 'delete',
       }

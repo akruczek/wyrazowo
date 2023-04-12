@@ -11,6 +11,7 @@ import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
+import { useLocalize } from '../../../core/hooks/use-localize.hook'
 import {
   NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
   WordsGroupContainer, WordsGroupHeadline,
@@ -28,6 +29,7 @@ interface Props {
 export const PossibleWordsModal = ({
   possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
+  const localize = useLocalize()
   const { top: topInset } = useSafeAreaInsets()
   const wordDetailsModalRef = React.useRef<any>(null)
 
@@ -62,7 +64,7 @@ export const PossibleWordsModal = ({
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
                 <WordsGroupContainer key={wordsGroup.join('')}>
-                  <WordsGroupHeadline children={`${wordsGroup[0].length} LETTERS`} />
+                  <WordsGroupHeadline children={`${wordsGroup[0].length} ${localize().by_letters}`} />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>
