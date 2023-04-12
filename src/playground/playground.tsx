@@ -31,6 +31,11 @@ export const Playground = () => {
     setExtraData(d => d + 1)
   }
 
+  const handleClearPlayground = () => {
+    setSelectedLetters([])
+    setExtraData(d => d + 1)
+  }
+
   const renderItem = React.useCallback(({ item, index }: { item: PlaygroundFieldModel, index: number }) => (
     <PlaygroundField {...item} onPress={handleRemoveSelectedLetter} {...{ index, fieldRefs, selectedLetters }} />
   ), [ extraData ])
@@ -72,7 +77,7 @@ export const Playground = () => {
       </Zoom>
 
       <PlaygroundBottomContainer>
-        <GestureLettersGrid {...{ onDragRelease, userSelectedLetters }} />
+        <GestureLettersGrid {...{ onDragRelease, userSelectedLetters, selectedLetters, handleClearPlayground }} />
       </PlaygroundBottomContainer>
     </PlaygroundSafeArea>
   )

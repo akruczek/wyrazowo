@@ -9,7 +9,11 @@ import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexe
 import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
 import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
 import { SCREEN } from '../../../navigation/navigation.constants'
+import { CustomButton } from '../../../core/custom-button/custom-button'
+import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/dashboard.styled'
+import { COLOR } from '../../../core/colors/colors.constants'
 import {
+  GestureLetterButtonsContainer,
   GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper, GestureLetterCardsContainer,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper, GestureLetterCardsUserSelectedLettersIcon,
   GestureLetterCardsUserSelectedLettersIconContainer, GestureLetterCardsUserSelectedLettersText,
@@ -17,11 +21,13 @@ import {
 
 interface Props {
   userSelectedLetters: string[];
+  selectedLetters: (string | null)[];
   onDragRelease: (letter: string) => (event: GestureResponderEvent, gestureState: PanResponderGestureState) => void;
+  handleClearPlayground: () => void;
 }
 
 export const GestureLettersGrid = ({
-  onDragRelease, userSelectedLetters
+  onDragRelease, handleClearPlayground, userSelectedLetters, selectedLetters,
 }: Props) => {
   const navigation = useNavigation<any>()
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
@@ -34,6 +40,25 @@ export const GestureLettersGrid = ({
 
   const handleNavigateToDashboard = () => {
     navigation.navigate(SCREEN.DASHBOARD)
+  }
+
+  const handleSearchPossibleCombinations = () => {
+    const columns = R.times((index: number) =>
+      R.pipe(
+        R.times((i: number) => selectedLetters[index + (i * 15)]),
+        R.join('')
+      )(15)
+    )(15)
+
+    const rows = R.times((index: number) =>
+      R.pipe(
+        R.times((i: number) => selectedLetters[i + (index * 15)]),
+        R.join('')
+      )(15)
+    )(15)
+
+    console.log('columns: ', columns)
+    console.log('rows: ', rows)
   }
 
   return (
@@ -77,6 +102,20 @@ export const GestureLettersGrid = ({
         icon="arrow-down"
         Wrapper={GestureLetterCardsBottomArrowWrapper}
       />
+
+      <GestureLetterButtonsContainer>
+        <CustomButton color={COLOR.DODGER_BLUE} onPress={handleSearchPossibleCombinations}>
+          <SearchButtonIcon />
+        </CustomButton>
+
+        <CustomButton
+          color={COLOR.FIRE_BRICK}
+          onPress={handleClearPlayground}
+          invisible={!selectedLetters.length}
+        >
+          <ClearLettersButtonIcon />
+        </CustomButton>
+      </GestureLetterButtonsContainer>
     </>
   )
 }

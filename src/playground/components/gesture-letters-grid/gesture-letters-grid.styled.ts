@@ -37,6 +37,7 @@ export const GestureLetterCardsTopArrowWrapper = styled.TouchableOpacity.attrs({
   position: absolute;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   top: ${getGestureLetterCardsTopArrowWrapper}px;
 `
 
@@ -59,6 +60,7 @@ export const GestureLetterCardsBottomArrowWrapper = styled.TouchableOpacity.attr
   position: absolute;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   top: ${getGestureLetterCardsBottomArrowWrapper}px;
 `
 
@@ -118,4 +120,12 @@ export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgr
   top: ${({ topInset, bottomInset }) => -(RESPONSIVE.HEIGHT() - RESPONSIVE.WIDTH() - BOTTOM_NAVIGATION_HEIGHT - topInset - bottomInset) + bottomInset + LETTER_CARD_DEFAULT_SIZE - 30}px;
   position: absolute;
   background-color: ${COLOR.WHITE_SMOKE};
+`
+
+export const GestureLetterButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
 `
