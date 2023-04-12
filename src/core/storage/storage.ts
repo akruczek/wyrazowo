@@ -17,4 +17,12 @@ export const Storage = {
       return null
     }
   },
+  remove: async (key: string): Promise<void | null> => {
+    try {
+      const result = await AsyncStorage.removeItem(`@${key}`)
+      return result
+    } catch (error) {
+      return null
+    }
+  },
 }

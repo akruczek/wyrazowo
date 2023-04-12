@@ -1,3 +1,4 @@
+import { LANGUAGE_CODES } from '../../core/localize/localize.models'
 import { RootState } from '../../store/store'
 
 export const hapticFeedbackEnabledSelector = (state: RootState) =>
@@ -8,3 +9,6 @@ export const nativeSearchEngineEnabledSelector = (state: RootState) =>
 
 export const premiumSelector = (state: RootState) =>
   state?.settings?.premium ?? 0
+
+export const languageCodeSelector = (state: RootState) =>
+  state?.settings?.languageCode ?? LANGUAGE_CODES.EN

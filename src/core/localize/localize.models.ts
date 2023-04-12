@@ -10,9 +10,11 @@ export interface Localization {
   no_definitions_found: 'no_definitions_found',
   by_letters: 'by_letters',
   load_more: 'load_more',
+  language: 'language',
 }
 
 export enum LANGUAGE_CODES {
   PL = 'pl',
   EN = 'en',
+  DE = 'de',
 }

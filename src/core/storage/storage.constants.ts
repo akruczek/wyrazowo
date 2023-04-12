@@ -3,4 +3,5 @@ export enum STORAGE_KEY {
   HAPTIC_FEEDBACK_ENABLED = 'hapticFeedbackEnabled',
   NATIVE_SEARCH_ENGINE_ENABLED = 'nativeSearchEngineEnabled',
   PREMIUM = 'premium',
+  LANGUAGE_CODE = 'languageCode',
 }

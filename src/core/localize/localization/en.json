@@ -7,7 +7,8 @@
   "app_version": "App version",
   "dictionary": "DICTIONARY",
   "search_for_word": "Search for word",
-  "no_definitions_found": "N o definitions found",
+  "no_definitions_found": "No definitions found",
   "by_letters": "letters",
-  "load_more": "Load more"
+  "load_more": "Load more",
+  "language": "Language"
 }

@@ -7,19 +7,21 @@ import { COLOR } from '../../core/colors/colors.constants'
 import { clearSearchHistoryAlert } from '../../core/alerts/clear-seearch-history-alert'
 import { Storage } from '../../core/storage/storage'
 import { STORAGE_KEY } from '../../core/storage/storage.constants'
-import { hapticFeedbackEnabledSelector } from '../../settings/store/settings.selectors'
+import { hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
 import { deactivatePremiumAlert } from '../../core/alerts/deactivate-premium-alert'
 import { premiumService } from '../../core/premium-service/premium-service'
 import { useLocalize } from '../../core/hooks/use-localize.hook'
+import { LANGUAGE_CODES } from '../../core/localize/localize.models'
 import {
-  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction,
+  setHapticFeedbackEnabledAction, setLanguageCodeAction, setNativeSearchEngineEnabledAction,
 } from '../../settings/store/settings.slice'
 
 type Options = [
-  MoreOption<any>,
+  MoreOption<undefined>,
+  MoreOption<LANGUAGE_CODES>,
   MoreOption<boolean>,
   MoreOption<boolean>,
-  MoreOption<any>,
+  MoreOption<undefined>,
 ] | []
 
 interface UseMoreOptions {
@@ -36,6 +38,7 @@ export const useMoreOptions = (
   const localize = useLocalize()
 
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
+  const languageCode = useSelector(languageCodeSelector)
 
   const isPending = R.any(
     R.isNil,
@@ -62,6 +65,10 @@ export const useMoreOptions = (
     })
   }
 
+  const handleChangeLanguage = (newLanguageCode: LANGUAGE_CODES) => {
+    dispatch(setLanguageCodeAction(newLanguageCode))
+  }
+
   const handleOpenPremiumModal = () => {
     premiumModalRef?.current?.open?.()
   }
@@ -73,6 +80,12 @@ export const useMoreOptions = (
         icon: 'star',
         iconColor: isPremium ? COLOR.GOLD : COLOR.DIM_GREY,
         onChange: isPremium ? undefined : handleOpenPremiumModal,
+      },
+      {
+        title: localize().language,
+        values: Object.values(LANGUAGE_CODES),
+        value: languageCode,
+        onChange: handleChangeLanguage,
       },
       {
         title: localize().haptic_feedback,
@@ -89,7 +102,7 @@ export const useMoreOptions = (
         onChange: handleClearSearchHistory,
         icon: 'delete',
       }
-    ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending ])
+    ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode ])
 
     return { handleDeactivatePremium, getOptions }
 }

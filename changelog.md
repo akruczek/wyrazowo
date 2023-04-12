@@ -1,3 +1,8 @@
+## 1.1.0
+### Added
+- Possibility to force any language from more tab
+- German language support
+
 ## 1.0.0
 ### Added
 - Full English and Polish languages support

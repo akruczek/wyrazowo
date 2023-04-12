@@ -12,7 +12,6 @@ export const ListedOption = ({ title, titleSize, children }: Props) => {
   return (
     <ListedOptionContainer>
       <ListedOptionHeadline titleSize={titleSize} children={title} />
-
       {children}
     </ListedOptionContainer>
   )
