@@ -1,5 +1,10 @@
 /**
- * Returns boolean when given arrays values are equal
+ * Returns true when given arrays values are equal, false otherwise
+ * @example
+ * ```typescript
+ * _o([ 'x', 'C', 'l' ]).compareJoined([ 'x', 'C', 'l' ]) //=> true
+ * _o([ 'x', 'C', 'l' ]).compareJoined([ 'x', 'c', 'l' ]) //=> false
+ * ```
  */
 
 export const compareJoined = <A, T>(

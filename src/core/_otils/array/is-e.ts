@@ -1,5 +1,10 @@
 /**
- * Returns boolean when given array is empty (length: 0)
+ * Equals true when given array is empty (length: 0), false otherwise
+ * @example
+ * ```typescript
+ * _o([]).isE        //=> true
+ * _o([ 1, 2 ]).isE  //=> false
+ * ```
  */
 
 export const isE = <T>(

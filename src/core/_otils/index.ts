@@ -1,12 +1,21 @@
+import { _OR } from './models'
 import { isE, compareJoined, filterByIndex, appendFirst, incl } from './array'
+import { ifElse } from './boolean'
 import { isNull, getTime } from './generic'
-import { _OArray, _OGeneric, _ONumber, _OR } from './models'
-import { gt, gte, lt, lte } from './number'
+import { gt, gte, lt, lte, inc } from './number'
 
 const _o = <A>(arg?: A): _OR<A> => {
-  const generic: _OGeneric = {
+  const generic = {
     isNull: isNull(arg),
     getTime,
+  }
+
+  // Boolean
+  if (typeof arg === 'boolean') {
+    return {
+      ifElse: <T, F>(onTrue: T, onFalse: F) => ifElse(onTrue, onFalse, arg),
+      ...generic
+    } as _OR<A>
   }
 
   // Array
@@ -28,6 +37,7 @@ const _o = <A>(arg?: A): _OR<A> => {
       lt: (value: number) => lt(value, arg),
       gte: (value: number) => gte(value, arg),
       lte: (value: number) => lte(value, arg),
+      inc: inc(arg),
       ...generic,
     } as _OR<A>
   }

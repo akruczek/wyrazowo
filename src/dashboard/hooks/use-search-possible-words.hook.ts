@@ -56,7 +56,7 @@ export const useSearchPossibleWords = (
 
     const searchWords = () => {
       findPossibleWords(selectedLetters, wordLengthRef.current, nativeSearchEngineEnabled).then((result: string[]) => {
-        if (!result.includes(NATIVE_DB_TAG)) {
+        if (!_o(result).incl(NATIVE_DB_TAG)) {
           resultsCallback(result)
         }
       })
