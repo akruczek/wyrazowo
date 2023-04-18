@@ -29,7 +29,7 @@ export const findPossibleWords = async (
   const LOGS_WORD_FILTER = ''
 
   const allWords = R.times(
-    (index: number) => (allWordsByLength[minLength + index] ?? longWordsByLength[minLength + index]).split(','),
+    (index: number) => (allWordsByLength[minLength + index] ?? longWordsByLength[minLength + index]).split('.'),
     maxLength - minLength + 1
   ).flat().reverse()
 
