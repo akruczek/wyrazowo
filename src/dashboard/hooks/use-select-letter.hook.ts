@@ -1,13 +1,15 @@
 import * as React from 'react'
 import * as R from 'ramda'
+import { useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
+import _o from '../../core/_otils'
 import { ALL_LETTERS_SORTED, LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '../../core/alerts/go-premium-alert'
 import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
-import { useNavigation } from '@react-navigation/native'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { useIsPremium } from '../../core/hooks/use-is-premium.hook'
 import { setSelectedLettersAction } from '../store/dashboard.slice'
-import { useDispatch } from 'react-redux'
+import { getSoapCharactersIndexes } from '../helpers/get-soap-characters-indexes.helper'
 
 interface UseSelectLetter {
   letters: string[];
@@ -31,8 +33,8 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   const { triggerHaptic } = useHapticFeedback()
 
-  const hasMaxSelectedLetters = selectedLetters?.length < MAX_SELECTED_LETTERS
-  const hasMaxNoPremiumSelectedLetters = selectedLetters?.length > MAX_NO_PREMIUM_SELECTED_LETTERS
+  const hasMaxSelectedLetters = _o(selectedLetters?.length).lt(MAX_SELECTED_LETTERS)
+  const hasMaxNoPremiumSelectedLetters = _o(selectedLetters?.length).gt(MAX_NO_PREMIUM_SELECTED_LETTERS)
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
@@ -61,20 +63,9 @@ export const useSelectLetter = (): UseSelectLetter => {
     updateSelectedLetters([])
   }
 
-  const soapCharactersIndexes = React.useCallback((word: string, _selectedLetters?: string[]) => {
-    let soapIndexes: number[] = []
-    let _letters = _selectedLetters ?? selectedLetters
-
-    word.toUpperCase().split('').filter((value: string) => value !== LETTER_SOAP).forEach((character: string, index: number) => {
-      if (_letters.includes(character)) {
-        _letters = R.remove(R.findIndex(R.equals(character), _letters), 1, _letters)
-      } else {
-        soapIndexes = R.append(index, soapIndexes)
-      }
-    })
-
-    return soapIndexes
-  }, [ selectedLetters ])
+  const soapCharactersIndexes = React.useCallback((word: string, _selectedLetters?: string[]) =>
+    getSoapCharactersIndexes(word, _selectedLetters ?? selectedLetters),
+  [ selectedLetters ])
 
   return {
     letters, selectedLetters,
