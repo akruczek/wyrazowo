@@ -2,14 +2,13 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { Modalize } from 'react-native-modalize'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { CustomButton } from '@core/custom-button/custom-button'
+import { COLOR } from '@core/colors/colors.constants'
+import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
+import { PaddingView } from '@core/styled/padding-view.styled'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { LettersGrid } from '../letters-grid/letters-grid'
-import { LETTER_EMPTY, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
-import { CustomButton } from '../../../core/custom-button/custom-button'
-import { COLOR } from '../../../core/colors/colors.constants'
-import {
-  SetSoapButtonIcon, SetSoapButtonIconContainer, SoapLetterModalContainer,
-} from './soap-letter-modal.styled'
+import { SetSoapButtonIcon, SoapLetterModalContainer } from './soap-letter-modal.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<any>;
@@ -67,7 +66,7 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
         />
       </SoapLetterModalContainer>
 
-      <SetSoapButtonIconContainer>
+      <PaddingView paddings={[ 0, 0, 20, 0 ]}>
         <CustomButton
           color={COLOR.DARK_SEA_GREEN}
           onPress={onSetSoapLetters}
@@ -75,7 +74,7 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
         >
           <SetSoapButtonIcon />
         </CustomButton>
-      </SetSoapButtonIconContainer>
+      </PaddingView>
     </Modalize>
   )
 }

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { genericLightShadow, genericTextShadow } from '../../../core/shadow/shadow.constants'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
-import { useLocalize } from '../../../core/hooks/use-localize.hook'
+import { genericLightShadow, genericTextShadow } from '@core/shadow/shadow.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { useLocalize } from '@core/hooks/use-localize.hook'
 import {
   DictionaryHeaderContainer, DictionaryHeaderText, DictionaryRandomWordButtonContainer,
   DictionaryRandomWordButtonFilterCircle,

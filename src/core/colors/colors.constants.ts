@@ -1,4 +1,5 @@
 export enum COLOR {
+  TRANSPARENT = 'transparent',
   WHITE = '#FFFFFF',
   BLACK = '#000000',
   WHITE_SMOKE = '#F5F5F5',

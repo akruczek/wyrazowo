@@ -4,22 +4,25 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
-import { MoreActivityIndicatorWrapper, MoreContainer, MoreStatusBar } from './more.styled'
-import { ListedOption } from './components/listed-option/listed-option'
-import { CustomSwitch } from '../core/custom-switch/custom-switch'
-import { TEXT_SIZE } from '../core/text/text.constants'
-import { COLOR } from '../core/colors/colors.constants'
-import { noop } from '../core/noop/noop'
 import { Host } from 'react-native-portalize'
-import { PremiumModal } from './components/premium-modal/premium-modal'
 import { Modalize } from 'react-native-modalize'
+import { CustomSwitch } from '@core/custom-switch/custom-switch'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { noop } from '@core/noop/noop'
+import { useLocalize } from '@core/hooks/use-localize.hook'
+import { MultiToggle } from '@core/multi-toggle/multi-toggle'
+import { LANGUAGE_CODES } from '@core/localize/localize.models'
+import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
+import { MarginView } from '@core/styled/margin-view.styled'
+import { PremiumModal } from './components/premium-modal/premium-modal'
 import { MoreOption } from './more.models'
 import { useMoreOptions } from './hooks/use-more-options.hook'
-import { languageCodeSelector, nativeSearchEngineEnabledSelector, premiumSelector } from '../settings/store/settings.selectors'
-import { useLocalize } from '../core/hooks/use-localize.hook'
-import { MultiToggle } from '../core/multi-toggle/multi-toggle'
-import { LANGUAGE_CODES } from '../core/localize/localize.models'
-import { LANGUAGE_LABELS } from '../core/localize/localize.constants'
+import { MoreContainer, MoreStatusBar } from './more.styled'
+import { ListedOption } from './components/listed-option/listed-option'
+import {
+  languageCodeSelector, nativeSearchEngineEnabledSelector, premiumSelector,
+} from '../settings/store/settings.selectors'
 
 export const More = () => {
   const localize = useLocalize()
@@ -80,9 +83,9 @@ export const More = () => {
         <FlatList
           renderItem={renderItem}
           ListEmptyComponent={(
-            <MoreActivityIndicatorWrapper>
+            <MarginView margins={[ 30, 0, 0, 0 ]}>
               <ActivityIndicator size="large" />
-            </MoreActivityIndicatorWrapper>
+            </MarginView>
           )}
           keyExtractor={({ title }) => title}
           extraData={[nativeSearchEngineEnabled, premium]}

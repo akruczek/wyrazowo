@@ -4,17 +4,18 @@ import { ActivityIndicator, Button, FlatList } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { LetterCard } from '../../../core/letter-card/letter-card'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { LetterCard } from '@core/letter-card/letter-card'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { useLocalize } from '@core/hooks/use-localize.hook'
+import { MarginView } from '@core/styled/margin-view.styled';
 import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
-import { useLocalize } from '../../../core/hooks/use-localize.hook'
 import {
-  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
-  WordsGroupContainer, WordsGroupHeadline,
+  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer,
+  SearchingDatabaseContainer, WordsGroupHeadline,
 } from './possible-words-modal.styled'
 
 interface Props {
@@ -63,7 +64,7 @@ export const PossibleWordsModal = ({
               scrollEnabled={false}
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <WordsGroupContainer key={wordsGroup.join('')}>
+                <MarginView margins={[ 0, 0, 10, 5 ]} key={wordsGroup.join('')}>
                   <WordsGroupHeadline children={`${wordsGroup[0].length} ${localize().by_letters}`} />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
@@ -81,7 +82,7 @@ export const PossibleWordsModal = ({
                       ))}
                     </PossibleWordsLetterCardsContainer>
                   ))}
-                </WordsGroupContainer>
+                </MarginView>
               )}
               ListFooterComponent={() => <PossibleWordsModalFooter onPress={loadMore} {...{ maxReached, isPending }} />}
             />

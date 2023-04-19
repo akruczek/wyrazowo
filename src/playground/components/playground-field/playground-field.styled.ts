@@ -1,9 +1,9 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { RESPONSIVE } from '@core/responsive/responsive'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
-import { RESPONSIVE } from '../../../core/responsive/responsive'
 
 const PLAYGROUND_FIELD_SPACING = 3
 export const PLAYGROUND_SPACING_MULTIPLIER = 2.2

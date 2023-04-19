@@ -1,8 +1,8 @@
 import * as React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { RESPONSIVE } from '../../../core/responsive/responsive'
-import { genericLightShadow } from '../../../core/shadow/shadow.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { RESPONSIVE } from '@core/responsive/responsive'
+import { genericLightShadow } from '@core/shadow/shadow.constants'
 
 interface Props {
   condition: boolean;

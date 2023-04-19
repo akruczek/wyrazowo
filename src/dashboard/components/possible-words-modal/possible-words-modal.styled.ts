@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const PossibleWordsContainer = styled.View`
   width: 100%;
@@ -16,11 +16,6 @@ export const SearchingDatabaseContainer = styled.View`
   padding: 10px;
   justify-content: center;
   align-items: center;
-`
-
-export const WordsGroupContainer = styled.View`
-  margin-bottom: 10px;
-  margin-left: 5px;
 `
 
 export const WordsGroupHeadline = styled.Text`
@@ -39,10 +34,6 @@ export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
   color: COLOR.SLATE_GREY,
   size: TEXT_SIZE.XXL * 2,
 })``
-
-export const PossibleWordsModalFooterContainer = styled.View`
-  padding-bottom: 30px;
-`
 
 export const PossibleWordsModalFooterButton = styled.TouchableOpacity`
   padding: 20px 50px;

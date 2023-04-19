@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { LettersSlider } from '../../../core/letters-slider/letters-slider'
-import { CustomButton } from '../../../core/custom-button/custom-button'
-import { COLOR } from '../../../core/colors/colors.constants'
+import { LettersSlider } from '@core/letters-slider/letters-slider'
+import { CustomButton } from '@core/custom-button/custom-button'
+import { useForceUpdate } from '@core/hooks/use-force-update.hook'
+import { COLOR } from '@core/colors/colors.constants'
 import { DictionaryRandomFiltersModel } from '../../dictionary.models'
-import { useForceUpdate } from '../../../core/hooks/use-force-update.hook'
 import {
   DictionaryCustomizeRandomButtonsContainer, DictionaryCustomizeRandomContainer,
   DictionaryCustomizeRandomFilterButtonIcon, DictionaryCustomizeRandomClearButtonIcon,

@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { LETTERS_1, LETTERS_2, LETTERS_3, LETTERS_5 } from '../../core/letter-card/letter-card.constants'
+import { LETTERS_1, LETTERS_2, LETTERS_3, LETTERS_5 } from '@core/letter-card/letter-card.constants'
 
 const mapCharacterToPoint = R.cond([
   [ R.includes(R.__, LETTERS_1), R.always(1) ],

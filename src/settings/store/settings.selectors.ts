@@ -1,4 +1,4 @@
-import { LANGUAGE_CODES } from '../../core/localize/localize.models'
+import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { RootState } from '../../store/store'
 
 export const hapticFeedbackEnabledSelector = (state: RootState) =>

@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { LetterCard } from '../../../core/letter-card/letter-card'
-import { SelectedLettersContainer, SelectedLettersContainersWrapper } from './selected-letters.styled'
-import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '../../../core/letter-card/letter-card.constants'
-import { RESPONSIVE } from '../../../core/responsive/responsive'
+import { LetterCard } from '@core/letter-card/letter-card'
+import { RESPONSIVE } from '@core/responsive/responsive'
+import { MarginView } from '@core/styled/margin-view.styled'
+import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
+import { SelectedLettersContainer } from './selected-letters.styled'
 
 interface Props {
   selectedLetters: string[];
@@ -13,7 +14,7 @@ export const SelectedLetters = ({ selectedLetters, handleDeselectLetter }: Props
   const getContent = (letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER) ? LETTER_SOAP : letter
 
   return (
-    <SelectedLettersContainersWrapper>
+    <MarginView margins={[ 0, 0, 10, 0 ]}>
       <SelectedLettersContainer>
         {selectedLetters.slice(0, 7).map((letter: string, index: number) => (
           <LetterCard
@@ -39,6 +40,6 @@ export const SelectedLetters = ({ selectedLetters, handleDeselectLetter }: Props
           />
         ))}
       </SelectedLettersContainer>
-    </SelectedLettersContainersWrapper>
+    </MarginView>
   )
 }

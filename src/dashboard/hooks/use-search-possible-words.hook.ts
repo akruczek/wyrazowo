@@ -1,10 +1,12 @@
 import * as React from 'react'
-import { Storage } from '../../core/storage/storage'
-import { STORAGE_KEY } from '../../core/storage/storage.constants'
-import { SearchResultModel } from '../../core/storage/storage.models'
+import { O } from '_otils'
+import { Storage } from '@core/storage/storage'
+import { STORAGE_KEY } from '@core/storage/storage.constants'
+import { SearchResultModel } from '@core/storage/storage.models'
 import { findPossibleWords } from '../helpers/find-possible-words.helper'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { useNativeDBEvents } from '../../native-db/hooks/use-native-sb-events.hook'
+import { updateStorageSearchResult } from '../helpers/update-storage-search-result.helper'
 
 interface UseSearchPossibleWords {
   possibleWords: string[];
@@ -30,25 +32,19 @@ export const useSearchPossibleWords = (
   const [ possibleWords, setPossibleWords ] = React.useState<string[]>([])
   const [ noWordsFound, setNoWordsFound ] = React.useState<boolean>(false)
 
-  const updateResult = (index: number, savedResults: SearchResultModel[]) => {
-    const newItem = { ...savedResults[index], timestamp: new Date().getTime() }
-    const updatedDataToSave = [ newItem, ...savedResults.filter((_, _index: number) => _index !== index) ]
-    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(updatedDataToSave))
-  }
-
   const saveResult = React.useCallback((result: string[]) => {
     const getDataToSave: () => SearchResultModel = () => ({
       wordLength: wordLengthRef.current,
-      timestamp: new Date().getTime(),
+      timestamp: O.getTime(),
       selectedLetters: selectedLettersRef.current,
       result,
     })
 
-    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([ getDataToSave(), ...savedResultRef.current ]))
+    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(O.appendFirst(getDataToSave(), savedResultRef.current)))
   }, [ selectedLetters ])
 
   const resultsCallback = (result: string[]) => {
-    setNoWordsFound(result?.length === 0)
+    setNoWordsFound(O.isE(result))
     setPossibleWords(result)
     saveResult(result)
   }
@@ -60,7 +56,7 @@ export const useSearchPossibleWords = (
 
     const searchWords = () => {
       findPossibleWords(selectedLetters, wordLengthRef.current, nativeSearchEngineEnabled).then((result: string[]) => {
-        if (!result.includes(NATIVE_DB_TAG)) {
+        if (!O.incl(NATIVE_DB_TAG, result)) {
           resultsCallback(result)
         }
       })
@@ -77,15 +73,15 @@ export const useSearchPossibleWords = (
         const _savedResultSelectedLetters = [ ...savedResult.selectedLetters ]
 
         return (
-          savedResult.wordLength.join('') === wordLengthRef.current.join('') &&
-          _selectedLetters.sort().join('') === _savedResultSelectedLetters.sort().join('')
+          O.compareJoined(savedResult.wordLength, wordLengthRef.current) &&
+          O.compareJoined(_selectedLetters.sort(), _savedResultSelectedLetters.sort())
         )
       })
 
       if (savedResults[resultAlreadySavedIndex]) {
-        setNoWordsFound(savedResults[resultAlreadySavedIndex].result.length === 0)
+        setNoWordsFound(O.isE(savedResults[resultAlreadySavedIndex].result))
         setPossibleWords(savedResults[resultAlreadySavedIndex].result)
-        updateResult(resultAlreadySavedIndex, savedResults)
+        updateStorageSearchResult(resultAlreadySavedIndex, savedResults)
       } else {
         searchWords()
       }
@@ -95,7 +91,7 @@ export const useSearchPossibleWords = (
   }, [ selectedLetters ])
 
   const onLengthChange = (minMax: [ number, number ]) => {
-    if (minMax.join('') !== wordLengthRef.current.join('')) {
+    if (!O.compareJoined(minMax, wordLengthRef.current)) {
       wordLengthRef.current = minMax
     }
   }

@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { fetchClient } from '../../core/fetch-client/fetch-client'
+import _o from '_otils';
+import { fetchClient } from '@core/fetch-client/fetch-client'
+import { SJP_BASE_PATH } from '@core/fetch-client/fetch-client.constants';
 import { parseSjpWordDetails } from '../helpers/parse-sjp-word-details.helper'
 
 interface UseWordDefinitions {
@@ -20,7 +22,7 @@ export const useWordDefinitions = (
 
     const onError = () => setDefinitions([])
 
-    fetchClient(`https://sjp.pl/${word}`).get(onSuccess, onError)
+    fetchClient(`${SJP_BASE_PATH}/${word}`).get(onSuccess, onError)
   }
 
   React.useEffect(() => {
@@ -28,7 +30,7 @@ export const useWordDefinitions = (
       fetchWordFromSjp()
     }
 
-    if (word === null) {
+    if (_o(word).isNull) {
       setDefinitions(null)
     }
   }, [ word ])

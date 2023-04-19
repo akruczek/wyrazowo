@@ -1,16 +1,10 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import LinearGradient from 'react-native-linear-gradient'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
 
 const DICTIONARY_HEADER_HEIGHT = 75
-
-export const DictionarySafeAreaContainer = styled(SafeAreaView)`
-  flex: 1;
-  background-color: ${COLOR.WHITE};
-`
 
 const getDictionaryHeaderHeight = R.pipe(
   R.propOr(0, 'topInset'),

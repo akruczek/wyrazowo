@@ -1,8 +1,8 @@
 import * as React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { LetterCard } from '../../../core/letter-card/letter-card'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { LetterCard } from '@core/letter-card/letter-card'
+import { TEXT_SIZE } from '@core/text/text.constants'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
 import { PlaygroundFieldBackgroundText, PLAYGROUND_FIELD_SIZE } from '../playground-field/playground-field.styled'
 

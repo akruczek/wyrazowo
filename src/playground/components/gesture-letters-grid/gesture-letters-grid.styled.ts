@@ -1,15 +1,11 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { RESPONSIVE } from '../../../core/responsive/responsive'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { RESPONSIVE } from '@core/responsive/responsive'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { LETTER_CARD_DEFAULT_SIZE } from '@core/letter-card/letter-card.styled'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
-import { LETTER_CARD_DEFAULT_SIZE } from '../../../core/letter-card/letter-card.styled'
-
-export const GestureLetterCardsContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-`
 
 interface GestureLetterCardsArrowWrapperProps {
   y: number;
@@ -36,6 +32,7 @@ export const GestureLetterCardsTopArrowWrapper = styled.TouchableOpacity.attrs({
   position: absolute;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   top: ${getGestureLetterCardsTopArrowWrapper}px;
 `
 
@@ -58,6 +55,7 @@ export const GestureLetterCardsBottomArrowWrapper = styled.TouchableOpacity.attr
   position: absolute;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   top: ${getGestureLetterCardsBottomArrowWrapper}px;
 `
 
@@ -74,6 +72,38 @@ export const GestureLetterCardsPagingStateText = styled.Text<GestureLetterCardsA
   right: 10px;
 `
 
+export const GestureLetterCardsUserSelectedLettersText = styled.Text<GestureLetterCardsArrowWrapperProps>`
+  font-size: ${TEXT_SIZE.S}px;
+  font-weight: bold;
+  color: ${COLOR.DIM_GREY};
+  position: absolute;
+  top: ${getGestureLetterCardsPagingStateText}px;
+  margin-top: -2.5px;
+  left: 31px;
+`
+
+export const GestureLetterCardsUserSelectedLettersIconContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    top: 2,
+    right: 30,
+    bottom: 2,
+    left: 5,
+  },
+})<GestureLetterCardsArrowWrapperProps>`
+  align-self: center;
+  position: absolute;
+  top: ${getGestureLetterCardsPagingStateText}px;
+  margin-top: -6px;
+  left: 5px;
+  z-index: 1;
+`
+
+export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'alpha-a-box',
+  color: COLOR.DIM_GREY,
+  size: 26,
+})``
+
 interface GestureLetterCardsBackgroundProps {
   topInset: number;
   bottomInset: number;
@@ -85,4 +115,12 @@ export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgr
   top: ${({ topInset, bottomInset }) => -(RESPONSIVE.HEIGHT() - RESPONSIVE.WIDTH() - BOTTOM_NAVIGATION_HEIGHT - topInset - bottomInset) + bottomInset + LETTER_CARD_DEFAULT_SIZE - 30}px;
   position: absolute;
   background-color: ${COLOR.WHITE_SMOKE};
+`
+
+export const GestureLetterButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
 `

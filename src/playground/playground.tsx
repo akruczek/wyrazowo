@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { GestureResponderEvent, View } from 'react-native'
 import { Zoom } from 'react-native-reanimated-zoom';
+import { useSelector } from 'react-redux'
+import { selectedLettersSelector } from '../dashboard/store/dashboard.selectors'
 import { GestureLettersGrid } from './components/gesture-letters-grid/gesture-letters-grid'
 import { PlaygroundField } from './components/playground-field/playground-field'
 import { PLAYGROUND_SPACING_MULTIPLIER } from './components/playground-field/playground-field.styled'
@@ -17,13 +19,20 @@ export const Playground = () => {
   const ref = React.useRef<View>(null)
   const fieldRefs: (View | null)[] = []
 
-  const [extraData, setExtraData] = React.useState<number>(0)
-  const [selectedLetters, setSelectedLetters] = React.useState<(string | null)[]>([])
+  const [ extraData, setExtraData ] = React.useState<number>(0)
+  const [ selectedLetters, setSelectedLetters ] = React.useState<(string | null)[]>([])
+
+  const userSelectedLetters = useSelector(selectedLettersSelector)
 
   const handleRemoveSelectedLetter = (index: number) => {
     const newSelectedLetters = selectedLetters
     newSelectedLetters[index] = null
     setSelectedLetters(newSelectedLetters)
+    setExtraData(d => d + 1)
+  }
+
+  const handleClearPlayground = () => {
+    setSelectedLetters([])
     setExtraData(d => d + 1)
   }
 
@@ -68,7 +77,7 @@ export const Playground = () => {
       </Zoom>
 
       <PlaygroundBottomContainer>
-        <GestureLettersGrid onDragRelease={onDragRelease} />
+        <GestureLettersGrid {...{ onDragRelease, userSelectedLetters, selectedLetters, handleClearPlayground }} />
       </PlaygroundBottomContainer>
     </PlaygroundSafeArea>
   )

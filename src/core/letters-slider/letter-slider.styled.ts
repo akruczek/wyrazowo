@@ -4,10 +4,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { TEXT_SIZE } from '../text/text.constants'
 import { COLOR } from '../colors/colors.constants'
 
-export const LetterSliderContainer = styled.View`
-  padding: 2px 10px;
-`
-
 export const LetterSliderBottomLabelBar = styled.View`
   flex-direction: row;
   justify-content: space-between;

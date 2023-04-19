@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Storage } from '../../core/storage/storage'
-import { STORAGE_KEY } from '../../core/storage/storage.constants'
-import { LANGUAGE_CODES } from '../../core/localize/localize.models'
+import { Storage } from '@core/storage/storage'
+import { STORAGE_KEY } from '@core/storage/storage.constants'
+import { LANGUAGE_CODES } from '@core/localize/localize.models'
 
 export interface SettingsState {
   hapticFeedbackEnabled: boolean;

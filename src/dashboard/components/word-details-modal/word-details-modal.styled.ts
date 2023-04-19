@@ -1,6 +1,6 @@
-import { TEXT_SIZE } from '../../../core/text/text.constants'
 import styled from 'styled-components/native'
-import { COLOR } from '../../../core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
 
 export const WordDetailsModalContainer = styled.View`
   width: 100%;
@@ -26,8 +26,4 @@ export const WordDetailsDefinitionText = styled.Text`
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
-`
-
-export const WordDetailsDefinitionsContainer = styled.View`
-  margin-top: 10px;
 `

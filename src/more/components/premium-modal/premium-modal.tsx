@@ -2,14 +2,14 @@ import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { Portal } from 'react-native-portalize'
 import { useDispatch } from 'react-redux'
-import { premiumService } from '../../../core/premium-service/premium-service'
-import { CustomButton } from '../../../core/custom-button/custom-button'
-import { COLOR } from '../../../core/colors/colors.constants'
-import premiumCodes from '../../../assets/premium-codes'
-import { useLocalize } from '../../../core/hooks/use-localize.hook'
-import {
-  PremiumModalButtonContainer, PremiumModalButtonIcon, PremiumModalContainer, PremiumModalTextInput,
-} from './premium-modal.styled'
+import { premiumService } from '@core/premium-service/premium-service'
+import { CustomButton } from '@core/custom-button/custom-button'
+import { COLOR } from '@core/colors/colors.constants'
+import { useLocalize } from '@core/hooks/use-localize.hook'
+import { MarginView } from '@core/styled/margin-view.styled'
+import { PaddingView } from '@core/styled/padding-view.styled'
+import premiumCodes from '../../../assets/premium-codes.json'
+import { PremiumModalButtonIcon, PremiumModalTextInput } from './premium-modal.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize | null>;
@@ -38,7 +38,7 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
   return (
     <Portal>
       <Modalize ref={modalizeRef} adjustToContentHeight>
-        <PremiumModalContainer>
+        <PaddingView paddings={[ 0, 0, 50, 0 ]}>
           <PremiumModalTextInput
             placeholder={`${localize().enter_premium_code}...`}
             onChange={setPremiumCode}
@@ -46,12 +46,12 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
             state={state}
           />
 
-          <PremiumModalButtonContainer>
+          <MarginView margins={[ 20, 0, 0, 0 ]}>
             <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>
               <PremiumModalButtonIcon />
             </CustomButton>
-          </PremiumModalButtonContainer>
-        </PremiumModalContainer>
+          </MarginView>
+        </PaddingView>
       </Modalize>
     </Portal>
   )

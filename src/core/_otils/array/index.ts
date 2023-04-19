@@ -1,0 +1,5 @@
+export { isE } from './is-e'
+export { compareJoined } from './compare-joined'
+export { appendFirst } from './append-first'
+export { filterByIndex } from './filter-by-index'
+export { incl } from './incl'

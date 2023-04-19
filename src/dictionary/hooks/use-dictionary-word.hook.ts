@@ -4,7 +4,7 @@ import { Modalize } from 'react-native-modalize'
 import { allWordsByLength } from '../../dashboard/helpers/find-possible-words.helper'
 import { longWordsByLength } from '../../dashboard/helpers/find-possible-long-words.helper'
 import { DictionaryRandomFiltersModel } from '../dictionary.models'
-import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
+import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
 
 interface UseDictionaryWord {
   state: boolean | null;
@@ -45,7 +45,7 @@ export const useDictionaryWord = (
 
     setTimeout(() => {
       const getWords = (words: string[]) => words
-        .map((str: string) => str.length > 0 ? str.split(',') : null)
+        .map((str: string) => str.length > 0 ? str.split('.') : null)
         .filter((elements: string[] | null) => elements !== null)
         .flat<any, number>()
         .filter(filterRandomResults)
@@ -76,7 +76,7 @@ export const useDictionaryWord = (
 
     setTimeout(() => {
       const _wordFromDB = R.pipe<string[], any[], string | undefined>(
-        R.split(','),
+        R.split('.'),
         R.find(
           R.equals(
             R.toLower(word),

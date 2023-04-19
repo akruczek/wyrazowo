@@ -1,5 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
+import { O } from '_otils';
+import { reverseNotNilWords } from '../helpers/reverse-not-nil-words.helper';
 
 interface UseWordDetail {
   onLongPressWord: (word: string) => () => void;
@@ -20,7 +22,10 @@ export const useWordDetail = (
 
   const [ detailedWord, setDetailedWord ] = React.useState<null | string>(null)
   const [ isPending, setPending ] = React.useState(false)
-  const [ maxReached, setMaxReached ] = React.useState(!possibleWords.length ? false : possibleWords.length <= RESULTS_COUNT)
+
+  const [ maxReached, setMaxReached ] = React.useState(
+    O.ifElse(false, possibleWords.length <= RESULTS_COUNT, !possibleWords.length)
+  )
 
   const getWordsByLettersCount = () => {
     let wordsToDisplay: string[][] = []
@@ -34,10 +39,7 @@ export const useWordDetail = (
       wordsToDisplay[word.length] = R.append(word, wordsToDisplay[word.length] ?? [])
     })
 
-    return R.pipe<string[][][], string[][], string[][]>(
-      R.reverse,
-      R.filter(R.complement(R.isNil)),
-    )(wordsToDisplay)
+    return reverseNotNilWords(wordsToDisplay)
   }
 
   const onLongPressWord = (word: string) => () => {
@@ -49,7 +51,9 @@ export const useWordDetail = (
     setPending(true)
 
     setTimeout(() => {
-      if (R.inc(resultsCountMultiplier) * RESULTS_COUNT >= possibleWords.length) {
+      const maxCount = O.inc(resultsCountMultiplier) * RESULTS_COUNT
+
+      if (maxCount >= possibleWords.length) {
         setMaxReached(true)
       }
 

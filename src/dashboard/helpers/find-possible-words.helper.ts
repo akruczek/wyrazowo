@@ -1,13 +1,13 @@
 import * as R from 'ramda'
-import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '../../core/letter-card/letter-card.constants'
-import slowa2 from '../../assets/slowa2'
-import slowa3 from '../../assets/slowa3'
-import slowa4 from '../../assets/slowa4'
-import slowa5 from '../../assets/slowa5'
-import slowa6 from '../../assets/slowa6'
-import slowa7 from '../../assets/slowa7'
-import slowa8 from '../../assets/slowa8'
-import slowa9 from '../../assets/slowa9'
+import slowa2 from '@assets/slowa2'
+import slowa3 from '@assets/slowa3'
+import slowa4 from '@assets/slowa4'
+import slowa5 from '@assets/slowa5'
+import slowa6 from '@assets/slowa6'
+import slowa7 from '@assets/slowa7'
+import slowa8 from '@assets/slowa8'
+import slowa9 from '@assets/slowa9'
+import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { DB } from '../../native-db/native-db'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { longWordsByLength } from './find-possible-long-words.helper'
@@ -29,7 +29,7 @@ export const findPossibleWords = async (
   const LOGS_WORD_FILTER = ''
 
   const allWords = R.times(
-    (index: number) => (allWordsByLength[minLength + index] ?? longWordsByLength[minLength + index]).split(','),
+    (index: number) => (allWordsByLength[minLength + index] ?? longWordsByLength[minLength + index]).split('.'),
     maxLength - minLength + 1
   ).flat().reverse()
 

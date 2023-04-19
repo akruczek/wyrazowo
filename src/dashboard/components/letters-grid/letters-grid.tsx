@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { LetterCard } from '../../../core/letter-card/letter-card'
-import { LetterCardsContainer } from './letters-grid.styled'
-import { LETTER_EMPTY, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
+import { LetterCard } from '@core/letter-card/letter-card'
+import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
+import { RowAroundContainer } from '@core/styled'
 
 interface Props {
   letters: string[];
@@ -20,7 +20,7 @@ export const LettersGrid = ({
       ? undefined
       : () => handleSelectLetter(letter, (7 * rowIndex) + index)
 
-  const onLongPress = (letter: string, rowIndex: number, index: number) =>
+  const onLongPress = (letter: string) =>
     R.equals(letter, LETTER_EMPTY)
       ? undefined
       : () => handleLongPress && R.equals(letter, LETTER_SOAP) ? handleLongPress() : undefined
@@ -28,18 +28,18 @@ export const LettersGrid = ({
   return (
     <>
       {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (
-        <LetterCardsContainer key={String(lettersRow)}>
+        <RowAroundContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <LetterCard
               key={`letter-card-${letter}-${index}`}
               onPress={onPress(letter, rowIndex, index)}
-              onLongPress={onLongPress(letter, rowIndex, index)}
-              content={letter}
+              onLongPress={onLongPress(letter)}
+              content={letter}  
               selectable={selectable}
               selectedLetters={selectedLetters}
             />
           ))}
-        </LetterCardsContainer>
+        </RowAroundContainer>
       ))}
     </>
   )
