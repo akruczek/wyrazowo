@@ -1,3 +1,11 @@
+## 1.2.0
+### Added
+- Selected letters counter on Playground screen
+- Simple Playground letters carousel to fit more content on small devices
+
+### Improved
+- General performance improvements
+
 ## 1.1.1
 ### Fixed
 - Android crash when locale identifier is not present
