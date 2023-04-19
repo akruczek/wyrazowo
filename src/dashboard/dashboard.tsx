@@ -3,8 +3,6 @@ import { Modalize } from 'react-native-modalize'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
-import { CustomButton } from '@core/custom-button/custom-button'
-import { COLOR } from '@core/colors/colors.constants'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
@@ -18,13 +16,11 @@ import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
 import { useSoapModal } from './hooks/use-soap-modal.hook'
 import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
+import { DashboardHost, DashboardSafeArea, DashboardStatusBar } from './dashboard.styled'
+import { DashboardButtons } from './components/dashboard-buttons/dashboard-buttons'
 import {
   setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setPremiumAction,
 } from '../settings/store/settings.slice'
-import {
-  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardHost, DashboardSafeArea,
-  DashboardStatusBar, HistoryButtonIcon, SearchButtonIcon,
-} from './dashboard.styled'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)
@@ -70,34 +66,9 @@ export const Dashboard = () => {
         <View>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
           <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
-
-          <DashboardButtonsContainer>
-            <CustomButton
-              color={COLOR.DARK_SEA_GREEN}
-              onPress={openHistoryModal}
-              invisible={!historyAvailable}
-              withHaptic
-            >
-              <HistoryButtonIcon />
-            </CustomButton>
-
-            <CustomButton
-              invisible={selectedLetters.length < 2}
-              onPress={onSearch}
-              withHaptic
-            >
-              <SearchButtonIcon />
-            </CustomButton>
-
-            <CustomButton
-              color={COLOR.FIRE_BRICK}
-              invisible={!selectedLetters.length}
-              onPress={handleClearSelectedLetters}
-              withHaptic
-            >
-              <ClearLettersButtonIcon />
-            </CustomButton>
-          </DashboardButtonsContainer>
+          <DashboardButtons
+            {...{ openHistoryModal, historyAvailable, selectedLetters, onSearch, handleClearSelectedLetters }}
+          />
         </View>
 
         <SearchHistoryModal
