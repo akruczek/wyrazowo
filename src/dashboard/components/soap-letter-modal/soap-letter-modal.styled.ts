@@ -13,7 +13,3 @@ export const SetSoapButtonIcon = styled(MaterialCommunityIcons).attrs({
   color: COLOR.WHITE_SMOKE,
   size: TEXT_SIZE.L,
 })``
-
-export const SetSoapButtonIconContainer = styled.View`
-  padding-bottom: 20px;
-`

@@ -35,10 +35,6 @@ export const NoResultsFoundIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.XXL * 2,
 })``
 
-export const PossibleWordsModalFooterContainer = styled.View`
-  padding-bottom: 30px;
-`
-
 export const PossibleWordsModalFooterButton = styled.TouchableOpacity`
   padding: 20px 50px;
   border-radius: 10px;

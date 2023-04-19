@@ -3,10 +3,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
 import { COLOR } from '@core/colors/colors.constants'
 
-export const PremiumModalContainer = styled.View`
-  padding-bottom: 50px;
-`
-
 export const PremiumModalTextInput = styled(CustomTextInput).attrs({
   autoCapitalize: 'characters',
   maxLength: 15,

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { Margin } from './models';
-import { parseMargin } from './helpers/parse-margin.styled';
+import { parseMargin } from './helpers/parse-margin.helper';
 
 interface MarginViewProps {
   margins: Margin;

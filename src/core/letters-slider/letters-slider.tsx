@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { PaddingView } from '@core/styled/padding-view.styled'
 import { renderLetterSliderLabel } from './components/letter-slider-label/letter-slider-label'
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import {
-  LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderContainer, LetterSliderLengthIcon, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderLengthIcon, LetterSliderTopLabelBar
 } from './letter-slider.styled'
 
 interface Props {
@@ -16,7 +17,7 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
   const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   return (
-    <LetterSliderContainer>
+    <PaddingView paddings={[ 2, 10 ]}>
       <LetterSliderTopLabelBar>
         <LetterSliderLengthIcon />
         <LetterSliderBottomLabel children={`${min} - ${max}`} />
@@ -41,6 +42,6 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
         <LetterSliderBottomLabel children={defaultMin} />
         <LetterSliderBottomLabel children={defaultMax} />
       </LetterSliderBottomLabelBar>
-    </LetterSliderContainer>
+    </PaddingView>
   )
 }
