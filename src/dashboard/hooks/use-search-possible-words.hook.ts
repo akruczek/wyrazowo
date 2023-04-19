@@ -1,5 +1,5 @@
 import * as React from 'react'
-import _o from '../../core/_otils'
+import { O } from '../../core/_otils'
 import { Storage } from '../../core/storage/storage'
 import { STORAGE_KEY } from '../../core/storage/storage.constants'
 import { SearchResultModel } from '../../core/storage/storage.models'
@@ -35,16 +35,16 @@ export const useSearchPossibleWords = (
   const saveResult = React.useCallback((result: string[]) => {
     const getDataToSave: () => SearchResultModel = () => ({
       wordLength: wordLengthRef.current,
-      timestamp: _o().getTime(),
+      timestamp: O.getTime(),
       selectedLetters: selectedLettersRef.current,
       result,
     })
 
-    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(_o(savedResultRef.current).appendFirst(getDataToSave())))
+    Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(O.appendFirst(getDataToSave(), savedResultRef.current)))
   }, [ selectedLetters ])
 
   const resultsCallback = (result: string[]) => {
-    setNoWordsFound(_o(result).isE)
+    setNoWordsFound(O.isE(result))
     setPossibleWords(result)
     saveResult(result)
   }
@@ -56,7 +56,7 @@ export const useSearchPossibleWords = (
 
     const searchWords = () => {
       findPossibleWords(selectedLetters, wordLengthRef.current, nativeSearchEngineEnabled).then((result: string[]) => {
-        if (!_o(result).incl(NATIVE_DB_TAG)) {
+        if (!O.incl(NATIVE_DB_TAG, result)) {
           resultsCallback(result)
         }
       })
@@ -73,13 +73,13 @@ export const useSearchPossibleWords = (
         const _savedResultSelectedLetters = [ ...savedResult.selectedLetters ]
 
         return (
-          _o(wordLengthRef.current).compareJoined(savedResult.wordLength) &&
-          _o(_savedResultSelectedLetters.sort()).compareJoined(_selectedLetters.sort())
+          O.compareJoined(savedResult.wordLength, wordLengthRef.current) &&
+          O.compareJoined(_selectedLetters.sort(), _savedResultSelectedLetters.sort())
         )
       })
 
       if (savedResults[resultAlreadySavedIndex]) {
-        setNoWordsFound(_o(savedResults[resultAlreadySavedIndex].result).isE)
+        setNoWordsFound(O.isE(savedResults[resultAlreadySavedIndex].result))
         setPossibleWords(savedResults[resultAlreadySavedIndex].result)
         updateStorageSearchResult(resultAlreadySavedIndex, savedResults)
       } else {
@@ -91,7 +91,7 @@ export const useSearchPossibleWords = (
   }, [ selectedLetters ])
 
   const onLengthChange = (minMax: [ number, number ]) => {
-    if (!_o(wordLengthRef.current).compareJoined(minMax)) {
+    if (!O.compareJoined(minMax, wordLengthRef.current)) {
       wordLengthRef.current = minMax
     }
   }

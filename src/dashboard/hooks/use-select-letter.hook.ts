@@ -33,8 +33,8 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   const { triggerHaptic } = useHapticFeedback()
 
-  const hasMaxSelectedLetters = _o(selectedLetters?.length).lt(MAX_SELECTED_LETTERS)
-  const hasMaxNoPremiumSelectedLetters = _o(selectedLetters?.length).gt(MAX_NO_PREMIUM_SELECTED_LETTERS)
+  const hasMaxSelectedLetters = selectedLetters?.length < MAX_SELECTED_LETTERS
+  const hasMaxNoPremiumSelectedLetters = selectedLetters?.length > MAX_NO_PREMIUM_SELECTED_LETTERS
 
   const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 

@@ -47,3 +47,10 @@ const _o = <A>(arg?: A): _OR<A> => {
 }
 
 export default _o
+
+export const O = {
+  isE, compareJoined, filterByIndex, appendFirst, incl,
+  ifElse,
+  isNull, getTime,
+  gt, gte, lt, lte, inc,
+}

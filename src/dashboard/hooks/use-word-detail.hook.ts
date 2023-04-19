@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import _o from '../../core/_otils';
+import { O } from '../../core/_otils';
 import { reverseNotNilWords } from '../helpers/reverse-not-nil-words.helper';
 
 interface UseWordDetail {
@@ -24,7 +24,7 @@ export const useWordDetail = (
   const [ isPending, setPending ] = React.useState(false)
 
   const [ maxReached, setMaxReached ] = React.useState(
-    _o(!possibleWords.length).ifElse(false, _o(possibleWords.length).lte(RESULTS_COUNT))
+    O.ifElse(false, possibleWords.length <= RESULTS_COUNT, !possibleWords.length)
   )
 
   const getWordsByLettersCount = () => {
@@ -51,9 +51,9 @@ export const useWordDetail = (
     setPending(true)
 
     setTimeout(() => {
-      const maxCount = _o(resultsCountMultiplier).inc * RESULTS_COUNT
+      const maxCount = O.inc(resultsCountMultiplier) * RESULTS_COUNT
 
-      if (_o(maxCount).gte(possibleWords.length)) {
+      if (maxCount >= possibleWords.length) {
         setMaxReached(true)
       }
 
