@@ -15,5 +15,5 @@ interface PaddingViewProps {
  */
 
 export const PaddingView = styled.View<PaddingViewProps>`
-  paddings: ${parsePadding};
+  padding: ${parsePadding};
 `

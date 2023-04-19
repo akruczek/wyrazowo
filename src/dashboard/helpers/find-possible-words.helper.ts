@@ -7,6 +7,7 @@ import slowa6 from '@assets/slowa6'
 import slowa7 from '@assets/slowa7'
 import slowa8 from '@assets/slowa8'
 import slowa9 from '@assets/slowa9'
+import { NumberFlag } from '@core/models'
 import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { DB } from '../../native-db/native-db'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
@@ -23,7 +24,7 @@ const log = (enabled: boolean, wordFilter: string | null, word: string, message:
 export const findPossibleWords = async (
   selectedLetters: string[],
   [ minLength, maxLength ]: [ number, number ],
-  nativeSearchEngineEnabled: boolean | null,
+  nativeSearchEngineEnabled: NumberFlag | null,
 ) => new Promise<string[]>((resolve) => {
   const LOGS_ENABLED = false
   const LOGS_WORD_FILTER = ''

@@ -1,3 +1,14 @@
+## 1.3.0
+### Added
+- ?
+
+### Fixed
+- Native search engin and premium flags in storage conflicts
+- Small padding issues on some devices
+
+### Improved
+- General performance improvements
+
 ## 1.2.0
 ### Added
 - Selected letters counter on Playground screen
