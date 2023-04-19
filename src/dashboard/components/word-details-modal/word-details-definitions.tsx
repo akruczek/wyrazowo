@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
 import { useWordDefinitions } from '../../hooks/use-word-definitions.hook'
-import { WordDetailsDefinitionsContainer, WordDetailsDefinitionText } from './word-details-modal.styled'
+import { WordDetailsDefinitionText } from './word-details-modal.styled'
+import { MarginView } from '../../../core/styled/margin-view.styled';
 
 interface Props {
   word: string;
@@ -11,7 +12,7 @@ export const WordDetialsDefinitions = ({ word }: Props) => {
   const { definitions } = useWordDefinitions(word)
 
   return (
-    <WordDetailsDefinitionsContainer>
+    <MarginView margins={[ 10, 0, 0, 0 ]}>
       {definitions === null ? (
         <ActivityIndicator size="large" />
       ) : definitions?.length ? (
@@ -27,6 +28,6 @@ export const WordDetialsDefinitions = ({ word }: Props) => {
           No definitions found
         </WordDetailsDefinitionText>
       )}
-    </WordDetailsDefinitionsContainer>
+    </MarginView>
   )
 }

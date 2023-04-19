@@ -25,10 +25,6 @@ export const MoreDisplayText = styled.Text`
   color: ${COLOR.BLACK}
 `
 
-export const MoreActivityIndicatorWrapper = styled.View`
-  margin-top: 30px;
-`
-
 export const MoreStatusBar = styled(FocusAwareStatusBar).attrs({
   backgroundColor: COLOR.WHITE_SMOKE,
   animated: true,

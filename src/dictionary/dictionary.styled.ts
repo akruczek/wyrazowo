@@ -3,10 +3,6 @@ import { COLOR } from '../core/colors/colors.constants'
 import { CustomTextInput } from '../core/custom-text-input/custom-text-input'
 import { FocusAwareStatusBar } from '../core/focus-aware-status-bar/focus-aware-status-bar'
 
-export const DictionarySearchButtonContainer = styled.View`
-  margin-top: 10px;
-`
-
 export const DictionaryTextInput = styled(CustomTextInput).attrs({
   autoCapitalize: 'characters',
   maxLength: 15,

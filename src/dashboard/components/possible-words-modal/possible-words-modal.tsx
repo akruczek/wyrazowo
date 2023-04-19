@@ -13,9 +13,10 @@ import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import { useLocalize } from '../../../core/hooks/use-localize.hook'
 import {
-  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
-  WordsGroupContainer, WordsGroupHeadline,
+  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer,
+  SearchingDatabaseContainer, WordsGroupHeadline,
 } from './possible-words-modal.styled'
+import { MarginView } from '../../../core/styled/margin-view.styled';
 
 interface Props {
   possibleWords: string[];
@@ -63,7 +64,7 @@ export const PossibleWordsModal = ({
               scrollEnabled={false}
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <WordsGroupContainer key={wordsGroup.join('')}>
+                <MarginView margins={[ 0, 0, 10, 5 ]} key={wordsGroup.join('')}>
                   <WordsGroupHeadline children={`${wordsGroup[0].length} ${localize().by_letters}`} />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
@@ -81,7 +82,7 @@ export const PossibleWordsModal = ({
                       ))}
                     </PossibleWordsLetterCardsContainer>
                   ))}
-                </WordsGroupContainer>
+                </MarginView>
               )}
               ListFooterComponent={() => <PossibleWordsModalFooter onPress={loadMore} {...{ maxReached, isPending }} />}
             />

@@ -2,14 +2,13 @@ import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { Portal } from 'react-native-portalize'
 import { useDispatch } from 'react-redux'
+import premiumCodes from '../../../assets/premium-codes.json'
 import { premiumService } from '../../../core/premium-service/premium-service'
 import { CustomButton } from '../../../core/custom-button/custom-button'
 import { COLOR } from '../../../core/colors/colors.constants'
-import premiumCodes from '../../../assets/premium-codes'
 import { useLocalize } from '../../../core/hooks/use-localize.hook'
-import {
-  PremiumModalButtonContainer, PremiumModalButtonIcon, PremiumModalContainer, PremiumModalTextInput,
-} from './premium-modal.styled'
+import { PremiumModalButtonIcon, PremiumModalContainer, PremiumModalTextInput } from './premium-modal.styled'
+import { MarginView } from '../../../core/styled/margin-view.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize | null>;
@@ -46,11 +45,11 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
             state={state}
           />
 
-          <PremiumModalButtonContainer>
+          <MarginView margins={[ 20, 0, 0, 0 ]}>
             <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>
               <PremiumModalButtonIcon />
             </CustomButton>
-          </PremiumModalButtonContainer>
+          </MarginView>
         </PremiumModalContainer>
       </Modalize>
     </Portal>

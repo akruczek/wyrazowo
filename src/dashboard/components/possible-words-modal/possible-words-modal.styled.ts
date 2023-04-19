@@ -18,11 +18,6 @@ export const SearchingDatabaseContainer = styled.View`
   align-items: center;
 `
 
-export const WordsGroupContainer = styled.View`
-  margin-bottom: 10px;
-  margin-left: 5px;
-`
-
 export const WordsGroupHeadline = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
   color: ${COLOR.BLACK};

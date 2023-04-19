@@ -12,10 +12,6 @@ export const PremiumModalTextInput = styled(CustomTextInput).attrs({
   maxLength: 15,
 })``
 
-export const PremiumModalButtonContainer = styled.View`
-  margin-top: 20px;
-`
-
 export const PremiumModalButtonIcon = styled(MaterialCommunityIcons).attrs({
   name: 'check-bold',
   color: COLOR.WHITE,
