@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
 import { ListedOptionContainer, ListedOptionHeadline } from './listed-option.styled'
 
 interface Props {

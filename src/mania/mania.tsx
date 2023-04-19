@@ -1,7 +1,7 @@
 import * as React from 'react'
 import WebView from 'react-native-webview'
 import { ActivityIndicator } from 'react-native'
-import { SafeAreaFlexContainer } from '../core/styled'
+import { SafeAreaFlexContainer } from '@core/styled'
 
 export const Mania = () => {
   const MANIA_ENABLED = true

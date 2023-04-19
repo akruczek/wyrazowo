@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
 import { useWordDefinitions } from '../../hooks/use-word-definitions.hook'
 import { WordDetailsDefinitionText } from './word-details-modal.styled'
-import { MarginView } from '../../../core/styled/margin-view.styled';
+import { MarginView } from '@core/styled/margin-view.styled';
 
 interface Props {
   word: string;

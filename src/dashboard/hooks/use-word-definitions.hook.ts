@@ -1,7 +1,7 @@
 import * as React from 'react'
-import _o from '../../core/_otils';
-import { fetchClient } from '../../core/fetch-client/fetch-client'
-import { SJP_BASE_PATH } from '../../core/fetch-client/fetch-client.constants';
+import _o from '_otils';
+import { fetchClient } from '@core/fetch-client/fetch-client'
+import { SJP_BASE_PATH } from '@core/fetch-client/fetch-client.constants';
 import { parseSjpWordDetails } from '../helpers/parse-sjp-word-details.helper'
 
 interface UseWordDefinitions {

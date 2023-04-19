@@ -4,7 +4,7 @@ import { Modalize } from 'react-native-modalize'
 import { allWordsByLength } from '../../dashboard/helpers/find-possible-words.helper'
 import { longWordsByLength } from '../../dashboard/helpers/find-possible-long-words.helper'
 import { DictionaryRandomFiltersModel } from '../dictionary.models'
-import { useHapticFeedback } from '../../core/hooks/use-haptic-feedback.hook'
+import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
 
 interface UseDictionaryWord {
   state: boolean | null;

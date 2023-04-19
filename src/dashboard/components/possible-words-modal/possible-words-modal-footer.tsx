@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { useLocalize } from '../../../core/hooks/use-localize.hook'
+import { useLocalize } from '@core/hooks/use-localize.hook'
 import {
   PossibleWordsModalFooterButton,
   PossibleWordsModalFooterButtonText,

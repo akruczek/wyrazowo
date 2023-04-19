@@ -1,4 +1,4 @@
-import { O } from '../../_otils'
+import { O } from '_otils'
 
 export const appendStyleWhenProvided = <P>(
   styleName: string,

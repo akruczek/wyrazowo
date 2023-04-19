@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { LETTER_SOAP } from '../../core/letter-card/letter-card.constants'
+import { LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 
 export const getSoapCharactersIndexes = (word: string, _selectedLetters: string[]) => {
   let soapIndexes: number[] = []

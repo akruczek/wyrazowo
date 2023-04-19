@@ -2,14 +2,12 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { Modalize } from 'react-native-modalize'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { CustomButton } from '@core/custom-button/custom-button'
+import { COLOR } from '@core/colors/colors.constants'
+import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { LettersGrid } from '../letters-grid/letters-grid'
-import { LETTER_EMPTY, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
-import { CustomButton } from '../../../core/custom-button/custom-button'
-import { COLOR } from '../../../core/colors/colors.constants'
-import {
-  SetSoapButtonIcon, SetSoapButtonIconContainer, SoapLetterModalContainer,
-} from './soap-letter-modal.styled'
+import { SetSoapButtonIcon, SetSoapButtonIconContainer, SoapLetterModalContainer } from './soap-letter-modal.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<any>;

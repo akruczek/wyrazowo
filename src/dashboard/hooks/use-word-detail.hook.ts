@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { O } from '../../core/_otils';
+import { O } from '_otils';
 import { reverseNotNilWords } from '../helpers/reverse-not-nil-words.helper';
 
 interface UseWordDetail {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { LETTER_SOAP_PLACEHOLDER } from '../../core/letter-card/letter-card.constants'
+import { LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 
 interface UseSoapModal {
   handleLongPress: () => void;

@@ -1,6 +1,6 @@
 import * as React from 'react'
+import { CustomButton } from '@core/custom-button/custom-button'
 import { DictionarySearchButtonContainer } from './dictionary-buttons.styled'
-import { CustomButton } from '../../../core/custom-button/custom-button'
 import { SearchButtonIcon } from '../../../dashboard/dashboard.styled'
 
 interface Props {

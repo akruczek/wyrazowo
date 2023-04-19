@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
-import { COLOR } from '../core/colors/colors.constants'
-import { FocusAwareStatusBar } from '../core/focus-aware-status-bar/focus-aware-status-bar'
-import { SafeAreaFlexContainer } from '../core/styled'
+import { COLOR } from '@core/colors/colors.constants'
+import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
+import { SafeAreaFlexContainer } from '@core/styled'
 
 export const PlaygroundSafeArea = styled(SafeAreaFlexContainer).attrs({
   justifyContent: 'space-between',

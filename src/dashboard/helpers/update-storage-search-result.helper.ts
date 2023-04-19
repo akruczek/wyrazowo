@@ -1,7 +1,7 @@
-import { O } from '../../core/_otils'
-import { Storage } from '../../core/storage/storage'
-import { STORAGE_KEY } from '../../core/storage/storage.constants'
-import { SearchResultModel } from '../../core/storage/storage.models'
+import { O } from '_otils'
+import { Storage } from '@core/storage/storage'
+import { STORAGE_KEY } from '@core/storage/storage.constants'
+import { SearchResultModel } from '@core/storage/storage.models'
 
 export const updateStorageSearchResult = (index: number, savedResults: SearchResultModel[]) => {
   const newItem = {

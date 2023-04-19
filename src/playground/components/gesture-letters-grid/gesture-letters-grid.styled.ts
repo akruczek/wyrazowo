@@ -1,11 +1,11 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { RESPONSIVE } from '../../../core/responsive/responsive'
-import { COLOR } from '../../../core/colors/colors.constants'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
+import { RESPONSIVE } from '@core/responsive/responsive'
+import { COLOR } from '@core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { LETTER_CARD_DEFAULT_SIZE } from '@core/letter-card/letter-card.styled'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
-import { LETTER_CARD_DEFAULT_SIZE } from '../../../core/letter-card/letter-card.styled'
 
 interface GestureLetterCardsArrowWrapperProps {
   y: number;

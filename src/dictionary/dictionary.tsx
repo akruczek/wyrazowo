@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Modalize } from 'react-native-modalize'
+import { useLocalize } from '@core/hooks/use-localize.hook'
+import { SafeAreaFlexContainer } from '@core/styled'
+import { COLOR } from '@core/colors/colors.constants'
 import { useWordDefinitions } from '../dashboard/hooks/use-word-definitions.hook'
 import { useDictionaryWord } from './hooks/use-dictionary-word.hook'
 import { DictionaryDefinitions } from './components/dictionary-definitions/dictionary-definitions'
@@ -9,9 +12,6 @@ import { DictionaryButtons } from './components/dictionary-buttons/dictionary-bu
 import { DictionaryHeader } from './components/dictionary-header/dictionary-header'
 import { DictionaryCustomizeRandom } from './components/dictionary-customize-random/dictionary-customize-random'
 import { useDictionaryRandomFilters } from './hooks/use-dictionary-random-filters.hook'
-import { useLocalize } from '../core/hooks/use-localize.hook'
-import { SafeAreaFlexContainer } from '../core/styled'
-import { COLOR } from '../core/colors/colors.constants'
 
 export const Dictionary = () => {
   const localize = useLocalize()

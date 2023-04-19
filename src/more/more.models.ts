@@ -1,4 +1,4 @@
-import { COLOR } from '../core/colors/colors.constants'
+import { COLOR } from '@core/colors/colors.constants'
 
 export interface MoreOption<V> {
   title: string;

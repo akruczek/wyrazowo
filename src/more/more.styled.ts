@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
 import * as R from 'ramda'
-import { TEXT_SIZE } from '../core/text/text.constants'
-import { COLOR } from '../core/colors/colors.constants'
-import { FocusAwareStatusBar } from '../core/focus-aware-status-bar/focus-aware-status-bar'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
+import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 
 interface MoreContainerProps {
   topInset: number;

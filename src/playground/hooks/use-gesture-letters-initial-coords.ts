@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { LETTER_CARD_DEFAULT_SIZE } from '../../core/letter-card/letter-card.styled'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { LETTER_CARD_DEFAULT_SIZE } from '@core/letter-card/letter-card.styled'
+import { RESPONSIVE } from '@core/responsive/responsive'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../navigation/navigation.constants'
-import { RESPONSIVE } from '../../core/responsive/responsive'
 import { StatusBar } from 'react-native'
 
 interface UseGestureLettersInitialCoords {

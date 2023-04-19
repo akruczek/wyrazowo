@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { CustomTextInput } from '../../../core/custom-text-input/custom-text-input'
-import { COLOR } from '../../../core/colors/colors.constants'
+import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
+import { COLOR } from '@core/colors/colors.constants'
 
 export const PremiumModalContainer = styled.View`
   padding-bottom: 50px;

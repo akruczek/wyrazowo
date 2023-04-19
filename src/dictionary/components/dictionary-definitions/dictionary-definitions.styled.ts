@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
-import { TEXT_SIZE } from '../../../core/text/text.constants'
-import { COLOR } from '../../../core/colors/colors.constants'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { COLOR } from '@core/colors/colors.constants'
 
 export const DictionaryDefinitionsContainer = styled.View`
   margin-top: 20px;

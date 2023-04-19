@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { COLOR } from '../../../core/colors/colors.constants'
+import { COLOR } from '@core/colors/colors.constants'
 
 export const SelectedLettersContainer = styled.View`
   flex-direction: row;
