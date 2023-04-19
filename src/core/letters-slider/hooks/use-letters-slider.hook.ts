@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { goPremiumAlert } from '../../alerts/go-premium-alert'
 import { useNavigation } from '@react-navigation/native'
+import { goPremiumAlert } from '../../alerts/go-premium-alert'
 import { SCREEN } from '../../../navigation/navigation.constants'
+import { LetterSliderDefaultValues } from '../models';
 
 interface UseLettersSlider {
   min: number;
@@ -13,7 +14,7 @@ interface UseLettersSlider {
 
 export const useLettersSlider = (
   onChange: (minMax: [ number, number ]) => void,
-  [ defaultValueMin, defaultValueMax, defaultMin, defaultMax, blockMax ]: [ number, number, number, number, number ] | [],
+  [ defaultValueMin, defaultValueMax, defaultMin, defaultMax, blockMax ]: LetterSliderDefaultValues | [],
 ): UseLettersSlider => {
   const navigation = useNavigation<any>()
   const alertDebounceTimeRef = React.useRef(new Date().getTime())

@@ -4,13 +4,14 @@ import { renderLetterSliderLabel } from './components/letter-slider-label/letter
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
+import { LetterSliderDefaultValues } from './models'
 import {
   LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderLengthIcon, LetterSliderTopLabelBar
 } from './letter-slider.styled'
 
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
-  defaultValues: [ number, number, number, number, number ] | [],
+  defaultValues: LetterSliderDefaultValues | [],
 }
 
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {

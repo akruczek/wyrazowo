@@ -6,6 +6,7 @@ import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
+import { LetterSliderDefaultValues } from '@core/letters-slider/models'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { SoapLetterModal } from './components/soap-letter-modal/soap-letter-modal'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
@@ -52,10 +53,7 @@ export const Dashboard = () => {
   }
 
   const isPremium = useIsPremium()
-
-  const sliderDefaultValues: [ number, number, number, number, number ] = [
-    2, 8, 2, 14, isPremium ? 14 : 9,
-  ]
+  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 14, isPremium ? 14 : 9 ]
 
   return React.useMemo(() => (
     <DashboardHost>
