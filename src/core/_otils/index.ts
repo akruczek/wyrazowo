@@ -1,12 +1,13 @@
 import { _OR } from './models'
 import { isE, compareJoined, filterByIndex, appendFirst, incl } from './array'
 import { ifElse } from './boolean'
-import { isNull, getTime } from './generic'
+import { isNull, getTime, exist } from './generic'
 import { gt, gte, lt, lte, inc } from './number'
 
 const _o = <A>(arg?: A): _OR<A> => {
   const generic = {
     isNull: isNull(arg),
+    exist: exist(arg),
     getTime,
   }
 
@@ -51,6 +52,6 @@ export default _o
 export const O = {
   isE, compareJoined, filterByIndex, appendFirst, incl,
   ifElse,
-  isNull, getTime,
+  isNull, getTime, exist,
   gt, gte, lt, lte, inc,
 }

@@ -1,9 +1,9 @@
 /**
- * Equals true when given array is empty (length: 0), false otherwise
+ * Returns true when given array is empty (length: 0), false otherwise
  * @example
  * ```typescript
- * _o([]).isE        //=> true
- * _o([ 1, 2 ]).isE  //=> false
+ * isE([])        //=> true
+ * isE([ 1, 2 ])  //=> false
  * ```
  */
 

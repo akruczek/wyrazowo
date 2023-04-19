@@ -12,9 +12,9 @@ import { SCREEN } from '../../../navigation/navigation.constants'
 import { CustomButton } from '../../../core/custom-button/custom-button'
 import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/dashboard.styled'
 import { COLOR } from '../../../core/colors/colors.constants'
+import { RowAroundContainer } from '../../../core/styled'
 import {
-  GestureLetterButtonsContainer,
-  GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper, GestureLetterCardsContainer,
+  GestureLetterButtonsContainer, GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper, GestureLetterCardsUserSelectedLettersIcon,
   GestureLetterCardsUserSelectedLettersIconContainer, GestureLetterCardsUserSelectedLettersText,
 } from './gesture-letters-grid.styled'
@@ -80,7 +80,7 @@ export const GestureLettersGrid = ({
       <GestureLetterCardsPagingStateText y={getInitialY()} children={`${pagingState[0]} / ${pagingState[1]}`} />
 
       {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (rowIndex >= visibleIndex && rowIndex <= visibleIndex + 1) ? (
-        <GestureLetterCardsContainer key={String(lettersRow)}>
+        <RowAroundContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <Draggable
               key={`gesture-letter-card-${letter}-${index * rowIndex}`}
@@ -92,7 +92,7 @@ export const GestureLettersGrid = ({
               <LetterCard content={letter} />
             </Draggable>
           ))}
-        </GestureLetterCardsContainer>
+        </RowAroundContainer>
       ) : null)}
 
       <GestureLettersGridArrow

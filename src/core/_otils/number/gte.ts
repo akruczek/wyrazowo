@@ -2,9 +2,9 @@
  * Returns true if given argument is greater than or equal to the second, false otherwise
  * @example
  * ```typescript
- * _o(3).gte(3) //=> true
- * _o(3).gte(2) //=> true
- * _o(2).gte(3) //=> false
+ * gte(3, 3) //=> true
+ * gte(2, 3) //=> true
+ * gte(3, 2) //=> false
  * ```
  */
 

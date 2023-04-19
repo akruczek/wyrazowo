@@ -2,8 +2,8 @@
  * Returns true when given array contains given item, false otherwise
  * @example
  * ```typescript
- * _o([ 'soap', 'S', 'SOAP' ]).incl('SOAP') //=> true
- * _o([ 'soap', 'S', 'SOAP' ]).incl('s')    //=> false
+ * incl('SOAP', [ 'soap', 'S', 'SOAP' ]) //=> true
+ * incl('s', [ 'soap', 'S', 'SOAP' ])    //=> false
  * ```
  */
 

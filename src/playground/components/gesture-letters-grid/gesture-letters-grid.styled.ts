@@ -7,11 +7,6 @@ import { TEXT_SIZE } from '../../../core/text/text.constants'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { LETTER_CARD_DEFAULT_SIZE } from '../../../core/letter-card/letter-card.styled'
 
-export const GestureLetterCardsContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-`
-
 interface GestureLetterCardsArrowWrapperProps {
   y: number;
 }

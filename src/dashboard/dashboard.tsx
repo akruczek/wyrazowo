@@ -17,6 +17,7 @@ import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
 import { useRehydrateStore } from '../core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '../core/storage/storage.constants'
+import { useIsPremium } from '../core/hooks/use-is-premium.hook'
 import {
   setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setPremiumAction,
 } from '../settings/store/settings.slice'
@@ -24,7 +25,6 @@ import {
   ClearLettersButtonIcon, DashboardButtonsContainer, DashboardHost, DashboardSafeArea,
   DashboardStatusBar, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard.styled'
-import { useIsPremium } from '../core/hooks/use-is-premium.hook'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)

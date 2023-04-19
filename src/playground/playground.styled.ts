@@ -1,13 +1,13 @@
 import styled from 'styled-components/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLOR } from '../core/colors/colors.constants'
 import { FocusAwareStatusBar } from '../core/focus-aware-status-bar/focus-aware-status-bar'
+import { SafeAreaFlexContainer } from '../core/styled'
 
-export const PlaygroundSafeArea = styled(SafeAreaView)`
-  justify-content: space-between;
-  height: 100%;
-  background-color: ${COLOR.WHITE_SMOKE};
-`
+export const PlaygroundSafeArea = styled(SafeAreaFlexContainer).attrs({
+  justifyContent: 'space-between',
+  height: 100,
+  backgroundColor: COLOR.WHITE_SMOKE,
+})``
 
 export const PlaygroundFlatList = styled.FlatList.attrs({
   contentContainerStyle: {

@@ -129,6 +129,18 @@ export interface _OGeneric {
   isNull: boolean;
 
   /**
+  * Equals true when given argument is defined, false otherwise
+  * @example
+  * ```typescript
+  * _o([]).exist           //=> true
+  * _o(undefined).exist    //=> false
+  * _o(null).exist         //=> false
+  * _o(0).exist            //=> true
+  * ```
+  */
+  exist: boolean;
+
+  /**
   * Returns current time in milliseconds
   * @example
   * ```typescript

@@ -2,8 +2,8 @@
  * Returns true when given arrays values are equal, false otherwise
  * @example
  * ```typescript
- * _o([ 'x', 'C', 'l' ]).compareJoined([ 'x', 'C', 'l' ]) //=> true
- * _o([ 'x', 'C', 'l' ]).compareJoined([ 'x', 'c', 'l' ]) //=> false
+ * compareJoined([ 'x', 'C', 'l' ], [ 'x', 'C', 'l' ]) //=> true
+ * compareJoined([ 'x', 'c', 'l' ], [ 'x', 'C', 'l' ]) //=> false
  * ```
  */
 

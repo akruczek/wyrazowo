@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { LetterCard } from '../../../core/letter-card/letter-card'
-import { LetterCardsContainer } from './letters-grid.styled'
 import { LETTER_EMPTY, LETTER_SOAP } from '../../../core/letter-card/letter-card.constants'
+import { RowAroundContainer } from '../../../core/styled'
 
 interface Props {
   letters: string[];
@@ -28,7 +28,7 @@ export const LettersGrid = ({
   return (
     <>
       {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (
-        <LetterCardsContainer key={String(lettersRow)}>
+        <RowAroundContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <LetterCard
               key={`letter-card-${letter}-${index}`}
@@ -39,7 +39,7 @@ export const LettersGrid = ({
               selectedLetters={selectedLetters}
             />
           ))}
-        </LetterCardsContainer>
+        </RowAroundContainer>
       ))}
     </>
   )

@@ -2,8 +2,8 @@
  * Returns first argument if given condition in truthy, second argument otherwise
  * @example
  * ```typescript
- * _o('soap'.length === 4).ifElse('YES', 'NO') //=> 'YES'
- * _o(typeof 'soap' === 'number').ifElse(1, 0) //=> 0
+ * ifElse('YES', 'NO', 'soap'.length === 4) //=> 'YES'
+ * ifElse(1, 0, typeof 'soap' === 'number') //=> 0
  * ```
  */
 

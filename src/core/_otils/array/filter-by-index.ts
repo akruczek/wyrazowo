@@ -2,7 +2,7 @@
  * Returns given array without element with given index
  * @example
  * ```typescript
- * _o([ 'x', 'y', 'z' ]).filterByIndex(1) //=> [ 'x', 'z' ]
+ * filterByIndex(1, [ 'x', 'y', 'z' ]) //=> [ 'x', 'z' ]
  * ```
  */
 

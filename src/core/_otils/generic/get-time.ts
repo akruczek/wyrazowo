@@ -2,7 +2,7 @@
  * Returns current time in milliseconds
  * @example
  * ```typescript
- * _o().getTime() //=> 1681819898021
+ * getTime() //=> 1681819898021
  * ```
  */
 
