@@ -11,15 +11,16 @@ interface Props {
   selectedLetters: (string | null)[];
   index: number;
   onPress: (index: number) => void;
+  onLongPress?: (index: number) => void;
 }
 
-export const PlaygroundField = ({ type, fieldRefs, selectedLetters, index, onPress }: Props) => {
+export const PlaygroundField = ({ type, fieldRefs, selectedLetters, index, onPress, onLongPress }: Props) => {
   return (
     <PlaygroundFieldContainer
       ref={ref => { fieldRefs[index] = ref }}
       type={type}
     >
-      <PlaygroundFieldContent {...{ type, index, selectedLetters, onPress }} />
+      <PlaygroundFieldContent {...{ type, index, selectedLetters, onPress, onLongPress }} />
     </PlaygroundFieldContainer>
   )
 }

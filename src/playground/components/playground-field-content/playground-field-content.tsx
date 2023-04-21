@@ -11,11 +11,13 @@ interface Props {
   index: number;
   type: PLAYGROUND_FIELD_TYPE;
   onPress: (index: number) => void;
+  onLongPress?: (index: number) => void;
 }
 
-export const PlaygroundFieldContent = ({ selectedLetters, index, type, onPress }: Props) => {
+export const PlaygroundFieldContent = ({ selectedLetters, index, type, onPress, onLongPress }: Props) => {
   if (selectedLetters[index]) {
     const _onPress = () => onPress(index)
+    const _onLongPress = () => onLongPress?.(index)
 
     return (
       <LetterCard
@@ -23,6 +25,7 @@ export const PlaygroundFieldContent = ({ selectedLetters, index, type, onPress }
         fontSize={TEXT_SIZE.XS}
         content={selectedLetters[index] ?? ''}
         onPress={_onPress}
+        onLongPress={_onLongPress}
         noMargin
       />
     )

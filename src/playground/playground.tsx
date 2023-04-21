@@ -8,14 +8,15 @@ import { PlaygroundField } from './components/playground-field/playground-field'
 import { PLAYGROUND_SPACING_MULTIPLIER } from './components/playground-field/playground-field.styled'
 import { PLAYGROUND_FIELDS } from './playground.constants'
 import { PlaygroundFieldModel } from './playground.models'
+import { AdvancedSearchModal } from './components/advanced-search-modal/advanced-search-modal';
+import { PlaygroundBacklight } from './components/playground-backlight/playground-backlight';
 import {
-  PlaygroundBottomContainer,
-  PlaygroundFlatList,
-  PlaygroundSafeArea,
-  PlaygroundStatusBar,
+  PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundSafeArea, PlaygroundStatusBar,
 } from './playground.styled'
 
 export const Playground = () => {
+  const advancedSearchModalizeRef = React.useRef<any>(null)
+  const [ advancedSearchIndexes, setAdvancedSearchIndexes ] = React.useState<[ number, number ] | null>(null)
   const ref = React.useRef<View>(null)
   const fieldRefs: (View | null)[] = []
 
@@ -34,10 +35,34 @@ export const Playground = () => {
   const handleClearPlayground = () => {
     setSelectedLetters([])
     setExtraData(d => d + 1)
+    setAdvancedSearchIndexes(null)
+  }
+
+  const onPressColumn = () => {
+    console.warn(advancedSearchIndexes?.[0])
+  }
+
+  const onPressRow = () => {
+    console.warn(advancedSearchIndexes?.[1])
+  }
+
+  const onLongPressField = (index: number) => {
+    if (advancedSearchIndexes) {
+      setAdvancedSearchIndexes(null)
+    } else {
+      const rowIndex = Math.floor(index / 15)
+      const columnIndex = Math.floor(index % 15)
+      setAdvancedSearchIndexes([ columnIndex, rowIndex ])
+    }
   }
 
   const renderItem = React.useCallback(({ item, index }: { item: PlaygroundFieldModel, index: number }) => (
-    <PlaygroundField {...item} onPress={handleRemoveSelectedLetter} {...{ index, fieldRefs, selectedLetters }} />
+    <PlaygroundField
+      {...item}
+      onPress={handleRemoveSelectedLetter}
+      onLongPress={onLongPressField}
+      {...{ index, fieldRefs, selectedLetters }}
+    />
   ), [ extraData ])
 
   const onDragRelease = (letter: string) => (event: GestureResponderEvent) => {
@@ -66,6 +91,8 @@ export const Playground = () => {
       <PlaygroundStatusBar />
       <Zoom maximumZoomScale={PLAYGROUND_SPACING_MULTIPLIER}>
         <View ref={ref}>
+          <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />
+
           <PlaygroundFlatList
             renderItem={renderItem}
             extraData={extraData}
@@ -79,6 +106,8 @@ export const Playground = () => {
       <PlaygroundBottomContainer>
         <GestureLettersGrid {...{ onDragRelease, userSelectedLetters, selectedLetters, handleClearPlayground }} />
       </PlaygroundBottomContainer>
+
+      <AdvancedSearchModal modalizeRef={advancedSearchModalizeRef} />
     </PlaygroundSafeArea>
   )
 }
