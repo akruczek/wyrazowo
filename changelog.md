@@ -1,6 +1,7 @@
 ## 1.3.0
 ### Added
-- Advanced search from playground
+- Advanced search from playground - search various combinations of words directly from playground
+- Force index from dashboard - add letters on specific positions when search possible words
 
 ### Fixed
 - Native search engin and premium flags in storage conflicts
