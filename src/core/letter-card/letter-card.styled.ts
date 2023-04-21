@@ -100,3 +100,22 @@ export const LetterCardContent = styled.Text`
   font-weight: bold;
   color: ${COLOR.BLACK};
 `
+
+export const LetterCardForcedIndexContainer = styled.View`
+  position: absolute;
+  background-color: ${COLOR.FIRE_BRICK};
+  z-index: 1;
+  width: 30%;
+  height: 30%;
+  border-radius: 100px;
+  top: -5%;
+  right: -5%;
+  justify-content: center;
+  align-items: center;
+`
+
+export const LetterCardForcedIndex = styled.Text`
+  font-size: 10px;
+  font-weight: bold;
+  color: ${COLOR.BLACK};
+`

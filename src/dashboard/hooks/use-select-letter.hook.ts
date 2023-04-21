@@ -16,6 +16,7 @@ interface UseSelectLetter {
   selectedLetters: string[];
   handleSelectLetter: (letter: string) => void;
   handleDeselectLetter: (index: number) => () => void;
+  handleForceIndex: (letterIndex: number, forceIndex: number) => void;
   soapCharactersIndexes: (letter: string) => number[];
   handleClearSelectedLetters: () => void;
 }
@@ -54,6 +55,10 @@ export const useSelectLetter = (): UseSelectLetter => {
     }
   }
 
+  const handleForceIndex = (letterIndex: number, forceIndex: number) => {
+    updateSelectedLetters(R.update(letterIndex, `${selectedLetters[letterIndex]}!${forceIndex}`))
+  }
+
   const handleDeselectLetter = (index: number) => () => {
     triggerHaptic()
     updateSelectedLetters(R.remove(index, 1, selectedLetters))
@@ -69,6 +74,6 @@ export const useSelectLetter = (): UseSelectLetter => {
 
   return {
     letters, selectedLetters,
-    handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters,
+    handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters, handleForceIndex,
   }
 }

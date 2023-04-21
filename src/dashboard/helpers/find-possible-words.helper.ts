@@ -8,7 +8,7 @@ import slowa7 from '@assets/slowa7'
 import slowa8 from '@assets/slowa8'
 import slowa9 from '@assets/slowa9'
 import { NumberFlag } from '@core/models'
-import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
+import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { DB } from '../../native-db/native-db'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { longWordsByLength } from './find-possible-long-words.helper'
@@ -60,6 +60,9 @@ export const findPossibleWords = async (
         .filter((letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER))
         .map((customSoapLetters: string) => customSoapLetters.split(LETTER_SOAP_PLACEHOLDER))
 
+      let force_index_letters = selectedLetters
+        .filter((letter: string) => letter.includes(LETTER_INDEX_SEPARATOR))
+
       _log(`#2.1 ${word}, custom_soap_letters: ${custom_soap_letters}`)
 
       let _letters = selectedLetters
@@ -73,6 +76,38 @@ export const findPossibleWords = async (
       word.toUpperCase().split('').forEach((char: string, index: number) => {
         // If word verification is complete (satisfiesLetters is NOT null) -> BREAK
         if (satisfiesLetters !== null) return
+
+        const forcedIndexes = force_index_letters
+          .map((forcedIndexLetter: string) => Number(forcedIndexLetter?.split?.(LETTER_INDEX_SEPARATOR)?.[1]))
+
+        // If there is forced index for given letter - verify letter at this index
+        if (forcedIndexes.includes(index)) {
+          const forcedIndexLetter = force_index_letters
+            .find((_forcedIndexLetter: string) =>
+              Number(_forcedIndexLetter?.split?.(LETTER_INDEX_SEPARATOR)?.[1]) === index,
+            )
+
+          _log(`#3.1 ${word}, forcedIndexes: ${forcedIndexes}, forcedIndexLetter: ${forcedIndexLetter}, char: ${char}, index: ${index}, forcedIndexLetter: ${forcedIndexLetter}`)
+          if (forcedIndexLetter?.split?.(LETTER_INDEX_SEPARATOR)?.[0] === char) {
+            const forcedIndexLetterIndex = force_index_letters
+              .findIndex((_forcedIndexLetter: string) =>
+                Number(_forcedIndexLetter?.split?.(LETTER_INDEX_SEPARATOR)?.[1]) === index,
+              )
+
+            _log(`#3.2 ${word}, forcedIndexLetterIndex: ${forcedIndexLetterIndex}, force_index_letters: ${force_index_letters}`)
+            force_index_letters = R.remove(forcedIndexLetterIndex, 1, force_index_letters)
+
+            // Additional check for last character in word
+            if (index === word?.length - 1) {
+              _log(`#3.3 ${word}, char: ${char}, satisfiesLetters: TRUE`)
+              satisfiesLetters = true
+            }
+          } else {
+            satisfiesLetters = false
+          }
+
+          return
+        }
 
         const missingChar = !_letters.includes(char)
         const noSoapAvailable = !soap_letters.length
