@@ -27,6 +27,7 @@ import Foundation
   ) -> String {
     let LETTER_SOAP = "?"
     let LETTER_SOAP_PLACEHOLDER = "*"
+    let LETTER_INDEX_SEPARATOR = "!"
 
     let allWordsArray: [String] = allWords.toJSON() as! [String]
     let selectedLettersArray: [String] = selectedLetters.toJSON() as! [String]
@@ -40,13 +41,45 @@ import Foundation
         .filter { $0.contains(LETTER_SOAP_PLACEHOLDER) }
         .map { $0.components(separatedBy: LETTER_SOAP_PLACEHOLDER) }
 
+      var force_index_letters: [String] = selectedLettersArray
+        .filter { $0.contains(LETTER_INDEX_SEPARATOR) }
+
       var letters: [String] = selectedLettersArray
-        .filter { $0 != LETTER_SOAP && !$0.contains(LETTER_SOAP_PLACEHOLDER) }
+        .filter { $0 != LETTER_SOAP && !$0.contains(LETTER_SOAP_PLACEHOLDER) && !$0.contains(LETTER_INDEX_SEPARATOR) }
 
       var satisfiesLetters: Int = -1
 
       for (index, char) in word.uppercased().enumerated() {
         if (satisfiesLetters != -1) {
+          break
+        }
+
+        let forcedIndexes = force_index_letters
+          .map { Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) ?? 0 }
+
+        if (forcedIndexes.contains(index)) {
+          let forcedIndexLetter = force_index_letters.first(
+            where: {
+              Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == index
+            }
+          )
+
+          if (forcedIndexLetter?.components(separatedBy: LETTER_INDEX_SEPARATOR)[0] == String(char)) {
+            let forcedIndexLetterIndex = force_index_letters.firstIndex(
+              where: {
+                Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == index
+              }
+            ) ?? 0
+
+            force_index_letters.remove(at: forcedIndexLetterIndex)
+
+            if (index == word.count - 1) {
+              satisfiesLetters = 1
+            }
+          } else {
+            satisfiesLetters = 0
+          }
+
           break
         }
 
