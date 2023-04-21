@@ -1,6 +1,6 @@
 ## 1.3.0
 ### Added
-- ?
+- Advanced search from playground
 
 ### Fixed
 - Native search engin and premium flags in storage conflicts

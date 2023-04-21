@@ -66,7 +66,6 @@ export const Dashboard = () => {
 
   const onLongPressSelectedLetter = (index: number) => () => {
     if (selectedLetters[index].length === 1 && !selectedLetters[index].includes(LETTER_SOAP)) {
-      console.warn(index, selectedLetters[index])
       forceIndexModalizeRef?.current?.open?.()
       forceIndexLetterIndexRef.current = index
     }

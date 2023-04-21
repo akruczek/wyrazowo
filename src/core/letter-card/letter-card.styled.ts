@@ -114,8 +114,10 @@ export const LetterCardForcedIndexContainer = styled.View`
   align-items: center;
 `
 
-export const LetterCardForcedIndex = styled.Text`
-  font-size: 10px;
+const getLetterCardForcedIndexFontSize = R.propOr(10, 'fontSize')
+
+export const LetterCardForcedIndex = styled.Text<LetterCardContainerProps>`
+  font-size: ${getLetterCardForcedIndexFontSize}px;
   font-weight: bold;
   color: ${COLOR.BLACK};
 `

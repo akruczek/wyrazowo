@@ -9,6 +9,7 @@ import {
 interface Props {
   content: string;
   fontSize?: TEXT_SIZE;
+  indexFontSize?: TEXT_SIZE;
   size?: number;
   isSelected?: boolean;
   horizontalMarginSize?: number;
@@ -23,7 +24,7 @@ interface Props {
 }
 
 export const LetterCard = ({
-  content, size, fontSize, isSelected, withMargin, horizontalMarginSize,
+  content, size, fontSize, indexFontSize, isSelected, withMargin, horizontalMarginSize,
   selectable, selectedLetters, multiLetter, forcedIndex, noMargin,
   onPress, onLongPress
 }: Props) => multiLetter ? (
@@ -41,7 +42,7 @@ export const LetterCard = ({
     {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
   >
     <LetterCardForcedIndexContainer style={genericShadow}>
-      <LetterCardForcedIndex children={Number(forcedIndex) + 1} />
+      <LetterCardForcedIndex fontSize={indexFontSize} children={Number(forcedIndex) + 1} />
     </LetterCardForcedIndexContainer>
     <LetterCardContent {...{ fontSize }} children={content} />
   </LetterCardContainer>

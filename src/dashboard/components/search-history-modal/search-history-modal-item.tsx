@@ -2,7 +2,7 @@ import * as React from 'react'
 import { View } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { LetterCard } from '@core/letter-card/letter-card'
-import { LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
+import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { LetterSliderLengthIcon } from '@core/letters-slider/letter-slider.styled'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
@@ -35,7 +35,12 @@ export const SearchHistoryModalItem = ({
   }
 
   const _soapCharactersIndexes = (letter: string) => soapCharactersIndexes(letter, selectedLetters)
-  const getContent = (letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER) ? LETTER_SOAP : letter
+
+  const getContent = (letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER)
+    ? LETTER_SOAP
+    : letter.includes(LETTER_INDEX_SEPARATOR)
+      ? letter.split(LETTER_INDEX_SEPARATOR)?.[0]
+      : letter
 
   return (
     <View>
@@ -54,7 +59,9 @@ export const SearchHistoryModalItem = ({
             onPress={handleSearchFromHistory}
             size={30}
             fontSize={TEXT_SIZE.S}
+            indexFontSize={TEXT_SIZE.XXXS}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
+            forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}
             withMargin
           />
         ))}
