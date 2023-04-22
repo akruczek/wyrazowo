@@ -27,6 +27,7 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
     ): Any {
         val LETTER_SOAP = "?"
         val LETTER_SOAP_PLACEHOLDER = "*"
+        val LETTER_INDEX_SEPARATOR = "!"
 
         val gson = GsonBuilder().create()
 
@@ -44,6 +45,10 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
                 .map { it.split(LETTER_SOAP_PLACEHOLDER) }
                 .toMutableList()
 
+            var force_index_letters = selectedLetters
+                .filter { it.contains(LETTER_INDEX_SEPARATOR) }
+                .toMutableList()
+
             val _letters = selectedLetters
                 .filter { letter -> letter !== LETTER_SOAP && !letter.contains(LETTER_SOAP_PLACEHOLDER) }
                 .toMutableList()
@@ -52,6 +57,29 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
 
             word.map { it.uppercase() }.forEachIndexed { index, char ->
                 if (satisfiesLetters !== -1) {
+                    return@forEachIndexed
+                }
+
+                val forcedIndexes = force_index_letters
+                    .map { it.split(LETTER_INDEX_SEPARATOR)[1].toInt() }
+
+                if (forcedIndexes.contains(index)) {
+                    val forcedIndexLetter = force_index_letters
+                        .find { it.split(LETTER_INDEX_SEPARATOR)[1].toInt() == index }
+
+                    if (forcedIndexLetter!!.split(LETTER_INDEX_SEPARATOR)[0] == char) {
+                        val forcedIndexLetterIndex = force_index_letters
+                            .indexOfFirst { it.split(LETTER_INDEX_SEPARATOR)[1].toInt() == index }
+
+                        force_index_letters.removeAt(forcedIndexLetterIndex)
+
+                        if (index === word.length - 1) {
+                            satisfiesLetters = 1
+                        }
+                    } else {
+                        satisfiesLetters = 0
+                    }
+
                     return@forEachIndexed
                 }
 
