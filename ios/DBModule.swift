@@ -60,67 +60,65 @@ import Foundation
         if (forcedIndexes.contains(index)) {
           let forcedIndexLetter = force_index_letters.first(
             where: {
-              Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == index
+              Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == Int(index)
             }
           )
 
           if (forcedIndexLetter?.components(separatedBy: LETTER_INDEX_SEPARATOR)[0] == String(char)) {
             let forcedIndexLetterIndex = force_index_letters.firstIndex(
               where: {
-                Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == index
+                Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == Int(index)
               }
-            ) ?? 0
+            ) ?? -1
 
             force_index_letters.remove(at: forcedIndexLetterIndex)
 
-            if (index == word.count - 1) {
+            if (Int(index) == Int(word.count - 1)) {
               satisfiesLetters = 1
             }
           } else {
             satisfiesLetters = 0
           }
+        } else {
+          let missingChar = !letters.contains(String(char))
+          let noSoapAvailable = soap_letters.count == 0
+          let noCustomSoapAvailable = custom_soap_letters.count == 0
 
-          break
-        }
-
-        let missingChar = !letters.contains(String(char))
-        let noSoapAvailable = soap_letters.count == 0
-        let noCustomSoapAvailable = custom_soap_letters.count == 0
-
-        if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
-          satisfiesLetters = 0
-          break
-        }
-
-        if (missingChar) {
-          var customSoapLetterAvailableIndexes: [Int] = []
-
-          for (index, customSoapLetters) in custom_soap_letters.enumerated() {
-            if (customSoapLetters.contains(String(char))) {
-              customSoapLetterAvailableIndexes.append(index)
-            }
+          if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
+            satisfiesLetters = 0
+            break
           }
 
-          if (customSoapLetterAvailableIndexes.isEmpty) {
-            if (noSoapAvailable) {
-              satisfiesLetters = 0
-              break
+          if (missingChar) {
+            var customSoapLetterAvailableIndexes: [Int] = []
+            
+            for (index, customSoapLetters) in custom_soap_letters.enumerated() {
+              if (customSoapLetters.contains(String(char))) {
+                customSoapLetterAvailableIndexes.append(index)
+              }
+            }
+
+            if (customSoapLetterAvailableIndexes.isEmpty) {
+              if (noSoapAvailable) {
+                satisfiesLetters = 0
+                break
+              } else {
+                soap_letters.removeLast()
+              }
             } else {
-              soap_letters.removeLast()
+              custom_soap_letters.remove(at: customSoapLetterAvailableIndexes[0])
             }
           } else {
-            custom_soap_letters.remove(at: customSoapLetterAvailableIndexes[0])
+            let charIndex: Int = letters.firstIndex(where: { String($0) == String(char) }) ?? -1
+            
+            if (charIndex >= 0) {
+              letters.remove(at: charIndex)
+            }
           }
-        } else {
-          let charIndex: Int = letters.firstIndex(where: { String($0) == String(char) }) ?? -1
 
-          if (charIndex >= 0) {
-            letters.remove(at: charIndex)
+          if (index == word.count - 1) {
+            satisfiesLetters = 1
           }
-        }
-
-        if (index == word.count - 1) {
-          satisfiesLetters = 1
         }
       }
 
