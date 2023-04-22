@@ -18,7 +18,7 @@ interface PlaygroundColumnBacklightProps {
 
 const getPlaygroundColumnBacklightLeftPosition = R.pipe(
   R.propOr(0, 'index'),
-  R.multiply(6.66666667),
+  R.multiply(6.63),
 )
 
 export const PlaygroundColumnBacklight = styled.TouchableOpacity.attrs({
