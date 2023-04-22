@@ -2,7 +2,8 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { Modalize } from 'react-native-modalize'
-import { MoreOption } from '../more.models'
+import { O } from '_otils'
+import { NumberFlag } from '@core/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { clearSearchHistoryAlert } from '@core/alerts/clear-seearch-history-alert'
 import { Storage } from '@core/storage/storage'
@@ -11,6 +12,7 @@ import { deactivatePremiumAlert } from '@core/alerts/deactivate-premium-alert'
 import { premiumService } from '@core/premium-service/premium-service'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
+import { MoreOption } from '../more.models'
 import { hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
 import {
   setHapticFeedbackEnabledAction, setLanguageCodeAction, setNativeSearchEngineEnabledAction,
@@ -31,7 +33,7 @@ interface UseMoreOptions {
 
 export const useMoreOptions = (
   premiumModalRef: React.MutableRefObject<Modalize | null>,
-  nativeSearchEngineEnabled: boolean,
+  nativeSearchEngineEnabled: NumberFlag,
   premium: number,
 ): UseMoreOptions => {
   const dispatch = useDispatch()
@@ -48,10 +50,10 @@ export const useMoreOptions = (
   const isPremium = premium > 0
 
   const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
-    dispatch(setHapticFeedbackEnabledAction(_hapticFeedbackEnabled))
+    dispatch(setHapticFeedbackEnabledAction(O.toNumberFlag(_hapticFeedbackEnabled)))
 
   const handleChangeNativeSearchEngine = (_nativeSearchEngineEnabled: boolean) =>
-    dispatch(setNativeSearchEngineEnabledAction(_nativeSearchEngineEnabled))
+    dispatch(setNativeSearchEngineEnabledAction(O.toNumberFlag(_nativeSearchEngineEnabled)))
 
   const handleClearSearchHistory = () => {
     clearSearchHistoryAlert(() => {

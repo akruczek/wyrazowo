@@ -27,6 +27,7 @@ import Foundation
   ) -> String {
     let LETTER_SOAP = "?"
     let LETTER_SOAP_PLACEHOLDER = "*"
+    let LETTER_INDEX_SEPARATOR = "!"
 
     let allWordsArray: [String] = allWords.toJSON() as! [String]
     let selectedLettersArray: [String] = selectedLetters.toJSON() as! [String]
@@ -40,8 +41,11 @@ import Foundation
         .filter { $0.contains(LETTER_SOAP_PLACEHOLDER) }
         .map { $0.components(separatedBy: LETTER_SOAP_PLACEHOLDER) }
 
+      var force_index_letters: [String] = selectedLettersArray
+        .filter { $0.contains(LETTER_INDEX_SEPARATOR) }
+
       var letters: [String] = selectedLettersArray
-        .filter { $0 != LETTER_SOAP && !$0.contains(LETTER_SOAP_PLACEHOLDER) }
+        .filter { $0 != LETTER_SOAP && !$0.contains(LETTER_SOAP_PLACEHOLDER) && !$0.contains(LETTER_INDEX_SEPARATOR) }
 
       var satisfiesLetters: Int = -1
 
@@ -50,44 +54,71 @@ import Foundation
           break
         }
 
-        let missingChar = !letters.contains(String(char))
-        let noSoapAvailable = soap_letters.count == 0
-        let noCustomSoapAvailable = custom_soap_letters.count == 0
+        let forcedIndexes = force_index_letters
+          .map { Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) ?? 0 }
 
-        if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
-          satisfiesLetters = 0
-          break
-        }
-
-        if (missingChar) {
-          var customSoapLetterAvailableIndexes: [Int] = []
-
-          for (index, customSoapLetters) in custom_soap_letters.enumerated() {
-            if (customSoapLetters.contains(String(char))) {
-              customSoapLetterAvailableIndexes.append(index)
+        if (forcedIndexes.contains(index)) {
+          let forcedIndexLetter = force_index_letters.first(
+            where: {
+              Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == Int(index)
             }
-          }
+          )
 
-          if (customSoapLetterAvailableIndexes.isEmpty) {
-            if (noSoapAvailable) {
-              satisfiesLetters = 0
-              break
-            } else {
-              soap_letters.removeLast()
+          if (forcedIndexLetter?.components(separatedBy: LETTER_INDEX_SEPARATOR)[0] == String(char)) {
+            let forcedIndexLetterIndex = force_index_letters.firstIndex(
+              where: {
+                Int($0.components(separatedBy: LETTER_INDEX_SEPARATOR)[1]) == Int(index)
+              }
+            ) ?? -1
+
+            force_index_letters.remove(at: forcedIndexLetterIndex)
+
+            if (Int(index) == Int(word.count - 1)) {
+              satisfiesLetters = 1
             }
           } else {
-            custom_soap_letters.remove(at: customSoapLetterAvailableIndexes[0])
+            satisfiesLetters = 0
           }
         } else {
-          let charIndex: Int = letters.firstIndex(where: { String($0) == String(char) }) ?? -1
+          let missingChar = !letters.contains(String(char))
+          let noSoapAvailable = soap_letters.count == 0
+          let noCustomSoapAvailable = custom_soap_letters.count == 0
 
-          if (charIndex >= 0) {
-            letters.remove(at: charIndex)
+          if (missingChar && noSoapAvailable && noCustomSoapAvailable) {
+            satisfiesLetters = 0
+            break
           }
-        }
 
-        if (index == word.count - 1) {
-          satisfiesLetters = 1
+          if (missingChar) {
+            var customSoapLetterAvailableIndexes: [Int] = []
+            
+            for (index, customSoapLetters) in custom_soap_letters.enumerated() {
+              if (customSoapLetters.contains(String(char))) {
+                customSoapLetterAvailableIndexes.append(index)
+              }
+            }
+
+            if (customSoapLetterAvailableIndexes.isEmpty) {
+              if (noSoapAvailable) {
+                satisfiesLetters = 0
+                break
+              } else {
+                soap_letters.removeLast()
+              }
+            } else {
+              custom_soap_letters.remove(at: customSoapLetterAvailableIndexes[0])
+            }
+          } else {
+            let charIndex: Int = letters.firstIndex(where: { String($0) == String(char) }) ?? -1
+            
+            if (charIndex >= 0) {
+              letters.remove(at: charIndex)
+            }
+          }
+
+          if (index == word.count - 1) {
+            satisfiesLetters = 1
+          }
         }
       }
 

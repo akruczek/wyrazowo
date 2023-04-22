@@ -3,11 +3,11 @@ import { Modalize } from 'react-native-modalize'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
-import { CustomButton } from '@core/custom-button/custom-button'
-import { COLOR } from '@core/colors/colors.constants'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
+import { LetterSliderDefaultValues } from '@core/letters-slider/models'
+import { LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { SoapLetterModal } from './components/soap-letter-modal/soap-letter-modal'
 import { useSelectLetter } from './hooks/use-select-letter.hook'
@@ -18,16 +18,17 @@ import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
 import { useSoapModal } from './hooks/use-soap-modal.hook'
 import { useSearchHistory } from './hooks/use-search-history-modal.hook'
 import { SearchHistoryModal } from './components/search-history-modal/search-history-modal'
+import { DashboardHost, DashboardSafeArea, DashboardStatusBar } from './dashboard.styled'
+import { DashboardButtons } from './components/dashboard-buttons/dashboard-buttons'
+import { ForceIndexModal } from './components/force-index-modal/force-index-modal'
 import {
   setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setPremiumAction,
 } from '../settings/store/settings.slice'
-import {
-  ClearLettersButtonIcon, DashboardButtonsContainer, DashboardHost, DashboardSafeArea,
-  DashboardStatusBar, HistoryButtonIcon, SearchButtonIcon,
-} from './dashboard.styled'
 
 export const Dashboard = () => {
   const modalizeRef = React.useRef<Modalize>(null)
+  const forceIndexModalizeRef = React.useRef<Modalize>(null)
+  const forceIndexLetterIndexRef = React.useRef<null | number>(null)
 
   useRehydrateStore(STORAGE_KEY.HAPTIC_FEEDBACK_ENABLED, setHapticFeedbackEnabledAction)
   useRehydrateStore(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, setNativeSearchEngineEnabledAction)
@@ -37,7 +38,7 @@ export const Dashboard = () => {
 
   const {
     letters, selectedLetters,
-    handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters,
+    handleSelectLetter, handleDeselectLetter, soapCharactersIndexes, handleClearSelectedLetters, handleForceIndex,
   } = useSelectLetter()
 
   const { handleLongPress, onSelectSoapLetters, soapModalizeRef } = useSoapModal(handleSelectLetter)
@@ -56,48 +57,32 @@ export const Dashboard = () => {
   }
 
   const isPremium = useIsPremium()
+  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 14, isPremium ? 14 : 9 ]
 
-  const sliderDefaultValues: [ number, number, number, number, number ] = [
-    2, 8, 2, 14, isPremium ? 14 : 9,
-  ]
+  const _handleForceIndex = (index: number) => {
+    handleForceIndex(forceIndexLetterIndexRef.current ?? 0, index)
+    forceIndexLetterIndexRef.current = null
+  }
+
+  const onLongPressSelectedLetter = (index: number) => () => {
+    if (selectedLetters[index].length === 1 && !selectedLetters[index].includes(LETTER_SOAP)) {
+      forceIndexModalizeRef?.current?.open?.()
+      forceIndexLetterIndexRef.current = index
+    }
+  }
 
   return React.useMemo(() => (
     <DashboardHost>
       <DashboardSafeArea>
         <DashboardStatusBar />
-        <SelectedLetters {...{ selectedLetters, handleDeselectLetter }} />
+        <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
         <View>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
           <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
-
-          <DashboardButtonsContainer>
-            <CustomButton
-              color={COLOR.DARK_SEA_GREEN}
-              onPress={openHistoryModal}
-              invisible={!historyAvailable}
-              withHaptic
-            >
-              <HistoryButtonIcon />
-            </CustomButton>
-
-            <CustomButton
-              invisible={selectedLetters.length < 2}
-              onPress={onSearch}
-              withHaptic
-            >
-              <SearchButtonIcon />
-            </CustomButton>
-
-            <CustomButton
-              color={COLOR.FIRE_BRICK}
-              invisible={!selectedLetters.length}
-              onPress={handleClearSelectedLetters}
-              withHaptic
-            >
-              <ClearLettersButtonIcon />
-            </CustomButton>
-          </DashboardButtonsContainer>
+          <DashboardButtons
+            {...{ openHistoryModal, historyAvailable, selectedLetters, onSearch, handleClearSelectedLetters }}
+          />
         </View>
 
         <SearchHistoryModal
@@ -119,6 +104,11 @@ export const Dashboard = () => {
           letters={letters}
           modalizeRef={soapModalizeRef}
           onSelectSoapLetters={onSelectSoapLetters}
+        />
+
+        <ForceIndexModal
+          modalizeRef={forceIndexModalizeRef}
+          handleForceIndex={_handleForceIndex}
         />
       </DashboardSafeArea>
     </DashboardHost>

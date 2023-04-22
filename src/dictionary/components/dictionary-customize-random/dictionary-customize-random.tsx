@@ -4,6 +4,7 @@ import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { useForceUpdate } from '@core/hooks/use-force-update.hook'
 import { COLOR } from '@core/colors/colors.constants'
+import { LetterSliderDefaultValues } from '@core/letters-slider/models'
 import { DictionaryRandomFiltersModel } from '../../dictionary.models'
 import {
   DictionaryCustomizeRandomButtonsContainer, DictionaryCustomizeRandomContainer,
@@ -21,7 +22,7 @@ interface Props {
 export const DictionaryCustomizeRandom = ({ modalizeRef, isFilterActive, filtersRef, onApply, onClear }: Props) => {
   const forceUpdate = useForceUpdate()
 
-  const DEFAULT_SLIDER_VALUES: [ number, number, number, number, number ] = [
+  const DEFAULT_SLIDER_VALUES: LetterSliderDefaultValues = [
     filtersRef?.current?.minMax?.[0] ?? 2,
     filtersRef?.current?.minMax?.[1] ?? 15,
     2,

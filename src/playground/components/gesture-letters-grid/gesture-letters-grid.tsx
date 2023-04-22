@@ -8,11 +8,12 @@ import { ALL_LETTERS_SORTED, LETTER_SOAP } from '@core/letter-card/letter-card.c
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { RowAroundContainer } from '@core/styled'
+import { noop } from '@core/noop/noop'
 import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexes.hook'
 import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
 import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
 import { SCREEN } from '../../../navigation/navigation.constants'
-import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/dashboard.styled'
+import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/components/dashboard-buttons/dashboard-buttons.styled'
 import {
   GestureLetterButtonsContainer, GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper, GestureLetterCardsUserSelectedLettersIcon,
@@ -40,25 +41,6 @@ export const GestureLettersGrid = ({
 
   const handleNavigateToDashboard = () => {
     navigation.navigate(SCREEN.DASHBOARD)
-  }
-
-  const handleSearchPossibleCombinations = () => {
-    const columns = R.times((index: number) =>
-      R.pipe(
-        R.times((i: number) => selectedLetters[index + (i * 15)]),
-        R.join('')
-      )(15)
-    )(15)
-
-    const rows = R.times((index: number) =>
-      R.pipe(
-        R.times((i: number) => selectedLetters[i + (index * 15)]),
-        R.join('')
-      )(15)
-    )(15)
-
-    console.log('columns: ', columns)
-    console.log('rows: ', rows)
   }
 
   return (
@@ -104,7 +86,7 @@ export const GestureLettersGrid = ({
       />
 
       <GestureLetterButtonsContainer>
-        <CustomButton color={COLOR.DODGER_BLUE} onPress={handleSearchPossibleCombinations}>
+        <CustomButton color={COLOR.DODGER_BLUE} onPress={noop} invisible>
           <SearchButtonIcon />
         </CustomButton>
 

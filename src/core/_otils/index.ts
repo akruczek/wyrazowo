@@ -1,8 +1,9 @@
 import { _OR } from './models'
+import { ifElse, toNumberFlag } from './boolean'
+import { toNumber } from './string'
 import { isE, compareJoined, filterByIndex, appendFirst, incl } from './array'
-import { ifElse } from './boolean'
-import { isNull, getTime, exist } from './generic'
 import { gt, gte, lt, lte, inc } from './number'
+import { isNull, getTime, exist } from './generic'
 
 const _o = <A>(arg?: A): _OR<A> => {
   const generic = {
@@ -15,7 +16,15 @@ const _o = <A>(arg?: A): _OR<A> => {
   if (typeof arg === 'boolean') {
     return {
       ifElse: <T, F>(onTrue: T, onFalse: F) => ifElse(onTrue, onFalse, arg),
+      toNumberFlag: toNumberFlag(arg),
       ...generic
+    } as _OR<A>
+  }
+
+  if (typeof arg === 'string') {
+    return {
+      toNumber: toNumber(arg),
+      ...generic,
     } as _OR<A>
   }
 
@@ -50,8 +59,9 @@ const _o = <A>(arg?: A): _OR<A> => {
 export default _o
 
 export const O = {
+  ifElse, toNumberFlag,
+  toNumber,
   isE, compareJoined, filterByIndex, appendFirst, incl,
-  ifElse,
-  isNull, getTime, exist,
   gt, gte, lt, lte, inc,
+  isNull, getTime, exist,
 }

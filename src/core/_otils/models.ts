@@ -8,6 +8,30 @@ export interface _OBoolean<A> {
   * ```
   */
   ifElse: <T, F>(onTrue: T, onFalse: F) => T | F;
+
+  /**
+  * Equals 1 or 0 (parsed boolean)
+  * @example
+  * ```typescript
+  * _o(true).toNumberFlag    //=> 1
+  * _o(false).toNumberFlag   //=> 0
+  * ```
+  */
+  toNumberFlag: 0 | 1;
+}
+
+export interface _OString<A> {
+  /**
+  * Equals number if possible to parse string to number, 0 otherwise
+  * @example
+  * ```typescript
+  * toNumber('1')  //=> 1
+  * toNumber('0')  //=> 0
+  * toNumber('soap')  //=> 0
+  * ```
+  */
+
+  toNumber: number
 }
 
 export interface _OArray<A> {
@@ -152,8 +176,10 @@ export interface _OGeneric {
 
 export type _OR<A> = A extends boolean
   ? (_OBoolean<A> & _OGeneric)
-  : A extends any[]
-    ? (_OArray<A> & _OGeneric)
-    : A extends number
-      ? (_ONumber<A> & _OGeneric)
-      : _OGeneric
+  : A extends string
+    ? (_OString<A> & _OGeneric)
+    : A extends any[]
+      ? (_OArray<A> & _OGeneric)
+      : A extends number
+        ? (_ONumber<A> & _OGeneric)
+        : _OGeneric

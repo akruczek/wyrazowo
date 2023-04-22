@@ -1,4 +1,5 @@
 export enum TEXT_SIZE {
+  XXXS = 6,
   XXS = 10,
   XS = 12,
   S = 16,

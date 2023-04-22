@@ -12,6 +12,7 @@ interface UseRehydrateStore<V> {
 export const useRehydrateStore = <V>(
   key: STORAGE_KEY,
   action: (value: V) => AnyAction,
+  valueParser?: (value: any) => V | any,
 ): UseRehydrateStore<V> => {
   const [ value, setValue ] = React.useState<V | null>(null)
   const [ isPending, setPending ] = React.useState(true)
@@ -20,9 +21,11 @@ export const useRehydrateStore = <V>(
 
   React.useEffect(() => {
     Storage.get(key).then((value: any) => {
-      setValue(value)
+      const _value = valueParser ? valueParser(value) : value
+
+      setValue(_value)
       setPending(false)
-      dispatch(action(value))
+      dispatch(action(_value))
     })
   }, [])
 

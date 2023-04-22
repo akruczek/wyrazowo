@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { O } from '_otils'
+import { NumberFlag } from '@core/models'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
@@ -18,7 +19,7 @@ interface UseSearchPossibleWords {
 
 export const useSearchPossibleWords = (
   selectedLetters: string[],
-  nativeSearchEngineEnabled: boolean | null,
+  nativeSearchEngineEnabled: NumberFlag | null,
 ): UseSearchPossibleWords => {
   const selectedLettersRef = React.useRef(selectedLetters)
 
