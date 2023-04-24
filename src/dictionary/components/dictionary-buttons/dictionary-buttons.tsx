@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { DictionarySearchButtonContainer } from './dictionary-buttons.styled'
-import { SearchButtonIcon } from '../../../dashboard/dashboard.styled'
+import { SearchButtonIcon } from '../../../dashboard/components/dashboard-buttons/dashboard-buttons.styled'
 
 interface Props {
   onSearch: () => void;

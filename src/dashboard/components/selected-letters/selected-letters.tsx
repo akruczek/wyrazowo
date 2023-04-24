@@ -40,7 +40,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
           <LetterCard
             key={`selected-letter-${letter}-${7 + index}`}
             onPress={handleDeselectLetter(7 + index)}
-            onLongPress={onLongPressSelectedLetter(index)}
+            onLongPress={onLongPressSelectedLetter(7 + index)}
             content={getContent(letter)}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}

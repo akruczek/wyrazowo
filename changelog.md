@@ -1,6 +1,14 @@
-## 1.3.0
+## 1.4.0
 ### Added
 - Advanced search from playground - search various combinations of words directly from playground
+
+## 1.3.1
+### Fixed
+- Dictionary crash
+- Force index for selected letters second line
+
+## 1.3.0
+### Added
 - Force index from dashboard - add letters on specific positions when search possible words
 
 ### Fixed
