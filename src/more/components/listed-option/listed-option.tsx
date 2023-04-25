@@ -8,11 +8,9 @@ interface Props {
   children?: JSX.Element;
 }
 
-export const ListedOption = ({ title, titleSize, children }: Props) => {
-  return (
-    <ListedOptionContainer>
-      <ListedOptionHeadline titleSize={titleSize} children={title} />
-      {children}
-    </ListedOptionContainer>
-  )
-}
+export const ListedOption = ({ title, titleSize, children }: Props) => (
+  <ListedOptionContainer>
+    <ListedOptionHeadline titleSize={titleSize} children={title} />
+    {children}
+  </ListedOptionContainer>
+)

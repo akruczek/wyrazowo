@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
+import { getRandomWords, getWordFromDB } from '../helpers'
 import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
 import { DictionaryRandomFiltersModel } from '../dictionary.models'
-import { getRandomWords } from '../helpers/get-random-words.helper'
-import { getWordFromDB } from '../helpers/get-word-from-db.helper'
 
 interface UseDictionaryWord {
   state: boolean | null;
