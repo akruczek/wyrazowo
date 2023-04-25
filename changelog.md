@@ -2,6 +2,10 @@
 ### Added
 - Advanced search from playground - search various combinations of words directly from playground
 
+## 1.3.2
+### Fixed
+- ?
+
 ## 1.3.1
 ### Fixed
 - Dictionary crash

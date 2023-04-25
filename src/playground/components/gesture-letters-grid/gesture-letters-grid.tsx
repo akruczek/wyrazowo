@@ -13,7 +13,7 @@ import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexe
 import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
 import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
 import { SCREEN } from '../../../navigation/navigation.constants'
-import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/components/dashboard-buttons/dashboard-buttons.styled'
+import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/components/dashboard-buttons-and-modals/dashboard-buttons.styled'
 import {
   GestureLetterButtonsContainer, GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper, GestureLetterCardsUserSelectedLettersIcon,

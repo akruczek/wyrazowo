@@ -8,7 +8,7 @@ interface UseDictionaryRandomFilters {
   filtersRef: React.MutableRefObject<null | DictionaryRandomFiltersModel>;
 }
 
-export const useDictionaryRandomFilters = ():UseDictionaryRandomFilters => {
+export const useDictionaryRandomFilters = (): UseDictionaryRandomFilters => {
   const [ isFilterActive, setFilterActive ] = React.useState(false)
 
   const filtersRef = React.useRef<null | DictionaryRandomFiltersModel>(null)

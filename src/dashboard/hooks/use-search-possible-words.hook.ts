@@ -8,6 +8,7 @@ import { findPossibleWords } from '../helpers/find-possible-words.helper'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { useNativeDBEvents } from '../../native-db/hooks/use-native-sb-events.hook'
 import { updateStorageSearchResult } from '../helpers/update-storage-search-result.helper'
+import { getResultAlreadySavedIndex } from 'dashboard/helpers/get-results-already-saved-index.helper'
 
 interface UseSearchPossibleWords {
   possibleWords: string[];
@@ -67,17 +68,8 @@ export const useSearchPossibleWords = (
 
     if (savedResults !== null) {
       savedResultRef.current = savedResults
-
       const _selectedLetters = [ ...selectedLetters ]
-      
-      const resultAlreadySavedIndex = savedResults.findIndex((savedResult: SearchResultModel) => {
-        const _savedResultSelectedLetters = [ ...savedResult.selectedLetters ]
-
-        return (
-          O.compareJoined(savedResult.wordLength, wordLengthRef.current) &&
-          O.compareJoined(_selectedLetters.sort(), _savedResultSelectedLetters.sort())
-        )
-      })
+      const resultAlreadySavedIndex = getResultAlreadySavedIndex(savedResults, _selectedLetters, wordLengthRef)
 
       if (savedResults[resultAlreadySavedIndex]) {
         setNoWordsFound(O.isE(savedResults[resultAlreadySavedIndex].result))
