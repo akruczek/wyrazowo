@@ -1,22 +1,21 @@
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import { Host } from 'react-native-portalize'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { SafeAreaFlexContainer } from '@core/styled'
+import { ThemeModel } from '@core/styled/models'
+import { getThemeProp } from '@core/styled/theme'
 
 export const DashboardSafeArea = styled(SafeAreaFlexContainer).attrs({
   justifyContent: 'space-between',
   height: 100,
 })``
 
-export const DashboardStatusBar = styled(FocusAwareStatusBar).attrs({
-  backgroundColor: COLOR.WHITE,
+export const DashboardStatusBar = styled(FocusAwareStatusBar).attrs(props => ({
+  backgroundColor: getThemeProp('backgroundPrimary')(props),
   animated: true,
   barStyle: 'dark-content',
-})``
+}))``
 
 export const DashboardHost = styled(Host)`
-  background-color: ${COLOR.WHITE};
+  background-color: ${getThemeProp('backgroundPrimary')};
 `

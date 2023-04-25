@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { FlatList } from 'react-native'
-import { Modalize } from 'react-native-modalize'
 import { Portal } from 'react-native-portalize'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { SearchHistoryModalItem } from './search-history-modal-item'
 import { SearchHistoryModalContainer } from './search-history-modal.styled'
 
@@ -36,8 +36,8 @@ export const SearchHistoryModal = ({
 
   return (
     <Portal>
-      <Modalize
-        ref={historyModalizeRef}
+      <CustomModalize
+        reference={historyModalizeRef}
         modalTopOffset={modalOffset}
         onOpen={getSearchHistory}
         disableScrollIfPossible
@@ -54,7 +54,7 @@ export const SearchHistoryModal = ({
             scrollEnabled={false}
           />
         </SearchHistoryModalContainer>
-      </Modalize>
+      </CustomModalize>
     </Portal>
   )
 }

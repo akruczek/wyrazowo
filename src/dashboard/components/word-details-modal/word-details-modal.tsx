@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Modalize } from 'react-native-modalize'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { WordDetailsModalContainer } from './word-details-modal.styled'
 import { WordDetailsHeadline } from './word-details-headline'
 import { WordDetialsDefinitions } from './word-details-definitions'
@@ -15,7 +15,12 @@ export const WordDetailsModal = ({ modalizeRef, word }: Props) => {
   const modalOffset = useModalTopOffset()
 
   return (
-    <Modalize ref={modalizeRef} modalTopOffset={modalOffset} avoidKeyboardLikeIOS useNativeDriver>
+    <CustomModalize
+      reference={modalizeRef}
+      modalTopOffset={modalOffset}
+      avoidKeyboardLikeIOS
+      useNativeDriver
+    >
       {word ? (
         <WordDetailsModalContainer>
           <WordDetailsHeadline word={word} />
@@ -24,6 +29,6 @@ export const WordDetailsModal = ({ modalizeRef, word }: Props) => {
       ) : (
         <ActivityIndicator size="large" />
       )}
-    </Modalize>
+    </CustomModalize>
   )
 }

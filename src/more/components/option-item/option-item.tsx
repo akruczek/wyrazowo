@@ -2,6 +2,8 @@ import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useTheme } from 'styled-components/native'
+import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { MultiToggle } from '@core/multi-toggle/multi-toggle'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
@@ -25,6 +27,7 @@ interface Props {
 export const OptionItem = ({
   title, value, values, hidden, icon, iconColor, onChange, handleDeactivatePremium,
 }: Props) => {
+  const theme = useTheme() as ThemeModel
   const languageCode = useSelector(languageCodeSelector)
 
   if (hidden) return null
@@ -58,7 +61,7 @@ export const OptionItem = ({
         onPress={onChange}
         onLongPress={handleDeactivatePremium}
       >
-        <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? COLOR.BLACK} size={28} />
+        <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
       </TouchableOpacity>
     </ListedOption>
   )

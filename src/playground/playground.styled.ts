@@ -1,13 +1,14 @@
-import styled from 'styled-components/native'
-import { COLOR } from '@core/colors/colors.constants'
+import styled, { ThemeProps } from 'styled-components/native'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { SafeAreaFlexContainer } from '@core/styled'
+import { ThemeModel } from '@core/styled/models'
+import { getThemeProp } from '@core/styled/theme'
 
-export const PlaygroundSafeArea = styled(SafeAreaFlexContainer).attrs({
+export const PlaygroundSafeArea = styled(SafeAreaFlexContainer).attrs(props => ({
   justifyContent: 'space-between',
   height: 100,
-  backgroundColor: COLOR.WHITE_SMOKE,
-})``
+  backgroundColor: getThemeProp('backgroundSecondary')(props),
+}))``
 
 export const PlaygroundFlatList = styled.FlatList.attrs({
   contentContainerStyle: {
@@ -18,15 +19,15 @@ export const PlaygroundFlatList = styled.FlatList.attrs({
   },
 })<any>``
 
-export const PlaygroundBottomContainer = styled.View`
+export const PlaygroundBottomContainer = styled.View<ThemeProps<ThemeModel>>`
   width: 100%;
   padding-top: 3px;
-  background-color: ${COLOR.WHITE_SMOKE};
+  background-color: ${getThemeProp('backgroundSecondary')};
   justify-content: center;
 `
 
-export const PlaygroundStatusBar = styled(FocusAwareStatusBar).attrs({
-  backgroundColor: COLOR.WHITE_SMOKE,
+export const PlaygroundStatusBar = styled(FocusAwareStatusBar).attrs(props => ({
+  backgroundColor: getThemeProp('backgroundSecondary')(props),
   animated: true,
   barStyle: 'dark-content',
-})``
+}))``

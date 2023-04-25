@@ -5,6 +5,7 @@ import { CustomButton } from '@core/custom-button/custom-button'
 import { useForceUpdate } from '@core/hooks/use-force-update.hook'
 import { COLOR } from '@core/colors/colors.constants'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { DictionaryRandomFiltersModel } from '../../dictionary.models'
 import {
   DictionaryCustomizeRandomButtonsContainer, DictionaryCustomizeRandomContainer,
@@ -12,7 +13,7 @@ import {
 } from './dictionary-customize-random.styled'
 
 interface Props {
-  modalizeRef: React.MutableRefObject<Modalize> | null;
+  modalizeRef: React.MutableRefObject<Modalize | null>;
   isFilterActive: boolean;
   filtersRef: React.MutableRefObject<null | DictionaryRandomFiltersModel>;
   onApply: (minMax: [ number, number ]) => void;
@@ -52,7 +53,7 @@ export const DictionaryCustomizeRandom = ({ modalizeRef, isFilterActive, filters
   }
 
   return (
-    <Modalize onOpen={forceUpdate} adjustToContentHeight ref={modalizeRef}>
+    <CustomModalize onOpen={forceUpdate} adjustToContentHeight reference={modalizeRef}>
       <DictionaryCustomizeRandomContainer>
         <LettersSlider onChange={onChangeMinMax} defaultValues={DEFAULT_SLIDER_VALUES} />
 
@@ -68,6 +69,6 @@ export const DictionaryCustomizeRandom = ({ modalizeRef, isFilterActive, filters
           ) : null}
         </DictionaryCustomizeRandomButtonsContainer>
       </DictionaryCustomizeRandomContainer>
-    </Modalize>
+    </CustomModalize>
   )
 }

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize>;
@@ -7,8 +8,8 @@ interface Props {
 
 export const AdvancedSearchModal = ({ modalizeRef }: Props) => {
   return (
-    <Modalize ref={modalizeRef}>
+    <CustomModalize reference={modalizeRef}>
 
-    </Modalize>
+    </CustomModalize>
   )
 }

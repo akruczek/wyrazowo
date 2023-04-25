@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { LetterCard } from '@core/letter-card/letter-card'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize';
 import { ForceIndexModalContainer } from './force-index-modal.styled'
 
 interface Props {
@@ -17,12 +18,12 @@ export const ForceIndexModal = ({ modalizeRef, handleForceIndex }: Props) => {
   }
 
   return (
-    <Modalize ref={modalizeRef} adjustToContentHeight>
+    <CustomModalize reference={modalizeRef} adjustToContentHeight>
       <ForceIndexModalContainer>
         {INDEXES.map((index: number, realIndex: number) => (
           <LetterCard content={String(index)} key={index} onPress={onPress(realIndex)} />
         ))}
       </ForceIndexModalContainer>
-    </Modalize>
+    </CustomModalize>
   )
 }

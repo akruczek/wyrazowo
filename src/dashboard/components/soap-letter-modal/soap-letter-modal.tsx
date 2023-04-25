@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { PaddingView } from '@core/styled/padding-view.styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { LettersGrid } from '../letters-grid/letters-grid'
 import { SetSoapButtonIcon, SoapLetterModalContainer } from './soap-letter-modal.styled'
 import { toggleSelectedSoapLetters, filterSoapLetters } from '../../helpers'
@@ -34,8 +34,8 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
   }
 
   return (
-    <Modalize
-      ref={modalizeRef}
+    <CustomModalize
+      reference={modalizeRef}
       modalTopOffset={modalOffset}
       onClosed={onClosed}
       adjustToContentHeight
@@ -61,6 +61,6 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
           <SetSoapButtonIcon />
         </CustomButton>
       </PaddingView>
-    </Modalize>
+    </CustomModalize>
   )
 }

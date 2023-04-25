@@ -2,12 +2,12 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { ActivityIndicator, FlatList } from 'react-native'
 import { Portal } from 'react-native-portalize'
-import { Modalize } from 'react-native-modalize';
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { MarginView } from '@core/styled/margin-view.styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
@@ -39,8 +39,8 @@ export const PossibleWordsModal = ({
 
   return (
     <Portal>
-      <Modalize
-        ref={modalizeRef}
+      <CustomModalize
+        reference={modalizeRef}
         modalTopOffset={modalOffset}
         onOpened={onOpened}
         onClosed={onClosed}
@@ -87,7 +87,7 @@ export const PossibleWordsModal = ({
             />
           </PossibleWordsContainer>
         )}
-      </Modalize>
+      </CustomModalize>
 
       <WordDetailsModal word={detailedWord} modalizeRef={wordDetailsModalRef} />
     </Portal>

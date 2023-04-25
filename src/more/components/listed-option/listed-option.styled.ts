@@ -1,14 +1,15 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
-import { COLOR } from '@core/colors/colors.constants'
+import styled, { ThemeProps } from 'styled-components/native'
+import { ThemeModel } from '@core/styled/models'
 import { TEXT_SIZE } from '@core/text/text.constants'
+import { getThemeProp } from '@core/styled/theme'
 
-export const ListedOptionContainer = styled.View`
+export const ListedOptionContainer = styled.View<ThemeProps<ThemeModel>>`
   flex-direction: row;
   justify-content: space-between;
   padding: 5px 20px;
   border-bottom-width: 1px;
-  border-bottom-color: ${COLOR.DIM_GREY}50;
+  border-bottom-color: ${getThemeProp('textSecondary')}50;
   margin-bottom: 10px;
 `
 
@@ -18,8 +19,8 @@ interface ListedOptionHeadlineProps {
 
 const getListedOptionHeadline = R.propOr(TEXT_SIZE.M, 'titleSize')
 
-export const ListedOptionHeadline = styled.Text<ListedOptionHeadlineProps>`
+export const ListedOptionHeadline = styled.Text<ListedOptionHeadlineProps & ThemeProps<ThemeModel>>`
   font-size: ${getListedOptionHeadline}px;
-  color: ${COLOR.BLACK};
+  color: ${getThemeProp('textPrimary')};
   font-weight: 500;
 `

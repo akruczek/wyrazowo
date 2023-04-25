@@ -2,8 +2,10 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
 import { Modalize } from 'react-native-modalize'
+import { useTheme } from 'styled-components/native'
 import { O } from '_otils'
 import { NumberFlag } from '@core/models'
+import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { clearSearchHistoryAlert } from '@core/alerts/clear-seearch-history-alert'
 import { Storage } from '@core/storage/storage'
@@ -36,6 +38,7 @@ export const useMoreOptions = (
   nativeSearchEngineEnabled: NumberFlag,
   premium: number,
 ): UseMoreOptions => {
+  const theme = useTheme() as ThemeModel
   const dispatch = useDispatch()
   const localize = useLocalize()
 
@@ -80,7 +83,7 @@ export const useMoreOptions = (
       {
         title: localize().premium,
         icon: 'star',
-        iconColor: isPremium ? COLOR.GOLD : COLOR.DIM_GREY,
+        iconColor: isPremium ? COLOR.GOLD : theme.textSecondary,
         onChange: isPremium ? undefined : handleOpenPremiumModal,
       },
       {

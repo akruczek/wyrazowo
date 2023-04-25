@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Modalize } from 'react-native-modalize'
+import { useTheme } from 'styled-components/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { SafeAreaFlexContainer } from '@core/styled'
-import { COLOR } from '@core/colors/colors.constants'
+import { ThemeModel } from '@core/styled/models'
 import { DictionaryDefinitions, DictionaryButtons, DictionaryHeader, DictionaryCustomizeRandom } from './components'
 import { useDictionaryWord, useDictionaryRandomFilters } from './hooks'
 import { useWordDefinitions } from '../dashboard/hooks'
@@ -11,6 +12,7 @@ import { DictionaryStatusBar, DictionaryTextInput } from './dictionary.styled'
 
 export const Dictionary = () => {
   const localize = useLocalize()
+  const theme = useTheme() as ThemeModel
   const customizeRandomModalizeRef = React.useRef<Modalize & any>(null)
   const { top: topInset } = useSafeAreaInsets()
   const { onApply, onClear, isFilterActive, filtersRef } = useDictionaryRandomFilters()
@@ -21,7 +23,7 @@ export const Dictionary = () => {
   const { definitions } = useWordDefinitions(wordFromDB)
 
   return (
-    <SafeAreaFlexContainer backgroundColor={COLOR.WHITE}>
+    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <DictionaryStatusBar />
       <DictionaryHeader {...{ topInset, handlePressRandom, isFilterActive, handleLongPressRandom }} />
       <DictionaryTextInput
