@@ -9,7 +9,7 @@ import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { setSelectedLettersAction } from '../store/dashboard.slice'
-import { getSoapCharactersIndexes } from '../helpers/get-soap-characters-indexes.helper'
+import { getSoapCharactersIndexes } from '../helpers'
 
 interface UseSelectLetter {
   letters: string[];

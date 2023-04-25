@@ -3,8 +3,8 @@ import * as R from 'ramda'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { RowAroundContainer } from '@core/styled'
-import { getWordPoints } from '../../helpers/get-word-points.helper'
 import { WordDetailsHeadlineText } from './word-details-modal.styled'
+import { getWordPoints } from '../../helpers'
 
 interface Props {
   word: string;

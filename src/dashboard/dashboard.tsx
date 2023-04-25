@@ -13,7 +13,7 @@ import { useSearchPossibleWords } from './hooks/use-search-possible-words.hook'
 import { useSoapModal } from './hooks/use-soap-modal.hook'
 import { DashboardHost, DashboardSafeArea, DashboardStatusBar } from './dashboard.styled'
 import { DashboardButtonsAndModals } from './components/dashboard-buttons-and-modals/dashboard-buttons-and-modals'
-import { isForceIndexAvailable } from './helpers/is-force-index-available.helper'
+import { isForceIndexAvailable } from './helpers'
 import { useDashboardRehydration } from './hooks/use-dashboard-rehydration.hook'
 
 export const Dashboard = () => {

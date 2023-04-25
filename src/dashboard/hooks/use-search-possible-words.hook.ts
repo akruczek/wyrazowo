@@ -4,11 +4,9 @@ import { NumberFlag } from '@core/models'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
-import { findPossibleWords } from '../helpers/find-possible-words.helper'
 import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { useNativeDBEvents } from '../../native-db/hooks/use-native-sb-events.hook'
-import { updateStorageSearchResult } from '../helpers/update-storage-search-result.helper'
-import { getResultAlreadySavedIndex } from 'dashboard/helpers/get-results-already-saved-index.helper'
+import { findPossibleWords, updateStorageSearchResult, getResultAlreadySavedIndex } from '../helpers'
 
 interface UseSearchPossibleWords {
   possibleWords: string[];

@@ -1,16 +1,15 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { ActivityIndicator, Button, FlatList } from 'react-native'
+import { ActivityIndicator, FlatList } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled/margin-view.styled';
-import { getWordPoints } from '../../../dashboard/helpers/get-word-points.helper'
+import { MarginView } from '@core/styled/margin-view.styled'
+import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
-import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import {
@@ -31,7 +30,7 @@ export const PossibleWordsModal = ({
   possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
   const localize = useLocalize()
-  const { top: topInset } = useSafeAreaInsets()
+  const modalOffset = useModalTopOffset()
   const wordDetailsModalRef = React.useRef<any>(null)
 
   const {
@@ -42,7 +41,7 @@ export const PossibleWordsModal = ({
     <Portal>
       <Modalize
         ref={modalizeRef}
-        modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT + 30}
+        modalTopOffset={modalOffset}
         onOpened={onOpened}
         onClosed={onClosed}
         disableScrollIfPossible
@@ -90,11 +89,7 @@ export const PossibleWordsModal = ({
         )}
       </Modalize>
 
-      <WordDetailsModal
-        word={detailedWord}
-        topInset={topInset}
-        modalizeRef={wordDetailsModalRef}
-      />
+      <WordDetailsModal word={detailedWord} modalizeRef={wordDetailsModalRef} />
     </Portal>
   )
 }

@@ -2,11 +2,10 @@ import * as React from 'react'
 import { FlatList } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { Portal } from 'react-native-portalize'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
-import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
+import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { SearchHistoryModalItem } from './search-history-modal-item'
 import { SearchHistoryModalContainer } from './search-history-modal.styled'
 
@@ -20,7 +19,7 @@ interface Props {
 export const SearchHistoryModal = ({
   historyModalizeRef, historyAvailable, soapCharactersIndexes, setHistoryAvailable,
 }: Props) => {
-  const { top: topInset } = useSafeAreaInsets()
+  const modalOffset = useModalTopOffset()
   const [ searchHistory, setSearchHistory ] = React.useState<SearchResultModel[] | null>([])
 
   React.useEffect(() => {
@@ -39,7 +38,7 @@ export const SearchHistoryModal = ({
     <Portal>
       <Modalize
         ref={historyModalizeRef}
-        modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT + 30}
+        modalTopOffset={modalOffset}
         onOpen={getSearchHistory}
         disableScrollIfPossible
         avoidKeyboardLikeIOS
