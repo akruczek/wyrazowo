@@ -1,14 +1,12 @@
 import * as React from 'react'
-import * as R from 'ramda'
-import { Modalize } from 'react-native-modalize'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
-import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { PaddingView } from '@core/styled/padding-view.styled'
-import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
+import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { LettersGrid } from '../letters-grid/letters-grid'
 import { SetSoapButtonIcon, SoapLetterModalContainer } from './soap-letter-modal.styled'
+import { toggleSelectedSoapLetters, filterSoapLetters } from '../../helpers'
 
 interface Props {
   modalizeRef: React.MutableRefObject<any>;
@@ -17,26 +15,14 @@ interface Props {
 }
 
 export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: Props) => {
-  const { top: topInset } = useSafeAreaInsets()
-
+  const modalOffset = useModalTopOffset()
   const [ selectedSoapLetters, setSelectedSoapLetters ] = React.useState<string[]>([])
 
-  const toggleSelectedSoapLetter = (letter: string) => {
-    setSelectedSoapLetters(
-      R.ifElse<any, string[], string[]>(
-        R.includes(letter),
-        R.without([letter]),
-        R.append(letter),
-      ),
-    )
-  }
+  const toggleSelectedSoapLetter = (letter: string) => setSelectedSoapLetters(
+    toggleSelectedSoapLetters<string[]>(letter)
+  )
 
-  const filteredLetters = R.map(
-    R.when(
-      R.equals(LETTER_SOAP),
-      R.always(LETTER_EMPTY),
-    )
-  )(letters)
+  const filteredLetters = filterSoapLetters(letters)
 
   const onSetSoapLetters = () => {
     onSelectSoapLetters(selectedSoapLetters)
@@ -48,9 +34,9 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
   }
 
   return (
-    <Modalize
-      ref={modalizeRef}
-      modalTopOffset={topInset + BOTTOM_NAVIGATION_HEIGHT + 30}
+    <CustomModalize
+      reference={modalizeRef}
+      modalTopOffset={modalOffset}
       onClosed={onClosed}
       adjustToContentHeight
       disableScrollIfPossible
@@ -75,6 +61,6 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
           <SetSoapButtonIcon />
         </CustomButton>
       </PaddingView>
-    </Modalize>
+    </CustomModalize>
   )
 }

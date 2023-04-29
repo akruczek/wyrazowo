@@ -8,6 +8,7 @@ import { COLOR } from '@core/colors/colors.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { MarginView } from '@core/styled/margin-view.styled'
 import { PaddingView } from '@core/styled/padding-view.styled'
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import premiumCodes from '../../../assets/premium-codes.json'
 import { PremiumModalButtonIcon, PremiumModalTextInput } from './premium-modal.styled'
 
@@ -37,7 +38,7 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
 
   return (
     <Portal>
-      <Modalize ref={modalizeRef} adjustToContentHeight>
+      <CustomModalize reference={modalizeRef} adjustToContentHeight>
         <PaddingView paddings={[ 0, 0, 50, 0 ]}>
           <PremiumModalTextInput
             placeholder={`${localize().enter_premium_code}...`}
@@ -52,7 +53,7 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
             </CustomButton>
           </MarginView>
         </PaddingView>
-      </Modalize>
+      </CustomModalize>
     </Portal>
   )
 }

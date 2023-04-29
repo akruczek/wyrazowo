@@ -1,10 +1,12 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { LETTER_CARD_DEFAULT_SIZE } from '@core/letter-card/letter-card.styled'
+import { getThemeProp } from '@core/styled/theme'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../../../navigation/navigation.constants'
 
 interface GestureLetterCardsArrowWrapperProps {
@@ -64,23 +66,25 @@ const getGestureLetterCardsPagingStateText = R.pipe(
   R.add(RESPONSIVE.WIDTH(2)),
 )
 
-export const GestureLetterCardsPagingStateText = styled.Text<GestureLetterCardsArrowWrapperProps>`
-  font-size: ${TEXT_SIZE.XS}px;
-  color: ${COLOR.DIM_GREY};
-  position: absolute;
-  top: ${getGestureLetterCardsPagingStateText}px;
-  right: 10px;
-`
+export const GestureLetterCardsPagingStateText = styled
+  .Text<GestureLetterCardsArrowWrapperProps & ThemeProps<ThemeModel>>`
+    font-size: ${TEXT_SIZE.XS}px;
+    color: ${getThemeProp('textSecondary')};
+    position: absolute;
+    top: ${getGestureLetterCardsPagingStateText}px;
+    right: 10px;
+  `
 
-export const GestureLetterCardsUserSelectedLettersText = styled.Text<GestureLetterCardsArrowWrapperProps>`
-  font-size: ${TEXT_SIZE.S}px;
-  font-weight: bold;
-  color: ${COLOR.DIM_GREY};
-  position: absolute;
-  top: ${getGestureLetterCardsPagingStateText}px;
-  margin-top: -2.5px;
-  left: 31px;
-`
+export const GestureLetterCardsUserSelectedLettersText = styled
+  .Text<GestureLetterCardsArrowWrapperProps & ThemeProps<ThemeModel>>`
+    font-size: ${TEXT_SIZE.S}px;
+    font-weight: bold;
+    color: ${getThemeProp('textSecondary')};
+    position: absolute;
+    top: ${getGestureLetterCardsPagingStateText}px;
+    margin-top: -2.5px;
+    left: 31px;
+  `
 
 export const GestureLetterCardsUserSelectedLettersIconContainer = styled.TouchableOpacity.attrs({
   hitSlop: {
@@ -98,23 +102,23 @@ export const GestureLetterCardsUserSelectedLettersIconContainer = styled.Touchab
   z-index: 1;
 `
 
-export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs({
+export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs(props => ({
   name: 'alpha-a-box',
-  color: COLOR.DIM_GREY,
+  color: getThemeProp('textSecondary')(props),
   size: 26,
-})``
+}))``
 
 interface GestureLetterCardsBackgroundProps {
   topInset: number;
   bottomInset: number;
 }
 
-export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgroundProps>`
+export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgroundProps & ThemeProps<ThemeModel>>`
   width: 100%;
   height: 800px;
   top: ${({ topInset, bottomInset }) => -(RESPONSIVE.HEIGHT() - RESPONSIVE.WIDTH() - BOTTOM_NAVIGATION_HEIGHT - topInset - bottomInset) + bottomInset + LETTER_CARD_DEFAULT_SIZE - 30}px;
   position: absolute;
-  background-color: ${COLOR.WHITE_SMOKE};
+  background-color: ${getThemeProp('backgroundSecondary')};
 `
 
 export const GestureLetterButtonsContainer = styled.View`

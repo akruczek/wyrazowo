@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { View } from 'react-native'
-import { genericLightShadow } from '@core/shadow/shadow.constants'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
 import { PlaygroundFieldContent } from '../playground-field-content/playground-field-content'
 import { PlaygroundFieldContainer } from './playground-field.styled'

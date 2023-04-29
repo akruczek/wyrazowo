@@ -1,8 +1,10 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
+import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { getThemeProp } from '@core/styled/theme'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
 
 const PLAYGROUND_FIELD_SPACING = 3
@@ -34,7 +36,7 @@ export const PlaygroundFieldContainer = styled.View`
   align-items: center;
 `
 
-export const PlaygroundFieldBackgroundText = styled.Text`
+export const PlaygroundFieldBackgroundText = styled.Text<ThemeProps<ThemeModel>>`
   font-size: ${TEXT_SIZE.XXS}px;
-  color: ${COLOR.DIM_GREY};
+  color: ${getThemeProp('textSecondary')};
 `

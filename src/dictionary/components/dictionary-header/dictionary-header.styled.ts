@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
+import { getThemeProp } from '@core/styled/theme'
 
 const DICTIONARY_HEADER_HEIGHT = 75
 
@@ -17,11 +18,11 @@ interface DictionaryHeaderContainerProps {
   topInset: number;
 }
 
-export const DictionaryHeaderContainer = styled(LinearGradient).attrs({
-  colors: [COLOR.DODGER_BLUE, COLOR.WHITE],
+export const DictionaryHeaderContainer = styled(LinearGradient).attrs(props => ({
+  colors: [ COLOR.DODGER_BLUE, getThemeProp('backgroundPrimary')(props) ],
   start: { x: 0, y: 0 },
   end: { x: 0, y: 1 },
-})<DictionaryHeaderContainerProps>`
+}))<DictionaryHeaderContainerProps>`
   flex-direction: row;
   height: ${getDictionaryHeaderHeight}px;
   background-color: ${COLOR.DODGER_BLUE};

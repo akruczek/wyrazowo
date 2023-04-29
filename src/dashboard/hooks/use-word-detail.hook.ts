@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { O } from '_otils';
-import { reverseNotNilWords } from '../helpers/reverse-not-nil-words.helper';
+import { reverseNotNilWords } from '../helpers';
 
 interface UseWordDetail {
   onLongPressWord: (word: string) => () => void;

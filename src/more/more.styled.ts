@@ -1,8 +1,8 @@
-import styled from 'styled-components/native'
 import * as R from 'ramda'
-import { TEXT_SIZE } from '@core/text/text.constants'
-import { COLOR } from '@core/colors/colors.constants'
+import styled, { ThemeProps } from 'styled-components/native'
+import { ThemeModel } from '@core/styled/models'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
+import { getThemeProp } from '@core/styled/theme';
 
 interface MoreContainerProps {
   topInset: number;
@@ -13,20 +13,15 @@ const getMoreContainerPaddingTop = R.pipe(
   R.add(10),
 )
 
-export const MoreContainer = styled.View<MoreContainerProps>`
+export const MoreContainer = styled.View<MoreContainerProps & ThemeProps<ThemeModel>>`
   padding: 10px;
   flex: 1;
-  background-color: ${COLOR.WHITE_SMOKE};
+  background-color: ${getThemeProp('backgroundSecondary')};
   padding-top: ${getMoreContainerPaddingTop}px;
 `
 
-export const MoreDisplayText = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
-  color: ${COLOR.BLACK}
-`
-
-export const MoreStatusBar = styled(FocusAwareStatusBar).attrs({
-  backgroundColor: COLOR.WHITE_SMOKE,
+export const MoreStatusBar = styled(FocusAwareStatusBar).attrs(props => ({
+  backgroundColor: getThemeProp('backgroundSecondary')(props),
   animated: true,
   barStyle: 'dark-content',
-})``
+}))``

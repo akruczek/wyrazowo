@@ -2,8 +2,8 @@ import * as R from 'ramda'
 import styled from 'styled-components/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLOR } from '../colors/colors.constants'
-import { JustifyContent } from './models';
-import { appendStyleWhenProvided } from './helpers/append-style-when-provided.helper';
+import { JustifyContent } from './models'
+import { appendStyleWhenProvided } from './helpers/append-style-when-provided.helper'
 
 interface SafeAreaFlexContainerProps {
   backgroundColor?: COLOR;

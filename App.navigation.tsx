@@ -1,82 +1,96 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { useTheme } from 'react-native-paper';
+import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ThemeProvider } from 'styled-components/native'
+import { ActivityIndicator, ColorSchemeName, useColorScheme } from 'react-native'
+import { useSelector } from 'react-redux'
+import { theme as themeModel } from '@core/styled/theme'
+import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
+import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { Dashboard } from './src/dashboard/dashboard'
-import { Mania } from './src/mania/mania'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
-import { More } from './src/more/more'
 import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
 import { Playground } from './src/playground/playground'
+import { MoreNavigation } from './src/more/more.navigation'
+import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
+import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator()
 
 export const AppNavigation = () => {
-  const theme = useTheme();
-  theme.colors.secondaryContainer = "transparent"
+  const reactNativePaperTheme = reactNativePaperUseTheme()
+  reactNativePaperTheme.colors.secondaryContainer = "transparent"
 
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        inactiveColor={COLOR.SLATE_GREY}
-        activeColor={COLOR.DODGER_BLUE}
-        barStyle={{ backgroundColor: COLOR.WHITE, ...genericShadow }}
-        labeled={false}
-        sceneAnimationType="shifting"
-        sceneAnimationEnabled
-      >
-        <Tab.Screen
-          name={SCREEN.DASHBOARD}
-          component={Dashboard}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
-            ),
-          }}
-        />
+  const { isPending } = useRehydrateStore(STORAGE_KEY.DARK_THEME_ENABLED, setDarkThemeEnabledAction)
+  const darkTheme = useSelector(darkThemeEnabledSelector)
 
-        <Tab.Screen
-          name={SCREEN.DICTIONARY}
-          component={Dictionary}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
-            ),
-          }}
-        />
+  const colorScheme: ColorSchemeName = useColorScheme()
 
-        <Tab.Screen
-          name={SCREEN.PLAYGROUND}
-          component={Playground}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
-            ),
-          }}
-        />
+  const getBackgroundColor = () => darkTheme === -1 && colorScheme === 'light' || !darkTheme
+    ? COLOR.WHITE
+    : COLOR.DARK_SLATE_GREY
 
-        <Tab.Screen
-          name={SCREEN.MANIA}
-          component={Mania}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="web" color={color} size={26} />
-            ),
-          }}
-        />
+  const getThemeToProvide = () => darkTheme === -1
+    ? themeModel[colorScheme ?? 'light']
+    : themeModel[darkTheme ? 'dark' : 'light']
 
-        <Tab.Screen
-          name={SCREEN.MORE}
-          component={More}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+  return isPending ? (
+    <ActivityIndicator size="large" />
+  ) : (
+    <ThemeProvider theme={getThemeToProvide()}>
+      <NavigationContainer>
+        <Tab.Navigator
+          inactiveColor={COLOR.SLATE_GREY}
+          activeColor={COLOR.DODGER_BLUE}
+          barStyle={{ backgroundColor: getBackgroundColor(), ...genericShadow }}
+          labeled={false}
+          sceneAnimationType="shifting"
+          sceneAnimationEnabled
+        >
+          <Tab.Screen
+            name={SCREEN.DASHBOARD}
+            component={Dashboard}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="home" color={color} size={26} />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name={SCREEN.DICTIONARY}
+            component={Dictionary}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name={SCREEN.PLAYGROUND}
+            component={Playground}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name={SCREEN.MORE}
+            component={MoreNavigation}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   )
 }

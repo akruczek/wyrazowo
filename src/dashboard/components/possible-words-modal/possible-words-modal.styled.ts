@@ -1,7 +1,9 @@
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
+import { ThemeModel } from '@core/styled/models'
+import { getThemeProp } from '@core/styled/theme'
 
 export const PossibleWordsContainer = styled.View`
   width: 100%;
@@ -18,9 +20,9 @@ export const SearchingDatabaseContainer = styled.View`
   align-items: center;
 `
 
-export const WordsGroupHeadline = styled.Text`
+export const WordsGroupHeadline = styled.Text<ThemeProps<ThemeModel>>`
   font-size: ${TEXT_SIZE.M}px;
-  color: ${COLOR.BLACK};
+  color: ${getThemeProp('textPrimary')};
   margin-bottom: 5px;
 `
 
