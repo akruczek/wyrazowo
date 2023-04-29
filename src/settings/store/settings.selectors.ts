@@ -7,6 +7,9 @@ export const hapticFeedbackEnabledSelector = (state: RootState) =>
 export const nativeSearchEngineEnabledSelector = (state: RootState) =>
   state?.settings?.nativeSearchEngineEnabled ?? 1
 
+export const darkThemeEnabledSelector = (state: RootState) =>
+  state?.settings?.darkThemeEnabled ?? 0
+
 export const premiumSelector = (state: RootState) =>
   state?.settings?.premium ?? 0
 

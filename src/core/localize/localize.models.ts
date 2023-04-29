@@ -10,6 +10,10 @@ export interface Localization {
   no_definitions_found: 'no_definitions_found',
   by_letters: 'by_letters',
   load_more: 'load_more',
+  theme: 'theme',
+  light: 'light',
+  dark: 'dark',
+  auto: 'auto',
   language: 'language',
 }
 

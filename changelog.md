@@ -6,6 +6,9 @@
 ### Added
 - Dark theme support
 
+### Changed
+- Moved Mania to More tab
+
 ## 1.3.1
 ### Fixed
 - Dictionary crash

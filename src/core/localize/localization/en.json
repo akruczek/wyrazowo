@@ -10,5 +10,9 @@
   "no_definitions_found": "No definitions found",
   "by_letters": "letters",
   "load_more": "Load more",
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "auto": "Auto",
   "language": "Language"
 }

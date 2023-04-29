@@ -19,13 +19,14 @@ interface Props {
   handleDeactivatePremium: () => void;
   value?: any;
   values?: any[];
+  labels?: any[];
   icon?: string;
   iconColor?: COLOR;
   hidden?: boolean;
 }
 
 export const OptionItem = ({
-  title, value, values, hidden, icon, iconColor, onChange, handleDeactivatePremium,
+  title, value, values, labels, hidden, icon, iconColor, onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
   const languageCode = useSelector(languageCodeSelector)
@@ -36,9 +37,9 @@ export const OptionItem = ({
     return (
       <ListedOption title={title}>
         <MultiToggle
-          values={Object.values(LANGUAGE_CODES)}
-          value={languageCode}
-          labels={LANGUAGE_LABELS}
+          values={values}
+          value={value}
+          labels={labels}
           onChange={onChange}
         />
       </ListedOption>

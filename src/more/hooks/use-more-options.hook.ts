@@ -15,16 +15,19 @@ import { deactivatePremiumAlert } from '@core/alerts/deactivate-premium-alert'
 import { premiumService } from '@core/premium-service/premium-service'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
+import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
 import { MoreOption } from '../more.models'
-import { hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
+import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
 import {
+  setDarkThemeEnabledAction,
   setHapticFeedbackEnabledAction, setLanguageCodeAction, setNativeSearchEngineEnabledAction,
 } from '../../settings/store/settings.slice'
 
 type Options = [
   MoreOption<undefined>,
   MoreOption<LANGUAGE_CODES>,
+  MoreOption<0 | 1 | -1>,
   MoreOption<boolean>,
   MoreOption<boolean>,
   MoreOption<undefined>,
@@ -48,6 +51,7 @@ export const useMoreOptions = (
 
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
   const languageCode = useSelector(languageCodeSelector)
+  const darkThemeEnabled = useSelector(darkThemeEnabledSelector)
 
   const isPending = R.any(
     R.isNil,
@@ -67,6 +71,9 @@ export const useMoreOptions = (
       Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([]))
     })
   }
+
+  const handleChangeTheme = (value: 0 | 1 | -1) =>
+    dispatch(setDarkThemeEnabledAction(value))
 
   const handleDeactivatePremium = () => {
     deactivatePremiumAlert(() => {
@@ -93,8 +100,16 @@ export const useMoreOptions = (
       {
         title: localize().language,
         values: Object.values(LANGUAGE_CODES),
+        labels: LANGUAGE_LABELS,
         value: languageCode,
         onChange: handleChangeLanguage,
+      },
+      {
+        title: localize().theme,
+        values: [ 0, 1, -1 ],
+        labels: [ localize().light, localize().dark, localize().auto ],
+        value: darkThemeEnabled,
+        onChange: handleChangeTheme,
       },
       {
         title: localize().haptic_feedback,
@@ -116,7 +131,7 @@ export const useMoreOptions = (
         onChange: () => navigation.navigate(SCREEN.MORE_MANIA),
         icon: 'web',
       }
-    ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode ])
+    ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode, darkThemeEnabled ])
 
     return { handleDeactivatePremium, getOptions }
 }

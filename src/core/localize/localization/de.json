@@ -10,5 +10,9 @@
   "no_definitions_found": "Keine Definitionen gefunden",
   "by_letters": "buchstaben",
   "load_more": "Mehr laden",
+  "theme": "Thema",
+  "light": "Leichtes",
+  "dark": "Dunkles",
+  "auto": "Auto",
   "language": "Sprache"
 }

@@ -8,6 +8,7 @@ import { NumberFlag } from '@core/models'
 export interface SettingsState {
   hapticFeedbackEnabled: NumberFlag;
   nativeSearchEngineEnabled: NumberFlag;
+  darkThemeEnabled: 0 | 1 | -1;
   premium: number;
   languageCode: null | LANGUAGE_CODES;
 }
@@ -15,6 +16,7 @@ export interface SettingsState {
 const initialState: SettingsState = {
   hapticFeedbackEnabled: 1,
   nativeSearchEngineEnabled: 1,
+  darkThemeEnabled: 0,
   premium: 0,
   languageCode: null,
 }
@@ -30,6 +32,10 @@ export const settingsSlice = createSlice({
     setNativeSearchEngineEnabledAction: (state, action: PayloadAction<NumberFlag>) => {
       Storage.set(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, String(action.payload))
       state.nativeSearchEngineEnabled = action.payload
+    },
+    setDarkThemeEnabledAction: (state, action: PayloadAction<0 | 1 | -1>) => {
+      Storage.set(STORAGE_KEY.DARK_THEME_ENABLED, String(action.payload))
+      state.darkThemeEnabled = action.payload
     },
     setPremiumAction: (state, action: PayloadAction<number>) => {
       Storage.set(STORAGE_KEY.PREMIUM, String(action.payload))
@@ -48,7 +54,8 @@ export const settingsSlice = createSlice({
 })
 
 export const {
-  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setPremiumAction, setLanguageCodeAction,
+  setHapticFeedbackEnabledAction, setNativeSearchEngineEnabledAction, setDarkThemeEnabledAction,
+  setPremiumAction, setLanguageCodeAction,
 } = settingsSlice.actions
 
 export const settingsReducer = settingsSlice.reducer
