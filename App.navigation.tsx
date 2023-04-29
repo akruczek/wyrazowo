@@ -1,20 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { useTheme as reactNativePaperUseTheme } from 'react-native-paper';
+import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ThemeProvider, useTheme } from 'styled-components/native';
-import { ThemeModel } from '@core/styled/models';
+import { ThemeProvider, useTheme } from 'styled-components/native'
+import { ThemeModel } from '@core/styled/models'
 import { theme as themeModel } from '@core/styled/theme'
 import { Dashboard } from './src/dashboard/dashboard'
-import { Mania } from './src/mania/mania'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
-import { More } from './src/more/more'
 import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
 import { Playground } from './src/playground/playground'
+import { MoreNavigation } from './src/more/more.navigation'
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator()
 
 export const AppNavigation = () => {
   const reactNativePaperTheme = reactNativePaperUseTheme()
@@ -66,7 +65,7 @@ export const AppNavigation = () => {
             }}
           />
 
-          <Tab.Screen
+          {/* <Tab.Screen
             name={SCREEN.MANIA}
             component={Mania}
             options={{
@@ -74,11 +73,11 @@ export const AppNavigation = () => {
                 <MaterialCommunityIcons name="web" color={color} size={26} />
               ),
             }}
-          />
+          /> */}
 
           <Tab.Screen
             name={SCREEN.MORE}
-            component={More}
+            component={MoreNavigation}
             options={{
               tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />

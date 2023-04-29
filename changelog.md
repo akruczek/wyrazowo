@@ -3,7 +3,7 @@
 - Advanced search from playground - search various combinations of words directly from playground
 
 ## 1.4.0
-### Fixed
+### Added
 - Dark theme support
 
 ## 1.3.1
