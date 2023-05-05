@@ -17,6 +17,7 @@ import { Playground } from './src/playground/playground'
 import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
+import { Charade } from './src/charade/charade'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -76,6 +77,16 @@ export const AppNavigation = () => {
             options={{
               tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name={SCREEN.CHARADE}
+            component={Charade}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="grid" color={color} size={26} />
               ),
             }}
           />
