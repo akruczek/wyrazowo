@@ -1,4 +1,5 @@
 import styled, { ThemeProps } from 'styled-components/native'
+import { FlatListProps } from 'react-native'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
@@ -17,7 +18,7 @@ export const PlaygroundFlatList = styled.FlatList.attrs({
     paddingHorizontal: 1,
     paddingVertical: 10,
   },
-})<any>``
+})<FlatListProps<any> & any>``
 
 export const PlaygroundBottomContainer = styled.View<ThemeProps<ThemeModel>>`
   width: 100%;
