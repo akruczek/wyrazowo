@@ -6,6 +6,10 @@ import { TEXT_SIZE } from '@core/text/text.constants';
 
 interface CharadeFieldContainerProps {
   count: number;
+  word: string;
+  content: string;
+  index: number;
+  isSent: boolean;
 }
 
 const getCharadeFieldContainerSize = R.pipe(
@@ -18,6 +22,22 @@ const getCharadeFieldContainerRadius = R.pipe(
   R.divide(R.__, 10),
 )
 
+const getCharadeFieldContainerColor = ({ isSent, content, index, word }: CharadeFieldContainerProps) => {
+  if (isSent) {
+    if (word.includes(content)) {
+      if (word[index] === content) {
+        return COLOR.DARK_SEA_GREEN
+      } else {
+        return COLOR.GOLD
+      }
+    } else {
+      return COLOR.FIRE_BRICK
+    }
+  } else {
+    return COLOR.TRANSPARENT
+  }
+}
+
 export const CharadeFieldContainer = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
 })<CharadeFieldContainerProps>`
@@ -26,6 +46,7 @@ export const CharadeFieldContainer = styled.TouchableOpacity.attrs({
   border-radius: ${getCharadeFieldContainerRadius}px;
   border: 1px solid ${COLOR.DIM_GREY};
   align-items: center;
+  background-color: ${getCharadeFieldContainerColor};
   justify-content: center;
 `
 

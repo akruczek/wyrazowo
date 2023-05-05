@@ -4,13 +4,16 @@ import { CharadeFieldContainer, CharadeFieldContentText, CharadeFieldInnerContai
 interface Props {
   count: number;
   isActive: boolean;
+  isSent: boolean;
+  word: string;
+  index: number;
   content: string;
   onPress: () => void;
 }
 
-export const CharadeField = ({ count, onPress, content, isActive }: Props) => {
+export const CharadeField = ({ count, onPress, content, isSent, index, word, isActive }: Props) => {
   return (
-    <CharadeFieldContainer {...{ onPress, count }}>
+    <CharadeFieldContainer {...{ onPress, index, count, content, word, isSent }}>
       <CharadeFieldInnerContainer isActive={isActive} />
       <CharadeFieldContentText children={content} />
     </CharadeFieldContainer>
