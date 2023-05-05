@@ -1,7 +1,11 @@
 import * as React from 'react'
+import { SafeAreaFlexContainer } from '@core/styled'
+import { CharadePlayground } from './components'
 
 export const Charade = () => {
   return (
-    null
+    <SafeAreaFlexContainer>
+      <CharadePlayground count={5} />
+    </SafeAreaFlexContainer>
   )
 }
