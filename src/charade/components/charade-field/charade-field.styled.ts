@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { COLOR } from '@core/colors/colors.constants';
+import { COLOR } from '@core/colors/colors.constants'
 
 interface CharadeFieldContainerProps {
   count: number;
@@ -9,7 +9,7 @@ interface CharadeFieldContainerProps {
 
 const getCharadeFieldContainerSize = R.pipe(
   R.propOr(5, 'count'),
-  R.divide(RESPONSIVE.WIDTH(90)),
+  R.divide(RESPONSIVE.WIDTH(65)),
 )
 
 const getCharadeFieldContainerRadius = R.pipe(
