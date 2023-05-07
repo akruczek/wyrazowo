@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -43,9 +43,11 @@ export const AppNavigation = () => {
   const [ activeColor, setActiveColor ] = React.useState<COLOR>(COLOR.FIRE_BRICK)
 
   React.useEffect(() => {
-    navigation.addListener('state', (state) => {
+    const unsubscribe = navigation.addListener('state', (state) => {
       setActiveColor(BOTTOM_NAVIGATION_COLOR[state?.data?.state?.index ?? 0])
     })
+
+    return unsubscribe
   }, [])
 
   return isPending ? (
