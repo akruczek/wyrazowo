@@ -72,16 +72,6 @@ export const AppNavigation = () => {
           />
 
           <Tab.Screen
-            name={SCREEN.PLAYGROUND}
-            component={Playground}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
-              ),
-            }}
-          />
-
-          <Tab.Screen
             name={SCREEN.CHARADE}
             component={Charade}
             options={{

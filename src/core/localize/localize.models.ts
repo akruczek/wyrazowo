@@ -14,7 +14,8 @@ export interface Localization {
   light: 'light',
   dark: 'dark',
   auto: 'auto',
-  charade: "charade",
+  charade: 'charade',
+  playground: 'playground',
   language: 'language',
 }
 
