@@ -4,6 +4,7 @@ import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const CUSTOM_KEYBOARD_HEIGHT = RESPONSIVE.HEIGHT(30)
+const CUSTOM_KEYBOARD_KEY_SIZE = RESPONSIVE.WIDTH(13)
 
 interface CustomKeyboardContainerProps {
   height?: number;
@@ -28,7 +29,7 @@ export const CustomKeyboardRowList = styled.FlatList.attrs({
 })``
 
 export const CustomKeyboardButtonContainer = styled.TouchableOpacity<CustomKeyboardButtonContainerProps>`
-  height: ${RESPONSIVE.WIDTH(15)}px;
+  height: ${CUSTOM_KEYBOARD_KEY_SIZE}px;
   background-color: ${COLOR.DIM_GREY_LIGHTER};
   width: ${({ rowLength }: CustomKeyboardButtonContainerProps) => RESPONSIVE.WIDTH(100 / rowLength) - 4}px;
   border-radius: 5px;

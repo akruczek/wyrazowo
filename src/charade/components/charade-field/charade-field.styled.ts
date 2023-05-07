@@ -12,9 +12,11 @@ interface CharadeFieldContainerProps {
   isSent: boolean;
 }
 
+const CHARADE_PLAYGROUND_FIELD_SIZE = 60
+
 const getCharadeFieldContainerSize = R.pipe(
   R.propOr(5, 'count'),
-  R.divide(RESPONSIVE.WIDTH(65)),
+  R.divide(RESPONSIVE.WIDTH(CHARADE_PLAYGROUND_FIELD_SIZE)),
 )
 
 const getCharadeFieldContainerRadius = R.pipe(
