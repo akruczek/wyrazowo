@@ -1,6 +1,16 @@
 ## 1.5.0
 ### Added
-- Advanced search from playground - search various combinations of words directly from playground
+- Charade - you can play charade in any configuration!
+
+### Improved
+- Main screens UI improvements
+
+### Changed
+- Moved Playground to More tab
+- Main navigation icons
+
+### Fixed
+- Modals UI on Dashboard
 
 ## 1.4.0
 ### Added
