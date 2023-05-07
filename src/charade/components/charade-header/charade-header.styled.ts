@@ -9,7 +9,7 @@ interface CharadeHeaderContainerProps {
   topInset: number;
 }
 
-const CHARADE_HEADER_HEIGHT = 55
+const CHARADE_HEADER_HEIGHT = 75
 
 const getCharadeHeaderHeight = R.pipe(
   R.propOr(0, 'topInset'),

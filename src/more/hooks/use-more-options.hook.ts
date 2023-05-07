@@ -32,6 +32,7 @@ type Options = [
   MoreOption<boolean>,
   MoreOption<undefined>,
   MoreOption<undefined>,
+  MoreOption<undefined>,
 ] | []
 
 interface UseMoreOptions {

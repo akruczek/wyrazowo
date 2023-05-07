@@ -1,4 +1,3 @@
-import * as R from 'ramda'
 import styled from 'styled-components/native'
 import { COLOR } from '@core/colors/colors.constants'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
@@ -20,7 +19,7 @@ interface CharadeButtonsContainerProps {
 }
 
 const getCharadeButtonsContainerBottom = ({ topInset }: CharadeButtonsContainerProps) =>
-  BOTTOM_NAVIGATION_HEIGHT - topInset + 50
+  BOTTOM_NAVIGATION_HEIGHT - topInset + 75
 
 export const CharadeButtonsContainer = styled.View<CharadeButtonsContainerProps>`
   position: absolute;

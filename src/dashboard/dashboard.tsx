@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { View } from 'react-native'
+import { Dimensions, ScrollView, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
 import { isForceIndexAvailable } from './helpers'
-import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
+import { SelectedLetters, LettersGrid, DashboardButtonsAndModals, DashboardHeader } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
 import { DashboardHost, DashboardSafeArea, DashboardStatusBar } from './dashboard.styled'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
@@ -38,13 +38,16 @@ export const Dashboard = () => {
     }
   }
 
+  const ContentWrapper = Dimensions.get('screen').height < 800 ? ScrollView : View
+
   return React.useMemo(() => (
     <DashboardHost>
       <DashboardSafeArea>
+        <DashboardHeader />
         <DashboardStatusBar />
         <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
-        <View>
+        <ContentWrapper>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
           <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
           <DashboardButtonsAndModals {...{
@@ -52,7 +55,7 @@ export const Dashboard = () => {
             soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
             letters, possibleWords, forceIndexModalizeRef }}
           />
-        </View>
+        </ContentWrapper>
       </DashboardSafeArea>
     </DashboardHost>
   ), [ selectedLetters, letters, possibleWords ])

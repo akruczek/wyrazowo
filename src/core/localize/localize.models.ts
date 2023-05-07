@@ -16,6 +16,8 @@ export interface Localization {
   auto: 'auto',
   charade: 'charade',
   playground: 'playground',
+  dashboard: 'dashboard',
+  more: 'more',
   language: 'language',
 }
 
