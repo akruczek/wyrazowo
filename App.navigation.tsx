@@ -1,4 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native'
+import * as React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -13,10 +14,10 @@ import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
 import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
-import { Playground } from './src/playground/playground'
 import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
+import { Charade } from './src/charade/charade'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -37,60 +38,70 @@ export const AppNavigation = () => {
     ? themeModel[colorScheme ?? 'light']
     : themeModel[darkTheme ? 'dark' : 'light']
 
+  const navigation = useNavigation()
+  const BOTTOM_NAVIGATION_COLOR = [ COLOR.FIRE_BRICK, COLOR.DODGER_BLUE, COLOR.DARK_SEA_GREEN, COLOR.GOLD ]
+  const [ activeColor, setActiveColor ] = React.useState<COLOR>(COLOR.FIRE_BRICK)
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('state', (state) => {
+      setActiveColor(BOTTOM_NAVIGATION_COLOR[state?.data?.state?.index ?? 0])
+    })
+
+    return unsubscribe
+  }, [])
+
   return isPending ? (
     <ActivityIndicator size="large" />
   ) : (
     <ThemeProvider theme={getThemeToProvide()}>
-      <NavigationContainer>
-        <Tab.Navigator
-          inactiveColor={COLOR.SLATE_GREY}
-          activeColor={COLOR.DODGER_BLUE}
-          barStyle={{ backgroundColor: getBackgroundColor(), ...genericShadow }}
-          labeled={false}
-          sceneAnimationType="shifting"
-          sceneAnimationEnabled
-        >
-          <Tab.Screen
-            name={SCREEN.DASHBOARD}
-            component={Dashboard}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
+      <Tab.Navigator
+        inactiveColor={COLOR.SLATE_GREY}
+        activeColor={activeColor}
+        barStyle={{ backgroundColor: getBackgroundColor(), ...genericShadow }}
+        labeled={false}
+        sceneAnimationType="shifting"
+        sceneAnimationEnabled
+      >
+        <Tab.Screen
+          name={SCREEN.DASHBOARD}
+          component={Dashboard}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home-search" color={color} size={26} />
+            ),
+          }}
+        />
 
-          <Tab.Screen
-            name={SCREEN.DICTIONARY}
-            component={Dictionary}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
-              ),
-            }}
-          />
+        <Tab.Screen
+          name={SCREEN.DICTIONARY}
+          component={Dictionary}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
+            ),
+          }}
+        />
 
-          <Tab.Screen
-            name={SCREEN.PLAYGROUND}
-            component={Playground}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="checkerboard" color={color} size={26} />
-              ),
-            }}
-          />
+        <Tab.Screen
+          name={SCREEN.CHARADE}
+          component={Charade}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="grid" color={color} size={26} />
+            ),
+          }}
+        />
 
-          <Tab.Screen
-            name={SCREEN.MORE}
-            component={MoreNavigation}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+        <Tab.Screen
+          name={SCREEN.MORE}
+          component={MoreNavigation}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </ThemeProvider>
   )
 }

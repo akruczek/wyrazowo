@@ -14,6 +14,11 @@ export interface Localization {
   light: 'light',
   dark: 'dark',
   auto: 'auto',
+  charade: 'charade',
+  playground: 'playground',
+  dashboard: 'dashboard',
+  play: 'play',
+  more: 'more',
   language: 'language',
 }
 

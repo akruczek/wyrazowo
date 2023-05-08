@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
+import { Portal } from 'react-native-portalize'
 import { COLOR } from '@core/colors/colors.constants'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { SearchHistoryModal } from '../search-history-modal/search-history-modal'
@@ -78,31 +79,33 @@ export const DashboardButtonsAndModals = ({
         </CustomButton>
       </DashboardButtonsContainer>
 
-      <SearchHistoryModal
-        historyModalizeRef={historyModalizeRef}
-        soapCharactersIndexes={soapCharactersIndexes}
-        historyAvailable={historyAvailable}
-        setHistoryAvailable={setHistoryAvailable}
-      />
+      <Portal>
+        <SearchHistoryModal
+          historyModalizeRef={historyModalizeRef}
+          soapCharactersIndexes={soapCharactersIndexes}
+          historyAvailable={historyAvailable}
+          setHistoryAvailable={setHistoryAvailable}
+        />
 
-      <PossibleWordsModal
-        possibleWords={possibleWords}
-        modalizeRef={modalizeRef}
-        onClosed={clearPossibleWords}
-        soapCharactersIndexes={soapCharactersIndexes}
-        noWordsFound={noWordsFound}
-      />
+        <PossibleWordsModal
+          possibleWords={possibleWords}
+          modalizeRef={modalizeRef}
+          onClosed={clearPossibleWords}
+          soapCharactersIndexes={soapCharactersIndexes}
+          noWordsFound={noWordsFound}
+        />
 
-      <SoapLetterModal
-        letters={letters}
-        modalizeRef={soapModalizeRef}
-        onSelectSoapLetters={onSelectSoapLetters}
-      />
+        <SoapLetterModal
+          letters={letters}
+          modalizeRef={soapModalizeRef}
+          onSelectSoapLetters={onSelectSoapLetters}
+        />
 
-      <ForceIndexModal
-        modalizeRef={forceIndexModalizeRef}
-        handleForceIndex={_handleForceIndex}
-      />
+        <ForceIndexModal
+          modalizeRef={forceIndexModalizeRef}
+          handleForceIndex={_handleForceIndex}
+        />
+      </Portal>
     </>
   )
 }

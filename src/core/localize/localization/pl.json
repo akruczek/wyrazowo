@@ -14,5 +14,10 @@
   "light": "Jasny",
   "dark": "Ciemny",
   "auto": "Auto",
+  "charade": "SZARADA",
+  "playground": "Piaskownica",
+  "dashboard": "WYSZUKIWARKA",
+  "play": "GRAJ",
+  "more": "WIĘCEJ",
   "language": "Język"
 }

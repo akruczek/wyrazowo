@@ -32,6 +32,7 @@ type Options = [
   MoreOption<boolean>,
   MoreOption<undefined>,
   MoreOption<undefined>,
+  MoreOption<undefined>,
 ] | []
 
 interface UseMoreOptions {
@@ -130,7 +131,12 @@ export const useMoreOptions = (
         title: 'Scrabble Mania',
         onChange: () => navigation.navigate(SCREEN.MORE_MANIA),
         icon: 'web',
-      }
+      },
+      {
+        title: localize().playground,
+        onChange: () => navigation.navigate(SCREEN.MORE_PLAYGROUND),
+        icon: 'checkerboard',
+      },
     ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode, darkThemeEnabled ])
 
     return { handleDeactivatePremium, getOptions }

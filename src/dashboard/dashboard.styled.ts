@@ -1,9 +1,9 @@
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
 import { Host } from 'react-native-portalize'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { SafeAreaFlexContainer } from '@core/styled'
-import { ThemeModel } from '@core/styled/models'
 import { getThemeProp } from '@core/styled/theme'
+import { COLOR } from '@core/colors/colors.constants'
 
 export const DashboardSafeArea = styled(SafeAreaFlexContainer).attrs({
   justifyContent: 'space-between',
@@ -11,9 +11,9 @@ export const DashboardSafeArea = styled(SafeAreaFlexContainer).attrs({
 })``
 
 export const DashboardStatusBar = styled(FocusAwareStatusBar).attrs(props => ({
-  backgroundColor: getThemeProp('backgroundPrimary')(props),
+  backgroundColor: COLOR.FIRE_BRICK,
   animated: true,
-  barStyle: 'dark-content',
+  barStyle: 'light-content',
 }))``
 
 export const DashboardHost = styled(Host)`
