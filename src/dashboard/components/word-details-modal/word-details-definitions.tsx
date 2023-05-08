@@ -1,14 +1,16 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
+import { MarginView } from '@core/styled/margin-view.styled'
+import { useLocalize } from '@core/hooks/use-localize.hook'
 import { useWordDefinitions } from '../../hooks/use-word-definitions.hook'
 import { WordDetailsDefinitionText } from './word-details-modal.styled'
-import { MarginView } from '@core/styled/margin-view.styled';
 
 interface Props {
   word: string;
 }
 
 export const WordDetialsDefinitions = ({ word }: Props) => {
+  const localize = useLocalize()
   const { definitions } = useWordDefinitions(word)
 
   return (
@@ -24,9 +26,7 @@ export const WordDetialsDefinitions = ({ word }: Props) => {
           ))}
         </>
       ) : (
-        <WordDetailsDefinitionText>
-          No definitions found
-        </WordDetailsDefinitionText>
+        <WordDetailsDefinitionText children={localize().no_definitions_found} />
       )}
     </MarginView>
   )

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { COLOR } from '@core/colors/colors.constants'
+import { getThemeProp } from '@core/styled/theme'
 
 export const DictionaryDefinitionsContainer = styled.View`
   margin-top: 20px;
@@ -9,7 +9,7 @@ export const DictionaryDefinitionsContainer = styled.View`
 
 export const DictionaryDefinitionText = styled.Text`
   font-size: ${TEXT_SIZE.S}px;
-  color: ${COLOR.BLACK};
+  color: ${getThemeProp('textPrimary')};
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;

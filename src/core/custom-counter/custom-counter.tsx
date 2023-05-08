@@ -1,10 +1,8 @@
 import * as React from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import {
-  CustomCounterButtonContainer, CustomCounterContainer,
-  CustomCounterLabelIconContainer, CustomCounterText, CustomCounterTextContainer,
+  CustomCounterButtonContainer, CustomCounterContainer, CustomCounterLabel,
+  CustomCounterLabelIconContainer, CustomCounterMinusIcon, CustomCounterPlusIcon,
+  CustomCounterText, CustomCounterTextContainer,
 } from './custom-counter.styled'
 
 interface Props {
@@ -24,12 +22,12 @@ export const CustomCounter = ({ value, setValue }: Props) => {
   return (
     <>
       <CustomCounterLabelIconContainer>
-        <MaterialCommunityIcons name="format-letter-spacing" color={COLOR.BLACK} size={TEXT_SIZE.L} />
+        <CustomCounterLabel />
       </CustomCounterLabelIconContainer>
 
       <CustomCounterContainer>
         <CustomCounterButtonContainer onPress={handleDecrement}>
-          <MaterialCommunityIcons name="minus" color={COLOR.BLACK} size={TEXT_SIZE.XXL} />
+          <CustomCounterMinusIcon />
         </CustomCounterButtonContainer>
 
         <CustomCounterTextContainer>
@@ -37,7 +35,7 @@ export const CustomCounter = ({ value, setValue }: Props) => {
         </CustomCounterTextContainer>
 
         <CustomCounterButtonContainer onPress={handleIncrement}>
-          <MaterialCommunityIcons name="plus" color={COLOR.BLACK} size={TEXT_SIZE.XXL} />
+          <CustomCounterPlusIcon />
         </CustomCounterButtonContainer>
       </CustomCounterContainer>
     </>

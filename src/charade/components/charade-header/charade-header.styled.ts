@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import LinearGradient from 'react-native-linear-gradient'
 import { getThemeProp } from '@core/styled/theme'
 import { COLOR } from '@core/colors/colors.constants'
@@ -59,3 +60,9 @@ export const CharadeAbortButtonContainer = styled.TouchableOpacity.attrs({
   justify-content: center;
   align-items: center;
 `
+
+export const CharadeBackButtonIcon = styled(MaterialCommunityIcons).attrs(props => ({
+  name: 'chevron-left',
+  color: getThemeProp('textSecondary')(props),
+  size: TEXT_SIZE.XXL,
+}))``

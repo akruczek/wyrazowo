@@ -1,8 +1,10 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants';
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { getThemeProp } from '@core/styled/theme'
+import { ThemeModel } from '@core/styled/models'
 
 interface CharadeFieldContainerProps {
   count: number;
@@ -42,11 +44,11 @@ const getCharadeFieldContainerColor = ({ isSent, content, index, word }: Charade
 
 export const CharadeFieldContainer = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
-})<CharadeFieldContainerProps>`
+})<CharadeFieldContainerProps & ThemeProps<ThemeModel>>`
   width: ${getCharadeFieldContainerSize}px;
   height: ${getCharadeFieldContainerSize}px;
   border-radius: ${getCharadeFieldContainerRadius}px;
-  border: 1px solid ${COLOR.DIM_GREY};
+  border: 1px solid ${getThemeProp('textSecondary')};
   align-items: center;
   background-color: ${getCharadeFieldContainerColor};
   justify-content: center;
@@ -61,9 +63,9 @@ const getCharadeFieldInnerContainerBorderWidth = R.pipe(
   Number,
 )
 
-export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainerProps>`
+export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainerProps & ThemeProps<ThemeModel>>`
   border-bottom-width: ${getCharadeFieldInnerContainerBorderWidth}px;
-  boarder-color: ${COLOR.DIM_GREY};
+  boarder-color: ${getThemeProp('textSecondary')};
   width: 90%;
   height: 90%;
   align-self: center;
@@ -73,5 +75,5 @@ export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainer
 
 export const CharadeFieldContentText = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
-  color: ${COLOR.BLACK};
+  color: ${getThemeProp('textPrimary')};
 `

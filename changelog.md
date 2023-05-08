@@ -1,3 +1,9 @@
+## 1.5.1
+### Fixed
+- Wrong slider value on android
+- Dark Theme font color on Dashboard, Dictionary and Charade screens
+- Wrong navigation icon size on small devices
+
 ## 1.5.0
 ### Added
 - Charade - you can play charade in any configuration!

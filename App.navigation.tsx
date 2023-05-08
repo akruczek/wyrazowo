@@ -18,6 +18,8 @@ import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
 import { Charade } from './src/charade/charade'
+import { TEXT_SIZE } from '@core/text/text.constants'
+import { RESPONSIVE } from '@core/responsive/responsive'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -41,6 +43,8 @@ export const AppNavigation = () => {
   const navigation = useNavigation()
   const BOTTOM_NAVIGATION_COLOR = [ COLOR.FIRE_BRICK, COLOR.DODGER_BLUE, COLOR.DARK_SEA_GREEN, COLOR.GOLD ]
   const [ activeColor, setActiveColor ] = React.useState<COLOR>(COLOR.FIRE_BRICK)
+
+  const size = RESPONSIVE.WIDTH(7)
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('state', (state) => {
@@ -66,9 +70,7 @@ export const AppNavigation = () => {
           name={SCREEN.DASHBOARD}
           component={Dashboard}
           options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home-search" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home-search" {...{ color, size }} />
           }}
         />
 
@@ -76,9 +78,7 @@ export const AppNavigation = () => {
           name={SCREEN.DICTIONARY}
           component={Dictionary}
           options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="book-alphabet" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="book-alphabet" {...{ color, size }} />,
           }}
         />
 
@@ -86,9 +86,7 @@ export const AppNavigation = () => {
           name={SCREEN.CHARADE}
           component={Charade}
           options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="grid" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="grid" {...{ color, size }} />
           }}
         />
 
@@ -96,9 +94,7 @@ export const AppNavigation = () => {
           name={SCREEN.MORE}
           component={MoreNavigation}
           options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="dots-horizontal" color={color} size={26} />
-            ),
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="dots-horizontal" {...{ color, size }} />
           }}
         />
       </Tab.Navigator>
