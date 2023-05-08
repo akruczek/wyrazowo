@@ -18,7 +18,6 @@ import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
 import { Charade } from './src/charade/charade'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 
 const Tab = createMaterialBottomTabNavigator()

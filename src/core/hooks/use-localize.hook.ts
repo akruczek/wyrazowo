@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native'
+import { useSelector } from 'react-redux'
 import { LANGUAGE_CODES, Localization } from '../localize/localize.models'
 import { localize } from '../localize/localize'
-import { useSelector } from 'react-redux'
 import { languageCodeSelector } from '../../settings/store/settings.selectors'
 
 export const useLocalize = (): () => Localization => {
@@ -12,10 +12,7 @@ export const useLocalize = (): () => Localization => {
   })
 
   const _languageCode = useSelector(languageCodeSelector)
-
-  const languageCode = _languageCode
-    ?? deviceLanguage
-    ?? LANGUAGE_CODES.EN
+  const languageCode = _languageCode ?? deviceLanguage ?? LANGUAGE_CODES.EN
 
   const handleChange = React.useCallback(() => {
     return localize(languageCode)

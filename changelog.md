@@ -1,3 +1,7 @@
+## 1.6.0
+### Fixed
+- Not saving language code
+
 ## 1.5.2
 ### Added
 - Charade - markings for letters on custom keyboard

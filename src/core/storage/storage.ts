@@ -9,10 +9,14 @@ export const Storage = {
       return null
     }
   },
-  get: async <T>(key: string): Promise<T | null> => {
+  get: async <T>(key: string, raw?: boolean): Promise<T | null> => {
     try {
       const result = await AsyncStorage.getItem(`@${key}`)
-      return result != null ? JSON.parse(result) : null
+      return result != null
+        ? raw
+          ? result
+          : JSON.parse(result)
+        : null
     } catch (error) {
       return null
     }
