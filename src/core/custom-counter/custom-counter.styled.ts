@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
@@ -30,13 +31,24 @@ export const CustomCounterText = styled.Text`
   color: ${getThemeProp('textPrimary')};
 `
 
-export const CustomCounterButtonContainer = styled.TouchableOpacity`
+interface CustomCounterButtonContainerProps {
+  disabled: boolean;
+}
+
+const getCustomCounterButtonContainerOpacity = R.ifElse(
+  R.propSatisfies(Boolean, 'disabled'),
+  R.always(0.3),
+  R.always(1),
+)
+
+export const CustomCounterButtonContainer = styled.TouchableOpacity<CustomCounterButtonContainerProps>`
   width: ${RESPONSIVE.WIDTH(10)}px;
   height: ${RESPONSIVE.WIDTH(10)}px;
   justify-content: center;
   align-items: center;
   border: 1px solid ${COLOR.DIM_GREY_LIGHTER};
   border-radius: 10px;
+  opacity: ${getCustomCounterButtonContainerOpacity};
 `
 
 export const CustomCounterLabel = styled(MaterialCommunityIcons).attrs(props => ({

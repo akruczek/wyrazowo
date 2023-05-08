@@ -42,7 +42,7 @@ export const Charade = () => {
         <CharadePlayground word={word} />
       ) : (
         <CharadeConfigurationContainer>
-          <CustomCounter value={count} setValue={setCount} />
+          <CustomCounter value={count} range={[ 3, 9 ]} setValue={setCount} />
 
           <CharadeButtonsContainer {...{ topInset }}>
             <CustomButton onPress={handlePress} color={COLOR.DARK_SEA_GREEN} title={localize().play} />

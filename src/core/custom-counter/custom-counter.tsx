@@ -7,16 +7,21 @@ import {
 
 interface Props {
   value: number;
+  range: [ number, number ];
   setValue: (value: number) => void;
 }
 
-export const CustomCounter = ({ value, setValue }: Props) => {
+export const CustomCounter = ({ value, range, setValue }: Props) => {
   const handleDecrement = () => {
-    setValue(value - 1)
+    if (value > range[0]) {
+      setValue(value - 1)
+    }
   }
 
   const handleIncrement = () => {
-    setValue(value + 1)
+    if (value < range[1]) {
+      setValue(value + 1)
+    }
   }
 
   return (
@@ -26,7 +31,7 @@ export const CustomCounter = ({ value, setValue }: Props) => {
       </CustomCounterLabelIconContainer>
 
       <CustomCounterContainer>
-        <CustomCounterButtonContainer onPress={handleDecrement}>
+        <CustomCounterButtonContainer disabled={value === range[0]} onPress={handleDecrement}>
           <CustomCounterMinusIcon />
         </CustomCounterButtonContainer>
 
@@ -34,7 +39,7 @@ export const CustomCounter = ({ value, setValue }: Props) => {
           <CustomCounterText children={value} />
         </CustomCounterTextContainer>
 
-        <CustomCounterButtonContainer onPress={handleIncrement}>
+        <CustomCounterButtonContainer disabled={value === range[1]} onPress={handleIncrement}>
           <CustomCounterPlusIcon />
         </CustomCounterButtonContainer>
       </CustomCounterContainer>

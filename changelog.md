@@ -3,6 +3,7 @@
 - Wrong slider value on android
 - Dark Theme font color on Dashboard, Dictionary and Charade screens
 - Wrong navigation icon size on small devices
+- Crash on Charade in some specific configurations
 
 ## 1.5.0
 ### Added
