@@ -7,7 +7,7 @@
   - [How to find possible words from given letters?](#how-to-find-possible-words-from-given-letters?)
 
 ## How Scrabble Helper can help me?
-#### Scrabble helper gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations.
+#### Scrabble helper gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations. You will also find some simple games which can help you to expand your scrabble knowledge.
 
 ## Technical
 ### Tech Stack:

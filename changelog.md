@@ -1,3 +1,8 @@
+## 1.5.2
+### Added
+- Charade - markings for letters on custom keyboard
+- Readme with gif's describing search engine basic usage
+
 ## 1.5.1
 ### Fixed
 - Wrong slider value on android

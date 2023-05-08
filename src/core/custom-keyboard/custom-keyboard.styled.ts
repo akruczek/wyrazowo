@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import styled from 'styled-components/native'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
@@ -17,6 +18,7 @@ export const CustomKeyboardContainer = styled.View<CustomKeyboardContainerProps>
 
 interface CustomKeyboardButtonContainerProps {
   rowLength: number;
+  backgroundColor: COLOR;
 }
 
 export const CustomKeyboardRowList = styled.FlatList.attrs({
@@ -30,7 +32,7 @@ export const CustomKeyboardRowList = styled.FlatList.attrs({
 
 export const CustomKeyboardButtonContainer = styled.TouchableOpacity<CustomKeyboardButtonContainerProps>`
   height: ${CUSTOM_KEYBOARD_KEY_SIZE}px;
-  background-color: ${COLOR.DIM_GREY_LIGHTER};
+  background-color: ${R.propOr(COLOR.DIM_GREY_LIGHTER, 'backgroundColor')};
   width: ${({ rowLength }: CustomKeyboardButtonContainerProps) => RESPONSIVE.WIDTH(100 / rowLength) - 4}px;
   border-radius: 5px;
   justify-content: center;
