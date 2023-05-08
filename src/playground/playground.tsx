@@ -39,11 +39,11 @@ export const Playground = () => {
   }
 
   const onPressColumn = () => {
-    console.warn(advancedSearchIndexes?.[0])
+    // advancedSearchIndexes?.[0]
   }
 
   const onPressRow = () => {
-    console.warn(advancedSearchIndexes?.[1])
+    // advancedSearchIndexes?.[1]
   }
 
   const onLongPressField = (index: number) => {

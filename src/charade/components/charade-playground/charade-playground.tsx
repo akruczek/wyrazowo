@@ -7,11 +7,11 @@ import { CharadePlaygroundRow, CharadePlaygroundRowsList } from './charade-playg
 import { CharadeField } from '../charade-field/charade-field'
 
 interface Props {
-  count: number;
+  word: string;
 }
 
-export const CharadePlayground = ({ count }: Props) => {
-  const WORD = 'WARTA'
+export const CharadePlayground = ({ word }: Props) => {
+  const count = word.length
 
   const [ activeRow, setActiveRow ] = React.useState(0)
   const [ activeIndex, setActiveIndex ] = React.useState(0)
@@ -63,7 +63,7 @@ export const CharadePlayground = ({ count }: Props) => {
       onPress={handlePress(index, rowIndex)}
       isActive={index === activeIndex && rowIndex === activeRow}
       isSent={activeRow > rowIndex}
-      word={WORD}
+      word={word}
       index={index}
       count={count}
       content={contents[index + (rowIndex * (count + 1))] ?? ''}
