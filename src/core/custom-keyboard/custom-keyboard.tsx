@@ -10,9 +10,12 @@ import {
 
 interface Props {
   onPress: (letter: string) => void;
+  greenLetters: string[];
+  yellowLetters: string[];
+  redLetters: string[];
 }
 
-export const CustomKeyboard = ({ onPress }: Props) => {
+export const CustomKeyboard = ({ onPress, greenLetters, yellowLetters, redLetters }: Props) => {
   const handlePress = (letter: string) => () => {
     onPress(letter)
   }
@@ -30,8 +33,20 @@ export const CustomKeyboard = ({ onPress }: Props) => {
 
     const rowLength = KEYBOARD_BUTTONS?.[KEYBOARD_BUTTONS.findIndex((arr: string[]) => arr.includes(item))]?.length
 
+    const backgroundColor = greenLetters.includes(item)
+      ? COLOR.DARK_SEA_GREEN
+      : yellowLetters.includes(item)
+        ? COLOR.GOLD
+        : redLetters.includes(item)
+          ? COLOR.FIRE_BRICK
+          : COLOR.DIM_GREY_LIGHTER
+
     return (
-      <CustomKeyboardButtonContainer onPress={handlePress(item)} rowLength={rowLength}>
+      <CustomKeyboardButtonContainer
+        backgroundColor={backgroundColor}
+        onPress={handlePress(item)}
+        rowLength={rowLength}
+      >
         {getContent()}
       </CustomKeyboardButtonContainer>
     )
