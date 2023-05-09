@@ -34,6 +34,7 @@ type Options = [
   MoreOption<undefined>,
   MoreOption<undefined>,
   MoreOption<undefined>,
+  MoreOption<undefined>,
 ] | []
 
 interface UseMoreOptions {
@@ -143,6 +144,11 @@ export const useMoreOptions = (
         onChange: () => navigation.navigate(SCREEN.MORE_HELP),
         icon: 'help',
       },
+      {
+        title: localize().about_author,
+        onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
+        icon: 'account-question',
+      }
     ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode, darkThemeEnabled ])
 
     return { handleDeactivatePremium, getOptions }

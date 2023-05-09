@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import LinearGradient from 'react-native-linear-gradient'
 import { getThemeProp } from '@core/styled/theme'
 import { COLOR } from '@core/colors/colors.constants'
@@ -37,3 +38,35 @@ export const MoreHeaderText = styled.Text`
   font-weight: bold;
   padding: 10px 20px 0;
 `
+
+interface MoreBackButtonContainerProps {
+  topInset?: number;
+}
+
+const getMoreBackButtonContainer = R.pipe(
+  R.propOr(0, 'topInset'),
+  R.add(10),
+)
+
+export const MoreBackButtonContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10,
+  },
+})<MoreBackButtonContainerProps>`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: ${getMoreBackButtonContainer}px;
+  left: 10px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const MoreBackButtonIcon = styled(MaterialCommunityIcons).attrs(props => ({
+  name: 'chevron-left',
+  color: getThemeProp('textSecondary')(props),
+  size: TEXT_SIZE.XXXL,
+}))``

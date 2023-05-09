@@ -10,6 +10,7 @@ export const SCREEN = {
   MORE_MANIA: 'More-Mania',
   MORE_PLAYGROUND: 'More-Playground',
   MORE_HELP: 'More-Help',
+  MORE_AUTHOR: 'More-Author',
   MORE_HELP_MAIN: 'More-Help-Main',
   MORE_HELP_GUIDELINE: 'More-Help-Guideline',
   DICTIONARY: 'Dictionary',

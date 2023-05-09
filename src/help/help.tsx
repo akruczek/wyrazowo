@@ -39,7 +39,7 @@ export const Help = () => {
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <MoreStatusBar />
-      <MoreHeader title={localize().help.toUpperCase()} />
+      <MoreHeader title={localize().help.toUpperCase()} backButton />
 
       <FlatList renderItem={renderItem} data={data} />
     </SafeAreaFlexContainer>

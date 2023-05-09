@@ -51,7 +51,7 @@ interface GuidelineButtonContainerProps {
   invisible?: boolean;
 }
 
-export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisible }) => ({
+export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisible }: GuidelineButtonContainerProps) => ({
   hitSlop: {
     top: 10,
     right: 10,

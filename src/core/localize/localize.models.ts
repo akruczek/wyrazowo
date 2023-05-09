@@ -22,6 +22,7 @@ export interface Localization {
   guideline_soap_letters: 'guideline_soap_letters',
   guideline_search_history_headline: 'guideline_search_history_headline',
   guideline_search_history: 'guideline_search_history',
+  about_author: 'about_author',
   theme: 'theme',
   light: 'light',
   dark: 'dark',
