@@ -41,16 +41,28 @@ export const GuidelineButtonsContainer = styled.View`
   bottom: 30px;
 `
 
-export const GuidelineButtonContainer = styled.TouchableOpacity.attrs({
+const getGuidelineButtonContainerOpacity = R.pipe(
+  R.propOr(false, 'invisible'),
+  R.not,
+  Number,
+)
+
+interface GuidelineButtonContainerProps {
+  invisible?: boolean;
+}
+
+export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisible }) => ({
   hitSlop: {
     top: 10,
     right: 10,
     bottom: 10,
     left: 10,
   },
-})`
+  activeOpacity: invisible ? 0 : 0.3,
+}))<GuidelineButtonContainerProps>`
   align-items: center;
   justify-content: center;
+  opacity: ${getGuidelineButtonContainerOpacity};
 `
 
 export const GuidelineNextIcon = styled(MaterialCommunityIcons).attrs(props => ({

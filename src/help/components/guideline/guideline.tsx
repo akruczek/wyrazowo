@@ -22,10 +22,20 @@ export const Guideline = () => {
 
   const index = getNavigationParam<number>('index', navigation)
 
-  const goNext = () => setGuidelineIndex(R.inc)
-  const goBack = () => setGuidelineIndex(R.dec)
-
   const { uri, id } = GUIDELINE[index][guidelineIndex]
+
+  const MIN = 0
+  const MAX = GUIDELINE[index].length - 1
+
+  const isMax = guidelineIndex === MAX
+  const goNext = () => {
+    if (!isMax) setGuidelineIndex(R.inc)
+  }
+
+  const isMin = guidelineIndex === MIN
+  const goBack = () => {
+    if (!isMin) setGuidelineIndex(R.dec)
+  }
 
   const localize = useLocalize()
 
@@ -42,13 +52,13 @@ export const Guideline = () => {
       </GuidelineContainer>
 
       <GuidelineButtonsContainer>
-        <GuidelineButtonContainer onPress={goBack}>
+        <GuidelineButtonContainer invisible={isMin} onPress={goBack}>
           <GuidelineBackIcon />
         </GuidelineButtonContainer>
 
-        <GuidelineIndicatorText children={`${guidelineIndex + 1}/${GUIDELINE[index].length + 1}`} />
+        <GuidelineIndicatorText children={`${guidelineIndex + 1}/${GUIDELINE[index].length}`} />
 
-        <GuidelineButtonContainer onPress={goNext}>
+        <GuidelineButtonContainer invisible={isMax} onPress={goNext}>
           <GuidelineNextIcon />
         </GuidelineButtonContainer>
       </GuidelineButtonsContainer>
