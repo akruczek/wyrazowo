@@ -33,6 +33,7 @@ type Options = [
   MoreOption<undefined>,
   MoreOption<undefined>,
   MoreOption<undefined>,
+  MoreOption<undefined>,
 ] | []
 
 interface UseMoreOptions {
@@ -136,6 +137,11 @@ export const useMoreOptions = (
         title: localize().playground,
         onChange: () => navigation.navigate(SCREEN.MORE_PLAYGROUND),
         icon: 'checkerboard',
+      },
+      {
+        title: localize().help,
+        onChange: () => navigation.navigate(SCREEN.MORE_HELP),
+        icon: 'help',
       },
     ], [ hapticFeedbackEnabled, nativeSearchEngineEnabled, premium, isPending, languageCode, darkThemeEnabled ])
 

@@ -4,13 +4,17 @@ import { genericTextShadow } from '@core/shadow/shadow.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { MoreHeaderContainer, MoreHeaderText } from './more-header.styled'
 
-export const MoreHeader = () => {
+interface Props {
+  title?: string;
+}
+
+export const MoreHeader = ({ title }: Props) => {
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
 
   return (
     <MoreHeaderContainer topInset={topInset}>
-      <MoreHeaderText style={genericTextShadow} children={localize().more} />
+      <MoreHeaderText style={genericTextShadow} children={title ?? localize().more} />
     </MoreHeaderContainer>
   )
 }

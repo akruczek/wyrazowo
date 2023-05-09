@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 import { genericTextShadow } from '@core/shadow/shadow.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import {
@@ -7,22 +8,18 @@ import {
 } from './charade-header.styled'
 
 interface Props {
-  isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
+  isPlaying?: boolean;
 }
 
-export const CharadeHeader = ({ isPlaying, setIsPlaying }: Props) => {
+export const CharadeHeader = ({ isPlaying }: Props) => {
   const { top: topInset } = useSafeAreaInsets()
+  const navigation = useNavigation()
   const localize = useLocalize()
-
-  const handleBack = () => {
-    setIsPlaying(false)
-  }
 
   return (
     <CharadeHeaderContainer topInset={topInset}>
       {isPlaying ? (
-        <CharadeAbortButtonContainer onPress={handleBack} topInset={topInset}>
+        <CharadeAbortButtonContainer onPress={navigation.goBack} topInset={topInset}>
           <CharadeBackButtonIcon />
         </CharadeAbortButtonContainer>
       ) : null}

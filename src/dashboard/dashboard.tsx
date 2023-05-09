@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { Dimensions, ScrollView, View } from 'react-native'
+import { Dimensions, ScrollView, View, Image } from 'react-native'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
