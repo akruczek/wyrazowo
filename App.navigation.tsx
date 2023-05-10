@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { theme as themeModel } from '@core/styled/theme'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
+import { RESPONSIVE } from '@core/responsive/responsive'
 import { Dashboard } from './src/dashboard/dashboard'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
@@ -17,9 +18,7 @@ import { genericShadow } from './src/core/shadow/shadow.constants'
 import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
-import { Charade } from './src/charade/charade'
-import { TEXT_SIZE } from '@core/text/text.constants'
-import { RESPONSIVE } from '@core/responsive/responsive'
+import { CharadeNavigation } from './src/charade/charade.navigation'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -84,7 +83,7 @@ export const AppNavigation = () => {
 
         <Tab.Screen
           name={SCREEN.CHARADE}
-          component={Charade}
+          component={CharadeNavigation}
           options={{
             tabBarIcon: ({ color }) => <MaterialCommunityIcons name="grid" {...{ color, size }} />
           }}

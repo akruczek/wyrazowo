@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { Dimensions, ScrollView, View } from 'react-native'
+import { Dimensions, ScrollView, View, Image } from 'react-native'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
+import { Header } from '@core/header/header'
 import { isForceIndexAvailable } from './helpers'
-import { SelectedLetters, LettersGrid, DashboardButtonsAndModals, DashboardHeader } from './components'
+import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
-import { DashboardHost, DashboardSafeArea, DashboardStatusBar } from './dashboard.styled'
+import { DashboardHost, DashboardSafeArea } from './dashboard.styled'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 
 export const Dashboard = () => {
@@ -43,8 +44,7 @@ export const Dashboard = () => {
   return React.useMemo(() => (
     <DashboardHost>
       <DashboardSafeArea>
-        <DashboardHeader />
-        <DashboardStatusBar />
+        <Header type="dashboard" />
         <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
         <ContentWrapper>

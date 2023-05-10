@@ -10,6 +10,19 @@ export interface Localization {
   no_definitions_found: 'no_definitions_found',
   by_letters: 'by_letters',
   load_more: 'load_more',
+  guideline_basic_search_headline: 'guideline_basic_search_headline'
+  guideline_basic_search: 'guideline_basic_search',
+  guideline_deselect_letters_headline: 'guideline_deselect_letters_headline',
+  guideline_deselect_letters: 'guideline_deselect_letters',
+  guideline_possible_words_details_headline: 'guideline_possible_words_details_headline',
+  guideline_possible_words_details: 'guideline_possible_words_details',
+  guideline_letters_position_headline: 'guideline_letters_position_headline',
+  guideline_letters_position: 'guideline_letters_position',
+  guideline_soap_letters_headline: 'guideline_soap_letters_headline',
+  guideline_soap_letters: 'guideline_soap_letters',
+  guideline_search_history_headline: 'guideline_search_history_headline',
+  guideline_search_history: 'guideline_search_history',
+  about_author: 'about_author',
   theme: 'theme',
   light: 'light',
   dark: 'dark',
@@ -19,6 +32,7 @@ export interface Localization {
   dashboard: 'dashboard',
   play: 'play',
   more: 'more',
+  help: 'help',
   language: 'language',
 }
 

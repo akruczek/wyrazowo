@@ -7,4 +7,5 @@ export enum TEXT_SIZE {
   L = 28,
   XL = 32,
   XXL = 36,
+  XXXL = 42,
 }

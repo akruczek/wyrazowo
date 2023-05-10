@@ -10,10 +10,11 @@ import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
-import { PremiumModal, ListedOption, OptionItem, EmptyOptions, MoreHeader } from './components'
+import { Header } from '@core/header/header'
+import { PremiumModal, ListedOption, OptionItem, EmptyOptions } from './components'
 import { MoreOption } from './more.models'
 import { useMoreOptions } from './hooks/use-more-options.hook'
-import { MoreContainer, MoreStatusBar } from './more.styled'
+import { MoreContainer } from './more.styled'
 import { nativeSearchEngineEnabledSelector, premiumSelector } from '../settings/store/settings.selectors'
 
 export const More = () => {
@@ -33,8 +34,7 @@ export const More = () => {
   return (
     <Host>
       <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-        <MoreStatusBar />
-        <MoreHeader />
+        <Header type="more" />
 
         <MoreContainer>
           <FlatList

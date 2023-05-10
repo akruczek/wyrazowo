@@ -1,3 +1,14 @@
+## 1.6.0
+### Added
+- Guideline available in More tab
+- App author information available in More tab
+
+### Improved
+- Header on all screens to be more consistent
+
+### Fixed
+- Not saving language code
+
 ## 1.5.2
 ### Added
 - Charade - markings for letters on custom keyboard

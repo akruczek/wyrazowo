@@ -42,13 +42,10 @@ export const settingsSlice = createSlice({
       state.premium = action.payload
     },
     setLanguageCodeAction: (state, action: PayloadAction<LANGUAGE_CODES | null>) => {
-      if (action.payload === null) {
-        Storage.remove(STORAGE_KEY.LANGUAGE_CODE)
-      } else {
-        Storage.set(STORAGE_KEY.LANGUAGE_CODE, String(action.payload))
+      if (action.payload !== null) {
+        Storage.set(STORAGE_KEY.LANGUAGE_CODE, action.payload)
+        state.languageCode = action.payload
       }
-
-      state.languageCode = action.payload
     }
   },
 })
