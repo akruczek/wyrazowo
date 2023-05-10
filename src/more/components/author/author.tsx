@@ -4,11 +4,10 @@ import { TouchableOpacity, Linking } from 'react-native'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MoreStatusBar } from '../../more.styled'
-import { MoreHeader } from '../more-header/more-header'
+import { Header } from '@core/header/header'
 import {
-  AuthorContainer, AuthorDescriptionLink, AuthorDescriptionText, AuthorGithubIcon, AuthorRowContainer,
-  AuthorLinkedInIcon,
+  AuthorContainer, AuthorDescriptionLink, AuthorDescriptionText,
+  AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon,
 } from './author.styled'
 
 export const Author = () => {
@@ -25,8 +24,7 @@ export const Author = () => {
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <MoreStatusBar />
-      <MoreHeader title={localize().about_author} backButton />
+      <Header type="more" title={localize().about_author} backButton />
 
       <AuthorContainer>
         <AuthorDescriptionText children="Adam Kruczek" />

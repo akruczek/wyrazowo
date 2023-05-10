@@ -8,8 +8,8 @@ import { COLOR } from '@core/colors/colors.constants'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { ListedOption, MoreHeader } from '../more/components'
-import { MoreStatusBar } from '../more/more.styled'
+import { Header } from '@core/header/header'
+import { ListedOption } from '../more/components'
 
 export const Help = () => {
   const localize = useLocalize()
@@ -38,9 +38,7 @@ export const Help = () => {
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <MoreStatusBar />
-      <MoreHeader title={localize().help.toUpperCase()} backButton />
-
+      <Header type="more" title={localize().help.toUpperCase()} backButton />
       <FlatList renderItem={renderItem} data={data} />
     </SafeAreaFlexContainer>
   )

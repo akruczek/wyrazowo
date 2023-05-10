@@ -12,6 +12,7 @@ export const AuthorDescriptionText = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
   font-weight: bold;
   color: ${getThemeProp('textPrimary')};
+  margin-vertical: 5px;
 `
 
 export const AuthorDescriptionLink = styled.Text`

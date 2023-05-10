@@ -3,8 +3,7 @@ import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
-import { CharadeHeader } from '../charade-header/charade-header'
-import { CharadeStatusBar } from '../../charade.styled'
+import { Header } from '@core/header/header'
 import { CharadePlayground } from '../charade-playground/charade-playground'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 
@@ -16,8 +15,7 @@ export const CharadePlay = () => {
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <CharadeStatusBar />
-      <CharadeHeader isPlaying />
+      <Header type="charade" backButton />
       <CharadePlayground word={word} />
     </SafeAreaFlexContainer>
   )

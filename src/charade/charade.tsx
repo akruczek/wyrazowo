@@ -1,20 +1,18 @@
 import * as React from 'react'
 import { useTheme } from 'styled-components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SCREEN } from 'navigation/navigation.constants'
 import { useNavigation } from '@react-navigation/native'
+import { Header } from '@core/header/header'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { ThemeModel } from '@core/styled/models'
 import { CustomCounter } from '@core/custom-counter/custom-counter'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { CharadeHeader } from './components'
 import { getRandomWords } from '../dictionary/helpers'
 import { allWordsByLength } from '../dashboard/helpers'
-import {
-  CharadeButtonsContainer, CharadeConfigurationContainer, CharadeStatusBar,
-} from './charade.styled'
-import { SCREEN } from 'navigation/navigation.constants'
+import { CharadeButtonsContainer, CharadeConfigurationContainer } from './charade.styled'
 
 export const Charade = () => {
   const DEFAULT_COUNT = 5
@@ -35,8 +33,7 @@ export const Charade = () => {
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <CharadeStatusBar />
-      <CharadeHeader />
+      <Header type="charade" />
 
       <CharadeConfigurationContainer>
         <CustomCounter value={count} range={[ 3, 9 ]} setValue={setCount} />
