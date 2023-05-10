@@ -22,7 +22,6 @@ export const GuidelineGif = styled.Image.attrs({
   width: ${GIF_HEIGHT * GIF_PIXEL_RATION}px;
   height: ${GIF_HEIGHT}px;
   border-color: ${COLOR.DIM_GREY};
-  border-style: solid;
   border-width: 1px;
   border-radius: 15px;
 `
