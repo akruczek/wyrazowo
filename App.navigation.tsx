@@ -62,7 +62,7 @@ export const AppNavigation = () => {
         activeColor={activeColor}
         barStyle={{ backgroundColor: getBackgroundColor(), ...genericShadow }}
         labeled={false}
-        sceneAnimationType="shifting"
+        sceneAnimationType="opacity"
         sceneAnimationEnabled
       >
         <Tab.Screen

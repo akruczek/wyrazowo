@@ -1,3 +1,13 @@
+## 1.6.1
+### Fixed
+- Guideline GIF on android
+- Possibility to overwrite force index
+
+### Improved
+- Main navigation animation UX
+- Guideline UI
+- Android StatusBar UI/UX
+
 ## 1.6.0
 ### Added
 - Guideline available in More tab

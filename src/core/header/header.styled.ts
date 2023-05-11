@@ -39,7 +39,7 @@ export const HeaderText = styled.Text`
   font-size: ${TEXT_SIZE.XL}px;
   color: ${COLOR.WHITE};
   font-weight: bold;
-  padding: 10px 20px 0;
+  padding-top: 10px;
 `
 
 interface BackButtonContainerProps {
@@ -59,8 +59,8 @@ export const BackButtonContainer = styled.TouchableOpacity.attrs({
     left: 10,
   },
 })<BackButtonContainerProps>`
-  width: 30px;
-  height: 30px;
+  width: ${TEXT_SIZE.XXXL}px;
+  height: ${TEXT_SIZE.XXXL}px;
   position: absolute;
   top: ${getBackButtonContainer}px;
   left: 10px;

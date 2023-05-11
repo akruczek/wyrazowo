@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import _o from '_otils'
-import { ALL_LETTERS_SORTED, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
+import { ALL_LETTERS_SORTED, LETTER_INDEX_SEPARATOR, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '@core/alerts/go-premium-alert'
 import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
@@ -56,7 +56,15 @@ export const useSelectLetter = (): UseSelectLetter => {
   }
 
   const handleForceIndex = (letterIndex: number, forceIndex: number) => {
-    updateSelectedLetters(R.update(letterIndex, `${selectedLetters[letterIndex]}!${forceIndex}`))
+    if (selectedLetters[letterIndex].includes(LETTER_INDEX_SEPARATOR)) {
+      updateSelectedLetters(
+        R.update(letterIndex, `${selectedLetters[letterIndex].split(LETTER_INDEX_SEPARATOR)[0]}!${forceIndex}`),
+      )
+    } else {
+      updateSelectedLetters(
+        R.update(letterIndex, `${selectedLetters[letterIndex]}!${forceIndex}`),
+      )
+    }
   }
 
   const handleDeselectLetter = (index: number) => () => {

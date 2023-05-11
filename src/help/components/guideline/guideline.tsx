@@ -6,12 +6,12 @@ import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { ThemeModel } from '@core/styled/models'
 import { SafeAreaFlexContainer } from '@core/styled'
+import { Header } from '@core/header/header'
 import { GUIDELINE } from './guideline.constants'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 import {
   GuidelineButtonContainer, GuidelineContainer, GuidelineDescription, GuidelineGif,
   GuidelineBackIcon, GuidelineNextIcon, GuidelineButtonsContainer, GuidelineIndicatorText,
-  GuidelineHeadline, GuidelineBackButtonContainer, GuidelineBackButtonIcon,
 } from './guideline.styled'
 
 export const Guideline = () => {
@@ -41,12 +41,9 @@ export const Guideline = () => {
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <GuidelineBackButtonContainer onPress={navigation.goBack} topInset={topInset}>
-        <GuidelineBackButtonIcon />
-      </GuidelineBackButtonContainer>
+      <Header type="more" title={(localize() as any)[`guideline_${id}_headline`]} backButton />
 
       <GuidelineContainer>
-        <GuidelineHeadline children={(localize() as any)[`guideline_${id}_headline`]} />
         <GuidelineGif source={{ uri }} />
         <GuidelineDescription children={(localize() as any)[`guideline_${id}`]} />
       </GuidelineContainer>

@@ -90,32 +90,3 @@ export const GuidelineHeadline = styled.Text`
   text-align: center;
   padding-bottom: 10px;
 `
-
-interface GuidelineBackButtonContainerProps {
-  topInset?: number;
-}
-
-const getGuidelineBackButtonContainerTop = R.pipe(
-  R.propOr(0, 'topInset'),
-  R.subtract(R.__, 5),
-)
-
-export const GuidelineBackButtonContainer = styled.TouchableOpacity.attrs({
-  hitSlop: {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10,
-  }
-})<GuidelineBackButtonContainerProps>`
-  position: absolute;
-  left: 10px;
-  z-index: 1;
-  top: ${getGuidelineBackButtonContainerTop}px;
-`
-
-export const GuidelineBackButtonIcon = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'chevron-left',
-  color: getThemeProp('textSecondary')(props),
-  size: TEXT_SIZE.XXL,
-}))``
