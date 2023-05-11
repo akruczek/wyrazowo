@@ -22,7 +22,7 @@ export const CharadePlayground = ({ word }: Props) => {
   const [ yellowLetters, setYellowLetters ] = React.useState<string[]>([])
   const [ redLetters, setRedLetters ] = React.useState<string[]>([])
 
-  const rows = R.times(R.identity, count + 1)
+  const rows = [ 0, 1, 2, 3, 4, 5 ]
   const fields = R.times(R.identity, count)
 
   const onPressLetter = React.useCallback((letter: string) => {

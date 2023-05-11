@@ -18,6 +18,10 @@ const CHARADE_PLAYGROUND_FIELD_SIZE = 60
 
 const getCharadeFieldContainerSize = R.pipe(
   R.propOr(5, 'count'),
+  R.when(
+    R.lt(R.__, 5),
+    R.always(5),
+  ),
   R.divide(RESPONSIVE.WIDTH(CHARADE_PLAYGROUND_FIELD_SIZE)),
 )
 

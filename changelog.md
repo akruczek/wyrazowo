@@ -1,3 +1,7 @@
+## 1.7.0
+### Added
+- Charade...
+
 ## 1.6.1
 ### Fixed
 - Guideline GIF on android
