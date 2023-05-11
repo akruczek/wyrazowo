@@ -11,7 +11,7 @@ import { PlaygroundFieldModel } from './playground.models'
 import { AdvancedSearchModal } from './components/advanced-search-modal/advanced-search-modal';
 import { PlaygroundBacklight } from './components/playground-backlight/playground-backlight';
 import {
-  PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundSafeArea, PlaygroundStatusBar,
+  PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundSafeArea,
 } from './playground.styled'
 
 export const Playground = () => {
@@ -88,7 +88,6 @@ export const Playground = () => {
 
   return (
     <PlaygroundSafeArea>
-      <PlaygroundStatusBar />
       <Zoom maximumZoomScale={PLAYGROUND_SPACING_MULTIPLIER}>
         <View ref={ref}>
           <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />

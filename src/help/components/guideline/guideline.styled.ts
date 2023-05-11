@@ -7,7 +7,7 @@ import { TEXT_SIZE } from '@core/text/text.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 
 const GIF_PIXEL_RATION = 258 / 559
-const GIF_HEIGHT = RESPONSIVE.HEIGHT(55)
+const GIF_HEIGHT = RESPONSIVE.HEIGHT(50)
 
 export const GuidelineContainer = styled.View`
   justify-content: center;

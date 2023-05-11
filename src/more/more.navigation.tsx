@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
 
 export const MoreNavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 150 }}>
       <Stack.Screen name={SCREEN.MORE_MAIN} component={More} />
       <Stack.Screen name={SCREEN.MORE_MANIA} component={Mania} />
       <Stack.Screen name={SCREEN.MORE_PLAYGROUND} component={Playground} />

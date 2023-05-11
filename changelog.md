@@ -4,7 +4,7 @@
 - Possibility to overwrite force index
 
 ### Improved
-- Main navigation animation UX
+- Navigation animation UX
 - Guideline UI
 - Android StatusBar UI/UX
 

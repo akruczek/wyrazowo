@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator()
 
 export const CharadeNavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 150 }}>
       <Stack.Screen name={SCREEN.CHARADE_MAIN} component={Charade} />
       <Stack.Screen name={SCREEN.CHARADE_PLAY} component={CharadePlay} />
     </Stack.Navigator>
