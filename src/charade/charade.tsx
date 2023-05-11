@@ -28,7 +28,7 @@ export const Charade = () => {
     const getWords = (words: string[]) => getRandomWords(words, (word: string) => word.length === count)
     const allWords = getWords(allWordsByLength)
     const word = allWords[Math.floor(Math.random() * allWords.length)]?.toUpperCase?.()
-    navigation.navigate(SCREEN.CHARADE_PLAY, { word })
+    navigation.navigate(SCREEN.CHARADE_PLAY, { word, allWords })
   }
 
   return (

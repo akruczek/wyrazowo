@@ -8,11 +8,13 @@ import { CharadeField } from '../charade-field/charade-field'
 
 interface Props {
   word: string;
+  allWords: string[];
 }
 
-export const CharadePlayground = ({ word }: Props) => {
+export const CharadePlayground = ({ word, allWords }: Props) => {
   const count = word.length
 
+  const [ isError, setError ] = React.useState<boolean>(false)
   const [ activeRow, setActiveRow ] = React.useState(0)
   const [ activeIndex, setActiveIndex ] = React.useState(0)
   const forceUpdate = useForceUpdate()
@@ -26,7 +28,14 @@ export const CharadePlayground = ({ word }: Props) => {
   const fields = R.times(R.identity, count)
 
   const onPressLetter = React.useCallback((letter: string) => {
+    const activeWord = contents.slice((activeRow * (count + 1)), (activeRow * (count + 1)) + count).join('')
+
     if (letter === SEND_BUTTON_ID) {
+      if (!allWords.includes(activeWord.toLowerCase())) {
+        setError(true)
+        return
+      }
+
       const letters = R.map(
         (index: number) => contents[index + (activeRow * (count + 1))]
       )(R.times(R.identity, count)) as string[]
@@ -78,7 +87,9 @@ export const CharadePlayground = ({ word }: Props) => {
 
       forceUpdate()
     }
-  }, [ contents, activeIndex, activeRow ])
+
+    setError(false)
+  }, [ contents, activeIndex, activeRow, isError ])
 
   const handlePress = (index: number, rowIndex: number) => () => {
     if (rowIndex === activeRow) {
@@ -90,17 +101,18 @@ export const CharadePlayground = ({ word }: Props) => {
     <CharadeField
       onPress={handlePress(index, rowIndex)}
       isActive={index === activeIndex && rowIndex === activeRow}
+      isError={rowIndex === activeRow && isError}
       isSent={activeRow > rowIndex}
       word={word}
       index={index}
       count={count}
       content={contents[index + (rowIndex * (count + 1))] ?? ''}
     />
-  ), [ contents, activeIndex, activeRow ])
+  ), [ contents, activeIndex, activeRow, isError ])
 
   const renderRow = React.useCallback(({ item: rowIndex }: { item: any }) => (
     <CharadePlaygroundRow data={fields} {...{ count, renderItem: renderItem(rowIndex) }} />
-  ), [ contents, activeIndex, activeRow ])
+  ), [ contents, activeIndex, activeRow, isError ])
 
   return (
     <>
