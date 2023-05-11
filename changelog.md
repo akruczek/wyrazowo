@@ -2,6 +2,9 @@
 ### Added
 - Charade...
 
+### Changed
+- More tab switches color to be more consistent
+
 ## 1.6.1
 ### Fixed
 - Guideline GIF on android
