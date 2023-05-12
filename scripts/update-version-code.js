@@ -54,7 +54,7 @@ fs.readFile('../package.json', 'utf8', (readPackageJsonError, packageJsonData) =
     });
   })
 
-  fs.readFile('../ios/ScrabbleHelper.xcodeproj/project.pbxproj', 'utf8', (readPbxprojError, pbxprojData) => {
+  fs.readFile('../ios/Wyrazowo.xcodeproj/project.pbxproj', 'utf8', (readPbxprojError, pbxprojData) => {
     if (readPbxprojError) {
       return console.log('\x1b[31mError reading project.pbxproj file!\x1b[0m')
     }
@@ -65,7 +65,7 @@ fs.readFile('../package.json', 'utf8', (readPackageJsonError, packageJsonData) =
       .replace(`CURRENT_PROJECT_VERSION = ${oldVersionCode};`, `CURRENT_PROJECT_VERSION = ${newVersionCode};`)
       .replace(`MARKETING_VERSION = ${oldVersion};`, `MARKETING_VERSION = ${newVersion};`)
 
-    fs.writeFile('../ios/ScrabbleHelper.xcodeproj/project.pbxproj', newPbxproj, 'utf8', error => {
+    fs.writeFile('../ios/Wyrazowo.xcodeproj/project.pbxproj', newPbxproj, 'utf8', error => {
       if (error) {
         return console.log('\x1b[31mError writing project.pbxproj file!\x1b[0m');
       }

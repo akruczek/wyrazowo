@@ -1,6 +1,6 @@
 //
 //  RCTEventEmmiter.m
-//  ScrabbleHelper
+//  Wyrazowo
 //
 //  Created by Adam Kruczek on 03/04/2023.
 //

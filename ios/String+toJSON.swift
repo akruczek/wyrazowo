@@ -1,6 +1,6 @@
 //
 //  String+toJSON.swift
-//  ScrabbleHelper
+//  Wyrazowo
 //
 //  Created by Adam Kruczek on 07/04/2023.
 //

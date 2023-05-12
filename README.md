@@ -1,13 +1,13 @@
 #### 🔠 Make your Scrabble matches a little bit more easy with this simple mobile app for android and iOS! 
 
-# Scrabble Helper - mobile App
-1. [How Scrabble Helper can help me?](#how-scrabble-helper-can-help-me?)
+# Wyrazowo - mobile App
+1. [How Wyrazowo can help me?](#how-wyrazowo-can-help-me?)
 2. [Technical](#technical)
-3. [How to use Scrabble Helper App?](#how-to-use-scrabble-helper-app?)
+3. [How to use Wyrazowo App?](#how-to-use-wyrazowo-app?)
   - [How to find possible words from given letters?](#how-to-find-possible-words-from-given-letters?)
 
-## How Scrabble Helper can help me?
-#### Scrabble helper gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations. You will also find some simple games which can help you to expand your scrabble knowledge.
+## How Wyrazowo can help me?
+#### Wyrazowo gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations. You will also find some simple games which can help you to expand your scrabble knowledge.
 
 ## Technical
 ### Tech Stack:
@@ -19,7 +19,7 @@
 - React Native Reanimated 3
 - Ramda
 
-## How to use Scrabble Helper App?
+## How to use Wyrazowo App?
 ### How to find possible words from given letters?
 
 Select your all letters from grid by tapping them.
