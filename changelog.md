@@ -1,3 +1,11 @@
+## 1.7.0
+### Added
+- Charade words verification with dictionary
+
+### Changed
+- Charade chances count
+- More tab switches color to be more consistent
+
 ## 1.6.1
 ### Fixed
 - Guideline GIF on android

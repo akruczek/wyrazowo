@@ -18,7 +18,7 @@ export const CustomSwitch = ({ defaultValue, onValueChange }: Props) => {
 
   return (
     <CustomSwitchContainer>
-      <Switch color={COLOR.DODGER_BLUE} value={value} onValueChange={_onValueChange} />
+      <Switch color={COLOR.GOLD} value={value} onValueChange={_onValueChange} />
     </CustomSwitchContainer>
   )
 }

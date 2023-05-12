@@ -12,12 +12,17 @@ interface CharadeFieldContainerProps {
   content: string;
   index: number;
   isSent: boolean;
+  isError: boolean;
 }
 
 const CHARADE_PLAYGROUND_FIELD_SIZE = 60
 
 const getCharadeFieldContainerSize = R.pipe(
   R.propOr(5, 'count'),
+  R.when(
+    R.lt(R.__, 5),
+    R.always(5),
+  ),
   R.divide(RESPONSIVE.WIDTH(CHARADE_PLAYGROUND_FIELD_SIZE)),
 )
 
@@ -42,13 +47,19 @@ const getCharadeFieldContainerColor = ({ isSent, content, index, word }: Charade
   }
 }
 
+const getCharadeFieldContainerBorderColor = R.ifElse(
+  R.propSatisfies(Boolean, 'isError'),
+  R.always(COLOR.FIRE_BRICK),
+  getThemeProp('textSecondary')
+)
+
 export const CharadeFieldContainer = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
 })<CharadeFieldContainerProps & ThemeProps<ThemeModel>>`
   width: ${getCharadeFieldContainerSize}px;
   height: ${getCharadeFieldContainerSize}px;
   border-radius: ${getCharadeFieldContainerRadius}px;
-  border: 1px solid ${getThemeProp('textSecondary')};
+  border: 1px solid ${getCharadeFieldContainerBorderColor};
   align-items: center;
   background-color: ${getCharadeFieldContainerColor};
   justify-content: center;
@@ -56,6 +67,7 @@ export const CharadeFieldContainer = styled.TouchableOpacity.attrs({
 
 interface CharadeFieldInnerContainerProps {
   isActive: boolean;
+  isError: boolean;
 }
 
 const getCharadeFieldInnerContainerBorderWidth = R.pipe(
@@ -65,7 +77,7 @@ const getCharadeFieldInnerContainerBorderWidth = R.pipe(
 
 export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainerProps & ThemeProps<ThemeModel>>`
   border-bottom-width: ${getCharadeFieldInnerContainerBorderWidth}px;
-  boarder-color: ${getThemeProp('textSecondary')};
+  border-color: ${getCharadeFieldContainerBorderColor};
   width: 90%;
   height: 90%;
   align-self: center;
@@ -73,7 +85,17 @@ export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainer
   top: 0;
 `
 
-export const CharadeFieldContentText = styled.Text`
+interface CharadeFieldContentTextProps {
+  isError: boolean;
+}
+
+const getCharadeFieldContentTextColor = R.ifElse(
+  R.propSatisfies(Boolean, 'isError'),
+  R.always(COLOR.FIRE_BRICK),
+  getThemeProp('textPrimary')
+)
+
+export const CharadeFieldContentText = styled.Text<CharadeFieldContentTextProps & ThemeProps<ThemeModel>>`
   font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
+  color: ${getCharadeFieldContentTextColor};
 `

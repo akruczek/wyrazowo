@@ -21,13 +21,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.scrabblehelper"
+    namespace "com.wyrazowo"
     defaultConfig {
-        applicationId "com.scrabblehelper"
+        applicationId "com.wyrazowo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10061
-        versionName "1.6.1"
+        versionCode 10070
+        versionName "1.7.0"
     }
 
     splits {

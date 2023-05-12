@@ -12,11 +12,12 @@ export const CharadePlay = () => {
   const navigation = useNavigation()
 
   const word = getNavigationParam<string>('word', navigation)
+  const allWords = getNavigationParam<string[]>('allWords', navigation)
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <Header type="charade" backButton />
-      <CharadePlayground word={word} />
+      <CharadePlayground {...{ word, allWords }} />
     </SafeAreaFlexContainer>
   )
 }
