@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import app from '../../package.json'
-import { Dimensions, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Host } from 'react-native-portalize'
 import { Modalize } from 'react-native-modalize'
@@ -11,22 +11,20 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { Header } from '@core/header/header'
-import { AppIcon } from '@core/app-icon/app-icon'
 import { PremiumModal, ListedOption, OptionItem, EmptyOptions } from './components'
 import { MoreOption } from './more.models'
 import { useMoreOptions } from './hooks/use-more-options.hook'
 import { MoreContainer } from './more.styled'
-import { nativeSearchEngineEnabledSelector, premiumSelector } from '../settings/store/settings.selectors'
+import { premiumSelector } from '../settings/store/settings.selectors'
 
 export const More = () => {
   const localize = useLocalize()
   const theme = useTheme() as ThemeModel
 
   const premiumModalRef = React.useRef<Modalize | null>(null)
-  const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
   const premium = useSelector(premiumSelector)
 
-  const { handleDeactivatePremium, getOptions } = useMoreOptions(premiumModalRef, nativeSearchEngineEnabled, premium)
+  const { handleDeactivatePremium, getOptions } = useMoreOptions(premiumModalRef, premium)
 
   const renderItem = ({ item }: { item: MoreOption<any> }) => (
     <OptionItem {...item} {...{ handleDeactivatePremium }} />
@@ -42,7 +40,7 @@ export const More = () => {
             renderItem={renderItem}
             ListEmptyComponent={EmptyOptions}
             keyExtractor={R.propOr('', 'title')}
-            extraData={[nativeSearchEngineEnabled, premium]}
+            extraData={[premium]}
             data={getOptions()}
           />
 

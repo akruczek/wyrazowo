@@ -12,7 +12,7 @@ import { ListedOption } from '../listed-option/listed-option'
 interface Props {
   title: string;
   onChange?: (newValue: any) => void;
-  handleDeactivatePremium: () => void;
+  handleDeactivatePremium?: () => void;
   value?: any;
   values?: any[];
   labels?: any[];
@@ -53,7 +53,7 @@ export const OptionItem = ({
     <ListedOption title={title}>
       <TouchableOpacity
         activeOpacity={Number(!onChange)}
-        hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+        hitSlop={{ top: 10, right: 10, bottom: 10, left: 1000 }}
         onPress={onChange}
         onLongPress={handleDeactivatePremium}
       >

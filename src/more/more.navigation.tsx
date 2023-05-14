@@ -6,6 +6,7 @@ import { Mania } from '../mania/mania'
 import { Playground } from '../playground/playground'
 import { HelpNavigation } from '../help/help.navigation'
 import { Author } from './components/author/author'
+import { Developer } from '../developer/developer'
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +18,7 @@ export const MoreNavigation = () => {
       <Stack.Screen name={SCREEN.MORE_PLAYGROUND} component={Playground} />
       <Stack.Screen name={SCREEN.MORE_HELP} component={HelpNavigation} />
       <Stack.Screen name={SCREEN.MORE_AUTHOR} component={Author} />
+      <Stack.Screen name={SCREEN.DEVELOPER} component={Developer} />
     </Stack.Navigator>
   )
 }

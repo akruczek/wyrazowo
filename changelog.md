@@ -1,8 +1,20 @@
+## 1.8.0
+### Added
+- Charade success and failure feedback
+- Advanced settings screen available from more tab
+
+### Improved
+- More tab UX
+
+### Changed
+- Moved clear history and native search engine options to new Advanced Settings screen
+
 ## 1.7.0
 ### Added
 - Charade words verification with dictionary
 
 ### Changed
+- App name and icon
 - Charade chances count
 - More tab switches color to be more consistent
 

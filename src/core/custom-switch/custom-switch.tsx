@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Switch } from 'react-native-paper'
+import { ViewProps } from 'react-native'
 import { COLOR } from '../colors/colors.constants'
 import { CustomSwitchContainer } from './custom-switch.styled'
 

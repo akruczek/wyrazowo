@@ -13,6 +13,7 @@ import { PlaygroundBacklight } from './components/playground-backlight/playgroun
 import {
   PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundSafeArea,
 } from './playground.styled'
+import { Header } from '@core/header/header';
 
 export const Playground = () => {
   const advancedSearchModalizeRef = React.useRef<any>(null)

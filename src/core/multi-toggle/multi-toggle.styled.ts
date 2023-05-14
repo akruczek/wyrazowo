@@ -8,7 +8,7 @@ export const MultiToggleContainer = styled.TouchableOpacity.attrs({
     top: 10,
     right: 10,
     bottom: 10,
-    left: 10,
+    left: 1000,
   },
 })`
   align-items: center;
