@@ -26,8 +26,8 @@ android {
         applicationId "com.wyrazowo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10080
-        versionName "1.8.0"
+        versionCode 10090
+        versionName "1.9.0"
     }
 
     splits {

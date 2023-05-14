@@ -13,12 +13,12 @@ import { RESPONSIVE } from '@core/responsive/responsive'
 import { Dashboard } from './src/dashboard/dashboard'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
-import { Dictionary } from './src/dictionary/dictionary'
 import { genericShadow } from './src/core/shadow/shadow.constants'
 import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
 import { CharadeNavigation } from './src/charade/charade.navigation'
+import { DictionaryNavigation } from './src/dictionary/dictionary.navigation'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -75,7 +75,7 @@ export const AppNavigation = () => {
 
         <Tab.Screen
           name={SCREEN.DICTIONARY}
-          component={Dictionary}
+          component={DictionaryNavigation}
           options={{
             tabBarIcon: ({ color }) => <MaterialCommunityIcons name="book-alphabet" {...{ color, size }} />,
           }}
