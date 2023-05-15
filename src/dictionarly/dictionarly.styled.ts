@@ -1,5 +1,5 @@
-import { BOTTOM_NAVIGATION_HEIGHT } from 'navigation/navigation.constants';
 import styled from 'styled-components/native'
+import { BOTTOM_NAVIGATION_HEIGHT } from '../navigation/navigation.constants'
 
 interface DictionarlyButtonsContainerProps {
   topInset: number;

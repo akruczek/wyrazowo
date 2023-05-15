@@ -38,7 +38,7 @@ export const Dictionarly = () => {
 
     const allWords = difficulty ? getWords(longWordsByLength) : getWords(allWordsByLength)
     const word = allWords[Math.floor(Math.random() * allWords.length)]?.toUpperCase?.()
-    navigation.navigate(SCREEN.DICTIONARY_PLAY, { word })
+    navigation.navigate(SCREEN.DICTIONARY_PLAY, { word, difficulty })
   }
 
   return (
