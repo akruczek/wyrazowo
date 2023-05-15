@@ -1,6 +1,6 @@
 ## 1.9.0
 ### Added
-- Dictionarly - new mini-game available from Dictionary screen
+- Dictionarly - new game available from Dictionary screen
 
 ## 1.8.0
 ### Added
