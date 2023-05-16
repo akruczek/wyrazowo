@@ -16,12 +16,16 @@ import {
 import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-modal'
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
 import { appendSortedWords } from 'dictionarly/helpers'
+import { Text } from 'react-native'
 
 export const DictionarlyPlay = () => {
+  const DEFAULT_CHANCES = 10
+
   const theme = useTheme() as ThemeModel
   const localize = useLocalize()
   const navigation = useNavigation()
   const modalizeRef = React.useRef<Modalize | null>(null)
+  const [ chances, setChances ] = React.useState(DEFAULT_CHANCES)
   const [ state, setState ] = React.useState<boolean | null>(null)
   const [ value, setValue ] = React.useState<string>('')
   const [ wordsAfter, setWordsAfter ] = React.useState<string[]>([])
@@ -61,11 +65,20 @@ export const DictionarlyPlay = () => {
       setState(true)
       modalizeRef?.current?.open?.()
     }
+
+    setChances(R.dec)
   }
+
+  React.useEffect(() => {
+    if (!chances) {
+      modalizeRef?.current?.open?.()
+    }
+  }, [ chances ])
 
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <Header type="dictionary" title={localize().dictionarly} backButton />
+      <Text alignSelf="center" children={`${chances}/${DEFAULT_CHANCES}`} />
 
       <DictionarlyContainer>
         <DictionarlySearchedText searchedWords={wordsBefore} word={word} />
@@ -88,7 +101,7 @@ export const DictionarlyPlay = () => {
         <DictionarlySearchedText searchedWords={wordsAfter} word={word} />
       </DictionarlyContainer>
 
-      <DictionarlyEndModal modalizeRef={modalizeRef} />
+      <DictionarlyEndModal state={state} modalizeRef={modalizeRef} />
     </SafeAreaFlexContainer>
   )
 }
