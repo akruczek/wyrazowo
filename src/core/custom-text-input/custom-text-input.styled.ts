@@ -31,3 +31,11 @@ export const CustomTextInputStyled = styled.TextInput.attrs(({ placeholder }) =>
   font-size: ${TEXT_SIZE.XL}px;
   color: ${getCustomTextInputStyledTextColor};
 `
+
+export const CustomTextInputErrorText = styled.Text`
+  font-size: ${TEXT_SIZE.XS}px;
+  color: ${COLOR.FIRE_BRICK};
+  left: 10px;
+  position: absolute;
+  bottom: -10px;
+`

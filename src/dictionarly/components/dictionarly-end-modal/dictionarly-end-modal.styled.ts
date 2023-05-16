@@ -13,3 +13,9 @@ export const DictionarlyModalText = styled.Text`
   font-size: ${TEXT_SIZE.XL}px;
   color: ${getThemeProp('textPrimary')};
 `
+
+export const DictionarlyEndModalButtonsContainer = styled.View`
+  position: absolute;
+  bottom: 30px;
+  align-self: center;
+`

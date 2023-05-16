@@ -89,6 +89,7 @@ export const DictionarlyPlay = () => {
             onChange={handleChange}
             value={value}
             state={state}
+            errorMessage={difficulty ? localize().minimum_10_letters_error : undefined}
             returnKeyType="send"
             onSubmit={onSend}
           >

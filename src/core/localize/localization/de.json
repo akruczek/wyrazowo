@@ -11,6 +11,7 @@
   "dictionarly": "WÖRTERBUCH",
   "easy": "EINFACH",
   "hard": "SCHWIERIG",
+  "minimum_10_letters_error": "Mindestens 10 Buchstaben erforderlich",
   "search_for_word": "Wort suchen",
   "no_definitions_found": "Keine Definitionen gefunden",
   "by_letters": "buchstaben",

@@ -11,6 +11,7 @@ export interface Localization {
   dictionarly: 'dictionarly',
   easy: 'easy',
   hard: 'hard',
+  minimum_10_letters_error: 'minimum_10_letters_error',
   search_for_word: 'search_for_word',
   no_definitions_found: 'no_definitions_found',
   by_letters: 'by_letters',
