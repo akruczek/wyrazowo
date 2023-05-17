@@ -1,3 +1,8 @@
+## 1.9.1
+### Improved
+- Dictionarly failure feedback
+- Dictionarly keyboard behavior
+
 ## 1.9.0
 ### Added
 - Dictionarly - new game available from Dictionary screen

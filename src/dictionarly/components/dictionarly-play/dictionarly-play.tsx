@@ -41,6 +41,7 @@ export const DictionarlyPlay = () => {
             placeholder="..."
             onChange={handleChange}
             value={value}
+            blurOnSubmit={false}
             state={state}
             errorMessage={errorMessage}
             returnKeyType="send"
@@ -55,7 +56,7 @@ export const DictionarlyPlay = () => {
         <DictionarlySearchedText searchedWords={wordsAfter} word={word} />
       </DictionarlyContainer>
 
-      <DictionarlyEndModal state={state} modalizeRef={modalizeRef} />
+      <DictionarlyEndModal {...{ word, state }} modalizeRef={modalizeRef} />
     </SafeAreaFlexContainer>
   )
 }
