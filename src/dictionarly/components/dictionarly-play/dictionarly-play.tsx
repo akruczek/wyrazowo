@@ -17,6 +17,7 @@ import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-mo
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
 import { appendSortedWords } from 'dictionarly/helpers'
 import { Text } from 'react-native'
+import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
 
 export const DictionarlyPlay = () => {
   const DEFAULT_CHANCES = 10
@@ -45,7 +46,6 @@ export const DictionarlyPlay = () => {
     .flat<any, number>()
 
   const onSend = () => {
-    console.log(word)
     const allWords = difficulty ? getWords(longWordsByLength) : getWords(allWordsByLength)
 
     if (!allWords.includes(value.toLowerCase())) {
@@ -75,10 +75,14 @@ export const DictionarlyPlay = () => {
     }
   }, [ chances ])
 
+  const errorMessage = (difficulty && value.length < 10)
+    ? localize().minimum_10_letters_error
+    : undefined
+
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <Header type="dictionary" title={localize().dictionarly} backButton />
-      <Text alignSelf="center" children={`${chances}/${DEFAULT_CHANCES}`} />
+      <ProgressIndicator progress={DEFAULT_CHANCES - chances} steps={DEFAULT_CHANCES} />
 
       <DictionarlyContainer>
         <DictionarlySearchedText searchedWords={wordsBefore} word={word} />
@@ -89,7 +93,7 @@ export const DictionarlyPlay = () => {
             onChange={handleChange}
             value={value}
             state={state}
-            errorMessage={difficulty ? localize().minimum_10_letters_error : undefined}
+            errorMessage={errorMessage}
             returnKeyType="send"
             onSubmit={onSend}
           >
