@@ -8,8 +8,8 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { HeaderSideContentConfig, HeaderType } from './header.models'
 import {
-  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderRightButtonContainer,
-  HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
+  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderLeftButtonIndicator,
+  HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
 } from './header.styled'
 
 interface Props {
@@ -17,9 +17,10 @@ interface Props {
   title?: string;
   backButton?: boolean;
   rightContentConfig?: HeaderSideContentConfig;
+  leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, rightContentConfig }: Props) => {
+export const Header = ({ type, title, backButton, rightContentConfig, leftContentConfig }: Props) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
@@ -50,6 +51,18 @@ export const Header = ({ type, title, backButton, rightContentConfig }: Props) =
           style={genericTextShadow}
           children={` ${title ?? localize()[type]} `}
         />
+
+        {leftContentConfig ? (
+          <HeaderLeftButtonContainer
+            onPress={leftContentConfig.onPress}
+            onLongPress={leftContentConfig.onLongPress}
+            style={genericLightShadow}
+            topInset={topInset}
+          >
+            {leftContentConfig.indicator ? <HeaderLeftButtonIndicator /> : null}
+            <HeaderLeftIcon icon={leftContentConfig.icon} />
+          </HeaderLeftButtonContainer>
+        ) : null}
 
         {rightContentConfig ? (
           <HeaderRightButtonContainer

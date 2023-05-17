@@ -12,11 +12,9 @@ interface Props {
   onPress: () => void;
 }
 
-export const CharadeField = ({ count, onPress, content, isSent, isError, index, word, isActive }: Props) => {
-  return (
-    <CharadeFieldContainer {...{ onPress, index, count, content, word, isError, isSent }}>
-      <CharadeFieldInnerContainer {...{ isError, isActive }} />
-      <CharadeFieldContentText isError={isError} children={content} />
-    </CharadeFieldContainer>
-  )
-}
+export const CharadeField = ({ count, onPress, content, isSent, isError, index, word, isActive }: Props) => (
+  <CharadeFieldContainer {...{ onPress, index, count, content, word, isError, isSent }}>
+    <CharadeFieldInnerContainer {...{ isError, isActive }} />
+    <CharadeFieldContentText isError={isError} children={content} />
+  </CharadeFieldContainer>
+)

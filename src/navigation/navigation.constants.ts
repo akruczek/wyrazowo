@@ -15,4 +15,7 @@ export const SCREEN = {
   MORE_HELP_MAIN: 'More-Help-Main',
   MORE_HELP_GUIDELINE: 'More-Help-Guideline',
   DICTIONARY: 'Dictionary',
+  DICTIONARY_DICTIONARY: 'Dictionary-Dictionary',
+  DICTIONARY_DICTIONARLY: 'Dictionary-Dictionarly',
+  DICTIONARY_PLAY: 'Dictionary-Play',
 }

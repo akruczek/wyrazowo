@@ -86,6 +86,50 @@ export const HeaderStatusBar = styled(FocusAwareStatusBar).attrs(({ color }: Hea
 
 const getHeaderMarginTop = R.propOr(0, 'topInset')
 
+const HeaderLeftButtonContainerTop = R.pipe(
+  getHeaderMarginTop,
+  R.add(10),
+)
+
+export const HeaderLeftButtonContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    top: 10,
+    right: 10,
+    bottom: 20,
+    left: 20,
+  },
+})<BackButtonContainerProps>`
+  position: absolute;
+  width: ${TEXT_SIZE.XL}px;
+  height: ${TEXT_SIZE.XL}px;
+  top: ${HeaderLeftButtonContainerTop}px;
+  left: 10px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const HeaderLeftButtonIndicator = styled.View`
+  position: absolute;
+  z-index: 1;
+  elevation: 1;
+  left: -2px;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 8px;
+  background-color: ${COLOR.FIRE_BRICK};
+`
+
+interface HeaderLeftIconProps {
+  icon: string;
+}
+
+export const HeaderLeftIcon = styled(MaterialCommunityIcons).attrs(({ icon }: HeaderLeftIconProps) => ({
+  name: icon,
+  color: COLOR.WHITE,
+  size: TEXT_SIZE.XL,
+}))<HeaderLeftIconProps>``
+
 const HeaderRightButtonContainerTop = R.pipe(
   getHeaderMarginTop,
   R.add(10),

@@ -1,3 +1,7 @@
+## 1.9.0
+### Added
+- Dictionarly - new game available from Dictionary screen
+
 ## 1.8.0
 ### Added
 - Charade success and failure feedback

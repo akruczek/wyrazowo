@@ -2,7 +2,7 @@ export type HeaderType = 'more' | 'charade' | 'dictionary' | 'dashboard'
 
 export interface HeaderSideContentConfig {
   onPress: () => void;
-  onLongPress: () => void;
+  onLongPress?: () => void;
   icon: string;
-  indicator: boolean;
+  indicator?: boolean;
 }
