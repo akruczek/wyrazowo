@@ -42,6 +42,7 @@ export interface Localization {
   play: 'play',
   more: 'more',
   help: 'help',
+  user: 'user',
   language: 'language',
 }
 

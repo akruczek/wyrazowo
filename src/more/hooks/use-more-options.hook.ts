@@ -32,14 +32,10 @@ type Options = [
 ] | []
 
 interface UseMoreOptions {
-  handleDeactivatePremium: () => void;
   getOptions: () => Options;
 }
 
-export const useMoreOptions = (
-  premiumModalRef: React.MutableRefObject<Modalize | null>,
-  premium: number,
-): UseMoreOptions => {
+export const useMoreOptions = (): UseMoreOptions => {
   const theme = useTheme() as ThemeModel
   const dispatch = useDispatch()
   const localize = useLocalize()
@@ -51,10 +47,8 @@ export const useMoreOptions = (
 
   const isPending = R.any(
     R.isNil,
-    [ hapticFeedbackEnabled, premium ],
+    [ hapticFeedbackEnabled ],
   )
-
-  const isPremium = premium > 0
 
   const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
     dispatch(setHapticFeedbackEnabledAction(O.toNumberFlag(_hapticFeedbackEnabled)))
@@ -62,27 +56,16 @@ export const useMoreOptions = (
   const handleChangeTheme = (value: 0 | 1 | -1) =>
     dispatch(setDarkThemeEnabledAction(value))
 
-  const handleDeactivatePremium = () => {
-    deactivatePremiumAlert(() => {
-      premiumService.deactivateOnce(dispatch)
-    })
-  }
-
   const handleChangeLanguage = (newLanguageCode: LANGUAGE_CODES) => {
     dispatch(setLanguageCodeAction(newLanguageCode))
-  }
-
-  const handleOpenPremiumModal = () => {
-    premiumModalRef?.current?.open?.()
   }
 
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: localize().premium,
-        icon: 'star',
-        iconColor: isPremium ? COLOR.GOLD : theme.textSecondary,
-        onChange: isPremium ? undefined : handleOpenPremiumModal,
+        title: localize().user,
+        imageUrl: 'https://raw.githubusercontent.com/akruczek/wyrazowo/develop/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png',
+        onChange: () => navigation.navigate(SCREEN.MORE_USER),
       },
       {
         title: localize().language,
@@ -129,7 +112,7 @@ export const useMoreOptions = (
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },
-    ], [ hapticFeedbackEnabled, premium, isPending, languageCode, darkThemeEnabled ])
+    ], [ hapticFeedbackEnabled, isPending, languageCode, darkThemeEnabled ])
 
-    return { handleDeactivatePremium, getOptions }
+    return { getOptions }
 }
