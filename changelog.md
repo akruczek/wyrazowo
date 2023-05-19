@@ -12,7 +12,7 @@
 
 ### Improved
 - Dictionarly searched words list performance
-- Dictionarly keyboard behavior
+- Dictionarly keyboard behaviorr
 
 ### 1.9.2
 ### Fixed
