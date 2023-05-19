@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493191532928",
+    "project_id": "wyrazowo",
+    "storage_bucket": "wyrazowo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493191532928:android:7addb619809a53ceb83165",
+        "android_client_info": {
+          "package_name": "com.wyrazowo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493191532928-48grnr8tqm8ejflt5pm100gh018otegb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3qOKtNu6-JkfNw9YLEzT-50MU9FXFsiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493191532928-48grnr8tqm8ejflt5pm100gh018otegb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
