@@ -10,7 +10,7 @@ import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-mo
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
 import { useDictionarlyPlayProgress, useDictionarlyPlay } from '../../hooks'
 import {
-  DictionarlyContainer, DictionarlySendButtonContainer, DictionarlySendButtonIcon,
+  DictionarlyContainer, DictionarlyKeyboardAvoidingView, DictionarlySendButtonContainer, DictionarlySendButtonIcon,
   DictionarlyTextInput, DictionarlyTextInputWrapper,
 } from './dictionarly-play.styled'
 
@@ -33,29 +33,31 @@ export const DictionarlyPlay = () => {
       <Header type="dictionary" title={localize().dictionarly} backButton />
       <ProgressIndicator {...{ progress, steps }} />
 
-      <DictionarlyContainer>
-        <DictionarlySearchedText searchedWords={wordsBefore} word={word} />
+      <DictionarlyKeyboardAvoidingView>
+        <DictionarlyContainer>
+          <DictionarlySearchedText searchedWords={wordsBefore} word={word} />
 
-        <DictionarlyTextInputWrapper>
-          <DictionarlyTextInput
-            placeholder="..."
-            onChange={handleChange}
-            value={value}
-            blurOnSubmit={false}
-            state={state}
-            disabled={progress >= steps}
-            errorMessage={errorMessage}
-            returnKeyType="send"
-            onSubmit={onSend}
-          >
-            <DictionarlySendButtonContainer onPress={onSend}>
-              <DictionarlySendButtonIcon />
-            </DictionarlySendButtonContainer>
-          </DictionarlyTextInput>
-        </DictionarlyTextInputWrapper>
+          <DictionarlyTextInputWrapper>
+            <DictionarlyTextInput
+              placeholder="..."
+              onChange={handleChange}
+              value={value}
+              blurOnSubmit={false}
+              state={state}
+              disabled={progress >= steps}
+              errorMessage={errorMessage}
+              returnKeyType="send"
+              onSubmit={onSend}
+            >
+              <DictionarlySendButtonContainer onPress={onSend}>
+                <DictionarlySendButtonIcon />
+              </DictionarlySendButtonContainer>
+            </DictionarlyTextInput>
+          </DictionarlyTextInputWrapper>
 
-        <DictionarlySearchedText searchedWords={wordsAfter} word={word} />
-      </DictionarlyContainer>
+          <DictionarlySearchedText searchedWords={wordsAfter} word={word} />
+        </DictionarlyContainer>
+      </DictionarlyKeyboardAvoidingView>
 
       <DictionarlyEndModal {...{ word, state }} modalizeRef={modalizeRef} />
     </SafeAreaFlexContainer>

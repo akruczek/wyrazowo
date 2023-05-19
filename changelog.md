@@ -1,3 +1,12 @@
+### 1.10.0
+### Fixed
+- Dictionarly toggle buttons UI on dark theme
+- Dictionarly search words list UI for lot of elements
+
+### Improved
+- Dictionarly searched words list performance
+- Dictionarly keyboard behavior
+
 ### 1.9.2
 ### Fixed
 - Available whitespaces in dictionarly text input

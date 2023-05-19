@@ -18,7 +18,7 @@ interface SwitchButtonProps {
 const getSwitchButtonContainerBackgroundColor: (props: SwitchButtonProps & ThemeProps<ThemeModel>) => any = R.ifElse(
   R.propSatisfies(Boolean, 'isActive'),
   R.propOr(COLOR.DODGER_BLUE, 'color'),
-  R.always<COLOR>(COLOR.WHITE_SMOKE),
+  R.always(getThemeProp('backgroundSecondary')),
 )
 
 export const SwitchButtonContainer = styled.TouchableOpacity.attrs(({ isActive }: SwitchButtonProps) => ({

@@ -7,8 +7,12 @@ import { TEXT_SIZE } from '@core/text/text.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { ThemeModel } from '@core/styled/models'
 
-export const DictionarlyContainer = styled.View`
-  justify-content: center;
+export const DictionarlyContainer = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    justifyContent: 'center',
+    height: '100%',
+  },
+})`
   flex: 1;
 `
 
@@ -56,3 +60,9 @@ export const DictionarlySendButtonIcon = styled(MaterialCommunityIcons).attrs({
   color: COLOR.DODGER_BLUE,
   size: TEXT_SIZE.XXXL,
 })``
+
+export const DictionarlyKeyboardAvoidingView = styled.KeyboardAvoidingView.attrs({
+  behavior: 'padding',
+})`
+  flex: 1;
+`
