@@ -6,6 +6,7 @@ import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { ThemeModel } from '@core/styled/models'
+import { isPlatform } from '@core/is-platform/is-platform'
 
 export const DictionarlyContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -62,7 +63,7 @@ export const DictionarlySendButtonIcon = styled(MaterialCommunityIcons).attrs({
 })``
 
 export const DictionarlyKeyboardAvoidingView = styled.KeyboardAvoidingView.attrs({
-  behavior: 'padding',
+  behavior: isPlatform('ios') ? 'padding' : 'height',
 })`
   flex: 1;
 `
