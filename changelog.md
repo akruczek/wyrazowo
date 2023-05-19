@@ -1,3 +1,13 @@
+### 1.9.2
+### Fixed
+- Available whitespaces in dictionarly text input
+- Keyboard still visible after success or failure in dictionarly
+- Possibility to input more words after success or failure in dictionarly
+
+### Improved
+- UX feedback for searched words in dictionarly
+- Readme UI
+
 ## 1.9.1
 ### Improved
 - Dictionarly failure feedback

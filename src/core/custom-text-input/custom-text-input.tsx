@@ -13,6 +13,7 @@ interface Props {
   returnKeyLabel?: string;
   errorMessage?: string;
   blurOnSubmit?: boolean;
+  disabled?: boolean;
   autoCapitalize?: 'characters' | 'none' | 'sentences' | 'words';
   onChange: (value: string) => void;
   onSubmit?: () => void;
@@ -20,7 +21,7 @@ interface Props {
 
 export const CustomTextInput = ({
   value, state, maxLength, autoCapitalize, placeholder, returnKeyType, returnKeyLabel,
-  errorMessage, keyboardType, children, blurOnSubmit,
+  errorMessage, keyboardType, children, blurOnSubmit, disabled,
   onChange, onSubmit,
 }: Props) => {
   return (
@@ -29,6 +30,7 @@ export const CustomTextInput = ({
         maxLength={maxLength}
         value={value}
         state={state}
+        editable={!disabled}
         onChangeText={onChange}
         autoCapitalize={autoCapitalize}
         placeholder={placeholder}

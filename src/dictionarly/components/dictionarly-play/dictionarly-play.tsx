@@ -43,6 +43,7 @@ export const DictionarlyPlay = () => {
             value={value}
             blurOnSubmit={false}
             state={state}
+            disabled={progress >= steps}
             errorMessage={errorMessage}
             returnKeyType="send"
             onSubmit={onSend}

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { Modalize } from 'react-native-modalize'
+import { Keyboard } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
 import { getNavigationParam } from '../../navigation/navigation.helpers'
@@ -30,7 +31,7 @@ export const useDictionarlyPlay = (
 
   const handleChange = (newValue: string) => {
     setState(null)
-    setValue(newValue)
+    setValue(newValue.trim())
   }
 
   const onSend = () => {
@@ -51,6 +52,7 @@ export const useDictionarlyPlay = (
       setValue('')
     } else {
       setState(true)
+      Keyboard.dismiss()
       modalizeRef?.current?.open?.()
     }
 

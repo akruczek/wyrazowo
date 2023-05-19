@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { DictionarlyText } from '../dictionarly-play/dictionarly-play.styled'
-import { isCharOK } from '../../helpers'
+import { isCharOK, getSearchedWordContent } from '../../helpers'
 
 interface Props {
   searchedWords: string[];
@@ -15,7 +15,7 @@ export const DictionarlySearchedText = ({ searchedWords, word }: Props) => (
           <DictionarlyText
             isOK={isCharOK(searchedWord, word)(index)}
             key={`${searchedWord}-${char}-${index}`}
-            children={char}
+            children={getSearchedWordContent(char, index, searchedWord, word)}
           />
         ))}
       </DictionarlyText>

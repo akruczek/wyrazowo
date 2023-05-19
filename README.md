@@ -1,10 +1,13 @@
 #### 🔠 Make your Scrabble matches a little bit more easy with this simple mobile app for android and iOS! 
 
+<p align="center">
+  <img src="android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
+</p>
+
 # Wyrazowo - mobile App
 1. [How Wyrazowo can help me?](#how-wyrazowo-can-help-me?)
 2. [Technical](#technical)
 3. [How to use Wyrazowo App?](#how-to-use-wyrazowo-app?)
-  - [How to find possible words from given letters?](#how-to-find-possible-words-from-given-letters?)
 
 ## How Wyrazowo can help me?
 #### Wyrazowo gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations. You will also find some simple games which can help you to expand your scrabble knowledge.

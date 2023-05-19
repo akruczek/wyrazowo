@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Keyboard } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 
 interface UseDictionarlyPlayProgress {
@@ -16,6 +17,7 @@ export const useDictionarlyPlayProgress = (
 
   React.useEffect(() => {
     if (!chances) {
+      Keyboard.dismiss()
       modalizeRef?.current?.open?.()
     }
   }, [ chances ])

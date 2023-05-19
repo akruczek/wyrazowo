@@ -14,7 +14,7 @@ interface Props {
 export const ProgressIndicator = ({ steps, progress, color }: Props) => (
   <ProgressIndicatorContainer>
     {R.times(R.identity, steps).map((step: number) => (
-      <ProgressIndicatorPoint done={progress > step} color={color} />
+      <ProgressIndicatorPoint key={step} done={progress > step} color={color} />
     ))}
     <ProgressIndicatorLine color={color} />
   </ProgressIndicatorContainer>
