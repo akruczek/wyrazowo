@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: "com.google.gms.google-services"
 apply plugin: "com.facebook.react"
 apply plugin: "kotlin-android"
 apply plugin: "kotlinx-serialization"
@@ -26,8 +27,8 @@ android {
         applicationId "com.wyrazowo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10092
-        versionName "1.9.2"
+        versionCode 100100
+        versionName "1.10.0"
     }
 
     splits {

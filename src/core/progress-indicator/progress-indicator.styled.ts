@@ -1,7 +1,9 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { getThemeProp } from '@core/styled/theme'
+import { ThemeModel } from '@core/styled/models'
 
 const PROGRESS_INDICATOR_POINT_SIZE = RESPONSIVE.WIDTH(5)
 
@@ -25,13 +27,13 @@ export const ProgressIndicatorLine = styled.View<ProgressIndicatorProps>`
   background-color: ${R.propOr(COLOR.DODGER_BLUE, 'color')};
 `
 
-const getProgressIndicatorPointBackgroundColor = R.ifElse(
+const getProgressIndicatorPointBackgroundColor: any = R.ifElse(
   R.propSatisfies(Boolean, 'done'),
   R.propOr(COLOR.DODGER_BLUE, 'color'),
-  R.always(COLOR.WHITE as any),
+  getThemeProp('backgroundPrimary'),
 )
 
-export const ProgressIndicatorPoint = styled.View<ProgressIndicatorProps>`
+export const ProgressIndicatorPoint = styled.View<ProgressIndicatorProps & ThemeProps<ThemeModel>>`
   width: ${PROGRESS_INDICATOR_POINT_SIZE}px;
   height: ${PROGRESS_INDICATOR_POINT_SIZE}px;
   background-color: ${getProgressIndicatorPointBackgroundColor};

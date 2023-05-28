@@ -12,6 +12,7 @@ export const ListedOptionContainer = styled.View<ThemeProps<ThemeModel>>`
   border-bottom-width: 1px;
   border-bottom-color: ${getThemeProp('textSecondary')}50;
   margin-bottom: 10px;
+  align-items: center;
 `
 
 interface ListedOptionHeadlineProps {

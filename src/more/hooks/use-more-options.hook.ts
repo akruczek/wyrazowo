@@ -1,19 +1,14 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modalize } from 'react-native-modalize'
-import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import { O } from '_otils'
-import { ThemeModel } from '@core/styled/models'
-import { COLOR } from '@core/colors/colors.constants'
-import { deactivatePremiumAlert } from '@core/alerts/deactivate-premium-alert'
-import { premiumService } from '@core/premium-service/premium-service'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
 import { MoreOption } from '../more.models'
 import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
+import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
 import {
   setDarkThemeEnabledAction, setHapticFeedbackEnabledAction, setLanguageCodeAction,
@@ -32,15 +27,10 @@ type Options = [
 ] | []
 
 interface UseMoreOptions {
-  handleDeactivatePremium: () => void;
   getOptions: () => Options;
 }
 
-export const useMoreOptions = (
-  premiumModalRef: React.MutableRefObject<Modalize | null>,
-  premium: number,
-): UseMoreOptions => {
-  const theme = useTheme() as ThemeModel
+export const useMoreOptions = (): UseMoreOptions => {
   const dispatch = useDispatch()
   const localize = useLocalize()
   const navigation = useNavigation<any>()
@@ -48,13 +38,13 @@ export const useMoreOptions = (
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
   const languageCode = useSelector(languageCodeSelector)
   const darkThemeEnabled = useSelector(darkThemeEnabledSelector)
+  const imageUrl = useSelector(userImageSelector)
+  const displayName = useSelector(userDisplayNameSelector)
 
   const isPending = R.any(
     R.isNil,
-    [ hapticFeedbackEnabled, premium ],
+    [ hapticFeedbackEnabled ],
   )
-
-  const isPremium = premium > 0
 
   const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
     dispatch(setHapticFeedbackEnabledAction(O.toNumberFlag(_hapticFeedbackEnabled)))
@@ -62,27 +52,16 @@ export const useMoreOptions = (
   const handleChangeTheme = (value: 0 | 1 | -1) =>
     dispatch(setDarkThemeEnabledAction(value))
 
-  const handleDeactivatePremium = () => {
-    deactivatePremiumAlert(() => {
-      premiumService.deactivateOnce(dispatch)
-    })
-  }
-
   const handleChangeLanguage = (newLanguageCode: LANGUAGE_CODES) => {
     dispatch(setLanguageCodeAction(newLanguageCode))
-  }
-
-  const handleOpenPremiumModal = () => {
-    premiumModalRef?.current?.open?.()
   }
 
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: localize().premium,
-        icon: 'star',
-        iconColor: isPremium ? COLOR.GOLD : theme.textSecondary,
-        onChange: isPremium ? undefined : handleOpenPremiumModal,
+        title: displayName,
+        onChange: () => navigation.navigate(SCREEN.MORE_USER),
+        imageUrl,
       },
       {
         title: localize().language,
@@ -129,7 +108,7 @@ export const useMoreOptions = (
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },
-    ], [ hapticFeedbackEnabled, premium, isPending, languageCode, darkThemeEnabled ])
+    ], [ hapticFeedbackEnabled, isPending, languageCode, darkThemeEnabled ])
 
-    return { handleDeactivatePremium, getOptions }
+    return { getOptions }
 }

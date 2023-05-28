@@ -9,8 +9,8 @@ interface Props {
 
 export const DictionarlySearchedText = ({ searchedWords, word }: Props) => (
   <>
-    {searchedWords.map((searchedWord: string) => (
-      <DictionarlyText key={searchedWord}>
+    {searchedWords.map((searchedWord: string, groupIndex: number) => (
+      <DictionarlyText key={`${searchedWord}-${groupIndex}`}>
         {searchedWord.split('').map((char: string, index: number) => (
           <DictionarlyText
             isOK={isCharOK(searchedWord, word)(index)}

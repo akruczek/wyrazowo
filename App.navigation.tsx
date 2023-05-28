@@ -5,11 +5,12 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ThemeProvider } from 'styled-components/native'
 import { ActivityIndicator, ColorSchemeName, useColorScheme } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { theme as themeModel } from '@core/styled/theme'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { authService } from '@core/auth/auth-service'
 import { Dashboard } from './src/dashboard/dashboard'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
@@ -19,10 +20,12 @@ import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
 import { CharadeNavigation } from './src/charade/charade.navigation'
 import { DictionaryNavigation } from './src/dictionary/dictionary.navigation'
+import { setUserAction } from './src/user/store/user.slice'
 
 const Tab = createMaterialBottomTabNavigator()
 
 export const AppNavigation = () => {
+  const dispatch = useDispatch()
   const reactNativePaperTheme = reactNativePaperUseTheme()
   reactNativePaperTheme.colors.secondaryContainer = "transparent"
 
@@ -49,6 +52,9 @@ export const AppNavigation = () => {
     const unsubscribe = navigation.addListener('state', (state) => {
       setActiveColor(BOTTOM_NAVIGATION_COLOR[state?.data?.state?.index ?? 0])
     })
+
+    const user = authService.getCurrentUser()
+    dispatch(setUserAction(user))
 
     return unsubscribe
   }, [])

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { TouchableOpacity } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from 'styled-components/native'
 import { ThemeModel } from '@core/styled/models'
@@ -8,6 +7,7 @@ import { MultiToggle } from '@core/multi-toggle/multi-toggle'
 import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { noop } from '@core/noop/noop'
 import { ListedOption } from '../listed-option/listed-option'
+import { OptionItemImage, OptionItemTouchableOpacity } from './option-item.styled'
 
 interface Props {
   title: string;
@@ -17,12 +17,13 @@ interface Props {
   values?: any[];
   labels?: any[];
   icon?: string;
+  imageUrl?: string;
   iconColor?: COLOR;
   hidden?: boolean;
 }
 
 export const OptionItem = ({
-  title, value, values, labels, hidden, icon, iconColor, onChange, handleDeactivatePremium,
+  title, value, values, labels, imageUrl, hidden, icon, iconColor, onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
 
@@ -51,14 +52,13 @@ export const OptionItem = ({
 
   return (
     <ListedOption title={title}>
-      <TouchableOpacity
-        activeOpacity={Number(!onChange)}
-        hitSlop={{ top: 10, right: 10, bottom: 10, left: 1000 }}
-        onPress={onChange}
-        onLongPress={handleDeactivatePremium}
-      >
-        <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
-      </TouchableOpacity>
+      <OptionItemTouchableOpacity onPress={onChange} onLongPress={handleDeactivatePremium}>
+        {imageUrl ? (
+          <OptionItemImage source={{ uri: imageUrl }} />
+        ) : (
+          <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
+        )}
+      </OptionItemTouchableOpacity>
     </ListedOption>
   )
 }

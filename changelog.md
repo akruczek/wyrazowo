@@ -1,3 +1,19 @@
+### 1.10.0
+### Added
+- User screen with Google and Apple sign in
+
+### Changed
+- Moved premium option to new added user screen
+
+### Fixed
+- Dictionarly toggle buttons UI on dark theme
+- Dictionarly search words list UI for lot of elements
+- Dictionarly keyboard behavoir on android
+
+### Improved
+- Dictionarly searched words list performance
+- Dictionarly keyboard behaviorr
+
 ### 1.9.2
 ### Fixed
 - Available whitespaces in dictionarly text input
