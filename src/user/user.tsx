@@ -15,6 +15,8 @@ import { authService } from '@core/auth/auth-service'
 import { OptionItem, PremiumModal } from '../more/components'
 import { premiumSelector } from '../settings/store/settings.selectors'
 import { MoreContainer } from '../more/more.styled'
+import { setUserAction } from './store/user.slice'
+import { DEFAULT_IMAGE_URL } from './store/user.selectors'
 
 export const User = () => {
   const theme = useTheme() as ThemeModel
@@ -23,7 +25,8 @@ export const User = () => {
   const premium = useSelector(premiumSelector)
   const dispatch = useDispatch()
 
-  const [ imageUrl, setImageUrl ] = React.useState('https://raw.githubusercontent.com/akruczek/wyrazowo/develop/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png')
+  const [ imageUrl, setImageUrl ] = React.useState<string>(DEFAULT_IMAGE_URL)
+  const [ displayName, setDisplayName ] = React.useState<string>(localize().user)
 
   const isPremium = premium > 0
 
@@ -37,19 +40,30 @@ export const User = () => {
     })
   }
 
+  const setUserState = (user: FirebaseAuthTypes.User) => {
+    if (user?.photoURL) {
+      setImageUrl(user.photoURL)
+    }
+
+    if (user?.displayName) {
+      setDisplayName(user.displayName)
+    } else if (user?.email) {
+      setDisplayName(user.email)
+    }
+  }
+
   React.useEffect(() => {
     const user = authService.getCurrentUser()
-    console.log('Already logged in user: ', user?.email)
 
     if (user) {
-      if (user?.photoURL) {
-        setImageUrl(user.photoURL)
-      }
+      setUserState(user)
+      dispatch(setUserAction(user))
     } else {
       authService.googleSignIn().then((response) => {
         if (response) {
           const { user } = response
-          console.log('New logged in user: ', user.email)
+          setUserState(user)
+          dispatch(setUserAction(user))
         } else {
           // TODO: handle error
         }
@@ -65,7 +79,7 @@ export const User = () => {
         
         <MoreContainer>
           <OptionItem
-            title={localize().user}
+            title={displayName}
             imageUrl={imageUrl}
             onChange={() => null}
           />

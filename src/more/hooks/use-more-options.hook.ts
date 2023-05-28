@@ -1,19 +1,14 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modalize } from 'react-native-modalize'
-import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import { O } from '_otils'
-import { ThemeModel } from '@core/styled/models'
-import { COLOR } from '@core/colors/colors.constants'
-import { deactivatePremiumAlert } from '@core/alerts/deactivate-premium-alert'
-import { premiumService } from '@core/premium-service/premium-service'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
 import { MoreOption } from '../more.models'
 import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
+import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
 import {
   setDarkThemeEnabledAction, setHapticFeedbackEnabledAction, setLanguageCodeAction,
@@ -36,7 +31,6 @@ interface UseMoreOptions {
 }
 
 export const useMoreOptions = (): UseMoreOptions => {
-  const theme = useTheme() as ThemeModel
   const dispatch = useDispatch()
   const localize = useLocalize()
   const navigation = useNavigation<any>()
@@ -44,6 +38,8 @@ export const useMoreOptions = (): UseMoreOptions => {
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
   const languageCode = useSelector(languageCodeSelector)
   const darkThemeEnabled = useSelector(darkThemeEnabledSelector)
+  const imageUrl = useSelector(userImageSelector)
+  const displayName = useSelector(userDisplayNameSelector)
 
   const isPending = R.any(
     R.isNil,
@@ -63,9 +59,9 @@ export const useMoreOptions = (): UseMoreOptions => {
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: localize().user,
-        imageUrl: 'https://raw.githubusercontent.com/akruczek/wyrazowo/develop/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png',
+        title: displayName,
         onChange: () => navigation.navigate(SCREEN.MORE_USER),
+        imageUrl,
       },
       {
         title: localize().language,
