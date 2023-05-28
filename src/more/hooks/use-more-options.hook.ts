@@ -108,7 +108,7 @@ export const useMoreOptions = (): UseMoreOptions => {
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },
-    ], [ hapticFeedbackEnabled, isPending, languageCode, darkThemeEnabled ])
+    ], [ hapticFeedbackEnabled, isPending, languageCode, darkThemeEnabled, displayName, imageUrl ])
 
     return { getOptions }
 }

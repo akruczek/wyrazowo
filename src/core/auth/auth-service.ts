@@ -9,7 +9,7 @@ export const authService: AuthService = {
       ?.client
       ?.[0]
       ?.oauth_client
-      ?.find?.(({ client_type }) => client_type === (__DEV__ ? 3 : 1)) // TODO: verify on production build
+      ?.find?.(({ client_type }) => client_type === (__DEV__ ? 3 : 3)) // TODO: verify on production build
       ?.client_id
 
     GoogleSignin.configure({ webClientId })

@@ -1,6 +1,15 @@
-### 1.10.0
+## 1.11.0
 ### Added
-- User screen with Google and Apple sign in
+- TODO: saving history to file?
+
+## 1.10.1
+### Fixed
+- Google sign-in on android production build
+- More screen user data update directly after sign in
+
+## 1.10.0
+### Added
+- User screen with Google sign in
 
 ### Changed
 - Moved premium option to new added user screen
@@ -8,11 +17,11 @@
 ### Fixed
 - Dictionarly toggle buttons UI on dark theme
 - Dictionarly search words list UI for lot of elements
-- Dictionarly keyboard behavoir on android
+- Dictionarly keyboard behavior on android
 
 ### Improved
 - Dictionarly searched words list performance
-- Dictionarly keyboard behaviorr
+- Dictionarly keyboard behavior
 
 ### 1.9.2
 ### Fixed
