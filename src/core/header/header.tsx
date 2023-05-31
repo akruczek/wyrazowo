@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { LayoutChangeEvent, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { genericLightShadow, genericTextShadow } from '@core/shadow/shadow.constants'
 import { COLOR } from '@core/colors/colors.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
-import { RESPONSIVE } from '@core/responsive/responsive'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { HeaderSideContentConfig, HeaderType } from './header.models'
+import { useHeaderTextSize } from './hooks/use-header-text-size.hook'
 import {
   BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderLeftButtonIndicator,
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
@@ -26,14 +25,7 @@ export const Header = ({ type, title, backButton, rightContentConfig, leftConten
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
-
-  const [ headerTextSize, setHeaderTextSize ] = React.useState<null | TEXT_SIZE>(null)
-
-  const onHeaderTextLayout = (event: LayoutChangeEvent) => {
-    if (event.nativeEvent.layout.width > RESPONSIVE.WIDTH(75)) {
-      setHeaderTextSize(TEXT_SIZE.M)
-    }
-  }
+  const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
 
   const color: COLOR = {
     dashboard: COLOR.FIRE_BRICK,
