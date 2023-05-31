@@ -11,11 +11,10 @@ export const useReadSearchHistory = () => {
   React.useEffect(() => {
     if (Platform.OS === 'android') {
       DeviceEventEmitter.addListener('readSearchHistory', (searchHistory: string) => {
-        Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify(searchHistory))
+        Storage.set(STORAGE_KEY.SEARCH_RESULT, searchHistory)
       })
     } else {
       eventEmitter.addListener('readSearchHistory', (searchHistory: string) => {
-        console.log(searchHistory)
         Storage.set(STORAGE_KEY.SEARCH_RESULT, searchHistory)
       })
     }
