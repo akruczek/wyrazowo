@@ -14,9 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		37AC8CE71A0CD0924598CC0C /* Pods_Wyrazowo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F4F4F9C4A9DDA0EF1A3E48 /* Pods_Wyrazowo.framework */; };
 		4C2CB52529E01AF600DE00D0 /* String+toJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2CB52429E01AF600DE00D0 /* String+toJSON.swift */; };
+		4C76EDD82A276A5F00D84EB4 /* FSModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C76EDD72A276A5F00D84EB4 /* FSModule.m */; };
+		4C76EDDA2A276A6B00D84EB4 /* FSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C76EDD92A276A6B00D84EB4 /* FSModule.swift */; };
 		4C8C0BEF2A178D9A00A91582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C0BEE2A178D9A00A91582 /* GoogleService-Info.plist */; };
 		4CD6012129DAACFE00DECACB /* DBModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012029DAACFE00DECACB /* DBModule.swift */; };
-		4CD6012229DAACFE00DECACB /* DBModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012029DAACFE00DECACB /* DBModule.swift */; };
 		4CD6012429DAADBD00DECACB /* DBModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012329DAADBD00DECACB /* DBModule.m */; };
 		4CD6012929DADB1C00DECACB /* RCTEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012829DADB1C00DECACB /* RCTEventEmitter.m */; };
 		4CD6012B29DADE6100DECACB /* RCTEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD6012A29DADE6100DECACB /* RCTEventEmitter.swift */; };
@@ -46,6 +47,8 @@
 		2BEADC2B02B838F60DA41512 /* Pods_Wyrazowo_WyrazowoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wyrazowo_WyrazowoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Wyrazowo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wyrazowo.debug.xcconfig"; path = "Target Support Files/Pods-Wyrazowo/Pods-Wyrazowo.debug.xcconfig"; sourceTree = "<group>"; };
 		4C2CB52429E01AF600DE00D0 /* String+toJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+toJSON.swift"; sourceTree = "<group>"; };
+		4C76EDD72A276A5F00D84EB4 /* FSModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FSModule.m; sourceTree = "<group>"; };
+		4C76EDD92A276A6B00D84EB4 /* FSModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModule.swift; sourceTree = "<group>"; };
 		4C8C0BEE2A178D9A00A91582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CD6011529DAAB9600DECACB /* Wyrazowo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wyrazowo-Bridging-Header.h"; sourceTree = "<group>"; };
 		4CD6012029DAACFE00DECACB /* DBModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModule.swift; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 				4CD6012829DADB1C00DECACB /* RCTEventEmitter.m */,
 				4CD6012A29DADE6100DECACB /* RCTEventEmitter.swift */,
 				4C2CB52429E01AF600DE00D0 /* String+toJSON.swift */,
+				4C76EDD72A276A5F00D84EB4 /* FSModule.m */,
+				4C76EDD92A276A6B00D84EB4 /* FSModule.swift */,
 			);
 			name = Wyrazowo;
 			sourceTree = "<group>";
@@ -453,9 +458,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD6012929DADB1C00DECACB /* RCTEventEmitter.m in Sources */,
+				4C76EDDA2A276A6B00D84EB4 /* FSModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				4CD6012429DAADBD00DECACB /* DBModule.m in Sources */,
 				4CD6012B29DADE6100DECACB /* RCTEventEmitter.swift in Sources */,
+				4C76EDD82A276A5F00D84EB4 /* FSModule.m in Sources */,
 				4CD6012129DAACFE00DECACB /* DBModule.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				4C2CB52529E01AF600DE00D0 /* String+toJSON.swift in Sources */,

@@ -2,6 +2,8 @@
   "premium": "Premium",
   "are_you_sure": "Czy na pewno?",
   "clear_search_history_confirmation": "Na pewno chcesz usunąć historię wyszukiwania?",
+  "save_search_history": "Zapisz historię wyszukiwania",
+  "import_search_history": "Zaimportuj historię wyszukiwania",
   "enter_premium_code": "Wprowadź kod Premium",
   "haptic_feedback": "Haptyka",
   "native_search_engine": "Natywna wyszukiwarka",

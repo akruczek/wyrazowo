@@ -26,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new DBModulePackage());
+          packages.add(new FSModulePackage());
           return packages;
         }
 

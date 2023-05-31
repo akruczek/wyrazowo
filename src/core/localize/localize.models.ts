@@ -2,6 +2,8 @@ export interface Localization {
   premium: 'premium',
   are_you_sure: 'are_you_sure',
   clear_search_history_confirmation: 'clear_search_history_confirmation',
+  save_search_history: 'save_search_history',
+  import_search_history: 'import_search_history',
   enter_premium_code: 'enter_premium_code',
   haptic_feedback: 'haptic_feedback',
   native_search_engine: 'native_search_engine',

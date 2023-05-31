@@ -2,6 +2,8 @@
   "premium": "Premium",
   "are_you_sure": "Bist du dir sicher?",
   "clear_search_history_confirmation": "Möchten Sie Ihren Suchverlauf wirklich löschen?",
+  "save_search_history": "Suchverlauf speichern",
+  "import_search_history": "Suchverlauf importieren",
   "enter_premium_code": "Prämiencode eingeben",
   "haptic_feedback": "Haptisches feedback",
   "native_search_engine": "Native Suchmaschine",
