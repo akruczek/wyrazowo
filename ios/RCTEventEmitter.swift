@@ -19,6 +19,6 @@ open class EventEmitter: RCTEventEmitter {
   }
 
   open override func supportedEvents() -> [String] {
-    ["findPossibleWordsResult"]
+    ["findPossibleWordsResult", "readSearchHistory"]
   }
 }

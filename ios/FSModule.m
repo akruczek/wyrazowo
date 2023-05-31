@@ -12,4 +12,5 @@
   RCT_EXTERN_METHOD(saveSearchHistory:
     (NSString*)searchHistory
   )
+  RCT_EXTERN_METHOD(readSearchHistory)
 @end

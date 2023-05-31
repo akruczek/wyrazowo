@@ -3,6 +3,7 @@
   "are_you_sure": "Are you sure?",
   "clear_search_history_confirmation": "Do you really want to clear your search history?",
   "save_search_history": "Save search history",
+  "overwrite_search_history_confirmation": "This will overwrite your current search history with previously saved one.",
   "import_search_history": "Import search history",
   "enter_premium_code": "Enter Premium code",
   "haptic_feedback": "Haptic feedback",
@@ -48,5 +49,8 @@
   "more": "MORE",
   "help": "Help",
   "user": "User",
+  "cancel": "Cancel",
+  "clear": "Clear",
+  "confirm": "Confirm",
   "language": "Language"
 }
