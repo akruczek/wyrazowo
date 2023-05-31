@@ -3,29 +3,27 @@ import { useTheme } from 'styled-components/native'
 import { Host } from 'react-native-portalize'
 import { useDispatch, useSelector } from 'react-redux'
 import { O } from '_otils'
+import { useNavigation } from '@react-navigation/native'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { Header } from '@core/header/header'
 import { ThemeModel } from '@core/styled/models'
-import { clearSearchHistoryAlert } from '@core/alerts/clear-seearch-history-alert'
-import { STORAGE_KEY } from '@core/storage/storage.constants'
-import { Storage } from '@core/storage/storage'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { OptionItem } from '../more/components'
 import { DeveloperContainer } from './developer.styled'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
-import { setNativeSearchEngineEnabledAction } from 'settings/store/settings.slice'
+import { setNativeSearchEngineEnabledAction } from '../settings/store/settings.slice'
+import { SCREEN } from '../navigation/navigation.constants'
 
 export const Developer = () => {
   const theme = useTheme() as ThemeModel
   const dispatch = useDispatch()
   const localize = useLocalize()
+  const navigation = useNavigation<any>()
 
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
 
   const handleClearSearchHistory = () => {
-    clearSearchHistoryAlert(() => {
-      Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([]))
-    })
+    navigation.navigate(SCREEN.DEVELOPER_SEARCH_HISTORY)
   }
 
   const handleChangeNativeSearchEngine = (_nativeSearchEngineEnabled: boolean) =>
@@ -38,8 +36,8 @@ export const Developer = () => {
 
         <DeveloperContainer>
           <OptionItem
-            title={localize().clear_search_history}
-            icon="delete"
+            title={localize().search_history}
+            icon="history"
             onChange={handleClearSearchHistory}
           />
 

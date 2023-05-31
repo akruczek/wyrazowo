@@ -1,9 +1,12 @@
 {
   "premium": "Premium",
+  "are_you_sure": "Are you sure?",
+  "clear_search_history_confirmation": "Do you really want to clear your search history?",
   "enter_premium_code": "Enter Premium code",
   "haptic_feedback": "Haptic feedback",
   "native_search_engine": "Native search engine",
   "clear_search_history": "Clear search history",
+  "search_history": "Search history",
   "advanced_settings": "Advanced settings",
   "settings": "Settings",
   "app_version": "App version",

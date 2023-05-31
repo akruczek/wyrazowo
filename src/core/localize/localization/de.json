@@ -1,9 +1,12 @@
 {
   "premium": "Premium",
+  "are_you_sure": "Bist du dir sicher?",
+  "clear_search_history_confirmation": "Möchten Sie Ihren Suchverlauf wirklich löschen?",
   "enter_premium_code": "Prämiencode eingeben",
   "haptic_feedback": "Haptisches feedback",
   "native_search_engine": "Native Suchmaschine",
   "clear_search_history": "Suchverlauf löschen",
+  "search_history": "Suchverlauf",
   "advanced_settings": "Erweiterte Einstellungen",
   "settings": "Einstellungen",
   "app_version": "App version",

@@ -35,11 +35,21 @@ export const HeaderContainer = styled(LinearGradient).attrs((props: HeaderContai
   justify-content: center;
 `
 
-export const HeaderText = styled.Text`
-  font-size: ${TEXT_SIZE.XL}px;
+interface HeaderTextProps {
+  headerTextSize: TEXT_SIZE | null;
+}
+
+export const HeaderText = styled.Text.attrs({
+  numberOfLines: 1,
+})<HeaderTextProps>`
+  font-size: ${R.propOr(TEXT_SIZE.XL, 'headerTextSize')}px;
+  text-align: center;
   color: ${COLOR.WHITE};
   font-weight: bold;
-  padding-top: 10px;
+  max-width: 80%;
+  align-self: center;
+  padding-bottom: 15px;
+  padding-horizontal: 5px;
 `
 
 interface BackButtonContainerProps {
