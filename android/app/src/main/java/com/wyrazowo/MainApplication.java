@@ -13,7 +13,6 @@ import java.util.List;
 import com.wyrazowo.DBModulePackage;
 
 public class MainApplication extends Application implements ReactApplication {
-
   private final ReactNativeHost mReactNativeHost =
       new DefaultReactNativeHost(this) {
         @Override

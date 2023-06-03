@@ -3,6 +3,7 @@
   "are_you_sure": "Czy na pewno?",
   "clear_search_history_confirmation": "Na pewno chcesz usunąć historię wyszukiwania?",
   "save_search_history": "Zapisz historię wyszukiwania",
+  "save_search_history_confirmation": "Ta akcja zapisze (lub nadpisze!) historię wyszukiwania w pamięci Twojego urządzenia.",
   "overwrite_search_history_confirmation": "Twoja obecna historia wyszukiwania zostanie nadpisana przez tę wcześniej zapisaną.",
   "import_search_history": "Zaimportuj historię wyszukiwania",
   "enter_premium_code": "Wprowadź kod Premium",

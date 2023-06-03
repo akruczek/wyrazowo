@@ -9,10 +9,11 @@ import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Header } from '@core/header/header'
 import { SearchResultModel } from '@core/storage/storage.models'
-import { overwriteSearchHistoryAlert } from '@core/alerts/overwrite-search-hstory-alert'
+import { overwriteSearchHistoryAlert } from '@core/alerts/overwrite-search-history-alert'
 import { DeveloperContainer } from '../../developer.styled'
 import { OptionItem } from '../../../more/components'
 import { useReadSearchHistory } from '../../hooks/use-read-search-history.hook'
+import { saveSearchHistoryAlert } from '@core/alerts/save-search-history-alert'
 
 export const DeveloperSearchHistory = () => {
   const theme = useTheme() as ThemeModel
@@ -27,8 +28,10 @@ export const DeveloperSearchHistory = () => {
   }
 
   const handleSaveSearchHistory = () => {
-    Storage.get<SearchResultModel[]>(STORAGE_KEY.SEARCH_RESULT).then((searchHistory: SearchResultModel[] | null) => {
-      NativeModules.FSModule.saveSearchHistory(JSON.stringify(searchHistory))
+    saveSearchHistoryAlert(localize, () => {
+      Storage.get<SearchResultModel[]>(STORAGE_KEY.SEARCH_RESULT).then((searchHistory: SearchResultModel[] | null) => {
+        NativeModules.FSModule.saveSearchHistory(JSON.stringify(searchHistory))
+      })
     })
   }
 
