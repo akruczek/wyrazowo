@@ -13,56 +13,25 @@ import Foundation
   @objc func saveSearchHistory(
     _ searchHistory: String
   ) -> Bool {
-    let fileName = "search_history"
+    let file : String = "search_history.txt"
 
-    let dir = try? FileManager.default.url(
-      for: .documentDirectory,
-      in: .userDomainMask,
-      appropriateFor: nil,
-      create: true
-    )
+    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+      let fileURL = dir.appendingPathComponent(file)
 
-    guard let fileURL = dir?.appendingPathComponent(fileName).appendingPathExtension("txt") else {
-      fatalError("Not able to create URL")
+      do {
+        try searchHistory.write(to: fileURL, atomically: false, encoding: .utf8)
+      }
+      catch {}
     }
 
-    // Writing to the file named Test
-    do {
-      try searchHistory.write(
-        to: fileURL,
-        atomically: true,
-        encoding: .utf8
-      )
-    } catch {
-      assertionFailure("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
-    }
+    DAKeychain.shared["search_history"] = searchHistory
 
     return true
   }
 
   @objc func readSearchHistory() -> Bool {
-    let fileName = "search_history"
+    EventEmitter.emitter.sendEvent(withName: "readSearchHistory", body: DAKeychain.shared["search_history"] ?? "")
 
-    let dir = try? FileManager.default.url(
-      for: .documentDirectory,
-      in: .userDomainMask,
-      appropriateFor: nil,
-      create: true
-    )
-
-    guard let fileURL = dir?.appendingPathComponent(fileName).appendingPathExtension("txt") else {
-      fatalError("Not able to create URL")
-    }
-
-    var searchHistory = ""
-
-    do {
-      searchHistory = try String(contentsOf: fileURL)
-    } catch {
-      assertionFailure("Failed reading from URL: \(fileURL), Error: " + error.localizedDescription)
-    }
-
-    EventEmitter.emitter.sendEvent(withName: "readSearchHistory", body: searchHistory)
     return true
   }
 }
