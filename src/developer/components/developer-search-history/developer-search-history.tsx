@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { NativeModules } from 'react-native'
 import { useTheme } from 'styled-components/native'
+import { useDispatch } from 'react-redux'
 import { clearSearchHistoryAlert } from '@core/alerts/clear-search-history-alert'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { Storage } from '@core/storage/storage'
@@ -10,20 +11,23 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Header } from '@core/header/header'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { overwriteSearchHistoryAlert } from '@core/alerts/overwrite-search-history-alert'
+import { saveSearchHistoryAlert } from '@core/alerts/save-search-history-alert'
 import { DeveloperContainer } from '../../developer.styled'
 import { OptionItem } from '../../../more/components'
 import { useReadSearchHistory } from '../../hooks/use-read-search-history.hook'
-import { saveSearchHistoryAlert } from '@core/alerts/save-search-history-alert'
+import { setSearchHistoryTimestampAction } from '../../../dashboard/store/dashboard.slice'
 
 export const DeveloperSearchHistory = () => {
   const theme = useTheme() as ThemeModel
   const localize = useLocalize()
+  const dispatch = useDispatch()
 
   useReadSearchHistory()
 
   const handleClearSearchHistory = () => {
     clearSearchHistoryAlert(localize, () => {
       Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([]))
+      dispatch(setSearchHistoryTimestampAction(new Date().getTime()))
     })
   }
 
