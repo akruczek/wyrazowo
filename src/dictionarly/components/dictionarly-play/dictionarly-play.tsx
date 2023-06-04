@@ -21,10 +21,10 @@ export const DictionarlyPlay = () => {
 
   const { progress, steps, setChances } = useDictionarlyPlayProgress(modalizeRef)
 
-  const { difficulty, value, wordsBefore, wordsAfter, word, state, handleChange, onSend } =
+  const { wordsLength, value, wordsBefore, wordsAfter, word, state, handleChange, onSend } =
     useDictionarlyPlay(setChances, modalizeRef)
 
-  const errorMessage = (difficulty && value.length < 10)
+  const errorMessage = (wordsLength && value.length < 10)
     ? localize().minimum_10_letters_error
     : undefined
 

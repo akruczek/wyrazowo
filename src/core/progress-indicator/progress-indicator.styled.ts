@@ -15,12 +15,19 @@ export const ProgressIndicatorContainer = styled.View`
 
 interface ProgressIndicatorProps {
   color?: COLOR;
+  difficulty?: number;
   done?: boolean;
 }
 
+const getProgressIndicatorLineWidth = R.ifElse<any, number, number>(
+  R.propEq('steps', 8),
+  R.always(90),
+  R.always(95),
+)
+
 export const ProgressIndicatorLine = styled.View<ProgressIndicatorProps>`
   height: 2px;
-  width: 95%;
+  width: ${getProgressIndicatorLineWidth}%;
   position: absolute;
   z-index: -1;
   align-self: center;

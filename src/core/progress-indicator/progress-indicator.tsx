@@ -16,6 +16,6 @@ export const ProgressIndicator = ({ steps, progress, color }: Props) => (
     {R.times(R.identity, steps).map((step: number) => (
       <ProgressIndicatorPoint key={step} done={progress > step} color={color} />
     ))}
-    <ProgressIndicatorLine color={color} />
+    <ProgressIndicatorLine {...{ steps, color }} />
   </ProgressIndicatorContainer>
 )

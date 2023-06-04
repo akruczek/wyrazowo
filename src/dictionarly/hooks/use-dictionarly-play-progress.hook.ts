@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Keyboard } from 'react-native'
 import { Modalize } from 'react-native-modalize'
+import { useNavigation } from '@react-navigation/native'
+import { getNavigationParam } from '../../navigation/navigation.helpers'
 
 interface UseDictionarlyPlayProgress {
   progress: number;
@@ -11,9 +13,13 @@ interface UseDictionarlyPlayProgress {
 export const useDictionarlyPlayProgress = (
   modalizeRef: React.MutableRefObject<Modalize | null>,
 ): UseDictionarlyPlayProgress => {
-  const DEFAULT_CHANCES = 10
+  const navigation = useNavigation()
+  const DEFAULT_CHANCES = 12
 
-  const [ chances, setChances ] = React.useState(DEFAULT_CHANCES)
+  const difficulty = getNavigationParam<number>('difficulty', navigation)
+  const CHANCES = [ 14, 12, 10, 8 ][difficulty] ?? DEFAULT_CHANCES
+
+  const [ chances, setChances ] = React.useState(CHANCES)
 
   React.useEffect(() => {
     if (!chances) {
@@ -23,8 +29,8 @@ export const useDictionarlyPlayProgress = (
   }, [ chances ])
 
   return {
-    progress: DEFAULT_CHANCES - chances,
-    steps: DEFAULT_CHANCES,
+    progress: CHANCES - chances,
+    steps: CHANCES,
     setChances,
   }
 }

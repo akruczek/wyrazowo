@@ -8,7 +8,7 @@ import { getNavigationParam } from '../../navigation/navigation.helpers'
 import { appendSortedWords, getDictionaryWords } from '../helpers'
 
 interface UseDictionarlyPlay {
-  difficulty: number;
+  wordsLength: number;
   value: string;
   wordsBefore: string[];
   wordsAfter: string[];
@@ -35,7 +35,7 @@ export const useDictionarlyPlay = (
   }
 
   const onSend = () => {
-    const allWords = difficulty ? getDictionaryWords(longWordsByLength) : getDictionaryWords(allWordsByLength)
+    const allWords = wordsLength ? getDictionaryWords(longWordsByLength) : getDictionaryWords(allWordsByLength)
 
     if (!allWords.includes(value.toLowerCase())) {
       setState(false)
@@ -60,7 +60,7 @@ export const useDictionarlyPlay = (
   }
 
   const word = getNavigationParam<string>('word', navigation)
-  const difficulty = getNavigationParam<number>('difficulty', navigation)
+  const wordsLength = getNavigationParam<number>('wordsLength', navigation)
 
-  return { difficulty, value, wordsBefore, wordsAfter, word, state, handleChange, onSend }
+  return { wordsLength, value, wordsBefore, wordsAfter, word, state, handleChange, onSend }
 }
