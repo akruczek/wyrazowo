@@ -15,7 +15,7 @@ export const Dictionarly = () => {
   const theme = useTheme() as ThemeModel
   const localize = useLocalize()
   const { top: topInset } = useSafeAreaInsets()
-  const { handlePlay, handleNavigateToDictionary, difficulty, setDifficulty } = usePlayDictionarly()
+  const { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength } = usePlayDictionarly()
 
   const leftContentConfig = {
     onPress: handleNavigateToDictionary,
@@ -27,9 +27,9 @@ export const Dictionarly = () => {
       <Header type="dictionary" title={localize().dictionarly} {...{ leftContentConfig }} />
 
       <SwitchButton
-        onChange={setDifficulty}
-        value={difficulty}
-        labels={[ localize().easy, localize().hard ]}
+        onChange={setWordsLength}
+        value={wordsLength}
+        labels={[ localize().short, localize().long ]}
         colors={[ COLOR.DARK_SEA_GREEN, COLOR.FIRE_BRICK ]}
       />
 

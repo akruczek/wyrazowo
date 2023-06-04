@@ -1,3 +1,8 @@
+## 1.12.0
+### Added
+- Dictionarly difficulty levels (chances - easy, normal, hard, very hard)
+- Dictionarly words length configuration (short and long)
+
 ## 1.11.1
 ### Fixed
 - White screen on android when cancel importing search history
