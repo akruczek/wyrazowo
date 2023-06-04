@@ -5,6 +5,10 @@ import { getThemeProp } from '@core/styled/theme'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { ThemeModel } from '@core/styled/models'
 
+export const SwitchButtonsGroupsContainer = styled.View`
+  margin-vertical: 5px;
+`
+
 export const SwitchButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;

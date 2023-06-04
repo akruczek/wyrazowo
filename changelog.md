@@ -1,13 +1,15 @@
-## 1.12.0
+## 1.12.0 DICTIONARLY EVOLUTION
 ### Added
-- Dictionarly difficulty levels (chances - easy, normal, hard, very hard)
-- Dictionarly words length configuration (short and long)
+- 4 Dictionarly difficulty levels
+
+### Changed
+- Dictionarly difficulty renamed to words length
 
 ## 1.11.1
 ### Fixed
 - White screen on android when cancel importing search history
 
-## 1.11.0
+## 1.11.0 ADVANCED SEARCH HISTORY
 ### Added
 - Advanced Search History management - save, import and clear search history
 
@@ -16,7 +18,7 @@
 - Google sign-in on android production build
 - More screen user data update directly after sign in
 
-## 1.10.0
+## 1.10.0 GOOGLE SIGN-IN
 ### Added
 - User screen with Google sign in
 
@@ -47,11 +49,11 @@
 - Dictionarly failure feedback
 - Dictionarly keyboard behavior
 
-## 1.9.0
+## 1.9.0 DICTIONARLY
 ### Added
 - Dictionarly - new game available from Dictionary screen
 
-## 1.8.0
+## 1.8.0 CHARADE EVOLUTION
 ### Added
 - Charade success and failure feedback
 - Advanced settings screen available from more tab
@@ -62,7 +64,7 @@
 ### Changed
 - Moved clear history and native search engine options to new Advanced Settings screen
 
-## 1.7.0
+## 1.7.0 CHARADE
 ### Added
 - Charade words verification with dictionary
 
@@ -81,7 +83,7 @@
 - Guideline UI
 - Android StatusBar UI/UX
 
-## 1.6.0
+## 1.6.0 GUIDELINE
 ### Added
 - Guideline available in More tab
 - App author information available in More tab
@@ -104,7 +106,7 @@
 - Wrong navigation icon size on small devices
 - Crash on Charade in some specific configurations
 
-## 1.5.0
+## 1.5.0 CHARADE FOUNDATIONS
 ### Added
 - Charade - you can play charade in any configuration!
 
@@ -118,7 +120,7 @@
 ### Fixed
 - Modals UI on Dashboard
 
-## 1.4.0
+## 1.4.0 DARK THEME
 ### Added
 - Dark theme support
 
@@ -130,7 +132,7 @@
 - Dictionary crash
 - Force index for selected letters second line
 
-## 1.3.0
+## 1.3.0 SEARCH ENGINE EVOLUTION
 ### Added
 - Force index from dashboard - add letters on specific positions when search possible words
 
@@ -141,7 +143,7 @@
 ### Improved
 - General performance improvements
 
-## 1.2.0
+## 1.2.0 PLAYGROUND EVOLUTION
 ### Added
 - Selected letters counter on Playground screen
 - Simple Playground letters carousel to fit more content on small devices
@@ -153,12 +155,12 @@
 ### Fixed
 - Android crash when locale identifier is not present
 
-## 1.1.0
+## 1.1.0 LOCALIZATIONS EVOLUTION
 ### Added
 - Possibility to force any language from more tab
 - German language support
 
-## 1.0.0
+## 1.0.0 LOCALIZATIONS
 ### Added
 - Full English and Polish languages support
 
@@ -171,7 +173,7 @@
 - Dictionary UX improvements
 - Letter Cards UI improvements
 
-## 0.12.0
+## 0.12.0 PREMIUM
 ### Added
 - Premium plan activation via premium codes - no more limitations!
 
@@ -186,7 +188,7 @@
 ### Fixed
 - More tab labels
 
-## 0.11.0
+## 0.11.0 DICTIONARY EVOLUTION
 ### Added
 - Dictionary random result min-max filter
 
@@ -195,7 +197,7 @@
 - Status bar colors handling on dashboard and dictionary screens
 - Dictionary search input UI improvements
 
-## 0.10.0
+## 0.10.0 DICTIONARY
 ### Added
 - Native dictionary search engine
 
@@ -218,7 +220,7 @@
 - Native search engine for android
 - Clearing search history from more tab
 
-## 0.9.0
+## 0.9.0 NATIVE SEARCH ENGINE
 ### Technical
 - Native search engine foundation iOS
 - Native search engine foundation android
@@ -236,7 +238,7 @@
 ### Improved
 - Playground draggable letter layout
 
-## 0.8.0
+## 0.8.0 PLAYGROUND
 ### Added
 - Basic sandbox playground
 
@@ -245,7 +247,7 @@
 - Haptic feedback on android
 - Font color on android dark theme
 
-## 0.7.0
+## 0.7.0 HAPTIC FEEDBACK
 ### Added
 - Haptic feedback option
 
@@ -261,11 +263,11 @@
 - Search history custom soap UI
 - Search history words empty state
 
-## 0.6.0
+## 0.6.0 SEARCH HISTORY
 ### Added
 - Search history
 
-## 0.5.0
+## 0.5.0 SOAP LETTERS
 ### Added
 - Configurable soap letters
 - App version info in more tab
@@ -285,11 +287,11 @@
 ### Fixed:
 - Fix issue with wrong result when using soap letters
 
-## 0.4.0
+## 0.4.0 REDESIGN V1
 ### Improved:
 - Redesign Dashboard and Navigation
 
-## 0.3.0
+## 0.3.0 APP ICON & LAUNCH SCREEN
 ### Added:
 - App icons and Launch Screen
 
@@ -305,7 +307,7 @@
 ### Improved:
 - Navigation UI improvements
 
-## 0.2.0
+## 0.2.0 SCRABBLEMANIA
 ### Added:
 - Additional tool - scrabblemania available from new navigation bar
 
@@ -329,7 +331,7 @@
 ### Improved:
 - Words database security improvements
 
-## 0.1.0
+## 0.1.0 SEARCH ENGINE FOUNDATIONS
 ### Added:
 - Basic search engine which allow to search words up to 9 letters
 - Placeholder letters support
