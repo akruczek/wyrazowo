@@ -13,7 +13,6 @@ import java.util.List;
 import com.wyrazowo.DBModulePackage;
 
 public class MainApplication extends Application implements ReactApplication {
-
   private final ReactNativeHost mReactNativeHost =
       new DefaultReactNativeHost(this) {
         @Override
@@ -26,6 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new DBModulePackage());
+          packages.add(new FSModulePackage());
           return packages;
         }
 

@@ -1,13 +1,11 @@
 package com.wyrazowo
 
-import android.util.Log
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import kotlin.concurrent.thread
 
 class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
     override fun getName(): String {

@@ -1,9 +1,16 @@
 {
   "premium": "Premium",
+  "are_you_sure": "Bist du dir sicher?",
+  "clear_search_history_confirmation": "Möchten Sie Ihren Suchverlauf wirklich löschen?",
+  "save_search_history": "Suchverlauf speichern",
+  "save_search_history_confirmation": "Durch diese Aktion wird der aktuelle Suchverlauf in Ihrem Gerätespeicher gespeichert (oder überschrieben!).",
+  "overwrite_search_history_confirmation": "Dadurch wird Ihr aktueller Suchverlauf mit dem zuvor gespeicherten überschrieben.",
+  "import_search_history": "Suchverlauf importieren",
   "enter_premium_code": "Prämiencode eingeben",
   "haptic_feedback": "Haptisches feedback",
   "native_search_engine": "Native Suchmaschine",
   "clear_search_history": "Suchverlauf löschen",
+  "search_history": "Suchverlauf",
   "advanced_settings": "Erweiterte Einstellungen",
   "settings": "Einstellungen",
   "app_version": "App version",
@@ -43,5 +50,8 @@
   "more": "MEHR",
   "help": "Hilfe",
   "user": "Benutzer",
+  "cancel": "Abbrechen",
+  "clear": "Löschen",
+  "confirm": "Bestätigen",
   "language": "Sprache"
 }

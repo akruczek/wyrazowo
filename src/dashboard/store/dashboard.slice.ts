@@ -3,10 +3,12 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 export interface DashboardState {
   selectedLetters: string[];
+  searchHistoryTimestamp: number;
 }
 
 const initialState: DashboardState = {
   selectedLetters: [],
+  searchHistoryTimestamp: new Date().getTime(),
 }
 
 export const settingsSlice = createSlice({
@@ -16,11 +18,14 @@ export const settingsSlice = createSlice({
     setSelectedLettersAction: (state, action: PayloadAction<string[]>) => {
       state.selectedLetters = action.payload
     },
+    setSearchHistoryTimestampAction: (state, action: PayloadAction<number>) => {
+      state.searchHistoryTimestamp = action.payload
+    },
   },
 })
 
 export const {
-  setSelectedLettersAction,
+  setSelectedLettersAction, setSearchHistoryTimestampAction,
 } = settingsSlice.actions
 
 export const dashboardReducer = settingsSlice.reducer

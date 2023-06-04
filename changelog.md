@@ -1,6 +1,6 @@
 ## 1.11.0
 ### Added
-- TODO: saving history to file?
+- Advanced Search History management - save, import and clear search history
 
 ## 1.10.1
 ### Fixed

@@ -3,6 +3,8 @@ export const BOTTOM_NAVIGATION_HEIGHT = 75
 export const SCREEN = {
   DASHBOARD: 'Dashboard',
   DEVELOPER: 'Developer',
+  DEVELOPER_MAIN: 'Developer-Main',
+  DEVELOPER_SEARCH_HISTORY: 'Developer-Search-History',
   CHARADE: 'Charade',
   CHARADE_MAIN: 'Charade-Main',
   CHARADE_PLAY: 'Charade-Play',
