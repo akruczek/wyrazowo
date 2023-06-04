@@ -1,3 +1,7 @@
+## 1.11.1
+### Fixed
+- White screen on android when cancel importing search history
+
 ## 1.11.0
 ### Added
 - Advanced Search History management - save, import and clear search history
