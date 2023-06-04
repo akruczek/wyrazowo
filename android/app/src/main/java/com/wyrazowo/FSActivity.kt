@@ -36,44 +36,55 @@ class FSActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == WRITE_REQUEST_CODE) {
             when (resultCode) {
                 RESULT_OK -> if (data != null && data.data != null) {
                     writeInFile(data.data!!, dataToSave!!)
                     finish()
                 }
-                RESULT_CANCELED -> {}
-            }
-        } else if (data?.data !== null) {
-            val stringBuilder = StringBuilder()
-
-            contentResolver.openInputStream(data.data!!)?.use { inputStream ->
-                BufferedReader(InputStreamReader(inputStream)).use { reader ->
-                    var line: String? = reader.readLine()
-                    while (line != null) {
-                        stringBuilder.append(line)
-                        line = reader.readLine()
-                    }
+                RESULT_CANCELED -> {
+                    finish()
                 }
             }
+        } else if (data?.data !== null) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    val stringBuilder = StringBuilder()
 
-            val intent = Intent()
-            intent.putExtra("readData", stringBuilder.toString())
-            this.setResult(Activity.RESULT_OK, intent)
-            finish()
+                    contentResolver.openInputStream(data.data!!)?.use { inputStream ->
+                        BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                            var line: String? = reader.readLine()
+                            while (line != null) {
+                                stringBuilder.append(line)
+                                line = reader.readLine()
+                            }
+                        }
+                    }
+
+                    val intent = Intent()
+                    intent.putExtra("readData", stringBuilder.toString())
+                    this.setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
+                RESULT_CANCELED -> {
+                    finish()
+                }
+            }
         }
     }
 
     private fun writeInFile(uri: Uri, text: String) {
         val outputStream: OutputStream?
+
         try {
             outputStream = contentResolver.openOutputStream(uri)
-            val bw = BufferedWriter(OutputStreamWriter(outputStream))
-            bw.write(text)
-            bw.flush()
-            bw.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
+            val bufferWriter = BufferedWriter(OutputStreamWriter(outputStream))
+            bufferWriter.write(text)
+            bufferWriter.flush()
+            bufferWriter.close()
+        } catch (error: IOException) {
+            error.printStackTrace()
         }
     }
 

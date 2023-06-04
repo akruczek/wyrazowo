@@ -10,9 +10,7 @@ import Foundation
 @objc(FSModule) class FSModule: NSObject {
   @objc static func requiresMainQueueSetup() -> Bool { return true }
   
-  @objc func saveSearchHistory(
-    _ searchHistory: String
-  ) -> Bool {
+  @objc func saveSearchHistory(_ searchHistory: String) -> Bool {
     let file : String = "search_history.txt"
 
     if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -30,7 +28,10 @@ import Foundation
   }
 
   @objc func readSearchHistory() -> Bool {
-    EventEmitter.emitter.sendEvent(withName: "readSearchHistory", body: DAKeychain.shared["search_history"] ?? "")
+    EventEmitter.emitter.sendEvent(
+      withName: "readSearchHistory",
+      body: DAKeychain.shared["search_history"] ?? ""
+    )
 
     return true
   }

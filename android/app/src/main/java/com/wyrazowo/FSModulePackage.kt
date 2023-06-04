@@ -9,13 +9,13 @@ import com.facebook.react.uimanager.ViewManager
 import java.util.Collections
 
 class FSModulePackage(): ReactPackage {
-    override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
-        val modules = ArrayList<NativeModule>()
-        modules.add(FSModuleManager(reactContext))
-        return modules
-    }
+  override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
+    val modules = ArrayList<NativeModule>()
+    modules.add(FSModuleManager(reactContext))
+    return modules
+  }
 
-    override fun createViewManagers(reactContext: ReactApplicationContext): MutableList<ViewManager<View, ReactShadowNode<*>>> {
-        return Collections.emptyList()
-    }
+  override fun createViewManagers(reactContext: ReactApplicationContext): MutableList<ViewManager<View, ReactShadowNode<*>>> {
+    return Collections.emptyList()
+  }
 }
