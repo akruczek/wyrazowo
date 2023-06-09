@@ -8,11 +8,9 @@ import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { COLOR } from '@core/colors/colors.constants'
+import { useRealTimeUserData, usePremium, useUserAuth } from './hooks'
 import { OptionItem, PremiumModal } from '../more/components'
 import { MoreContainer } from '../more/more.styled'
-import { useRealTimeUserData } from './hooks/use-real-time-user-data.hook'
-import { usePremium } from './hooks/use-premium.hook'
-import { useUserAuth } from './hooks/use-user-auth.hook'
 
 export const User = () => {
   const theme = useTheme() as ThemeModel
