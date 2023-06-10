@@ -11,6 +11,7 @@ import { COLOR } from '@core/colors/colors.constants'
 import { useRealTimeUserData, usePremium, useUserAuth } from './hooks'
 import { OptionItem, PremiumModal } from '../more/components'
 import { MoreContainer } from '../more/more.styled'
+import { UserStatistics } from './components/user-statistics/user-statistics'
 
 export const User = () => {
   const theme = useTheme() as ThemeModel
@@ -41,7 +42,7 @@ export const User = () => {
             handleDeactivatePremium={handleDeactivatePremium}
           />
 
-          <Text style={{ color: 'black' }}>{userData?.points?.value}</Text>
+          <UserStatistics userData={userData} />
         </MoreContainer>
       </SafeAreaFlexContainer>
 

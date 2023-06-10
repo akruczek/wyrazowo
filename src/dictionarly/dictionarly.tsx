@@ -44,7 +44,7 @@ export const Dictionarly = () => {
         onChange={setDifficulty}
         value={difficulty}
         elementsInRowCount={2}
-        labels={[ localize().easy, localize().normal, localize().hard, localize().veryHard ]}
+        labels={[ localize().easy, localize().normal, localize().hard, localize().very_hard ]}
         colors={[ COLOR.DARK_SEA_GREEN, COLOR.DODGER_BLUE, COLOR.GOLD, COLOR.FIRE_BRICK ]}
       />
 
