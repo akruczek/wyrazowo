@@ -1,3 +1,11 @@
+## 1.13.0 USER STATISTICS
+### Added
+- Basic user statistics available on user screen
+- Charade letters duplications configuration
+
+### Fixed
+- Charade no success when found word with duplicated letters
+
 ## 1.12.0 DICTIONARLY EVOLUTION
 ### Added
 - 4 Dictionarly difficulty levels
@@ -34,7 +42,7 @@
 - Dictionarly searched words list performance
 - Dictionarly keyboard behavior
 
-### 1.9.2
+## 1.9.2
 ### Fixed
 - Available whitespaces in dictionarly text input
 - Keyboard still visible after success or failure in dictionarly

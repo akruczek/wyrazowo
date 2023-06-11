@@ -59,7 +59,7 @@ export const useCharadePress = (
       setActiveRow(R.inc)
       setActiveIndex(0)
 
-      if ([ ...new Set(newGreenLetters) ].length === word.length) {
+      if (activeWord === word) {
         setSuccess(true)
         setTimeout(() => {
           modalizeRef?.current?.open()

@@ -1,11 +1,14 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
+import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
 import { SCREEN } from '../../../navigation/navigation.constants'
 import { EndModalButtonsContainer, EndModalContainer, EndModalTitle } from './end-modal.styled'
+import { userUidSelector } from '../../../user/store/user.selectors'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize | null>;
@@ -16,13 +19,26 @@ interface Props {
 export const EndModal = ({ modalizeRef, success, word }: Props) => {
   const localize = useLocalize()
   const navigation = useNavigation<any>()
+  const uid = useSelector(userUidSelector)
 
   const handleTryAgain = () => {
     navigation.navigate(SCREEN.CHARADE_MAIN)
   }
 
+  const onOpened = async () => {
+    if (uid) {
+      if (success) {
+        await userStatisticsService.updateSuccess(uid, 'charade')
+        await userStatisticsService.updatePoints(uid, 10, 'charade')
+      } else {
+        await userStatisticsService.updateFailure(uid, 'charade')
+        await userStatisticsService.updatePoints(uid, -10, 'charade')
+      }
+    }
+  }
+
   return (
-    <Modalize ref={modalizeRef} adjustToContentHeight>
+    <Modalize ref={modalizeRef} onOpened={onOpened} adjustToContentHeight>
       <EndModalContainer>
         <EndModalTitle children={success ? localize().success : localize().failed} />
         <EndModalTitle children={word.toUpperCase()} />
