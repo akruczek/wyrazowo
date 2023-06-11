@@ -8,7 +8,7 @@ import { ThemeModel } from '@core/styled/models'
 import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
 import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-modal'
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
-import { useDictionarlyPlayProgress, useDictionarlyPlay } from '../../hooks'
+import { useDictionarlyPlayProgress, useDictionarlyPlay, useDictionarlySpy } from '../../hooks'
 import {
   DictionarlyContainer, DictionarlyKeyboardAvoidingView, DictionarlySendButtonContainer, DictionarlySendButtonIcon,
   DictionarlyTextInput, DictionarlyTextInputWrapper,
@@ -19,10 +19,12 @@ export const DictionarlyPlay = () => {
   const localize = useLocalize()
   const modalizeRef = React.useRef<Modalize | null>(null)
 
-  const { progress, steps, setChances } = useDictionarlyPlayProgress(modalizeRef)
+  const { progress, steps, difficulty, setChances } = useDictionarlyPlayProgress(modalizeRef)
 
   const { wordsLength, value, wordsBefore, wordsAfter, word, state, handleChange, onSend } =
     useDictionarlyPlay(setChances, modalizeRef)
+
+  const { onStepTouchEnd } = useDictionarlySpy(word)
 
   const errorMessage = (wordsLength && value.length < 10)
     ? localize().minimum_10_letters_error
@@ -31,7 +33,7 @@ export const DictionarlyPlay = () => {
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
       <Header type="dictionary" title={localize().dictionarly} backButton />
-      <ProgressIndicator {...{ progress, steps }} />
+      <ProgressIndicator {...{ progress, steps, onStepTouchEnd }} />
 
       <DictionarlyKeyboardAvoidingView>
         <DictionarlyContainer>
@@ -59,7 +61,7 @@ export const DictionarlyPlay = () => {
         </DictionarlyContainer>
       </DictionarlyKeyboardAvoidingView>
 
-      <DictionarlyEndModal {...{ word, state }} modalizeRef={modalizeRef} />
+      <DictionarlyEndModal {...{ word, state, wordsLength, difficulty }} modalizeRef={modalizeRef} />
     </SafeAreaFlexContainer>
   )
 }

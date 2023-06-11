@@ -1,3 +1,14 @@
+## 1.13.1
+### Improved
+- Points multiplier for user statistics
+
+### Fixed
+- Points not handled correctly for dictionarly
+- User statistics UI
+
+### Technical
+- Debug tools for dictionarly and charade improvements
+
 ## 1.13.0 USER STATISTICS
 ### Added
 - Basic user statistics available on user screen

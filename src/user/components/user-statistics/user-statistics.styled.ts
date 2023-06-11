@@ -14,6 +14,7 @@ export const UserStatisticsHeadline = styled.Text`
   font-size: ${TEXT_SIZE.M}px;
   font-weight: bold;
   color: ${getThemeProp('textPrimary')};
+  margin-right: 10px;
 `
 
 export const UserStatisticsSubHeadline = styled.Text`
