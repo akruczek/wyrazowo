@@ -17,11 +17,12 @@ interface Props {
   type: HeaderType;
   title?: string;
   backButton?: boolean;
+  onTouchEnd?: () => void;
   rightContentConfig?: HeaderSideContentConfig;
   leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, rightContentConfig, leftContentConfig }: Props) => {
+export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig, leftContentConfig }: Props) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
@@ -42,7 +43,7 @@ export const Header = ({ type, title, backButton, rightContentConfig, leftConten
         <StatusBar backgroundColor="transparent" translucent />
       )}
 
-      <HeaderContainer {...{ color, topInset }}>
+      <HeaderContainer onTouchEnd={onTouchEnd} {...{ color, topInset }}>
         {backButton ? (
           <BackButtonContainer onPress={navigation.goBack} topInset={topInset}>
             <BackButtonIcon />

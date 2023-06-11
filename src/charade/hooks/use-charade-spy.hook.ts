@@ -1,18 +1,18 @@
 import * as React from 'react'
 import { useSpy } from '@core/hooks/use-spy.hook'
 
-interface UseDictionarlySpy {
-  onStepTouchEnd: () => void;
+interface UseCharadeSpy {
+  onTouchEnd: () => void;
 }
 
-export const useDictionarlySpy = (
+export const useCharadeSpy = (
   word: string,
-): UseDictionarlySpy => {
+): UseCharadeSpy => {
   const spyFlagRef = React.useRef(3)
 
   const { setSpyFlag } = useSpy(word)
 
-  const onStepTouchEnd = () => {
+  const onTouchEnd = () => {
     if (spyFlagRef.current === 0) {
       setSpyFlag(true)
     } else {
@@ -20,5 +20,5 @@ export const useDictionarlySpy = (
     }
   }
 
-  return { onStepTouchEnd }
+  return { onTouchEnd }
 }

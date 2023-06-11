@@ -1,7 +1,7 @@
-import { spyAlert } from '@core/alerts/spy-alert'
 import * as React from 'react'
-import { EmitterSubscription } from 'react-native'
 import RNShake from 'react-native-shake'
+import { useIsFocused } from '@react-navigation/native'
+import { spyAlert } from '@core/alerts/spy-alert'
 
 interface UseSpy {
   spyFlag: boolean;
@@ -12,28 +12,26 @@ export const useSpy = (
   value: any,
   defaultSpyFlag?: boolean,
 ): UseSpy => {
-  let subscription: any
-
   const [ spyFlag, setSpyFlag ] = React.useState(defaultSpyFlag ?? false)
+  const isFocused = useIsFocused()
 
   const onSpy = React.useCallback(() => {
-    console.log('spyFlag: ', spyFlag)
     if (spyFlag) {
       spyAlert(value)
     }
-  }, [ spyFlag ])
+  }, [ spyFlag, isFocused ])
 
   React.useEffect(() => {
-    if (spyFlag) {
-      subscription = RNShake.addListener(onSpy)
+    const subscription = RNShake.addListener(onSpy)
+
+    if (spyFlag && !isFocused) {
+      subscription?.remove?.()
     }
-  }, [ spyFlag ])
 
-  React.useEffect(() => {
     return () => {
       subscription?.remove?.()
     }
-  }, [])
+  }, [ spyFlag, isFocused ])
 
   return { spyFlag, setSpyFlag }
 }

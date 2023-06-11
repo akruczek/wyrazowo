@@ -62,7 +62,5 @@ export const useDictionarlyPlay = (
   const word = getNavigationParam<string>('word', navigation)
   const wordsLength = getNavigationParam<number>('wordsLength', navigation)
 
-  console.log('word: ', word)
-
   return { wordsLength, value, wordsBefore, wordsAfter, word, state, handleChange, onSend }
 }

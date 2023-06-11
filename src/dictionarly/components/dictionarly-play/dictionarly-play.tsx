@@ -6,15 +6,13 @@ import { SafeAreaFlexContainer } from '@core/styled'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { ThemeModel } from '@core/styled/models'
 import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
-import { useSpy } from '@core/hooks/use-spy.hook'
 import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-modal'
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
-import { useDictionarlyPlayProgress, useDictionarlyPlay } from '../../hooks'
+import { useDictionarlyPlayProgress, useDictionarlyPlay, useDictionarlySpy } from '../../hooks'
 import {
   DictionarlyContainer, DictionarlyKeyboardAvoidingView, DictionarlySendButtonContainer, DictionarlySendButtonIcon,
   DictionarlyTextInput, DictionarlyTextInputWrapper,
 } from './dictionarly-play.styled'
-import { useDictionarlySpy } from 'dictionarly/hooks/use-dictionarly-spy.hook'
 
 export const DictionarlyPlay = () => {
   const theme = useTheme() as ThemeModel
