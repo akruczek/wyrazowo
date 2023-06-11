@@ -1,7 +1,13 @@
 import * as React from 'react'
+import * as R from 'ramda'
+import { ActivityIndicator } from 'react-native'
 import { RealTimeDatabaseUserModel } from '@core/real-time-database/real-time-database.models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { UserStatisticsContainer, UserStatisticsContent, UserStatisticsHeadline, UserStatisticsSubHeadline } from './user-statistics.styled'
+import {
+  UserStatisticsContainer, UserStatisticsContent, UserStatisticsDictionarlyIcon, UserStatisticsFailureIcon,
+  UserStatisticsHeadRow, UserStatisticsHeadline, UserStatisticsPointsIcon, UserStatisticsRow,
+  UserStatisticsCharadeIcon, UserStatisticsSubHeadline, UserStatisticsSuccessIcon,
+} from './user-statistics.styled'
 
 interface Props {
   userData: RealTimeDatabaseUserModel | null;
@@ -9,21 +15,65 @@ interface Props {
 
 export const UserStatistics = ({ userData }: Props) => {
   const localize = useLocalize()
+  const getPointsSum = R.add(
+    userData?.points?.dictionarly?.value ?? 0,
+    userData?.points?.charade?.value ?? 0,
+  )
 
   return userData ? (
     <UserStatisticsContainer>
       <UserStatisticsHeadline children={localize().statistics_headline} />
-      <UserStatisticsSubHeadline children={`Points: ${userData.points?.value ?? 0}`} />
 
-      <UserStatisticsSubHeadline children={localize().dictionarly} />
-      <UserStatisticsContent children={`Points: ${userData.points?.dictionarly?.value ?? 0}`} withMargin />
-      <UserStatisticsContent children={`Success: ${userData.points?.dictionarly?.successCount ?? 0}`} withMargin />
-      <UserStatisticsContent children={`Failure: ${userData.points?.dictionarly?.failureCount ?? 0}`} />
+      <UserStatisticsHeadRow>
+        <UserStatisticsPointsIcon />
+        <UserStatisticsSubHeadline children={getPointsSum} />
+      </UserStatisticsHeadRow>
+      
 
-      <UserStatisticsSubHeadline children={localize().charade} />
-      <UserStatisticsContent children={`Points: ${userData.points?.charade?.value ?? 0}`} withMargin />
-      <UserStatisticsContent children={`Success: ${userData.points?.charade?.successCount ?? 0}`} withMargin />
-      <UserStatisticsContent children={`Failure: ${userData.points?.charade?.failureCount ?? 0}`} />
+
+      <UserStatisticsHeadRow>
+        <UserStatisticsDictionarlyIcon />
+        <UserStatisticsSubHeadline children={localize().dictionarly} />
+      </UserStatisticsHeadRow>
+
+      <UserStatisticsRow withMargin>
+        <UserStatisticsPointsIcon />
+        <UserStatisticsContent children={userData.points?.dictionarly?.value ?? 0} />
+      </UserStatisticsRow>
+
+      <UserStatisticsRow withMargin>
+        <UserStatisticsSuccessIcon />
+        <UserStatisticsContent children={userData.points?.dictionarly?.successCount ?? 0} />
+      </UserStatisticsRow>
+
+      <UserStatisticsRow>
+        <UserStatisticsFailureIcon />
+        <UserStatisticsContent children={userData.points?.dictionarly?.failureCount ?? 0} />
+      </UserStatisticsRow>
+
+      <UserStatisticsHeadRow>
+        <UserStatisticsCharadeIcon />
+        <UserStatisticsSubHeadline children={localize().charade} />
+      </UserStatisticsHeadRow>
+
+      <UserStatisticsRow withMargin>
+        <UserStatisticsPointsIcon />
+        <UserStatisticsContent children={userData.points?.charade?.value ?? 0} />
+      </UserStatisticsRow>
+
+      <UserStatisticsRow withMargin>
+        <UserStatisticsSuccessIcon />
+        <UserStatisticsContent children={userData.points?.charade?.successCount ?? 0} />
+      </UserStatisticsRow>
+
+      <UserStatisticsRow>
+        <UserStatisticsFailureIcon />
+        <UserStatisticsContent children={userData.points?.charade?.failureCount ?? 0} />
+      </UserStatisticsRow>
     </UserStatisticsContainer>
-  ) : null
+  ) : (
+    <UserStatisticsContainer>
+      <ActivityIndicator size="large" />
+    </UserStatisticsContainer>
+  )
 }

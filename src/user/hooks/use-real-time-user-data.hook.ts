@@ -31,7 +31,6 @@ export const useRealTimeUserData = (): UseRealTimeUserData => {
 
     if (userUid) {
       userListener = realTimeDatabaseService.addListener(`/users/${userUid}`, (data) => {
-        console.log('changed!: ', data.val())
         setUserData(data.val())
       })
     }

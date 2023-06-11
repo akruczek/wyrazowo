@@ -40,6 +40,7 @@
   "guideline_soap_letters": "Search engine supports soap letters which can be used as placeholder for any letter. You can also configure your soap letter by long press on it and selecting any letters.",
   "guideline_search_history_headline": "Search history",
   "guideline_search_history": "From green button you can access your search history. Tap any element from history to see results.",
+  "allow_duplicated_letters": "Allow duplicated letters",
   "about_author": "About Author",
   "failed": "Failed!",
   "success": "Success!",

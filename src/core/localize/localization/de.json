@@ -40,6 +40,7 @@
   "guideline_soap_letters": "Die Suchmaschine unterstützt Seifenbuchstaben, die als Platzhalter für beliebige Buchstaben verwendet werden können. Sie können Ihren Soap-Buchstaben auch konfigurieren, indem Sie lange darauf drücken und beliebige Buchstaben auswählen.",
   "guideline_search_history_headline": "Suchverlauf",
   "guideline_search_history": "Über die grüne Schaltfläche können Sie auf Ihren Suchverlauf zugreifen. Tippen Sie auf ein beliebiges Element aus dem Verlauf, um die Ergebnisse anzuzeigen.",
+  "allow_duplicated_letters": "Doppelte Buchstaben zulassen",
   "about_author": "Über den Autor",
   "failed": "Fehlgeschlagen!",
   "success": "Erfolg!",

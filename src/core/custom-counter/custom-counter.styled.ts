@@ -12,12 +12,14 @@ export const CustomCounterContainer = styled.View`
   align-items: center;
   align-self: center;
   width: 100%;
-  margin-vertical: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
   height: 50px;
 `
 
 export const CustomCounterLabelIconContainer = styled.View`
   align-self: center;
+  margin-top: 10px;
 `
 
 export const CustomCounterTextContainer = styled.View`

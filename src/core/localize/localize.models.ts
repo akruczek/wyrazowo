@@ -40,6 +40,7 @@ export interface Localization {
   guideline_soap_letters: 'guideline_soap_letters',
   guideline_search_history_headline: 'guideline_search_history_headline',
   guideline_search_history: 'guideline_search_history',
+  allow_duplicated_letters: 'allow_duplicated_letters',
   about_author: 'about_author',
   failed: 'failed',
   success: 'success',

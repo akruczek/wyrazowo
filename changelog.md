@@ -1,6 +1,10 @@
 ## 1.13.0 USER STATISTICS
 ### Added
-- User statistics?
+- Basic user statistics available on user screen
+- Charade letters duplications configuration
+
+### Fixed
+- Charade no success when found word with duplicated letters
 
 ## 1.12.0 DICTIONARLY EVOLUTION
 ### Added

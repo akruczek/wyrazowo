@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Host } from 'react-native-portalize'
 import { useTheme } from 'styled-components/native'
 import { Modalize } from 'react-native-modalize'
-import { Text } from 'react-native'
 import { Header } from '@core/header/header'
 import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
@@ -45,7 +44,6 @@ export const User = () => {
           <UserStatistics userData={userData} />
         </MoreContainer>
       </SafeAreaFlexContainer>
-
       <PremiumModal modalizeRef={premiumModalRef} />
     </Host>
   )
