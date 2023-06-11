@@ -22,14 +22,11 @@ export const UserStatistics = ({ userData }: Props) => {
 
   return userData ? (
     <UserStatisticsContainer>
-      <UserStatisticsHeadline children={localize().statistics_headline} />
-
       <UserStatisticsHeadRow>
+        <UserStatisticsHeadline children={localize().statistics_headline} />
         <UserStatisticsPointsIcon />
         <UserStatisticsSubHeadline children={getPointsSum} />
       </UserStatisticsHeadRow>
-      
-
 
       <UserStatisticsHeadRow>
         <UserStatisticsDictionarlyIcon />

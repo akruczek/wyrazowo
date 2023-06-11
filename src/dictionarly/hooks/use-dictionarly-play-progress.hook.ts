@@ -7,6 +7,7 @@ import { getNavigationParam } from '../../navigation/navigation.helpers'
 interface UseDictionarlyPlayProgress {
   progress: number;
   steps: number;
+  difficulty: number;
   setChances: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -31,6 +32,6 @@ export const useDictionarlyPlayProgress = (
   return {
     progress: CHANCES - chances,
     steps: CHANCES,
-    setChances,
+    difficulty, setChances,
   }
 }

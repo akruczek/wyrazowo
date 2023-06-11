@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, TouchableOpacity } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { genericLightShadow, genericTextShadow } from '@core/shadow/shadow.constants'
