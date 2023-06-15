@@ -5,6 +5,9 @@
 ### Improved
 - Scrabble Mania webview UI
 
+### Fixed
+- Dictionarly and Charade end modals dark theme
+
 ## 1.13.1
 ### Improved
 - Points multiplier for user statistics

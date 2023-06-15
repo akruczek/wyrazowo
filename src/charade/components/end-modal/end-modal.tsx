@@ -7,8 +7,8 @@ import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
 import { SCREEN } from '../../../navigation/navigation.constants'
-import { EndModalButtonsContainer, EndModalContainer, EndModalTitle } from './end-modal.styled'
 import { userUidSelector } from '../../../user/store/user.selectors'
+import { CharadeEndModalize, EndModalButtonsContainer, EndModalContainer, EndModalTitle } from './end-modal.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize | null>;
@@ -38,7 +38,7 @@ export const EndModal = ({ modalizeRef, success, word }: Props) => {
   }
 
   return (
-    <Modalize ref={modalizeRef} onOpened={onOpened} adjustToContentHeight>
+    <CharadeEndModalize ref={modalizeRef} onOpened={onOpened}>
       <EndModalContainer>
         <EndModalTitle children={success ? localize().success : localize().failed} />
         <EndModalTitle children={word.toUpperCase()} />
@@ -47,6 +47,6 @@ export const EndModal = ({ modalizeRef, success, word }: Props) => {
           <CustomButton color={COLOR.DARK_SEA_GREEN} onPress={handleTryAgain} title={localize().try_again} />
         </EndModalButtonsContainer>
       </EndModalContainer>
-    </Modalize>
+    </CharadeEndModalize>
   )
 }
