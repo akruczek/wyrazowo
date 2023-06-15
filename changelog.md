@@ -7,6 +7,7 @@
 
 ### Fixed
 - Dictionarly and Charade end modals dark theme
+- Default language based on system language
 
 ## 1.13.1
 ### Improved
