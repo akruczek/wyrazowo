@@ -2,6 +2,8 @@ export const BOTTOM_NAVIGATION_HEIGHT = 75
 
 export const SCREEN = {
   DASHBOARD: 'Dashboard',
+  DASHBOARD_SEARCH: 'Dashboard-Search',
+  DASHBOARD_PLAYGROUND: 'Dashboard-Playground',
   DEVELOPER: 'Developer',
   DEVELOPER_MAIN: 'Developer-Main',
   DEVELOPER_SEARCH_HISTORY: 'Developer-Search-History',
@@ -11,7 +13,6 @@ export const SCREEN = {
   MORE: 'More',
   MORE_MAIN: 'More-Main',
   MORE_MANIA: 'More-Mania',
-  MORE_PLAYGROUND: 'More-Playground',
   MORE_HELP: 'More-Help',
   MORE_AUTHOR: 'More-Author',
   MORE_HELP_MAIN: 'More-Help-Main',

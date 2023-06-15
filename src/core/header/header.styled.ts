@@ -33,6 +33,7 @@ export const HeaderContainer = styled(LinearGradient).attrs((props: HeaderContai
   margin-top: -${getMarginTop}px;
   padding-top: ${getMarginTop}px;
   justify-content: center;
+  z-index: 1;
 `
 
 interface HeaderTextProps {

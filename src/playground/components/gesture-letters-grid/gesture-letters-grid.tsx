@@ -1,8 +1,9 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import Draggable from 'react-native-draggable'
-import { useNavigation } from '@react-navigation/native'
 import { PanResponderGestureState, GestureResponderEvent } from 'react-native'
+import { Portal } from 'react-native-portalize'
+import { useNavigation } from '@react-navigation/native'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { ALL_LETTERS_SORTED, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { CustomButton } from '@core/custom-button/custom-button'
@@ -47,6 +48,18 @@ export const GestureLettersGrid = ({
     <>
       <GestureLetterCardsBackground {...{ topInset, bottomInset }} />
 
+      <Portal>
+        <GestureLetterButtonsContainer>
+          <CustomButton
+            color={COLOR.FIRE_BRICK}
+            onPress={handleClearPlayground}
+            invisible={!selectedLetters.length}
+          >
+            <ClearLettersButtonIcon />
+          </CustomButton>
+        </GestureLetterButtonsContainer>
+      </Portal>
+
       <GestureLettersGridArrow
         condition={minReached}
         onPress={decrementIndex}
@@ -84,20 +97,6 @@ export const GestureLettersGrid = ({
         icon="arrow-down"
         Wrapper={GestureLetterCardsBottomArrowWrapper}
       />
-
-      <GestureLetterButtonsContainer>
-        <CustomButton color={COLOR.DODGER_BLUE} onPress={noop} invisible>
-          <SearchButtonIcon />
-        </CustomButton>
-
-        <CustomButton
-          color={COLOR.FIRE_BRICK}
-          onPress={handleClearPlayground}
-          invisible={!selectedLetters.length}
-        >
-          <ClearLettersButtonIcon />
-        </CustomButton>
-      </GestureLetterButtonsContainer>
     </>
   )
 }
