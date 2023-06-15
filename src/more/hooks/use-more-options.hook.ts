@@ -6,6 +6,7 @@ import { O } from '_otils'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
+import { SYSTEM_LANGUAGE } from '@core/system-language/system-language'
 import { MoreOption } from '../more.models'
 import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
 import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
@@ -19,7 +20,6 @@ type Options = [
   MoreOption<LANGUAGE_CODES>,
   MoreOption<0 | 1 | -1>,
   MoreOption<boolean>,
-  MoreOption<undefined>,
   MoreOption<undefined>,
   MoreOption<undefined>,
   MoreOption<undefined>,
@@ -67,7 +67,7 @@ export const useMoreOptions = (): UseMoreOptions => {
         title: localize().language,
         values: Object.values(LANGUAGE_CODES),
         labels: LANGUAGE_LABELS,
-        value: languageCode,
+        value: languageCode ?? SYSTEM_LANGUAGE,
         onChange: handleChangeLanguage,
       },
       {
@@ -86,11 +86,6 @@ export const useMoreOptions = (): UseMoreOptions => {
         title: 'Scrabble Mania',
         onChange: () => navigation.navigate(SCREEN.MORE_MANIA),
         icon: 'web',
-      },
-      {
-        title: localize().playground,
-        onChange: () => navigation.navigate(SCREEN.MORE_PLAYGROUND),
-        icon: 'checkerboard',
       },
       {
         title: localize().help,

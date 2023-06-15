@@ -1,21 +1,26 @@
 import * as React from 'react'
 import { GestureResponderEvent, View } from 'react-native'
-import { Zoom } from 'react-native-reanimated-zoom';
+import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { Header } from '@core/header/header'
+import { useLocalize } from '@core/hooks/use-localize.hook'
+import { SafeAreaFlexContainer } from '@core/styled'
 import { selectedLettersSelector } from '../dashboard/store/dashboard.selectors'
+import { SCREEN } from '../navigation/navigation.constants'
 import { GestureLettersGrid } from './components/gesture-letters-grid/gesture-letters-grid'
 import { PlaygroundField } from './components/playground-field/playground-field'
-import { PLAYGROUND_SPACING_MULTIPLIER } from './components/playground-field/playground-field.styled'
 import { PLAYGROUND_FIELDS } from './playground.constants'
 import { PlaygroundFieldModel } from './playground.models'
-import { AdvancedSearchModal } from './components/advanced-search-modal/advanced-search-modal';
-import { PlaygroundBacklight } from './components/playground-backlight/playground-backlight';
+import { AdvancedSearchModal } from './components/advanced-search-modal/advanced-search-modal'
+import { PlaygroundBacklight } from './components/playground-backlight/playground-backlight'
 import {
-  PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundSafeArea,
+  PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundHost, PlaygroundZoom,
 } from './playground.styled'
-import { Header } from '@core/header/header';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Playground = () => {
+  const navigation = useNavigation<any>()
+  const localize = useLocalize()
   const advancedSearchModalizeRef = React.useRef<any>(null)
   const [ advancedSearchIndexes, setAdvancedSearchIndexes ] = React.useState<[ number, number ] | null>(null)
   const ref = React.useRef<View>(null)
@@ -87,27 +92,46 @@ export const Playground = () => {
     })
   }
 
+  const handleSwitchToSearch = () => {
+    navigation.navigate(SCREEN.DASHBOARD_SEARCH)
+  }
+
+  const leftContentConfig = {
+    onPress: handleSwitchToSearch,
+    icon: 'magnify',
+  }
+
+  const { bottom: bottomInset } = useSafeAreaInsets()
+
   return (
-    <PlaygroundSafeArea>
-      <Zoom maximumZoomScale={PLAYGROUND_SPACING_MULTIPLIER}>
-        <View ref={ref}>
-          <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />
+    <PlaygroundHost>
+      <SafeAreaFlexContainer>
+        <Header
+          type="dashboard"
+          title={localize().playground.toUpperCase()}
+          leftContentConfig={leftContentConfig}
+        />
 
-          <PlaygroundFlatList
-            renderItem={renderItem}
-            extraData={extraData}
-            numColumns={15}
-            data={PLAYGROUND_FIELDS}
-            scrollEnabled={false}
-          />
-        </View>
-      </Zoom>
+        <PlaygroundZoom>
+          <View ref={ref}>
+            <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />
 
-      <PlaygroundBottomContainer>
+            <PlaygroundFlatList
+              renderItem={renderItem}
+              extraData={extraData}
+              numColumns={15}
+              data={PLAYGROUND_FIELDS}
+              scrollEnabled={false}
+            />
+          </View>
+        </PlaygroundZoom>
+      </SafeAreaFlexContainer>
+
+      <PlaygroundBottomContainer {...{ bottomInset }}>
         <GestureLettersGrid {...{ onDragRelease, userSelectedLetters, selectedLetters, handleClearPlayground }} />
       </PlaygroundBottomContainer>
 
       <AdvancedSearchModal modalizeRef={advancedSearchModalizeRef} />
-    </PlaygroundSafeArea>
+    </PlaygroundHost>
   )
 }

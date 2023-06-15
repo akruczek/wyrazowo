@@ -1,3 +1,14 @@
+## 1.14.0 PLAYGROUND REBORN
+### Changed
+- Moved playground from More to Dashboard tab
+
+### Improved
+- Scrabble Mania webview UI
+
+### Fixed
+- Dictionarly and Charade end modals dark theme
+- Default language based on system language
+
 ## 1.13.1
 ### Improved
 - Points multiplier for user statistics

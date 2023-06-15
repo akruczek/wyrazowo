@@ -8,7 +8,8 @@ import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
 import { userUidSelector } from '../../../user/store/user.selectors'
 import {
-  DictionarlyEndModalButtonsContainer, DictionarlyEndModalContainer, DictionarlyModalLabel, DictionarlyModalText,
+  DictionarlyEndModalButtonsContainer, DictionarlyEndModalContainer, DictionarlyEndModalize,
+  DictionarlyModalLabel, DictionarlyModalText,
 } from './dictionarly-end-modal.styled'
 
 interface Props {
@@ -48,7 +49,7 @@ export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, stat
   const onClose = React.useCallback(() => setEnd(false), [])
 
   return (
-    <Modalize ref={modalizeRef} onOpened={onOpened} onClose={onClose} adjustToContentHeight>
+    <DictionarlyEndModalize ref={modalizeRef} onOpened={onOpened} onClose={onClose}>
       <DictionarlyEndModalContainer>
         <DictionarlyModalText children={state ? localize().success : localize().failed} />
         <DictionarlyModalLabel state={state} children={word} />
@@ -57,6 +58,6 @@ export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, stat
           <CustomButton color={COLOR.DODGER_BLUE} onPress={navigation.goBack} title={localize().try_again} />
         </DictionarlyEndModalButtonsContainer>
       </DictionarlyEndModalContainer>
-    </Modalize>
+    </DictionarlyEndModalize>
   )
 }

@@ -17,6 +17,7 @@ const ARROW_WRAPPER_SIZE = RESPONSIVE.WIDTH(7)
 
 const getGestureLetterCardsTopArrowWrapper = R.pipe(
   R.propOr(0, 'y'),
+  R.add(5),
   R.subtract(R.__, ARROW_WRAPPER_SIZE),
 )
 
@@ -34,12 +35,13 @@ export const GestureLetterCardsTopArrowWrapper = styled.TouchableOpacity.attrs({
   position: absolute;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   top: ${getGestureLetterCardsTopArrowWrapper}px;
 `
 
 const getGestureLetterCardsBottomArrowWrapper = R.pipe(
   R.propOr(0, 'y'),
+  R.add(10),
   R.add(RESPONSIVE.WIDTH(28)),
 )
 
@@ -57,7 +59,7 @@ export const GestureLetterCardsBottomArrowWrapper = styled.TouchableOpacity.attr
   position: absolute;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   top: ${getGestureLetterCardsBottomArrowWrapper}px;
 `
 
@@ -115,16 +117,17 @@ interface GestureLetterCardsBackgroundProps {
 
 export const GestureLetterCardsBackground = styled.View<GestureLetterCardsBackgroundProps & ThemeProps<ThemeModel>>`
   width: 100%;
-  height: 800px;
   top: ${({ topInset, bottomInset }) => -(RESPONSIVE.HEIGHT() - RESPONSIVE.WIDTH() - BOTTOM_NAVIGATION_HEIGHT - topInset - bottomInset) + bottomInset + LETTER_CARD_DEFAULT_SIZE - 30}px;
   position: absolute;
-  background-color: ${getThemeProp('backgroundSecondary')};
+  background-color: ${getThemeProp('backgroundPrimary')};
+  min-height: 500px;
 `
 
 export const GestureLetterButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
-  width: 100%;
+  align-self: flex-end;
+  right: 50px;
   position: absolute;
-  bottom: 5px;
+  bottom: ${RESPONSIVE.HEIGHT() < 820 ? 5 : 10}px;
 `

@@ -7,12 +7,10 @@ import { DictionarlyPlay } from 'dictionarly/components/dictionarly-play/diction
 
 const Stack = createNativeStackNavigator()
 
-export const DictionaryNavigation = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 150 }}>
-      <Stack.Screen name={SCREEN.DICTIONARY_DICTIONARLY} component={Dictionarly} />
-      <Stack.Screen name={SCREEN.DICTIONARY_PLAY} component={DictionarlyPlay} />
-      <Stack.Screen name={SCREEN.DICTIONARY_DICTIONARY} component={Dictionary} />
-    </Stack.Navigator>
-  )
-}
+export const DictionaryNavigation = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 150 }}>
+    <Stack.Screen name={SCREEN.DICTIONARY_DICTIONARLY} component={Dictionarly} />
+    <Stack.Screen name={SCREEN.DICTIONARY_PLAY} component={DictionarlyPlay} />
+    <Stack.Screen name={SCREEN.DICTIONARY_DICTIONARY} component={Dictionary} />
+  </Stack.Navigator>
+)

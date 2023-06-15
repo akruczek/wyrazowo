@@ -14,4 +14,4 @@ export const premiumSelector = (state: RootState) =>
   state?.settings?.premium ?? 0
 
 export const languageCodeSelector = (state: RootState) =>
-  state?.settings?.languageCode ?? LANGUAGE_CODES.EN
+  state?.settings?.languageCode ?? null
