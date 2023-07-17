@@ -10,6 +10,7 @@ import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { setSelectedLettersAction } from '../store/dashboard.slice'
 import { getSoapCharactersIndexes } from '../helpers'
+import { LayoutAnimation } from 'react-native'
 
 interface UseSelectLetter {
   letters: string[];
@@ -44,6 +45,7 @@ export const useSelectLetter = (): UseSelectLetter => {
   }, [ selectedLetters ])
 
   const handleSelectLetter = (letter: string) => {
+    LayoutAnimation.easeInEaseOut()
     triggerHaptic()
 
     if (hasMaxNoPremiumSelectedLetters) {

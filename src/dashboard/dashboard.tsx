@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { Dimensions, ScrollView, View, Image } from 'react-native'
+import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
@@ -51,15 +51,13 @@ export const Dashboard = () => {
     icon: 'checkerboard',
   }
 
-  const ContentWrapper = Dimensions.get('screen').height < 800 ? ScrollView : View
-
   return React.useMemo(() => (
     <DashboardHost>
       <DashboardSafeArea>
         <Header type="dashboard" leftContentConfig={leftContentConfig} />
         <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
-        <ContentWrapper>
+        <View>
           <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
           <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
           <DashboardButtonsAndModals {...{
@@ -67,7 +65,7 @@ export const Dashboard = () => {
             soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
             letters, possibleWords, forceIndexModalizeRef }}
           />
-        </ContentWrapper>
+        </View>
       </DashboardSafeArea>
     </DashboardHost>
   ), [ selectedLetters, letters, possibleWords ])

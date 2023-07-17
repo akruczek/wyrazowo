@@ -1,3 +1,7 @@
+## 1.15.0 UI FRIENDSHIP
+### Added
+- Bunch of new animations...
+
 ## 1.14.0 PLAYGROUND REBORN
 ### Changed
 - Moved playground from More to Dashboard tab
