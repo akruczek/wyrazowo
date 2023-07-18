@@ -17,12 +17,13 @@ interface Props {
   type: HeaderType;
   title?: string;
   backButton?: boolean;
+  backButtonAlert?: Function;
   onTouchEnd?: () => void;
   rightContentConfig?: HeaderSideContentConfig;
   leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig, leftContentConfig }: Props) => {
+export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: Props) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
@@ -35,6 +36,14 @@ export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig
     more: COLOR.GOLD,
   }[type]
 
+  const onBackPress = () => {
+    if (backButtonAlert) {
+      backButtonAlert(localize, navigation.goBack)
+    } else {
+      navigation.goBack()
+    }
+  }
+
   return (
     <>
       {isPlatform('ios') ? (
@@ -45,7 +54,7 @@ export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig
 
       <HeaderContainer onTouchEnd={onTouchEnd} {...{ color, topInset }}>
         {backButton ? (
-          <BackButtonContainer onPress={navigation.goBack} topInset={topInset}>
+          <BackButtonContainer onPress={onBackPress} topInset={topInset}>
             <BackButtonIcon />
           </BackButtonContainer>
         ) : null}

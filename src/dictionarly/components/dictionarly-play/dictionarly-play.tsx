@@ -6,6 +6,7 @@ import { SafeAreaFlexContainer } from '@core/styled'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { ThemeModel } from '@core/styled/models'
 import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
+import { leaveGameAlert } from '@core/alerts/leave-game-alert'
 import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-modal'
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
 import { useDictionarlyPlayProgress, useDictionarlyPlay, useDictionarlySpy } from '../../hooks'
@@ -30,9 +31,11 @@ export const DictionarlyPlay = () => {
     ? localize().minimum_10_letters_error
     : undefined
 
+  const backButtonAlert = progress === steps ? undefined : leaveGameAlert
+
   return (
     <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="dictionary" title={localize().dictionarly} backButton />
+      <Header type="dictionary" title={localize().dictionarly} backButtonAlert={backButtonAlert} backButton />
       <ProgressIndicator {...{ progress, steps, onStepTouchEnd }} />
 
       <DictionarlyKeyboardAvoidingView>

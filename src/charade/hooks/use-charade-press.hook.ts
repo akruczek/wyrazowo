@@ -22,6 +22,7 @@ interface UseCharadePress {
 export const useCharadePress = (
   word: string,
   allWords: string[],
+  setEnd: (success: boolean) => void,
   modalizeRef: React.MutableRefObject<Modalize | null>,
 ): UseCharadePress => {
   const count = word.length
@@ -63,12 +64,14 @@ export const useCharadePress = (
         setSuccess(true)
         setTimeout(() => {
           modalizeRef?.current?.open()
+          setEnd(true)
         }, 1000)
       }
 
       if (activeRow === 5) {
         setTimeout(() => {
           modalizeRef?.current?.open()
+          setEnd(true)
         }, 1000)
       }
     } else if (letter === CLEAR_BUTTON_ID) {

@@ -28,6 +28,9 @@ export interface Localization {
   no_definitions_found: 'no_definitions_found',
   by_letters: 'by_letters',
   load_more: 'load_more',
+  leave: "leave",
+  leave_game_title: 'leave_game_title',
+  leave_game_description: 'leave_game_description',
   guideline_basic_search_headline: 'guideline_basic_search_headline'
   guideline_basic_search: 'guideline_basic_search',
   guideline_deselect_letters_headline: 'guideline_deselect_letters_headline',

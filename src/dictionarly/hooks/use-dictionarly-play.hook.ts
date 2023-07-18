@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { Modalize } from 'react-native-modalize'
-import { Keyboard } from 'react-native'
+import { Keyboard, LayoutAnimation } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
 import { getNavigationParam } from '../../navigation/navigation.helpers'
@@ -35,6 +35,7 @@ export const useDictionarlyPlay = (
   }
 
   const onSend = () => {
+    LayoutAnimation.easeInEaseOut()
     const allWords = wordsLength ? getDictionaryWords(longWordsByLength) : getDictionaryWords(allWordsByLength)
 
     if (!allWords.includes(value.toLowerCase())) {

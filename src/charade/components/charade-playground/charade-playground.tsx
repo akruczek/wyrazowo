@@ -10,16 +10,17 @@ import { getCharadeFieldContent } from '../../helpers'
 interface Props {
   word: string;
   allWords: string[];
+  setEnd: (success: boolean) => void;
 }
 
-export const CharadePlayground = ({ word, allWords }: Props) => {
+export const CharadePlayground = ({ word, allWords, setEnd }: Props) => {
   const modalizeRef = React.useRef<Modalize | null>(null)
 
   const {
     handlePress, onPressLetter,
     activeRow, activeIndex, count, isError, success, contents, fields, rows,
     rgbLetters: [ redLetters, greenLetters, yellowLetters ],
-  } = useCharadePress(word, allWords, modalizeRef)
+  } = useCharadePress(word, allWords, setEnd, modalizeRef)
 
   const renderItem = React.useCallback((rowIndex: number) => ({ item: index }: { item: any }) => (
     <CharadeField

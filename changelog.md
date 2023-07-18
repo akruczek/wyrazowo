@@ -1,6 +1,9 @@
 ## 1.15.0 UI FRIENDSHIP
 ### Added
-- Bunch of new animations...
+- Bunch of new animations on dashboard and dictionarly
+
+### Added
+- Warning alert when leaving dictionarly or charade game before end
 
 ## 1.14.0 PLAYGROUND REBORN
 ### Changed
