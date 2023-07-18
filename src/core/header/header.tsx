@@ -13,7 +13,7 @@ import {
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
 } from './header.styled'
 
-interface Props {
+export interface HeaderProps {
   type: HeaderType;
   title?: string;
   backButton?: boolean;
@@ -23,7 +23,7 @@ interface Props {
   leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: Props) => {
+export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: HeaderProps) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()

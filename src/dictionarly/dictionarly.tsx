@@ -1,20 +1,16 @@
 import * as React from 'react'
-import { useTheme } from 'styled-components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Header } from '@core/header/header'
-import { SafeAreaFlexContainer } from '@core/styled'
-import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { COLOR } from '@core/colors/colors.constants'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { SwitchButton } from '@core/switch-button/switch-button'
+import { Template } from '@core/template/template'
 import { usePlayDictionarly } from './hooks'
 import {
   DictionarlyButtonsContainer, DictionarlyDifficultyIcon, DictionarlySeparator, DictionarlyWordsLengthIcon,
 } from './dictionarly.styled'
 
 export const Dictionarly = () => {
-  const theme = useTheme() as ThemeModel
   const localize = useLocalize()
   const { top: topInset } = useSafeAreaInsets()
   const { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength, difficulty, setDifficulty } =
@@ -26,10 +22,9 @@ export const Dictionarly = () => {
   }
 
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="dictionary" title={localize().dictionarly} {...{ leftContentConfig }} />
-
+    <Template type="dictionary" title={localize().dictionarly} leftContentConfig={leftContentConfig} flex>
       <DictionarlyWordsLengthIcon />
+
       <SwitchButton
         onChange={setWordsLength}
         value={wordsLength}
@@ -51,6 +46,6 @@ export const Dictionarly = () => {
       <DictionarlyButtonsContainer topInset={topInset}>
         <CustomButton onPress={handlePlay} color={COLOR.DODGER_BLUE} title={localize().play} />
       </DictionarlyButtonsContainer>
-    </SafeAreaFlexContainer>
+    </Template>
   )
 }

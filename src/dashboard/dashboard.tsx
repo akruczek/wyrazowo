@@ -6,11 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
-import { Header } from '@core/header/header'
+import { Template } from '@core/template/template'
 import { isForceIndexAvailable } from './helpers'
 import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
-import { DashboardHost, DashboardSafeArea } from './dashboard.styled'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { SCREEN } from '../navigation/navigation.constants'
 
@@ -52,21 +51,18 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <DashboardHost>
-      <DashboardSafeArea>
-        <Header type="dashboard" leftContentConfig={leftContentConfig} />
-        <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
+    <Template type="dashboard" leftContentConfig={leftContentConfig}>
+      <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
-        <View>
-          <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
-          <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
-          <DashboardButtonsAndModals {...{
-            selectedLetters, handleClearSelectedLetters, soapCharactersIndexes, handleForceIndex, onSelectSoapLetters,
-            soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
-            letters, possibleWords, forceIndexModalizeRef }}
-          />
-        </View>
-      </DashboardSafeArea>
-    </DashboardHost>
+      <View>
+        <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
+        <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
+        <DashboardButtonsAndModals {...{
+          selectedLetters, handleClearSelectedLetters, soapCharactersIndexes, handleForceIndex, onSelectSoapLetters,
+          soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
+          letters, possibleWords, forceIndexModalizeRef }}
+        />
+      </View>
+    </Template>
   ), [ selectedLetters, letters, possibleWords ])
 }
