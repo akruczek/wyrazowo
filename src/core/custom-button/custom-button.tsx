@@ -7,6 +7,7 @@ import { CustomButtonContainer, CustomButtonTitle } from './custom-button.styled
 
 interface Props {
   title?: string;
+  minHeight?: number;
   children?: any;
   titleSize?: TEXT_SIZE;
   invisible?: boolean;
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export const CustomButton = ({
-  title, children, titleSize, invisible, color, withHaptic, onPress,
+  title, minHeight, children, titleSize, invisible, color, withHaptic, onPress,
 }: Props) => {
   const { triggerHaptic } = useHapticFeedback()
 
@@ -32,7 +33,7 @@ export const CustomButton = ({
     <CustomButtonContainer
       style={genericShadow}
       onPress={handlePress}
-      {...{ invisible, color }}
+      {...{ invisible, color, minHeight }}
     >
       {title ? (
         <CustomButtonTitle titleSize={titleSize} children={title} />

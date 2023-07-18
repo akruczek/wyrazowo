@@ -5,6 +5,7 @@
 
 ### Improved
 - Headers on all screens
+- Dictionarly main screen UI improvements
 
 ## 1.14.0 PLAYGROUND REBORN
 ### Changed

@@ -1,18 +1,14 @@
 import * as React from 'react'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { COLOR } from '@core/colors/colors.constants'
-import { CustomButton } from '@core/custom-button/custom-button'
 import { SwitchButton } from '@core/switch-button/switch-button'
 import { Template } from '@core/template/template'
+import { PlayButton } from '@core/play-button/play-button'
 import { usePlayDictionarly } from './hooks'
-import {
-  DictionarlyButtonsContainer, DictionarlyDifficultyIcon, DictionarlySeparator, DictionarlyWordsLengthIcon,
-} from './dictionarly.styled'
+import { DictionarlyDifficultyIcon, DictionarlySeparator, DictionarlyWordsLengthIcon } from './dictionarly.styled'
 
 export const Dictionarly = () => {
   const localize = useLocalize()
-  const { top: topInset } = useSafeAreaInsets()
   const { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength, difficulty, setDifficulty } =
     usePlayDictionarly()
 
@@ -43,9 +39,7 @@ export const Dictionarly = () => {
         colors={[ COLOR.DARK_SEA_GREEN, COLOR.DODGER_BLUE, COLOR.GOLD, COLOR.FIRE_BRICK ]}
       />
 
-      <DictionarlyButtonsContainer topInset={topInset}>
-        <CustomButton onPress={handlePlay} color={COLOR.DODGER_BLUE} title={localize().play} />
-      </DictionarlyButtonsContainer>
+      <PlayButton type="dictionary" onPress={handlePlay} />
     </Template>
   )
 }

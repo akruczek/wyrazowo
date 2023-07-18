@@ -34,6 +34,8 @@ export const SwitchButtonContainer = styled.TouchableOpacity.attrs(({ isActive }
   justify-content: center;
   align-items: center;
   margin: 10px;
+  height: 50px;
+  flex: auto;
 `
 
 const getSwitchButtonContentColor = R.ifElse(
