@@ -1,9 +1,7 @@
 import * as React from 'react'
-import { useTheme } from 'styled-components/native'
+import wrzw from 'wrzw'
 import { useDispatch, useSelector } from 'react-redux'
-import { O } from '_otils'
 import { useNavigation } from '@react-navigation/native'
-import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { OptionItem } from '../more/components'
@@ -12,7 +10,6 @@ import { setNativeSearchEngineEnabledAction } from '../settings/store/settings.s
 import { SCREEN } from '../navigation/navigation.constants'
 
 export const Developer = () => {
-  const theme = useTheme() as ThemeModel
   const dispatch = useDispatch()
   const localize = useLocalize()
   const navigation = useNavigation<any>()
@@ -24,7 +21,7 @@ export const Developer = () => {
   }
 
   const handleChangeNativeSearchEngine = (_nativeSearchEngineEnabled: boolean) =>
-    dispatch(setNativeSearchEngineEnabledAction(O.toNumberFlag(_nativeSearchEngineEnabled)))
+    dispatch(setNativeSearchEngineEnabledAction(wrzw.toNumberFlag(_nativeSearchEngineEnabled)))
 
   return (
     <Template type="more" title={localize().settings.toUpperCase()} backButton flex>

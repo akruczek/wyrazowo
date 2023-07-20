@@ -1,4 +1,4 @@
-import { O } from '_otils'
+import wrzw from 'wrzw'
 import { SearchResultModel } from '@core/storage/storage.models'
 
 export const getResultAlreadySavedIndex = (
@@ -9,7 +9,7 @@ export const getResultAlreadySavedIndex = (
   const _savedResultSelectedLetters = [ ...savedResult.selectedLetters ]
 
   return (
-    O.compareJoined(savedResult.wordLength, wordLengthRef.current) &&
-    O.compareJoined(_selectedLetters.sort(), _savedResultSelectedLetters.sort())
+    wrzw.compareJoined(savedResult.wordLength, wordLengthRef.current) &&
+    wrzw.compareJoined(_selectedLetters.sort(), _savedResultSelectedLetters.sort())
   )
 })

@@ -14,7 +14,7 @@
     "baseUrl": "./src",
     "paths": {
       "@core/*": [ "core/*" ],
-      "_otils": [ "core/_otils/index.ts" ],
+      "wrzw": [ "core/wrzw/index.ts" ],
       "@assets/*": [ "assets/*" ]
     },
   },

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { O } from '_otils';
-import { reverseNotNilWords } from '../helpers';
+import wrzw from 'wrzw'
+import { reverseNotNilWords } from '../helpers'
 
 interface UseWordDetail {
   onLongPressWord: (word: string) => () => void;
@@ -24,7 +24,7 @@ export const useWordDetail = (
   const [ isPending, setPending ] = React.useState(false)
 
   const [ maxReached, setMaxReached ] = React.useState(
-    O.ifElse(false, possibleWords.length <= RESULTS_COUNT, !possibleWords.length)
+    wrzw.ifElse(false, possibleWords.length <= RESULTS_COUNT, !possibleWords.length)
   )
 
   const getWordsByLettersCount = () => {
@@ -51,7 +51,7 @@ export const useWordDetail = (
     setPending(true)
 
     setTimeout(() => {
-      const maxCount = O.inc(resultsCountMultiplier) * RESULTS_COUNT
+      const maxCount = R.inc(resultsCountMultiplier) * RESULTS_COUNT
 
       if (maxCount >= possibleWords.length) {
         setMaxReached(true)

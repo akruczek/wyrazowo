@@ -1,11 +1,11 @@
-import { O } from '_otils'
+import wrzw from 'wrzw'
 
 export const appendStyleWhenProvided = <P>(
   styleName: string,
   propertyName: keyof P,
   suffix?: string,
-) => (props: P) => O.ifElse(
+) => (props: P) => wrzw.ifElse(
   `${styleName}: ${props[propertyName]}${suffix ?? ''};`,
   '',
-  O.exist(props[propertyName])
+  wrzw.exist(props[propertyName])
 )
