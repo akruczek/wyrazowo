@@ -20,10 +20,11 @@ interface Props {
   imageUrl?: string;
   iconColor?: COLOR;
   hidden?: boolean;
+  withPadding?: boolean;
 }
 
 export const OptionItem = ({
-  title, value, values, labels, imageUrl, hidden, icon, iconColor, onChange, handleDeactivatePremium,
+  title, value, values, labels, imageUrl, hidden, withPadding, icon, iconColor, onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
 
@@ -31,7 +32,7 @@ export const OptionItem = ({
 
   if (values !== undefined) {
     return (
-      <ListedOption title={title}>
+      <ListedOption {...{ title, withPadding }}>
         <MultiToggle
           values={values}
           value={value}
@@ -44,14 +45,14 @@ export const OptionItem = ({
 
   if (value !== undefined) {
     return (
-      <ListedOption title={title}>
+      <ListedOption {...{ title, withPadding }}>
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
       </ListedOption>
     )
   }
 
   return (
-    <ListedOption title={title}>
+    <ListedOption {...{ title, withPadding }}>
       <OptionItemTouchableOpacity onPress={onChange} onLongPress={handleDeactivatePremium}>
         {imageUrl ? (
           <OptionItemImage source={{ uri: imageUrl }} />

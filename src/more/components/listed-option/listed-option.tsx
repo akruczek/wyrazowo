@@ -5,13 +5,14 @@ import { COLOR } from '@core/colors/colors.constants'
 
 interface Props {
   title: string;
+  withPadding?: boolean;
   titleSize?: TEXT_SIZE;
   titleColor?: COLOR;
   children?: JSX.Element;
 }
 
-export const ListedOption = ({ title, titleSize, titleColor, children }: Props) => (
-  <ListedOptionContainer>
+export const ListedOption = ({ title, withPadding, titleSize, titleColor, children }: Props) => (
+  <ListedOptionContainer withPadding={withPadding}>
     <ListedOptionHeadline titleSize={titleSize} titleColor={titleColor} children={title} />
     {children}
   </ListedOptionContainer>
