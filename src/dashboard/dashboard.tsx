@@ -51,7 +51,7 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Template type="dashboard" leftContentConfig={leftContentConfig}>
+    <Template type="dashboard" leftContentConfig={leftContentConfig} flex>
       <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
 
       <View>
