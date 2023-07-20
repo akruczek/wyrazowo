@@ -1,3 +1,7 @@
+## 1.16.0
+### Added
+- ...
+
 ## 1.15.0 UI FRIENDSHIP
 ### Added
 - New animations on dashboard and dictionarly
