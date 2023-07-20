@@ -1,11 +1,8 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { SafeAreaFlexContainer } from '@core/styled'
-import { ThemeModel } from '@core/styled/models'
-import { Header } from '@core/header/header'
+import { Template } from '@core/template/template'
 import { DictionaryDefinitions, DictionaryButtons, DictionaryCustomizeRandom } from './components'
 import { useDictionaryWord, useDictionaryRandomFilters } from './hooks'
 import { useWordDefinitions } from '../dashboard/hooks'
@@ -14,7 +11,6 @@ import { DictionaryTextInput } from './dictionary.styled'
 
 export const Dictionary = () => {
   const localize = useLocalize()
-  const theme = useTheme() as ThemeModel
   const navigation = useNavigation<any>()
   const customizeRandomModalizeRef = React.useRef<Modalize & any>(null)
   const { onApply, onClear, isFilterActive, filtersRef } = useDictionaryRandomFilters()
@@ -41,9 +37,7 @@ export const Dictionary = () => {
   }
 
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="dictionary" {...{ rightContentConfig, leftContentConfig }} />
-
+    <Template type="dictionary" {...{ rightContentConfig, leftContentConfig }}>
       <DictionaryTextInput
         placeholder={`${localize().search_for_word}...`}
         onChange={handleChange}
@@ -57,6 +51,6 @@ export const Dictionary = () => {
         modalizeRef={customizeRandomModalizeRef}
         {...{ onApply, onClear, isFilterActive, filtersRef }}
       />
-    </SafeAreaFlexContainer>
+    </Template>
   )
 }

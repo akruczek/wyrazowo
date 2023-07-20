@@ -9,7 +9,7 @@ module.exports = {
         extensions: ['.ios.ts', '.android.ts', '.js', '.ts', '.tsx', '.json'],
         alias: {
           '@core': './src/core',
-          '_otils': './src/core/_otils/index.ts',
+          'wrzw': './src/core/wrzw/index.ts',
           '@assets': './src/assets',
         },
       },

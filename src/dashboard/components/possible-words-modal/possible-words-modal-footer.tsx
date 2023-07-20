@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { PaddingView } from '@core/styled/padding-view.styled';
+import { PaddingView } from '@core/styled'
 import { PossibleWordsModalFooterButton, PossibleWordsModalFooterButtonText } from './possible-words-modal.styled'
 
 interface Props {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
-import { PaddingView } from '@core/styled/padding-view.styled'
+import { PaddingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { LettersGrid } from '../letters-grid/letters-grid'

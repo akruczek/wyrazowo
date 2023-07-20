@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { O } from '_otils'
 import { fetchClient } from '@core/fetch-client/fetch-client'
 import { SJP_BASE_PATH } from '@core/fetch-client/fetch-client.constants'
 import { parseSjpWordDetails } from '../helpers'
@@ -30,7 +29,7 @@ export const useWordDefinitions = (
       fetchWordFromSjp()
     }
 
-    if (O.isNull(word)) {
+    if (word === null) {
       setDefinitions(null)
     }
   }, [ word ])

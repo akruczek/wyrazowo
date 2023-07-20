@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { MarginView } from '@core/styled/margin-view.styled'
+import { MarginView } from '@core/styled'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { SelectedLettersContainer } from './selected-letters.styled'
 
@@ -19,7 +19,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
       : letter
 
   return (
-    <MarginView margins={[ 0, 0, 10, 0 ]}>
+    <MarginView margins={[ 0, 0, 30, 0 ]}>
       <SelectedLettersContainer>
         {selectedLetters.slice(0, 7).map((letter: string, index: number) => (
           <LetterCard
@@ -28,6 +28,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
             onLongPress={onLongPressSelectedLetter(index)}
             content={getContent(letter)}
             size={RESPONSIVE.WIDTH(12.8)}
+            fontSize={RESPONSIVE.WIDTH(6.6)}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}
             withMargin
@@ -45,6 +46,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}
             size={RESPONSIVE.WIDTH(12.8)}
+            fontSize={RESPONSIVE.WIDTH(6.6)}
             withMargin
           />
         ))}

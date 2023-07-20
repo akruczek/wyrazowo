@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { useTheme } from 'styled-components/native'
 import { Modalize } from 'react-native-modalize'
-import { Header } from '@core/header/header'
-import { SafeAreaFlexContainer } from '@core/styled'
+import { Template } from '@core/template/template'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { ThemeModel } from '@core/styled/models'
 import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
+import { leaveGameAlert } from '@core/alerts/leave-game-alert'
 import { DictionarlyEndModal } from '../dictionarly-end-modal/dictionarly-end-modal'
 import { DictionarlySearchedText } from '../dictionarly-searched-text/dictionarly-searched-text'
 import { useDictionarlyPlayProgress, useDictionarlyPlay, useDictionarlySpy } from '../../hooks'
@@ -15,7 +13,6 @@ import {
 } from './dictionarly-play.styled'
 
 export const DictionarlyPlay = () => {
-  const theme = useTheme() as ThemeModel
   const localize = useLocalize()
   const modalizeRef = React.useRef<Modalize | null>(null)
 
@@ -30,9 +27,10 @@ export const DictionarlyPlay = () => {
     ? localize().minimum_10_letters_error
     : undefined
 
+  const backButtonAlert = progress === steps ? undefined : leaveGameAlert
+
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="dictionary" title={localize().dictionarly} backButton />
+    <Template type="dictionary" title={localize().dictionarly} backButtonAlert={backButtonAlert} backButton flex>
       <ProgressIndicator {...{ progress, steps, onStepTouchEnd }} />
 
       <DictionarlyKeyboardAvoidingView>
@@ -62,6 +60,6 @@ export const DictionarlyPlay = () => {
       </DictionarlyKeyboardAvoidingView>
 
       <DictionarlyEndModal {...{ word, state, wordsLength, difficulty }} modalizeRef={modalizeRef} />
-    </SafeAreaFlexContainer>
+    </Template>
   )
 }

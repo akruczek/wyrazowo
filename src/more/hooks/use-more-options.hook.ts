@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as R from 'ramda'
+import wrzw from 'wrzw'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { O } from '_otils'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
@@ -47,7 +47,7 @@ export const useMoreOptions = (): UseMoreOptions => {
   )
 
   const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
-    dispatch(setHapticFeedbackEnabledAction(O.toNumberFlag(_hapticFeedbackEnabled)))
+    dispatch(setHapticFeedbackEnabledAction(wrzw.toNumberFlag(_hapticFeedbackEnabled)))
 
   const handleChangeTheme = (value: 0 | 1 | -1) =>
     dispatch(setDarkThemeEnabledAction(value))

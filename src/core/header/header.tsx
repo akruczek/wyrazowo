@@ -1,39 +1,44 @@
 import * as React from 'react'
-import { StatusBar, TouchableOpacity } from 'react-native'
+import { StatusBar } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { genericLightShadow, genericTextShadow } from '@core/shadow/shadow.constants'
-import { COLOR } from '@core/colors/colors.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
-import { HeaderSideContentConfig, HeaderType } from './header.models'
+import { ScreenType } from '@core/models'
+import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
+import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize } from './hooks/use-header-text-size.hook'
 import {
   BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderLeftButtonIndicator,
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
 } from './header.styled'
 
-interface Props {
-  type: HeaderType;
+export interface HeaderProps {
+  type: ScreenType;
   title?: string;
   backButton?: boolean;
+  backButtonAlert?: Function;
   onTouchEnd?: () => void;
   rightContentConfig?: HeaderSideContentConfig;
   leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig, leftContentConfig }: Props) => {
+export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: HeaderProps) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
   const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
 
-  const color: COLOR = {
-    dashboard: COLOR.FIRE_BRICK,
-    dictionary: COLOR.DODGER_BLUE,
-    charade: COLOR.DARK_SEA_GREEN,
-    more: COLOR.GOLD,
-  }[type]
+  const color = screenTypeToColorMap[type]
+
+  const onBackPress = () => {
+    if (backButtonAlert) {
+      backButtonAlert(localize, navigation.goBack)
+    } else {
+      navigation.goBack()
+    }
+  }
 
   return (
     <>
@@ -45,7 +50,7 @@ export const Header = ({ type, title, backButton, onTouchEnd, rightContentConfig
 
       <HeaderContainer onTouchEnd={onTouchEnd} {...{ color, topInset }}>
         {backButton ? (
-          <BackButtonContainer onPress={navigation.goBack} topInset={topInset}>
+          <BackButtonContainer onPress={onBackPress} topInset={topInset}>
             <BackButtonIcon />
           </BackButtonContainer>
         ) : null}

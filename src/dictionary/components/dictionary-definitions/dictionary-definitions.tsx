@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled/margin-view.styled';
+import { MarginView } from '@core/styled'
 import { DictionaryDefinitionText, DictionaryDefinitionsContainer } from './dictionary-definitions.styled'
 
 interface Props {

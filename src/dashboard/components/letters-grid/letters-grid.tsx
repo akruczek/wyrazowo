@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { RowAroundContainer } from '@core/styled'
+import { RESPONSIVE } from '@core/responsive/responsive'
 
 interface Props {
   letters: string[];
@@ -35,6 +36,7 @@ export const LettersGrid = ({
               onPress={onPress(letter, rowIndex, index)}
               onLongPress={onLongPress(letter)}
               content={letter}  
+              fontSize={RESPONSIVE.WIDTH(6.6)}
               selectable={selectable}
               selectedLetters={selectedLetters}
             />

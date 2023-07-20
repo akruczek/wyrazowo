@@ -2,7 +2,6 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import _o from '_otils'
 import { ALL_LETTERS_SORTED, LETTER_INDEX_SEPARATOR, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '@core/alerts/go-premium-alert'
 import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
@@ -10,6 +9,7 @@ import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { setSelectedLettersAction } from '../store/dashboard.slice'
 import { getSoapCharactersIndexes } from '../helpers'
+import { LayoutAnimation } from 'react-native'
 
 interface UseSelectLetter {
   letters: string[];
@@ -44,6 +44,7 @@ export const useSelectLetter = (): UseSelectLetter => {
   }, [ selectedLetters ])
 
   const handleSelectLetter = (letter: string) => {
+    LayoutAnimation.easeInEaseOut()
     triggerHaptic()
 
     if (hasMaxNoPremiumSelectedLetters) {
