@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Header, HeaderProps } from '@core/header/header'
-import { SafeAreaFlexContainer } from '@core/styled'
-import { TemplateHost, TemplateSafeArea } from './template.styled'
+import { TemplateSafeArea, TemplateHost } from './template.styled'
 
 interface Props extends HeaderProps {
   flex?: boolean;
@@ -9,16 +8,12 @@ interface Props extends HeaderProps {
   outChildren?: any;
 }
 
-export const Template = ({ flex, children, outChildren, ...headerProps }: Props) => {
-  const SafeAreaContainer = flex ? SafeAreaFlexContainer : TemplateSafeArea
-
-  return (
-    <TemplateHost>
-      <SafeAreaContainer>
-        <Header {...headerProps} />
-        {children}
-      </SafeAreaContainer>
-      {outChildren}
-    </TemplateHost>
-  )
-}
+export const Template = ({ flex, children, outChildren, ...headerProps }: Props) => (
+  <TemplateHost>
+    <TemplateSafeArea justifyContent={flex ? 'space-between' : undefined}>
+      <Header {...headerProps} />
+      {children}
+    </TemplateSafeArea>
+    {outChildren}
+  </TemplateHost>
+)

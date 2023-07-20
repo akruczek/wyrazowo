@@ -1,18 +1,13 @@
 import * as React from 'react'
-import { useTheme } from 'styled-components/native'
 import { TouchableOpacity, Linking } from 'react-native'
-import { SafeAreaFlexContainer } from '@core/styled'
-import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { Header } from '@core/header/header'
+import { Template } from '@core/template/template'
 import {
-  AuthorContainer, AuthorDescriptionLink, AuthorDescriptionText,
-  AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon,
+  AuthorDescriptionLink, AuthorDescriptionText, AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon,
 } from './author.styled'
 
 export const Author = () => {
   const localize = useLocalize()
-  const theme = useTheme() as ThemeModel
 
   const onGithubPress = () => {
     Linking.openURL('https://github.com/akruczek')
@@ -23,28 +18,24 @@ export const Author = () => {
   }
 
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="more" title={localize().about_author} backButton />
+    <Template type="more" title={localize().about_author} backButton>
+      <AuthorDescriptionText children="Adam Kruczek" />
 
-      <AuthorContainer>
-        <AuthorDescriptionText children="Adam Kruczek" />
+      <AuthorRowContainer>
+        <AuthorGithubIcon />
 
-        <AuthorRowContainer>
-          <AuthorGithubIcon />
+        <TouchableOpacity onPress={onGithubPress}>
+          <AuthorDescriptionLink children="akruczek" />
+        </TouchableOpacity>
+      </AuthorRowContainer>
 
-          <TouchableOpacity onPress={onGithubPress}>
-            <AuthorDescriptionLink children="akruczek" />
-          </TouchableOpacity>
-        </AuthorRowContainer>
+      <AuthorRowContainer>
+        <AuthorLinkedInIcon />
 
-        <AuthorRowContainer>
-          <AuthorLinkedInIcon />
-
-          <TouchableOpacity onPress={onLinkedInPress}>
-            <AuthorDescriptionLink children="akruczek" />
-          </TouchableOpacity>
-        </AuthorRowContainer>
-      </AuthorContainer>
-    </SafeAreaFlexContainer>
+        <TouchableOpacity onPress={onLinkedInPress}>
+          <AuthorDescriptionLink children="akruczek" />
+        </TouchableOpacity>
+      </AuthorRowContainer>
+    </Template>
   )
 }

@@ -18,7 +18,7 @@ export const Dictionarly = () => {
   }
 
   return (
-    <Template type="dictionary" title={localize().dictionarly} leftContentConfig={leftContentConfig} flex>
+    <Template type="dictionary" title={localize().dictionarly} leftContentConfig={leftContentConfig}>
       <DictionarlyWordsLengthIcon />
 
       <SwitchButton

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { MarginView } from '@core/styled/margin-view.styled'
+import { MarginView } from '@core/styled'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { SelectedLettersContainer } from './selected-letters.styled'
 

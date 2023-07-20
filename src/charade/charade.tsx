@@ -13,7 +13,7 @@ export const Charade = () => {
   const { handlePlayCharade, count, setCount, allowDuplicatedLetters, setAllowDuplicatedLetters } = useCharadePlay()
 
   return (
-    <Template type="charade" flex>
+    <Template type="charade">
       <CustomCounter value={count} range={[ 3, 9 ]} setValue={setCount} />
       <PlayButton type="charade" onPress={handlePlayCharade} />
 

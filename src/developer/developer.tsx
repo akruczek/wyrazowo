@@ -24,7 +24,7 @@ export const Developer = () => {
     dispatch(setNativeSearchEngineEnabledAction(wrzw.toNumberFlag(_nativeSearchEngineEnabled)))
 
   return (
-    <Template type="more" title={localize().settings.toUpperCase()} backButton flex>
+    <Template type="more" title={localize().settings.toUpperCase()} backButton>
       <OptionItem
         title={localize().search_history}
         icon="history"

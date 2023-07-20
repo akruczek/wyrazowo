@@ -41,7 +41,7 @@ export const DeveloperSearchHistory = () => {
   }
 
   return (
-    <Template type="more" title={localize().search_history.toUpperCase()} backButton flex>
+    <Template type="more" title={localize().search_history.toUpperCase()} backButton>
       <OptionItem
         title={localize().clear_search_history}
         icon="trash-can-outline"

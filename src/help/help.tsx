@@ -5,10 +5,9 @@ import { useTheme } from 'styled-components/native'
 import { SCREEN } from 'navigation/navigation.constants'
 import { useNavigation } from '@react-navigation/native'
 import { COLOR } from '@core/colors/colors.constants'
-import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { Header } from '@core/header/header'
+import { Template } from '@core/template/template'
 import { ListedOption } from '../more/components'
 
 export const Help = () => {
@@ -37,9 +36,8 @@ export const Help = () => {
   )
 
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="more" title={localize().help.toUpperCase()} backButton />
+    <Template type="more" title={localize().help.toUpperCase()} backButton flex>
       <FlatList renderItem={renderItem} data={data} />
-    </SafeAreaFlexContainer>
+    </Template>
   )
 }

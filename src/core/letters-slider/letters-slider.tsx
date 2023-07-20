@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { PaddingView } from '@core/styled/padding-view.styled'
+import { PaddingView } from '@core/styled'
 import { renderLetterSliderLabel } from './components/letter-slider-label/letter-slider-label'
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'

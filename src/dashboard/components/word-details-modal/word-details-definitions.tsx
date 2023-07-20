@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
-import { MarginView } from '@core/styled/margin-view.styled'
+import { MarginView } from '@core/styled'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { useWordDefinitions } from '../../hooks/use-word-definitions.hook'
 import { WordDetailsDefinitionText } from './word-details-modal.styled'
