@@ -1,3 +1,7 @@
+## 1.15.1
+### Fixed
+- Android crash on startup after OS kill app
+
 ## 1.15.0 UI FRIENDSHIP
 ### Added
 - New animations on dashboard and dictionarly
