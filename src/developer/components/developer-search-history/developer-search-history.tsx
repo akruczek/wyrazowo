@@ -5,14 +5,12 @@ import { useDispatch } from 'react-redux'
 import { clearSearchHistoryAlert } from '@core/alerts/clear-search-history-alert'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { Storage } from '@core/storage/storage'
-import { SafeAreaFlexContainer } from '@core/styled'
 import { ThemeModel } from '@core/styled/models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { Header } from '@core/header/header'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { overwriteSearchHistoryAlert } from '@core/alerts/overwrite-search-history-alert'
 import { saveSearchHistoryAlert } from '@core/alerts/save-search-history-alert'
-import { DeveloperContainer } from '../../developer.styled'
+import { Template } from '@core/template/template'
 import { OptionItem } from '../../../more/components'
 import { useReadSearchHistory } from '../../hooks/use-read-search-history.hook'
 import { setSearchHistoryTimestampAction } from '../../../dashboard/store/dashboard.slice'
@@ -46,28 +44,50 @@ export const DeveloperSearchHistory = () => {
   }
 
   return (
-    <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
-      <Header type="more" title={localize().search_history.toUpperCase()} backButton />
+    <Template type="more" title={localize().search_history.toUpperCase()} backButton flex>
+      <OptionItem
+        title={localize().clear_search_history}
+        icon="trash-can-outline"
+        onChange={handleClearSearchHistory}
+        withPadding
+      />
 
-      <DeveloperContainer>
-        <OptionItem
-          title={localize().clear_search_history}
-          icon="trash-can-outline"
-          onChange={handleClearSearchHistory}
-        />
+      <OptionItem
+        title={localize().save_search_history}
+        icon="content-save-move-outline"
+        onChange={handleSaveSearchHistory}
+        withPadding
+      />
 
-        <OptionItem
-          title={localize().save_search_history}
-          icon="content-save-move-outline"
-          onChange={handleSaveSearchHistory}
-        />
+      <OptionItem
+        title={localize().import_search_history}
+        icon="file-import-outline"
+        onChange={handleImportSearchHistory}
+        withPadding
+      />
+    </Template>
+    // <SafeAreaFlexContainer backgroundColor={theme.backgroundPrimary}>
+    //   <Header type="more" title={localize().search_history.toUpperCase()} backButton />
 
-        <OptionItem
-          title={localize().import_search_history}
-          icon="file-import-outline"
-          onChange={handleImportSearchHistory}
-        />
-      </DeveloperContainer>
-    </SafeAreaFlexContainer>
+    //   <DeveloperContainer>
+    //     <OptionItem
+    //       title={localize().clear_search_history}
+    //       icon="trash-can-outline"
+    //       onChange={handleClearSearchHistory}
+    //     />
+
+    //     <OptionItem
+    //       title={localize().save_search_history}
+    //       icon="content-save-move-outline"
+    //       onChange={handleSaveSearchHistory}
+    //     />
+
+    //     <OptionItem
+    //       title={localize().import_search_history}
+    //       icon="file-import-outline"
+    //       onChange={handleImportSearchHistory}
+    //     />
+    //   </DeveloperContainer>
+    // </SafeAreaFlexContainer>
   )
 }
