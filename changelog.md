@@ -2,6 +2,9 @@
 ### Added
 - ...
 
+### Technical
+- Generic text migration
+
 ## 1.15.1
 ### Fixed
 - Android crash on startup after OS kill app
@@ -15,6 +18,9 @@
 - Headers on all screens
 - Dictionarly main screen UI improvements
 - General performance improvements
+
+### Technical
+- _otils to wrzw migration
 
 ## 1.14.0 PLAYGROUND REBORN
 ### Changed

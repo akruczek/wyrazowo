@@ -1,3 +1,5 @@
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack'
+
 export const BOTTOM_NAVIGATION_HEIGHT = 75
 
 export const SCREEN = {
@@ -22,4 +24,10 @@ export const SCREEN = {
   DICTIONARY_DICTIONARY: 'Dictionary-Dictionary',
   DICTIONARY_DICTIONARLY: 'Dictionary-Dictionarly',
   DICTIONARY_PLAY: 'Dictionary-Play',
+}
+
+export const DEFAULT_SCREEN_OPTIONS: NativeStackNavigationOptions = {
+  headerShown: false,
+  animation: 'fade',
+  animationDuration: 150,
 }
