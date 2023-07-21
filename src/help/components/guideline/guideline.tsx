@@ -3,11 +3,12 @@ import * as R from 'ramda'
 import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
+import { Tx } from '@core/tx'
 import { GUIDELINE } from './guideline.constants'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 import {
   GuidelineButtonContainer, GuidelineContainer, GuidelineDescription, GuidelineGif,
-  GuidelineBackIcon, GuidelineNextIcon, GuidelineButtonsContainer, GuidelineIndicatorText,
+  GuidelineBackIcon, GuidelineNextIcon, GuidelineButtonsContainer,
 } from './guideline.styled'
 
 export const Guideline = () => {
@@ -45,7 +46,7 @@ export const Guideline = () => {
           <GuidelineBackIcon />
         </GuidelineButtonContainer>
 
-        <GuidelineIndicatorText children={`${guidelineIndex + 1}/${GUIDELINE[index].length}`} />
+        <Tx tx={`${guidelineIndex + 1}/${GUIDELINE[index].length}`} />
 
         <GuidelineButtonContainer invisible={isMax} onPress={goNext}>
           <GuidelineNextIcon />

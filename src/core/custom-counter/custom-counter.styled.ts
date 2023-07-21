@@ -28,11 +28,6 @@ export const CustomCounterTextContainer = styled.View`
   align-items: center;
 `
 
-export const CustomCounterText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
-`
-
 interface CustomCounterButtonContainerProps {
   disabled: boolean;
 }

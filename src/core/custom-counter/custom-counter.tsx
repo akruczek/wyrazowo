@@ -1,8 +1,8 @@
 import * as React from 'react'
+import { Tx } from '@core/tx'
 import {
-  CustomCounterButtonContainer, CustomCounterContainer, CustomCounterLabel,
-  CustomCounterLabelIconContainer, CustomCounterMinusIcon, CustomCounterPlusIcon,
-  CustomCounterText, CustomCounterTextContainer,
+  CustomCounterButtonContainer, CustomCounterContainer, CustomCounterLabel, CustomCounterLabelIconContainer,
+  CustomCounterMinusIcon, CustomCounterPlusIcon, CustomCounterTextContainer,
 } from './custom-counter.styled'
 
 interface Props {
@@ -36,7 +36,7 @@ export const CustomCounter = ({ value, range, setValue }: Props) => {
         </CustomCounterButtonContainer>
 
         <CustomCounterTextContainer>
-          <CustomCounterText children={value} />
+          <Tx tx={value} />
         </CustomCounterTextContainer>
 
         <CustomCounterButtonContainer disabled={value === range[1]} onPress={handleIncrement}>

@@ -5,7 +5,8 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { Template } from '@core/template/template'
 import { PlayButton } from '@core/play-button/play-button'
-import { CharadeHeadline, CharadeSwitchWrapper, CharadeSeparator } from './charade.styled'
+import { Tx } from '@core/tx'
+import { CharadeSwitchWrapper, CharadeSeparator } from './charade.styled'
 import { useCharadePlay } from './hooks'
 
 export const Charade = () => {
@@ -19,7 +20,7 @@ export const Charade = () => {
 
       <CharadeSeparator />
 
-      <CharadeHeadline children={localize().allow_duplicated_letters} />
+      <Tx tx={localize().allow_duplicated_letters} bold center />
       <CharadeSwitchWrapper>
         <CustomSwitch
           color={COLOR.DARK_SEA_GREEN}

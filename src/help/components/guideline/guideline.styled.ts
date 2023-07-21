@@ -26,11 +26,6 @@ export const GuidelineGif = styled.Image.attrs({
   border-radius: 15px;
 `
 
-export const GuidelineIndicatorText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
-`
-
 export const GuidelineButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
