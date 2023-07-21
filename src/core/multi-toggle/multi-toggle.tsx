@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { MultiToggleContainer, MultiToggleValue } from './multi-toggle.styled'
+import { MultiToggleContainer } from './multi-toggle.styled'
+import { Tx } from '@core/tx'
 
 interface Props {
   values: string[];
@@ -18,7 +19,7 @@ export const MultiToggle = ({ value, values, labels, onChange }: Props) => {
 
   return (
     <MultiToggleContainer onPress={onPress}>
-      <MultiToggleValue children={labels?.[selectedIndex] ?? value} />
+      <Tx tx={labels?.[selectedIndex] ?? value} S bold />
     </MultiToggleContainer>
   )
 }

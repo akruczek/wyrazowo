@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { CharadeFieldContainer, CharadeFieldContentText, CharadeFieldInnerContainer } from './charade-field.styled'
+import { Tx } from '@core/tx'
+import { CharadeFieldContainer, CharadeFieldInnerContainer } from './charade-field.styled'
 
 interface Props {
   count: number;
@@ -15,6 +16,6 @@ interface Props {
 export const CharadeField = ({ count, onPress, content, isSent, isError, index, word, isActive }: Props) => (
   <CharadeFieldContainer {...{ onPress, index, count, content, word, isError, isSent }}>
     <CharadeFieldInnerContainer {...{ isError, isActive }} />
-    <CharadeFieldContentText isError={isError} children={content} />
+    <Tx tx={content} error={isError} />
   </CharadeFieldContainer>
 )

@@ -6,9 +6,10 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
+import { Tx } from '@core/tx'
 import { SCREEN } from '../../../navigation/navigation.constants'
 import { userUidSelector } from '../../../user/store/user.selectors'
-import { CharadeEndModalize, EndModalButtonsContainer, EndModalContainer, EndModalTitle } from './end-modal.styled'
+import { CharadeEndModalize, EndModalButtonsContainer, EndModalContainer } from './end-modal.styled'
 
 interface Props {
   modalizeRef: React.MutableRefObject<Modalize | null>;
@@ -40,8 +41,8 @@ export const EndModal = ({ modalizeRef, success, word }: Props) => {
   return (
     <CharadeEndModalize ref={modalizeRef} onOpened={onOpened}>
       <EndModalContainer>
-        <EndModalTitle children={success ? localize().success : localize().failed} />
-        <EndModalTitle children={word.toUpperCase()} />
+        <Tx tx={success ? localize().success : localize().failed} margins={[ 0, 0, 20, 0 ]} XXL bold center />
+        <Tx tx={word.toUpperCase()} margins={[ 0, 0, 20, 0 ]} XXL bold center />
 
         <EndModalButtonsContainer>
           <CustomButton color={COLOR.DARK_SEA_GREEN} onPress={handleTryAgain} title={localize().try_again} />

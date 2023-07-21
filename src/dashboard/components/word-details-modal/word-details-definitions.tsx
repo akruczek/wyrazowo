@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
+import { Tx } from '@core/tx'
 import { MarginView } from '@core/styled'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { useWordDefinitions } from '../../hooks/use-word-definitions.hook'
-import { WordDetailsDefinitionText } from './word-details-modal.styled'
 
 interface Props {
   word: string;
@@ -20,13 +20,11 @@ export const WordDetialsDefinitions = ({ word }: Props) => {
       ) : definitions?.length ? (
         <>
           {definitions?.map((definition: string, index: number) => (
-            <WordDetailsDefinitionText key={definition}>
-              {index + 1}. {definition}
-            </WordDetailsDefinitionText>
+            <Tx key={definition} tx={`${index + 1}. ${definition}`} margins={[ 0, 0, 10, 0 ]} S bold center />
           ))}
         </>
       ) : (
-        <WordDetailsDefinitionText children={localize().no_definitions_found} />
+        <Tx tx={localize().no_definitions_found} margins={[ 0, 0, 10, 0 ]} S bold center />
       )}
     </MarginView>
   )

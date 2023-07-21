@@ -15,14 +15,6 @@ export const LetterSliderTopLabelBar = styled.View`
   align-items: center;
 `
 
-export const LetterSliderBottomLabel = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
-  font-weight: bold;
-  margin-left: 10px;
-  margin-right: 5px;
-`
-
 export const LetterSlider = styled(RangeSlider)`
   width: 100%;
 `

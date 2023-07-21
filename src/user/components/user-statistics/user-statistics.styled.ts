@@ -10,26 +10,6 @@ export const UserStatisticsContainer = styled.View`
   padding-horizontal: 20px;
 `
 
-export const UserStatisticsHeadline = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  font-weight: bold;
-  color: ${getThemeProp('textPrimary')};
-  margin-right: 10px;
-`
-
-export const UserStatisticsSubHeadline = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
-  color: ${getThemeProp('textPrimary')};
-  margin-vertical: 10px;
-  margin-left: 5px;
-`
-
-export const UserStatisticsContent = styled.Text`
-  font-size: ${TEXT_SIZE.XS}px;
-  color: ${getThemeProp('textPrimary')};
-  margin-left: 5px;
-`
-
 interface UserStatisticsRowProps {
   withMargin?: boolean;
 }

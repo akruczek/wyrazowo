@@ -1,11 +1,8 @@
-import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { getThemeProp } from '@core/styled/theme'
-import { ThemeModel } from '@core/styled/models'
 import { isPlatform } from '@core/is-platform/is-platform'
 
 export const DictionarlyContainer = styled.ScrollView.attrs({
@@ -26,22 +23,6 @@ export const DictionarlyTextInput = styled(CustomTextInput).attrs({
   autoCapitalize: 'characters',
   maxLength: 15,
 })``
-
-interface DictionarlyTextProps {
-  isOK?: boolean;
-}
-
-const getDictionarlyTextColor = R.ifElse(
-  R.propSatisfies(Boolean, 'isOK'),
-  R.always(COLOR.DARK_SEA_GREEN),
-  getThemeProp('textSecondary')
-)
-
-export const DictionarlyText = styled.Text<DictionarlyTextProps & ThemeProps<ThemeModel>>`
-  font-size: ${TEXT_SIZE.XL}px;
-  color: ${getDictionarlyTextColor};
-  margin-left: 10px;
-`
 
 export const DictionarlySendButtonContainer = styled.TouchableOpacity.attrs({
   hitSlop: {

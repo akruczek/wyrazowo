@@ -2,7 +2,8 @@ import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { PaddingView } from '@core/styled'
-import { PossibleWordsModalFooterButton, PossibleWordsModalFooterButtonText } from './possible-words-modal.styled'
+import { Tx } from '@core/tx'
+import { PossibleWordsModalFooterButton } from './possible-words-modal.styled'
 
 interface Props {
   onPress: () => void;
@@ -21,7 +22,7 @@ export const PossibleWordsModalFooter = ({ onPress, isPending, maxReached }: Pro
         </PossibleWordsModalFooterButton>
       ) : (
         <PossibleWordsModalFooterButton onPress={onPress}>
-          <PossibleWordsModalFooterButtonText children={`${localize().load_more}...`} />
+          <Tx tx={`${localize().load_more}...`} S link />
         </PossibleWordsModalFooterButton>
       )}
     </PaddingView>

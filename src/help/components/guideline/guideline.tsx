@@ -7,7 +7,7 @@ import { Tx } from '@core/tx'
 import { GUIDELINE } from './guideline.constants'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 import {
-  GuidelineButtonContainer, GuidelineContainer, GuidelineDescription, GuidelineGif,
+  GuidelineButtonContainer, GuidelineContainer, GuidelineGif,
   GuidelineBackIcon, GuidelineNextIcon, GuidelineButtonsContainer,
 } from './guideline.styled'
 
@@ -38,7 +38,7 @@ export const Guideline = () => {
     <Template type="more" title={(localize() as any)[`guideline_${id}_headline`]} backButton>
       <GuidelineContainer>
         <GuidelineGif source={{ uri }} />
-        <GuidelineDescription children={(localize() as any)[`guideline_${id}`]} />
+        <Tx tx={(localize() as any)[`guideline_${id}`]} margins={[ 20, 0, 0 ]} S center />
       </GuidelineContainer>
 
       <GuidelineButtonsContainer>

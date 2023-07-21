@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import styled, { ThemeProps } from 'styled-components/native'
 import { COLOR } from '@core/colors/colors.constants'
 import { getThemeProp } from '@core/styled/theme'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { ThemeModel } from '@core/styled/models'
 
 export const SwitchButtonsGroupsContainer = styled.View`
@@ -36,16 +35,4 @@ export const SwitchButtonContainer = styled.TouchableOpacity.attrs(({ isActive }
   margin: 10px;
   height: 50px;
   flex: auto;
-`
-
-const getSwitchButtonContentColor = R.ifElse(
-  R.propSatisfies(Boolean, 'isActive'),
-  R.always(COLOR.WHITE),
-  getThemeProp('textSecondary'),
-)
-
-export const SwitchButtonContent = styled.Text<SwitchButtonProps & ThemeProps<ThemeModel>>`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getSwitchButtonContentColor};
-  font-weight: bold;
 `

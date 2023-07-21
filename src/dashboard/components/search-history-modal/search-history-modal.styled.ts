@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const SearchHistoryModalContainer = styled.View`
   width: 100%;
@@ -30,13 +29,6 @@ export const SearchHistoryModalItemContainer = styled.TouchableOpacity.attrs(({ 
   margin-bottom: 5px;
   padding-bottom: 5px;
   align-items: center;
-`
-
-export const SearchHistoryModalItemText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${COLOR.BLACK};
-  font-weight: bold;
-  margin-left: 5px;
 `
 
 export const SearchHistoryModalNoResultsWrapper = styled.View`

@@ -56,7 +56,6 @@ export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, r
         ) : null}
 
         <HeaderText
-          style={genericTextShadow}
           headerTextSize={headerTextSize}
           onLayout={onHeaderTextLayout}
           children={` ${title ?? localize()[type]} `}

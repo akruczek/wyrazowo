@@ -1,11 +1,12 @@
 import * as React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { FlatList } from 'react-native'
+import { Tx } from '@core/tx'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { CLEAR_BUTTON_ID, KEYBOARD_BUTTONS, SEND_BUTTON_ID } from './custom-keyboard.constants'
 import {
-  CustomKeyboardButtonContainer, CustomKeyboardContainer, CustomKeyboardRowList, CustomKeyboardText,
+  CustomKeyboardButtonContainer, CustomKeyboardContainer, CustomKeyboardRowList,
 } from './custom-keyboard.styled'
 
 interface Props {
@@ -27,7 +28,7 @@ export const CustomKeyboard = ({ onPress, greenLetters, yellowLetters, redLetter
       } else if (item === CLEAR_BUTTON_ID) {
         return <MaterialCommunityIcons name="backspace" color={COLOR.BLACK} size={TEXT_SIZE.S} />
       } else {
-        return <CustomKeyboardText children={item} />
+        return <Tx tx={item} S black bold />
       }
     }
 

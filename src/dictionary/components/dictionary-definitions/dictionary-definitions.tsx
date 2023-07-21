@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { MarginView } from '@core/styled'
-import { DictionaryDefinitionText, DictionaryDefinitionsContainer } from './dictionary-definitions.styled'
+import { Tx } from '@core/tx'
 
 interface Props {
   isPending: boolean;
@@ -21,17 +21,15 @@ export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definition
           <ActivityIndicator size="large" />
         </MarginView>
       ) : (wordFromDB && !definitions?.length) || !state ? (
-        <DictionaryDefinitionsContainer>
-          <DictionaryDefinitionText children={localize().no_definitions_found} />
-        </DictionaryDefinitionsContainer>
+        <MarginView margins={[ 20, 10, 0 ]}>
+          <Tx tx={localize().no_definitions_found} margins={[ 0, 0, 10, 0 ]} S bold center />
+        </MarginView>
       ) : (
-        <DictionaryDefinitionsContainer>
+        <MarginView margins={[ 20, 10, 0 ]}>
           {definitions?.map((definition: string, index: number) => (
-            <DictionaryDefinitionText key={definition}>
-              {index + 1}. {definition}
-            </DictionaryDefinitionText>
+            <Tx tx={`${index + 1}. ${definition}`} margins={[ 0, 0, 10, 0 ]} S bold center />
           ))}
-        </DictionaryDefinitionsContainer>
+        </MarginView>
       )}
     </ScrollView>
   )

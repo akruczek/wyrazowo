@@ -20,7 +20,7 @@ export const User = () => {
   const { imageUrl, displayName } = useUserAuth(getRealTimeDatabaseData)
 
   return (
-    <Template type="more" title={localize().user.toUpperCase()} backButton flex>
+    <Template type="more" title={localize().user.toUpperCase()} backButton>
       <OptionItem
         title={displayName}
         imageUrl={imageUrl}

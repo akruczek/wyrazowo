@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { KeyboardType, ReturnKeyType, View } from 'react-native'
-import { CustomTextInputErrorText, CustomTextInputStyled } from './custom-text-input.styled'
+import { Tx } from '@core/tx'
+import { CustomTextInputStyled } from './custom-text-input.styled'
 
 interface Props {
   state?: boolean | null;
@@ -41,7 +42,7 @@ export const CustomTextInput = ({
         blurOnSubmit={blurOnSubmit}
       />
       {children ?? null}
-      {(state === false && errorMessage) ? <CustomTextInputErrorText children={errorMessage} /> : null}
+      {(state === false && errorMessage) ? <Tx tx={errorMessage} absolute={[ null, null, -10, 10 ]} XS error /> : null}
     </View>
   )
 }
