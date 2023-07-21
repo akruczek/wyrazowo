@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import app from '../../package.json'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { ListedOption, OptionItem, EmptyOptions } from './components'
@@ -25,7 +24,7 @@ export const More = () => {
       <MoreFlatList
         renderItem={renderItem}
         ListEmptyComponent={EmptyOptions}
-        ListFooterComponent={<ListedOption titleSize={TEXT_SIZE.XS} title={versionTitle} />}
+        ListFooterComponent={<ListedOption title={versionTitle} XS />}
         keyExtractor={R.propOr('', 'title')}
         data={getOptions()}
       />

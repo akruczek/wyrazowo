@@ -33,19 +33,24 @@ const getShadow = ({ shadow }: StyledTxProps) => shadow ? `
   text-shadow-radius: 10px;
 ` : ''
 
+const getTxFontWeight = ({ bold, bolder }: StyledTxProps) => {
+  if (bold) return 'bold'
+  if (bolder) return 500
+  return 'normal'
+}
+
 const getTextDecoration = ({ underline }: StyledTxProps) => underline ? 'text-decoration: underline;' : ''
 const getTextTranform = ({ uppercase }: StyledTxProps) => uppercase ? 'text-transform: uppercase;' : ''
-const getTxFontWeight = ({ bold }: StyledTxProps) => bold ? 'font-weight: bold;' : ''
 const getTxAlignment = ({ center }: StyledTxProps) => center ? 'text-align: center;' : ''
 
 export const StyledTx = styled.Text<ThemeProps<ThemeModel> & StyledTxProps>`
   font-size: ${getTxFontSize}px;
+  font-weight: ${getTxFontWeight};
   color: ${getFontColor};
   margin: ${parseMargin};
   padding: ${parsePadding};
   ${getTextDecoration}
   ${getTextTranform}
-  ${getTxFontWeight}
   ${getTxAlignment}
   ${getShadow}
   ${parseAbsolute}

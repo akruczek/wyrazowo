@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import { appendStyleWhenProvided } from '@core/styled'
 import { COLOR } from '../colors/colors.constants'
-import { TEXT_SIZE } from '../text/text.constants'
-import { appendStyleWhenProvided } from '@core/styled';
 
 interface CustomButtonContainerProps {
   invisible?: boolean;
@@ -29,16 +28,4 @@ export const CustomButtonContainer = styled.TouchableOpacity.attrs<CustomButtonC
   background-color: ${getCustomButtonContainerBackgroundColor};
   opacity: ${getCustomButtonContainerOpacity};
   ${appendStyleWhenProvided('min-height', 'minHeight', 'px')};
-`
-
-const getCustomButtonTitleFontSize = R.propOr(TEXT_SIZE.M, 'titleSize')
-
-interface CustomButtonTitleProps {
-  titleSize?: TEXT_SIZE;
-}
-
-export const CustomButtonTitle = styled.Text<CustomButtonTitleProps>`
-  font-size: ${getCustomButtonTitleFontSize}px;
-  color: ${COLOR.WHITE};
-  font-weight: bold;
 `

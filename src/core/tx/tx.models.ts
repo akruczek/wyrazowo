@@ -12,6 +12,11 @@ export interface StyledTxProps {
   bold?: boolean;
 
   /**
+   * Apply "font-weight: 500" style
+   */
+  bolder?: boolean;
+
+  /**
    * Apply "text-align: center" style
    */
   center?: boolean;
