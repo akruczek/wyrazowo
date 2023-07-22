@@ -5,6 +5,6 @@ import { LetterSliderLabel } from './letter-slider-label.styled'
 export const renderLetterSliderLabel = (min: number, max: number) =>
   (value: number) => value !== min && value !== max ? (
     <LetterSliderLabel>
-      <Tx tx={value} margins={[ 0, 5, 0, 10 ]} bold />
+      <Tx tx={value} spacings="0 XXS 0 S" bold />
     </LetterSliderLabel>
   ) : null

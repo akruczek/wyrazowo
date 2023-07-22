@@ -23,49 +23,49 @@ export const UserStatistics = ({ userData }: Props) => {
   return userData ? (
     <UserStatisticsContainer>
       <UserStatisticsHeadRow>
-        <Tx tx={localize().statistics_headline} margins={[ 0, 10, 0, 0 ]} bold />
+        <Tx tx={localize().statistics_headline} spacings="0 S 0 0" bold />
         <UserStatisticsPointsIcon />
-        <Tx tx={getPointsSum} margins={[ 10, 0, 10, 5 ]} S />
+        <Tx tx={getPointsSum} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsHeadRow>
         <UserStatisticsDictionarlyIcon />
-        <Tx tx={localize().dictionarly} margins={[ 10, 0, 10, 5 ]} S />
+        <Tx tx={localize().dictionarly} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsPointsIcon />
-        <Tx tx={userData.points?.dictionarly?.value ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.dictionarly?.value ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsSuccessIcon />
-        <Tx tx={userData.points?.dictionarly?.successCount ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.dictionarly?.successCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow>
         <UserStatisticsFailureIcon />
-        <Tx tx={userData.points?.dictionarly?.failureCount ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.dictionarly?.failureCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsHeadRow>
         <UserStatisticsCharadeIcon />
-        <Tx tx={localize().charade} margins={[ 10, 0, 10, 5 ]} S />
+        <Tx tx={localize().charade} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsPointsIcon />
-        <Tx tx={userData.points?.charade?.value ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.charade?.value ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsSuccessIcon />
-        <Tx tx={userData.points?.charade?.successCount ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.charade?.successCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow>
         <UserStatisticsFailureIcon />
-        <Tx tx={userData.points?.charade?.failureCount ?? 0} margins={[ 0, 0, 0, 5 ]} XS />
+        <Tx tx={userData.points?.charade?.failureCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
     </UserStatisticsContainer>
   ) : (

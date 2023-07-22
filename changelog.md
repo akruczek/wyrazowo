@@ -1,12 +1,13 @@
-## 1.16.0
-### Added
-- ...
+## 1.16.0 UX CLEAN UP
+### Improved
+- UI and UX consistency
 
 ### Fixed
 - iOS startup crash
 
 ### Technical
 - Generic text migration
+- Generic spacing migration
 
 ## 1.15.1
 ### Fixed

@@ -47,7 +47,7 @@ export const SearchHistoryModalItem = ({
     <View>
       <SearchHistoryModalItemContainer>
         <LetterSliderLengthIcon />
-        <Tx tx={`${wordLengthToDisplay}, (${getDateToDisplay()})`} margins={[ 0, 0, 0, 5 ]} bold />
+        <Tx tx={`${wordLengthToDisplay}, (${getDateToDisplay()})`} spacings="0 0 0 XXS" bold />
       </SearchHistoryModalItemContainer>
 
       <SearchHistoryModalItemContainer onPress={handleSearchFromHistory} withBorder>

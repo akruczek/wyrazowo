@@ -1,8 +1,9 @@
 import styled, { ThemeProps } from 'styled-components/native'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { ThemeModel } from '@core/styled/models'
-import { parseMargin, parsePadding, getThemeProp, parseAbsolute } from '@core/styled'
+import { getThemeProp, parseAbsolute } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
+import { parseSpacings } from '@core/styled/helpers/parse-margin.helper'
 import { StyledTxProps } from './tx.models'
 
 const getFontColor = (props: ThemeProps<ThemeModel> & StyledTxProps) => {
@@ -43,12 +44,16 @@ const getTextDecoration = ({ underline }: StyledTxProps) => underline ? 'text-de
 const getTextTranform = ({ uppercase }: StyledTxProps) => uppercase ? 'text-transform: uppercase;' : ''
 const getTxAlignment = ({ center }: StyledTxProps) => center ? 'text-align: center;' : ''
 
+const getSpacing = (props: StyledTxProps) => {
+  const spacingType = props.spacingType ?? 'margin'
+  return `${spacingType}: ${parseSpacings(props)};`
+}
+
 export const StyledTx = styled.Text<ThemeProps<ThemeModel> & StyledTxProps>`
   font-size: ${getTxFontSize}px;
   font-weight: ${getTxFontWeight};
   color: ${getFontColor};
-  margin: ${parseMargin};
-  padding: ${parsePadding};
+  ${getSpacing}
   ${getTextDecoration}
   ${getTextTranform}
   ${getTxAlignment}

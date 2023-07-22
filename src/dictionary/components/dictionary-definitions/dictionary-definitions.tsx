@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { Tx } from '@core/tx'
 
 interface Props {
@@ -17,19 +17,19 @@ export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definition
   return (
     <ScrollView scrollEnabled={false}>
       {isPending ? (
-        <MarginView margins={[100, 0, 0, 0]}>
+        <SpacingView spacings="XXXL 0 0 0">
           <ActivityIndicator size="large" />
-        </MarginView>
+        </SpacingView>
       ) : (wordFromDB && !definitions?.length) || !state ? (
-        <MarginView margins={[ 20, 10, 0 ]}>
-          <Tx tx={localize().no_definitions_found} margins={[ 0, 0, 10, 0 ]} S bold center />
-        </MarginView>
+        <SpacingView spacings="L S 0">
+          <Tx tx={localize().no_definitions_found} spacings="0 0 S 0" S bold center />
+        </SpacingView>
       ) : (
-        <MarginView margins={[ 20, 10, 0 ]}>
+        <SpacingView spacings="L S 0">
           {definitions?.map((definition: string, index: number) => (
-            <Tx tx={`${index + 1}. ${definition}`} margins={[ 0, 0, 10, 0 ]} S bold center />
+            <Tx tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
           ))}
-        </MarginView>
+        </SpacingView>
       )}
     </ScrollView>
   )

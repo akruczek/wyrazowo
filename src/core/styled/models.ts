@@ -21,4 +21,5 @@ export enum SPACING {
   L = 24,
   XL = 32,
   XXL = 48,
+  XXXL = 96,
 }

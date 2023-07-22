@@ -41,8 +41,8 @@ export const EndModal = ({ modalizeRef, success, word }: Props) => {
   return (
     <CharadeEndModalize ref={modalizeRef} onOpened={onOpened}>
       <EndModalContainer>
-        <Tx tx={success ? localize().success : localize().failed} margins={[ 0, 0, 20, 0 ]} XXL bold center />
-        <Tx tx={word.toUpperCase()} margins={[ 0, 0, 20, 0 ]} XXL bold center />
+        <Tx tx={success ? localize().success : localize().failed} spacings="0 0 L 0" XXL bold center />
+        <Tx tx={word.toUpperCase()} spacings="0 0 L 0" XXL bold center />
 
         <EndModalButtonsContainer>
           <CustomButton color={COLOR.DARK_SEA_GREEN} onPress={handleTryAgain} title={localize().try_again} />

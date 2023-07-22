@@ -18,7 +18,7 @@ export const WordDetailsHeadline = ({ word }: Props) => {
 
   return (
     <>
-      <Tx tx={`${word} (${getWordPoints(word)})`} margins={[ 0, 0, 10, 0 ]} XL bold center uppercase />
+      <Tx tx={`${word} (${getWordPoints(word)})`} spacings="0 0 S 0" XL bold center uppercase />
 
       <RowAroundContainer>
         {letters.map((letter: string, index: number) => (

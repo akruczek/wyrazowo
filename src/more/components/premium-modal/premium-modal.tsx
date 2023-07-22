@@ -6,7 +6,7 @@ import { premiumService } from '@core/premium-service/premium-service'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView, PaddingView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import premiumCodes from '../../../assets/premium-codes.json'
 import { PremiumModalButtonIcon, PremiumModalTextInput } from './premium-modal.styled'
@@ -38,7 +38,7 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
   return (
     <Portal>
       <CustomModalize reference={modalizeRef} adjustToContentHeight>
-        <PaddingView paddings={[ 0, 0, 50, 0 ]}>
+        <SpacingView spacings="0 0 XXL 0" type="padding">
           <PremiumModalTextInput
             placeholder={`${localize().enter_premium_code}...`}
             onChange={setPremiumCode}
@@ -46,12 +46,12 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
             state={state}
           />
 
-          <MarginView margins={[ 20, 0, 0, 0 ]}>
+          <SpacingView spacings="L 0 0 0">
             <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>
               <PremiumModalButtonIcon />
             </CustomButton>
-          </MarginView>
-        </PaddingView>
+          </SpacingView>
+        </SpacingView>
       </CustomModalize>
     </Portal>
   )

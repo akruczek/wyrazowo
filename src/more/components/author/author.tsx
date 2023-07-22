@@ -18,7 +18,7 @@ export const Author = () => {
 
   return (
     <Template type="more" title={localize().about_author} backButton>
-      <Tx tx="Adam Kruczek" margins={[ 5, 20 ]} bold />
+      <Tx tx="Adam Kruczek" spacings="XXS L" bold />
 
       <AuthorRowContainer>
         <AuthorGithubIcon />

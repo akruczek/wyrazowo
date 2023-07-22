@@ -5,7 +5,7 @@ import { Portal } from 'react-native-portalize'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { Tx } from '@core/tx'
@@ -63,8 +63,8 @@ export const PossibleWordsModal = ({
               scrollEnabled={false}
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <MarginView margins={[ 0, 0, 10, 5 ]} key={wordsGroup.join('')}>
-                  <Tx tx={`${wordsGroup[0].length} ${localize().by_letters}`} margins={[0, 0, 5]} />
+                <SpacingView key={wordsGroup.join('')} spacings="0 0 S XXS">
+                  <Tx tx={`${wordsGroup[0].length} ${localize().by_letters}`} spacings="0 0 XXS" />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>
@@ -81,7 +81,7 @@ export const PossibleWordsModal = ({
                       ))}
                     </PossibleWordsLetterCardsContainer>
                   ))}
-                </MarginView>
+                </SpacingView>
               )}
               ListFooterComponent={() => <PossibleWordsModalFooter onPress={loadMore} {...{ maxReached, isPending }} />}
             />

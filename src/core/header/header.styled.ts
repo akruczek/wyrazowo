@@ -48,7 +48,8 @@ export const HeaderText = styled(Tx).attrs({
   white: true,
   bold: true,
   shadow: true,
-  paddings: [ 0, 5, 15, 5 ],
+  spacings: '0 XXS M XXS',
+  spacingType: 'padding',
 })<HeaderTextProps & TextProps>`
   font-size: ${R.propOr(TEXT_SIZE.XL, 'headerTextSize')}px;
   max-width: 80%;

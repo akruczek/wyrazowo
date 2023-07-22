@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
-import { PaddingView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { LettersGrid } from '../letters-grid/letters-grid'
@@ -52,7 +52,7 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
         />
       </SoapLetterModalContainer>
 
-      <PaddingView paddings={[ 0, 0, 20, 0 ]}>
+      <SpacingView spacings="0 0 L 0" type="padding">
         <CustomButton
           color={COLOR.DARK_SEA_GREEN}
           onPress={onSetSoapLetters}
@@ -60,7 +60,7 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
         >
           <SetSoapButtonIcon />
         </CustomButton>
-      </PaddingView>
+      </SpacingView>
     </CustomModalize>
   )
 }

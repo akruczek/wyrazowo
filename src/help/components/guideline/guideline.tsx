@@ -38,7 +38,7 @@ export const Guideline = () => {
     <Template type="more" title={(localize() as any)[`guideline_${id}_headline`]} backButton>
       <GuidelineContainer>
         <GuidelineGif source={{ uri }} />
-        <Tx tx={(localize() as any)[`guideline_${id}`]} margins={[ 20, 0, 0 ]} S center />
+        <Tx tx={(localize() as any)[`guideline_${id}`]} spacings="L 0 0" S center />
       </GuidelineContainer>
 
       <GuidelineButtonsContainer>

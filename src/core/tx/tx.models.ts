@@ -1,4 +1,4 @@
-import { Absolute, Margin, Padding } from '@core/styled/models'
+import { Absolute } from '@core/styled/models'
 
 export interface StyledTxProps {
   /**
@@ -42,14 +42,23 @@ export interface StyledTxProps {
   shadow?: boolean;
 
   /**
-   * Define margin shorthand
+   * Define spacings shorthand
+   * XXXS = 2
+   * XXS = 4
+   * XS = 8
+   * S = 12
+   * M = 16
+   * L = 24
+   * XL = 32
+   * XXL = 48
+   * XXXL = 96
    */
-  margins?: Margin;
+  spacings?: string;
 
   /**
-   * Define padding shorthand
+   * Define spacing type (margin or padding)
    */
-  paddings?: Padding;
+  spacingType?: 'margin' | 'padding';
 
   /**
    * Apply blue font color
