@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { Modalize } from 'react-native-modalize'
-import { getThemeProp } from '@core/styled/theme'
+import { SPACING, getThemeProp } from '@core/styled'
 
 export const DictionarlyEndModalize = styled(Modalize).attrs(props => ({
   adjustToContentHeight: true,
@@ -11,7 +11,7 @@ export const DictionarlyEndModalize = styled(Modalize).attrs(props => ({
 
 export const DictionarlyEndModalContainer = styled.View`
   height: 300px;
-  margin-top: 50px;
+  margin-top: ${SPACING.XXL}px;
   align-items: center;
 `
 

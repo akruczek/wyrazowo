@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { appendStyleWhenProvided } from '@core/styled'
+import { SPACING, appendStyleWhenProvided } from '@core/styled'
 import { COLOR } from '../colors/colors.constants'
 
 interface CustomButtonContainerProps {
@@ -23,7 +23,7 @@ export const CustomButtonContainer = styled.TouchableOpacity.attrs<CustomButtonC
   justify-content: center;
   align-items: center;
   align-self: center;
-  padding: 10px 15px;
+  padding: ${SPACING.XS}px ${SPACING.M}px;
   border-radius: 30px;
   background-color: ${getCustomButtonContainerBackgroundColor};
   opacity: ${getCustomButtonContainerOpacity};

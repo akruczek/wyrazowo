@@ -2,16 +2,16 @@ import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
+import { SPACING } from '@core/styled'
 
 export const DictionaryCustomizeRandomContainer = styled.View`
   width: 100%;
-  padding-bottom: 50px;
-  margin-top: 10px;
+  margin: ${SPACING.XS}px 0 ${SPACING.XXL}px
 `
 
 export const DictionaryCustomizeRandomButtonsContainer = styled.View`
   flex-direction: row;
-  margin-top: 20px;
+  margin-top: ${SPACING.L}px;
   justify-content: space-around;
 `
 

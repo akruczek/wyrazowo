@@ -4,6 +4,7 @@ import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { isPlatform } from '@core/is-platform/is-platform'
+import { SPACING } from '@core/styled'
 
 export const DictionarlyContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -15,8 +16,7 @@ export const DictionarlyContainer = styled.ScrollView.attrs({
 `
 
 export const DictionarlyTextInputWrapper = styled.View`
-  margin-bottom: 20px;
-  margin-top: 5px;
+  margin: ${SPACING.XXS}px 0 ${SPACING.L}px;
 `
 
 export const DictionarlyTextInput = styled(CustomTextInput).attrs({

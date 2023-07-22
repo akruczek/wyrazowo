@@ -1,6 +1,5 @@
 import styled, { ThemeProps } from 'styled-components/native'
-import { ThemeModel } from '@core/styled/models'
-import { getThemeProp } from '@core/styled/theme'
+import { SPACING, ThemeModel, getThemeProp } from '@core/styled'
 
 interface ListedOptionContainerProps {
   withPadding?: boolean;
@@ -12,10 +11,10 @@ const getListedOptionContainerMargin = ({ withPadding }: ListedOptionContainerPr
 export const ListedOptionContainer = styled.View<ThemeProps<ThemeModel> & ListedOptionContainerProps>`
   flex-direction: row;
   justify-content: space-between;
-  padding: 5px 20px;
+  padding: ${SPACING.XXS}px ${SPACING.M}px;
   ${getListedOptionContainerMargin}
   border-bottom-width: 1px;
   border-bottom-color: ${getThemeProp('textSecondary')}50;
-  margin-bottom: 10px;
+  margin-bottom: ${SPACING.S}px;
   align-items: center;
 `

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { FlatListProps } from 'react-native'
+import { SPACING } from '@core/styled'
 
 interface CharadePlaygroundRowProps extends FlatListProps<any> {
   count: number;
@@ -13,13 +14,12 @@ export const CharadePlaygroundRow = styled.FlatList.attrs({
     width: '100%',
   },
 })<CharadePlaygroundRowProps>`
-  margin-bottom: 10px;
+  margin-bottom: ${SPACING.XS}px;
 `
 
 export const CharadePlaygroundRowsList = styled.FlatList.attrs({
   scrollEnabled: true,
 })<FlatListProps<any> & any>`
-  margin-top: 5px;
-  padding-horizontal: 10%;
+  margin: ${SPACING.XXS}px 10% 0;
 `
 

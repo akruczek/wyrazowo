@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { BOTTOM_NAVIGATION_HEIGHT } from 'navigation/navigation.constants'
-import { getThemeProp } from '@core/styled/theme'
+import { SPACING, getThemeProp } from '@core/styled'
 
 interface CharadeButtonsContainerProps {
   topInset: number;
@@ -17,12 +17,12 @@ export const CharadeButtonsContainer = styled.View<CharadeButtonsContainerProps>
 
 export const CharadeSeparator = styled.View`
   border-bottom-width: 1px;
-  margin: 10px;
+  margin: ${SPACING.S}px;
   border-bottom-color: ${getThemeProp('textSecondary')}50;
 `
 
 export const CharadeSwitchWrapper = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: ${SPACING.S}px;
 `

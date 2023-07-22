@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import { SPACING } from '@core/styled'
 import { COLOR } from '../colors/colors.constants'
 import { TEXT_SIZE } from '../text/text.constants'
 
@@ -26,8 +27,8 @@ export const CustomTextInputStyled = styled.TextInput.attrs(({ placeholder }) =>
   height: 50px;
   border-bottom-width: 1.5px;
   border-bottom-color: ${getCustomTextInputStyledBorderColor};
-  margin: 10px;
-  padding: 5px 5px;
+  margin: ${SPACING.S}px;
+  padding: ${SPACING.XXS}px;
   font-size: ${TEXT_SIZE.XL}px;
   color: ${getCustomTextInputStyledTextColor};
 `
