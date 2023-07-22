@@ -2,6 +2,9 @@
 ### Added
 - ...
 
+### Fixed
+- iOS startup crash
+
 ### Technical
 - Generic text migration
 
