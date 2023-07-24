@@ -4,6 +4,7 @@
 
 ### Fixed
 - iOS startup crash
+- Premium modal visibility
 
 ### Technical
 - Generic text migration

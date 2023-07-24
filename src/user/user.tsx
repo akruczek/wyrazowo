@@ -7,7 +7,7 @@ import { COLOR } from '@core/colors/colors.constants'
 import { Template } from '@core/template/template'
 import { noop } from '@core/noop/noop'
 import { useRealTimeUserData, usePremium, useUserAuth } from './hooks'
-import { OptionItem } from '../more/components'
+import { OptionItem, PremiumModal } from '../more/components'
 import { UserStatistics } from './components/user-statistics/user-statistics'
 
 export const User = () => {
@@ -38,6 +38,8 @@ export const User = () => {
       />
 
       <UserStatistics userData={userData} />
+
+      <PremiumModal modalizeRef={premiumModalRef} />
     </Template>
   )
 }
