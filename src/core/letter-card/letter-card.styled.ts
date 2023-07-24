@@ -13,11 +13,12 @@ interface LetterCardContainerProps {
   selectable?: boolean;
   selectedLetters?: string[];
   noMargin?: boolean;
+  disabled?: boolean;
 }
 
-export const LETTER_CARD_DEFAULT_SIZE = RESPONSIVE.WIDTH(12.7)
+export const LETTER_CARD_DEFAULT_SIZE = RESPONSIVE.WIDTH(12)
 const LETTER_CARD_DEFAULT_CONTENT_SIZE = TEXT_SIZE.L
-const SELECTED_CARD_SPACE_SIZE = Math.floor(RESPONSIVE.WIDTH() / 7 - LETTER_CARD_DEFAULT_SIZE)
+const SELECTED_CARD_SPACE_SIZE = Math.floor(RESPONSIVE.WIDTH() / 8 - LETTER_CARD_DEFAULT_SIZE - 0.5)
 
 const getLetterCardContainerSize = R.propOr(LETTER_CARD_DEFAULT_SIZE, 'size')
 
@@ -62,6 +63,12 @@ const LetterCardContainerMarginRight = R.ifElse(
   R.always(0),
 )
 
+const getLetterCardOpacity = R.ifElse(
+  R.propSatisfies(Boolean, 'disabled'),
+  R.always(0.5),
+  R.always(1),
+)
+
 export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onLongPress }) => ({
   activeOpacity: (onPress || onLongPress) ? 0.5 : 1,
 }))<LetterCardContainerProps>`
@@ -70,8 +77,9 @@ export const LetterCardContainer = styled.TouchableOpacity.attrs(({ onPress, onL
   background-color: ${getLetterCardContainerBackgroundColor};
   width: ${getLetterCardContainerSize}px;
   height: ${getLetterCardContainerSize}px;
-  border: 1px solid ${getLetterCardBorderColor};
+  border: 0.5px solid ${getLetterCardBorderColor};
   border-radius: ${getLetterCardBorderRadius}px;
+  opacity: ${getLetterCardOpacity};
   ${(props: LetterCardContainerProps) => props.noMargin ? '' : `margin-bottom: 5px; margin-right: ${LetterCardContainerMarginRight(props)}px;`}
 `
 

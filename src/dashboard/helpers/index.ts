@@ -1,4 +1,3 @@
-export { filterSoapLetters } from './filter-soap-letters.helper'
 export { longWordsByLength } from './find-possible-long-words.helper'
 export { findPossibleWords, allWordsByLength } from './find-possible-words.helper'
 export { getResultAlreadySavedIndex } from './get-results-already-saved-index.helper'

@@ -15,7 +15,7 @@ export const useGestureLettersIndexes = (
   maxVisibleIndex?: number,
 ): UseGestureLettersIndexes => {
   const MIN_VISIBLE_INDEX = minVisibleIndex ?? 0
-  const MAX_VISIBLE_INDEX = maxVisibleIndex ?? 3
+  const MAX_VISIBLE_INDEX = maxVisibleIndex ?? 2
 
   const [ visibleIndex, setVisibleIndex ] = React.useState(0)
 

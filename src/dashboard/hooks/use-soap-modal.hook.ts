@@ -14,6 +14,7 @@ export const useSoapModal = (
   const soapModalizeRef = React.useRef<Modalize>(null)
 
   const handleLongPress = () => {
+    console.log('HERE!@')
     soapModalizeRef?.current?.open?.()
   }
 

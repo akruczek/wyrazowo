@@ -19,27 +19,26 @@ interface Props {
   multiLetter?: boolean;
   forcedIndex?: string;
   noMargin?: boolean;
+  disabled?: boolean;
   onPress?: () => void;
   onLongPress?: () => void;
 }
 
 export const LetterCard = ({
   content, size, fontSize, indexFontSize, isSelected, withMargin, horizontalMarginSize,
-  selectable, selectedLetters, multiLetter, forcedIndex, noMargin,
+  selectable, selectedLetters, multiLetter, forcedIndex, noMargin, disabled,
   onPress, onLongPress
 }: Props) => multiLetter ? (
-  <LetterCardContainer
-    style={genericShadow}
-    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
+  <LetterCardContainer {...{ onPress, withMargin, onLongPress, content, size,
+      isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin, disabled }}
   >
     <MultiLetterCardGradient size={size}>
       <LetterCardContent {...{ fontSize }} children={content} />
     </MultiLetterCardGradient>
   </LetterCardContainer>
 ) : forcedIndex ? (
-  <LetterCardContainer
-    style={genericShadow}
-    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
+  <LetterCardContainer {...{ onPress, withMargin, onLongPress, content, size,
+    isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin, disabled }}
   >
     <LetterCardForcedIndexContainer style={genericShadow}>
       <LetterCardForcedIndex fontSize={indexFontSize} children={Number(forcedIndex) + 1} />
@@ -47,9 +46,8 @@ export const LetterCard = ({
     <LetterCardContent {...{ fontSize }} children={content} />
   </LetterCardContainer>
 ) : (
-  <LetterCardContainer
-    style={genericShadow}
-    {...{ onPress, withMargin, onLongPress, content, size, isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin }}
+  <LetterCardContainer {...{ onPress, withMargin, onLongPress, content, size,
+    isSelected, horizontalMarginSize, selectable, selectedLetters, noMargin, disabled }}
   >
     <LetterCardContent {...{ fontSize }} children={content} />
   </LetterCardContainer>

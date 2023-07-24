@@ -32,7 +32,7 @@ export const Dashboard = () => {
   } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled)
 
   const isPremium = useIsPremium()
-  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 14, isPremium ? 14 : 9 ]
+  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 15, isPremium ? 15 : 9 ]
 
   const onLongPressSelectedLetter = (index: number) => () => {
     if (isForceIndexAvailable(selectedLetters[index])) {
@@ -52,10 +52,12 @@ export const Dashboard = () => {
 
   return React.useMemo(() => (
     <Template type="dashboard" leftContentConfig={leftContentConfig} flex>
-      <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
+      <SelectedLetters {...{
+        selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}
+      />
 
       <View>
-        <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
+        <LettersGrid {...{ handleSelectLetter, selectedLetters, handleLongPress }} />
         <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
         <DashboardButtonsAndModals {...{
           selectedLetters, handleClearSelectedLetters, soapCharactersIndexes, handleForceIndex, onSelectSoapLetters,

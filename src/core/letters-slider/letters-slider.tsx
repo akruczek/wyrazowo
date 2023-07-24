@@ -8,8 +8,9 @@ import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
 import {
-  LetterSlider, LetterSliderBottomLabelBar, LetterSliderLengthIcon, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar
 } from './letter-slider.styled'
+import { TouchableOpacity } from 'react-native'
 
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
@@ -19,16 +20,17 @@ interface Props {
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {
   const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
+  const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
+
   return (
     <SpacingView spacings="XXXS S" type="padding">
       <LetterSliderTopLabelBar>
-        <LetterSliderLengthIcon />
-        <Tx tx={`${min} - ${max}`} spacings="0 XXS 0 S" bold />
+        <Tx tx={`${min} - ${max}`} bold />
       </LetterSliderTopLabelBar>
 
       <LetterSlider
         step={1}
-        renderThumb={renderLetterSliderThumb}
+        renderThumb={_renderLetterSliderThumb}
         renderRail={renderLetterSliderRail}
         renderRailSelected={noop}
         renderLabel={renderLetterSliderLabel(defaultMin, defaultMax)}

@@ -20,7 +20,7 @@ export const useLettersSlider = (
   const alertDebounceTimeRef = React.useRef(new Date().getTime())
 
   const DEFAULT_MIN = defaultMin ?? 2
-  const DEFAULT_MAX = defaultMax ?? 14
+  const DEFAULT_MAX = defaultMax ?? 15
   const BLOCK_MAX = blockMax ?? 9
 
   const [ min, setMin ] = React.useState(defaultValueMin ?? DEFAULT_MIN)

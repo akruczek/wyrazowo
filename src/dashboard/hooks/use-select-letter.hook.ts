@@ -22,12 +22,12 @@ interface UseSelectLetter {
 }
 
 export const useSelectLetter = (): UseSelectLetter => {
-  const MAX_SELECTED_LETTERS = 14
+  const MAX_SELECTED_LETTERS = 15
 
   const isPremium = useIsPremium()
   const dispatch = useDispatch()
 
-  const MAX_NO_PREMIUM_SELECTED_LETTERS = isPremium ? 14 : 9
+  const MAX_NO_PREMIUM_SELECTED_LETTERS = isPremium ? 15 : 9
   const navigation = useNavigation<any>()
 
   const [ selectedLetters, updateSelectedLetters ] = React.useState<string[]>([])

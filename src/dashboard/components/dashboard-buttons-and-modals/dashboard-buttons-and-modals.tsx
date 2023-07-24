@@ -61,11 +61,7 @@ export const DashboardButtonsAndModals = ({
           <HistoryButtonIcon />
         </CustomButton>
 
-        <CustomButton
-          invisible={selectedLetters.length < 2}
-          onPress={onSearch}
-          withHaptic
-        >
+        <CustomButton invisible={selectedLetters.length < 2} onPress={onSearch} withHaptic>
           <SearchButtonIcon />
         </CustomButton>
 
@@ -95,16 +91,12 @@ export const DashboardButtonsAndModals = ({
           noWordsFound={noWordsFound}
         />
 
-        <SoapLetterModal
-          letters={letters}
-          modalizeRef={soapModalizeRef}
-          onSelectSoapLetters={onSelectSoapLetters}
-        />
-
         <ForceIndexModal
           modalizeRef={forceIndexModalizeRef}
           handleForceIndex={_handleForceIndex}
         />
+
+        <SoapLetterModal modalizeRef={soapModalizeRef} onSelectSoapLetters={onSelectSoapLetters} />
       </Portal>
     </>
   )

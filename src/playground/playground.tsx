@@ -101,7 +101,7 @@ export const Playground = () => {
   const { bottom: bottomInset } = useSafeAreaInsets()
 
   return (
-    <Template type="dashboard" title={localize().playground.toUpperCase()} leftContentConfig={leftContentConfig}>
+    <Template type="dashboard" title={localize().playground.toUpperCase()} leftContentConfig={leftContentConfig} flex>
       <PlaygroundZoom>
         <View ref={ref}>
           <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />

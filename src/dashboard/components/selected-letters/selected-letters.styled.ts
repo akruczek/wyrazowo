@@ -10,3 +10,8 @@ export const SelectedLettersContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${COLOR.SLATE_GREY};
 `
+
+export const SelectedLettersAddSoapContainer = styled.View`
+  position: absolute;
+  right: 0;
+`
