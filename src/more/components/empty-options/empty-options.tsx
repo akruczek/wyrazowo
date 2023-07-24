@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { MarginView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 
 export const EmptyOptions = (
-  <MarginView margins={[ 30, 0, 0, 0 ]}>
+  <SpacingView spacings="XL 0 0 0">
     <ActivityIndicator size="large" />
-  </MarginView>
+  </SpacingView>
 )

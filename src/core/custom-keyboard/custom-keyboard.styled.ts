@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import { SPACING } from '@core/styled'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const CUSTOM_KEYBOARD_HEIGHT = RESPONSIVE.HEIGHT(30)
 const CUSTOM_KEYBOARD_KEY_SIZE = RESPONSIVE.WIDTH(13)
@@ -13,7 +13,7 @@ interface CustomKeyboardContainerProps {
 
 export const CustomKeyboardContainer = styled.View<CustomKeyboardContainerProps>`
   width: 100%;
-  padding-bottom: 5px;
+  padding-bottom: ${SPACING.XXS}px;
 `
 
 interface CustomKeyboardButtonContainerProps {
@@ -37,12 +37,6 @@ export const CustomKeyboardButtonContainer = styled.TouchableOpacity<CustomKeybo
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  margin-horizontal: 2px;
-  padding: 5px;
-`
-
-export const CustomKeyboardText = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
-  color: ${COLOR.BLACK};
-  font-weight: bold;
+  margin-horizontal: ${SPACING.XXXS}px;
+  padding: ${SPACING.XXS}px;
 `

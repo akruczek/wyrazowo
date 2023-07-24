@@ -1,3 +1,15 @@
+## 1.16.0 UX CLEAN UP
+### Improved
+- UI and UX consistency
+
+### Fixed
+- iOS startup crash
+- Premium modal visibility
+
+### Technical
+- Generic text migration
+- Generic spacing migration
+
 ## 1.15.1
 ### Fixed
 - Android crash on startup after OS kill app
@@ -11,6 +23,9 @@
 - Headers on all screens
 - Dictionarly main screen UI improvements
 - General performance improvements
+
+### Technical
+- _otils to wrzw migration
 
 ## 1.14.0 PLAYGROUND REBORN
 ### Changed

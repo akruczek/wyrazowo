@@ -3,6 +3,7 @@ import RangeSlider from 'rn-range-slider'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { getThemeProp } from '@core/styled/theme'
 import { TEXT_SIZE } from '../text/text.constants'
+import { SPACING } from '@core/styled'
 
 export const LetterSliderBottomLabelBar = styled.View`
   flex-direction: row;
@@ -15,14 +16,6 @@ export const LetterSliderTopLabelBar = styled.View`
   align-items: center;
 `
 
-export const LetterSliderBottomLabel = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
-  font-weight: bold;
-  margin-left: 10px;
-  margin-right: 5px;
-`
-
 export const LetterSlider = styled(RangeSlider)`
   width: 100%;
 `
@@ -32,5 +25,5 @@ export const LetterSliderLengthIcon = styled(MaterialCommunityIcons).attrs(props
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.L,
 }))`
-  padding-top: 3px;
+  padding-top: ${SPACING.XXS}px;
 `

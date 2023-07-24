@@ -1,33 +1,12 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { getThemeProp } from '@core/styled/theme'
+import { SPACING, getThemeProp } from '@core/styled'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { COLOR } from '@core/colors/colors.constants'
 
 export const UserStatisticsContainer = styled.View`
-  margin-top: 10px;
-  padding-horizontal: 20px;
-`
-
-export const UserStatisticsHeadline = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  font-weight: bold;
-  color: ${getThemeProp('textPrimary')};
-  margin-right: 10px;
-`
-
-export const UserStatisticsSubHeadline = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
-  color: ${getThemeProp('textPrimary')};
-  margin-vertical: 10px;
-  margin-left: 5px;
-`
-
-export const UserStatisticsContent = styled.Text`
-  font-size: ${TEXT_SIZE.XS}px;
-  color: ${getThemeProp('textPrimary')};
-  margin-left: 5px;
+  margin: ${SPACING.XS}px ${SPACING.L}px 0;
 `
 
 interface UserStatisticsRowProps {
@@ -49,7 +28,7 @@ export const UserStatisticsHeadRow = styled.View<UserStatisticsRowProps>`
 export const UserStatisticsRow = styled.View<UserStatisticsRowProps>`
   flex-direction: row;
   align-items: center;
-  margin-left: 20px;
+  margin-left: ${SPACING.L}px;
   margin-bottom: ${UserStatisticsRowMarginBottom}px;
 `
 

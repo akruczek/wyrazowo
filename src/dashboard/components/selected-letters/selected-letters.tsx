@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { MarginView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { SelectedLettersContainer } from './selected-letters.styled'
 
@@ -19,7 +19,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
       : letter
 
   return (
-    <MarginView margins={[ 0, 0, 30, 0 ]}>
+    <SpacingView spacings="0 0 XL 0">
       <SelectedLettersContainer>
         {selectedLetters.slice(0, 7).map((letter: string, index: number) => (
           <LetterCard
@@ -51,6 +51,6 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
           />
         ))}
       </SelectedLettersContainer>
-    </MarginView>
+    </SpacingView>
   )
 }

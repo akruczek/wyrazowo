@@ -1,12 +1,14 @@
 import * as React from 'react'
-import { PaddingView } from '@core/styled'
+import { SpacingView } from '@core/styled'
+import { Tx } from '@core/tx'
+import { noop } from '@core/noop/noop'
 import { renderLetterSliderLabel } from './components/letter-slider-label/letter-slider-label'
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
 import {
-  LetterSlider, LetterSliderBottomLabel, LetterSliderBottomLabelBar, LetterSliderLengthIcon, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabelBar, LetterSliderLengthIcon, LetterSliderTopLabelBar
 } from './letter-slider.styled'
 
 interface Props {
@@ -18,19 +20,19 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
   const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   return (
-    <PaddingView paddings={[ 2, 10 ]}>
+    <SpacingView spacings="XXXS S" type="padding">
       <LetterSliderTopLabelBar>
         <LetterSliderLengthIcon />
-        <LetterSliderBottomLabel children={`${min} - ${max}`} />
+        <Tx tx={`${min} - ${max}`} spacings="0 XXS 0 S" bold />
       </LetterSliderTopLabelBar>
 
       <LetterSlider
         step={1}
         renderThumb={renderLetterSliderThumb}
         renderRail={renderLetterSliderRail}
-        renderRailSelected={() => null}
+        renderRailSelected={noop}
         renderLabel={renderLetterSliderLabel(defaultMin, defaultMax)}
-        renderNotch={() => null}
+        renderNotch={noop}
         onValueChanged={onValueChanged}
         min={defaultMin}
         max={defaultMax}
@@ -40,9 +42,9 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
       />
 
       <LetterSliderBottomLabelBar>
-        <LetterSliderBottomLabel children={defaultMin} />
-        <LetterSliderBottomLabel children={defaultMax} />
+        <Tx tx={defaultMin} spacings="0 XXS 0 S" bold />
+        <Tx tx={defaultMax} spacings="0 XXS 0 S" bold />
       </LetterSliderBottomLabelBar>
-    </PaddingView>
+    </SpacingView>
   )
 }

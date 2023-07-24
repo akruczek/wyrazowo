@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import { Modalize } from 'react-native-modalize'
+import { Tx } from '@core/tx'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { LetterSliderLengthIcon } from '@core/letters-slider/letter-slider.styled'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { PossibleWordsModal } from '../possible-words-modal/possible-words-modal'
-import { SearchHistoryModalItemContainer, SearchHistoryModalItemText } from './search-history-modal.styled'
+import { SearchHistoryModalItemContainer } from './search-history-modal.styled'
 
 interface Props {
   item: SearchResultModel;
@@ -46,9 +47,7 @@ export const SearchHistoryModalItem = ({
     <View>
       <SearchHistoryModalItemContainer>
         <LetterSliderLengthIcon />
-        <SearchHistoryModalItemText>
-          {wordLengthToDisplay}, ({getDateToDisplay()})
-        </SearchHistoryModalItemText>
+        <Tx tx={`${wordLengthToDisplay}, (${getDateToDisplay()})`} spacings="0 0 0 XXS" bold />
       </SearchHistoryModalItemContainer>
 
       <SearchHistoryModalItemContainer onPress={handleSearchFromHistory} withBorder>

@@ -1,13 +1,12 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import { SPACING } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const SearchHistoryModalContainer = styled.View`
   width: 100%;
   height: 100%;
-  margin-top: 10px;
-  padding-horizontal: 5px;
+  margin: ${SPACING.S}px ${SPACING.XXS}px 0;
   justify-content: center;
 `
 
@@ -27,16 +26,9 @@ export const SearchHistoryModalItemContainer = styled.TouchableOpacity.attrs(({ 
   flex-flow: row wrap;
   border-bottom-width: ${getSearchHistoryModalItemContainerBorderWidth}px;
   border-bottom-color: ${COLOR.DIM_GREY};
-  margin-bottom: 5px;
-  padding-bottom: 5px;
+  margin-bottom: ${SPACING.XXS}px;
+  padding-bottom: ${SPACING.XXS}px;
   align-items: center;
-`
-
-export const SearchHistoryModalItemText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${COLOR.BLACK};
-  font-weight: bold;
-  margin-left: 5px;
 `
 
 export const SearchHistoryModalNoResultsWrapper = styled.View`

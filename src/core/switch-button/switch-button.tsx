@@ -1,9 +1,8 @@
 import * as React from 'react'
 import * as R from 'ramda'
+import { Tx } from '@core/tx'
 import { COLOR } from '@core/colors/colors.constants'
-import {
-  SwitchButtonContainer, SwitchButtonContent, SwitchButtonsContainer, SwitchButtonsGroupsContainer,
-} from './switch-button.styled'
+import { SwitchButtonContainer, SwitchButtonsContainer, SwitchButtonsGroupsContainer } from './switch-button.styled'
 
 interface Props {
   value: number;
@@ -31,7 +30,7 @@ export const SwitchButton = ({ value, labels, colors, elementsInRowCount, onChan
               isActive={isActive(getIndex(groupIndex, index))}
               key={label}
             >
-              <SwitchButtonContent isActive={isActive(getIndex(groupIndex, index))} children={label} />
+              <Tx tx={label} white={isActive(getIndex(groupIndex, index))} themeColor="textSecondary" bold />
             </SwitchButtonContainer>
           ))}
         </SwitchButtonsContainer>

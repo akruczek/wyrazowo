@@ -1,10 +1,11 @@
 import * as React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Tx } from '@core/tx'
 import { COLOR } from '@core/colors/colors.constants'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { PLAYGROUND_FIELD_TYPE } from '../../playground.constants'
-import { PlaygroundFieldBackgroundText, PLAYGROUND_FIELD_SIZE } from '../playground-field/playground-field.styled'
+import { PLAYGROUND_FIELD_SIZE } from '../playground-field/playground-field.styled'
 
 interface Props {
   selectedLetters: (string | null)[];
@@ -36,11 +37,11 @@ export const PlaygroundFieldContent = ({ selectedLetters, index, type, onPress, 
   }
 
   if (type === PLAYGROUND_FIELD_TYPE.DOUBLE) {
-    return <PlaygroundFieldBackgroundText children="2X" />
+    return <Tx tx="2X" themeColor="textSecondary" XXS />
   }
 
   if (type === PLAYGROUND_FIELD_TYPE.TRIPLE) {
-    return <PlaygroundFieldBackgroundText children="3X" />
+    return <Tx tx="3X" themeColor="textSecondary" XXS />
   }
 
   return null

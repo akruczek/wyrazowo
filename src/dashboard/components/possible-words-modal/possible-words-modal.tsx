@@ -5,16 +5,16 @@ import { Portal } from 'react-native-portalize'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled'
+import { SpacingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
+import { Tx } from '@core/tx'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import {
-  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer,
-  SearchingDatabaseContainer, WordsGroupHeadline,
+  NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
 } from './possible-words-modal.styled'
 
 interface Props {
@@ -63,8 +63,8 @@ export const PossibleWordsModal = ({
               scrollEnabled={false}
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <MarginView margins={[ 0, 0, 10, 5 ]} key={wordsGroup.join('')}>
-                  <WordsGroupHeadline children={`${wordsGroup[0].length} ${localize().by_letters}`} />
+                <SpacingView key={wordsGroup.join('')} spacings="0 0 S XXS">
+                  <Tx tx={`${wordsGroup[0].length} ${localize().by_letters}`} spacings="0 0 XXS" />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>
@@ -81,7 +81,7 @@ export const PossibleWordsModal = ({
                       ))}
                     </PossibleWordsLetterCardsContainer>
                   ))}
-                </MarginView>
+                </SpacingView>
               )}
               ListFooterComponent={() => <PossibleWordsModalFooter onPress={loadMore} {...{ maxReached, isPending }} />}
             />

@@ -3,10 +3,10 @@ import * as R from 'ramda'
 import { ActivityIndicator } from 'react-native'
 import { RealTimeDatabaseUserModel } from '@core/real-time-database/real-time-database.models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
+import { Tx } from '@core/tx'
 import {
-  UserStatisticsContainer, UserStatisticsContent, UserStatisticsDictionarlyIcon, UserStatisticsFailureIcon,
-  UserStatisticsHeadRow, UserStatisticsHeadline, UserStatisticsPointsIcon, UserStatisticsRow,
-  UserStatisticsCharadeIcon, UserStatisticsSubHeadline, UserStatisticsSuccessIcon,
+  UserStatisticsContainer, UserStatisticsDictionarlyIcon, UserStatisticsFailureIcon, UserStatisticsHeadRow,
+  UserStatisticsPointsIcon, UserStatisticsRow, UserStatisticsCharadeIcon, UserStatisticsSuccessIcon,
 } from './user-statistics.styled'
 
 interface Props {
@@ -23,49 +23,49 @@ export const UserStatistics = ({ userData }: Props) => {
   return userData ? (
     <UserStatisticsContainer>
       <UserStatisticsHeadRow>
-        <UserStatisticsHeadline children={localize().statistics_headline} />
+        <Tx tx={localize().statistics_headline} spacings="0 S 0 0" bold />
         <UserStatisticsPointsIcon />
-        <UserStatisticsSubHeadline children={getPointsSum} />
+        <Tx tx={getPointsSum} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsHeadRow>
         <UserStatisticsDictionarlyIcon />
-        <UserStatisticsSubHeadline children={localize().dictionarly} />
+        <Tx tx={localize().dictionarly} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsPointsIcon />
-        <UserStatisticsContent children={userData.points?.dictionarly?.value ?? 0} />
+        <Tx tx={userData.points?.dictionarly?.value ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsSuccessIcon />
-        <UserStatisticsContent children={userData.points?.dictionarly?.successCount ?? 0} />
+        <Tx tx={userData.points?.dictionarly?.successCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow>
         <UserStatisticsFailureIcon />
-        <UserStatisticsContent children={userData.points?.dictionarly?.failureCount ?? 0} />
+        <Tx tx={userData.points?.dictionarly?.failureCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsHeadRow>
         <UserStatisticsCharadeIcon />
-        <UserStatisticsSubHeadline children={localize().charade} />
+        <Tx tx={localize().charade} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsPointsIcon />
-        <UserStatisticsContent children={userData.points?.charade?.value ?? 0} />
+        <Tx tx={userData.points?.charade?.value ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow withMargin>
         <UserStatisticsSuccessIcon />
-        <UserStatisticsContent children={userData.points?.charade?.successCount ?? 0} />
+        <Tx tx={userData.points?.charade?.successCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
 
       <UserStatisticsRow>
         <UserStatisticsFailureIcon />
-        <UserStatisticsContent children={userData.points?.charade?.failureCount ?? 0} />
+        <Tx tx={userData.points?.charade?.failureCount ?? 0} spacings="0 0 0 XXS" XS />
       </UserStatisticsRow>
     </UserStatisticsContainer>
   ) : (

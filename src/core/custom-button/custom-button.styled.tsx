@@ -1,8 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
+import { SPACING, appendStyleWhenProvided } from '@core/styled'
 import { COLOR } from '../colors/colors.constants'
-import { TEXT_SIZE } from '../text/text.constants'
-import { appendStyleWhenProvided } from '@core/styled';
 
 interface CustomButtonContainerProps {
   invisible?: boolean;
@@ -24,21 +23,9 @@ export const CustomButtonContainer = styled.TouchableOpacity.attrs<CustomButtonC
   justify-content: center;
   align-items: center;
   align-self: center;
-  padding: 10px 15px;
+  padding: ${SPACING.XS}px ${SPACING.M}px;
   border-radius: 30px;
   background-color: ${getCustomButtonContainerBackgroundColor};
   opacity: ${getCustomButtonContainerOpacity};
   ${appendStyleWhenProvided('min-height', 'minHeight', 'px')};
-`
-
-const getCustomButtonTitleFontSize = R.propOr(TEXT_SIZE.M, 'titleSize')
-
-interface CustomButtonTitleProps {
-  titleSize?: TEXT_SIZE;
-}
-
-export const CustomButtonTitle = styled.Text<CustomButtonTitleProps>`
-  font-size: ${getCustomButtonTitleFontSize}px;
-  color: ${COLOR.WHITE};
-  font-weight: bold;
 `

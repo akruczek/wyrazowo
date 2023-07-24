@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DictionarlyText } from '../dictionarly-play/dictionarly-play.styled'
+import { Tx } from '@core/tx'
 import { isCharOK, getSearchedWordContent } from '../../helpers'
 
 interface Props {
@@ -10,15 +10,18 @@ interface Props {
 export const DictionarlySearchedText = ({ searchedWords, word }: Props) => (
   <>
     {searchedWords.map((searchedWord: string, groupIndex: number) => (
-      <DictionarlyText key={`${searchedWord}-${groupIndex}`}>
+      <Tx key={`${searchedWord}-${groupIndex}`} themeColor="textSecondary" spacings="0 0 0 S" XL>
         {searchedWord.split('').map((char: string, index: number) => (
-          <DictionarlyText
-            isOK={isCharOK(searchedWord, word)(index)}
+          <Tx
             key={`${searchedWord}-${char}-${index}`}
-            children={getSearchedWordContent(char, index, searchedWord, word)}
+            tx={getSearchedWordContent(char, index, searchedWord, word)}
+            ok={isCharOK(searchedWord, word)(index)}
+            themeColor="textSecondary"
+            spacings="0 0 0 S"
+            XL
           />
         ))}
-      </DictionarlyText>
+      </Tx>
     ))}
   </>
 )

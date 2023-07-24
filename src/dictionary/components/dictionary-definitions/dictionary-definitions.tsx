@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { MarginView } from '@core/styled'
-import { DictionaryDefinitionText, DictionaryDefinitionsContainer } from './dictionary-definitions.styled'
+import { SpacingView } from '@core/styled'
+import { Tx } from '@core/tx'
 
 interface Props {
   isPending: boolean;
@@ -17,21 +17,19 @@ export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definition
   return (
     <ScrollView scrollEnabled={false}>
       {isPending ? (
-        <MarginView margins={[100, 0, 0, 0]}>
+        <SpacingView spacings="XXXL 0 0 0">
           <ActivityIndicator size="large" />
-        </MarginView>
+        </SpacingView>
       ) : (wordFromDB && !definitions?.length) || !state ? (
-        <DictionaryDefinitionsContainer>
-          <DictionaryDefinitionText children={localize().no_definitions_found} />
-        </DictionaryDefinitionsContainer>
+        <SpacingView spacings="L S 0">
+          <Tx tx={localize().no_definitions_found} spacings="0 0 S 0" S bold center />
+        </SpacingView>
       ) : (
-        <DictionaryDefinitionsContainer>
+        <SpacingView spacings="L S 0">
           {definitions?.map((definition: string, index: number) => (
-            <DictionaryDefinitionText key={definition}>
-              {index + 1}. {definition}
-            </DictionaryDefinitionText>
+            <Tx tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
           ))}
-        </DictionaryDefinitionsContainer>
+        </SpacingView>
       )}
     </ScrollView>
   )

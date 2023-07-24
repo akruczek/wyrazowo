@@ -26,11 +26,6 @@ export const GuidelineGif = styled.Image.attrs({
   border-radius: 15px;
 `
 
-export const GuidelineIndicatorText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
-`
-
 export const GuidelineButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
@@ -76,17 +71,3 @@ export const GuidelineBackIcon = styled(MaterialCommunityIcons).attrs(props => (
   size: TEXT_SIZE.XL,
 }))``
 
-export const GuidelineDescription = styled.Text`
-  font-size: ${TEXT_SIZE.S}px;
-  color: ${getThemeProp('textPrimary')};
-  margin-top: 20px;
-  text-align: center;
-`
-
-export const GuidelineHeadline = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  font-weight: bold;
-  color: ${getThemeProp('textPrimary')};
-  text-align: center;
-  padding-bottom: 10px;
-`

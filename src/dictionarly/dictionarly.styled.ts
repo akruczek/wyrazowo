@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { getThemeProp } from '@core/styled/theme'
+import { SPACING, getThemeProp } from '@core/styled'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../navigation/navigation.constants'
 
 interface DictionarlyButtonsContainerProps {
@@ -23,7 +23,7 @@ export const DictionarlyWordsLengthIcon = styled(MaterialCommunityIcons).attrs(p
   size: TEXT_SIZE.L,
 }))`
   align-self: center;
-  margin-top: 10px;
+  margin-top: ${SPACING.S}px;
 `
 
 export const DictionarlyDifficultyIcon = styled(MaterialCommunityIcons).attrs(props => ({
@@ -36,6 +36,6 @@ export const DictionarlyDifficultyIcon = styled(MaterialCommunityIcons).attrs(pr
 
 export const DictionarlySeparator = styled.View`
   border-bottom-width: 1px;
-  margin: 10px;
+  margin: ${SPACING.S}px;
   border-bottom-color: ${getThemeProp('textSecondary')}50;
 `

@@ -1,10 +1,10 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { SPACING, getThemeProp } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { getThemeProp } from '@core/styled/theme'
 
 export const CustomCounterContainer = styled.View`
   flex-direction: row;
@@ -12,25 +12,19 @@ export const CustomCounterContainer = styled.View`
   align-items: center;
   align-self: center;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin: ${SPACING.S}px 0 ${SPACING.M}px;
   height: 50px;
 `
 
 export const CustomCounterLabelIconContainer = styled.View`
   align-self: center;
-  margin-top: 10px;
+  margin-top: ${SPACING.S}px;
 `
 
 export const CustomCounterTextContainer = styled.View`
   width: 40px;
   justify-content: center;
   align-items: center;
-`
-
-export const CustomCounterText = styled.Text`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getThemeProp('textPrimary')};
 `
 
 interface CustomCounterButtonContainerProps {

@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { TouchableOpacity, Linking } from 'react-native'
+import { Tx } from '@core/tx'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
-import {
-  AuthorDescriptionLink, AuthorDescriptionText, AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon,
-} from './author.styled'
+import { AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon } from './author.styled'
 
 export const Author = () => {
   const localize = useLocalize()
@@ -19,13 +18,13 @@ export const Author = () => {
 
   return (
     <Template type="more" title={localize().about_author} backButton>
-      <AuthorDescriptionText children="Adam Kruczek" />
+      <Tx tx="Adam Kruczek" spacings="XXS L" bold />
 
       <AuthorRowContainer>
         <AuthorGithubIcon />
 
         <TouchableOpacity onPress={onGithubPress}>
-          <AuthorDescriptionLink children="akruczek" />
+          <Tx tx="akruczek" bold link underline />
         </TouchableOpacity>
       </AuthorRowContainer>
 
@@ -33,7 +32,7 @@ export const Author = () => {
         <AuthorLinkedInIcon />
 
         <TouchableOpacity onPress={onLinkedInPress}>
-          <AuthorDescriptionLink children="akruczek" />
+          <Tx tx="akruczek" bold link underline />
         </TouchableOpacity>
       </AuthorRowContainer>
     </Template>

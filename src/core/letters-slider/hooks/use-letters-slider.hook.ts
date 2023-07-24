@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { goPremiumAlert } from '../../alerts/go-premium-alert'
 import { SCREEN } from '../../../navigation/navigation.constants'
-import { LetterSliderDefaultValues } from '../models';
+import { LetterSliderDefaultValues } from '../models'
 
 interface UseLettersSlider {
   min: number;

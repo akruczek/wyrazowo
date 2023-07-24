@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StatusBar } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import { genericLightShadow, genericTextShadow } from '@core/shadow/shadow.constants'
+import { genericLightShadow } from '@core/shadow/shadow.constants'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { ScreenType } from '@core/models'
@@ -56,7 +56,6 @@ export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, r
         ) : null}
 
         <HeaderText
-          style={genericTextShadow}
           headerTextSize={headerTextSize}
           onLayout={onHeaderTextLayout}
           children={` ${title ?? localize()[type]} `}

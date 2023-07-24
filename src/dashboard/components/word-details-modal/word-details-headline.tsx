@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { RowAroundContainer } from '@core/styled'
-import { WordDetailsHeadlineText } from './word-details-modal.styled'
+import { Tx } from '@core/tx'
 import { getWordPoints } from '../../helpers'
 
 interface Props {
@@ -18,7 +18,7 @@ export const WordDetailsHeadline = ({ word }: Props) => {
 
   return (
     <>
-      <WordDetailsHeadlineText children={`${word} (${getWordPoints(word)})`} />
+      <Tx tx={`${word} (${getWordPoints(word)})`} spacings="0 0 S 0" XL bold center uppercase />
 
       <RowAroundContainer>
         {letters.map((letter: string, index: number) => (

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { FlatListProps } from 'react-native'
+import { SPACING } from '@core/styled'
 
 export const MoreFlatList = styled.FlatList.attrs({
   contentContainerStyle: {
@@ -11,5 +12,5 @@ export const MoreFlatList = styled.FlatList.attrs({
     width: '100%',
   },
 })<FlatListProps<any> & any>`
-  padding: 10px;
+  padding: ${SPACING.S}px;
 `

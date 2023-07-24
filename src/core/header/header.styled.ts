@@ -1,12 +1,14 @@
 import * as R from 'ramda'
 import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { TextProps } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { getThemeProp } from '@core/styled/theme'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { ThemeModel } from '@core/styled/models'
+import { Tx } from '@core/tx'
 
 interface HeaderContainerProps {
   topInset: number;
@@ -40,17 +42,18 @@ interface HeaderTextProps {
   headerTextSize: TEXT_SIZE | null;
 }
 
-export const HeaderText = styled.Text.attrs({
-  numberOfLines: 1,
-})<HeaderTextProps>`
+export const HeaderText = styled(Tx).attrs({
+  oneLine: true,
+  center: true,
+  white: true,
+  bold: true,
+  shadow: true,
+  spacings: '0 XXS M XXS',
+  spacingType: 'padding',
+})<HeaderTextProps & TextProps>`
   font-size: ${R.propOr(TEXT_SIZE.XL, 'headerTextSize')}px;
-  text-align: center;
-  color: ${COLOR.WHITE};
-  font-weight: bold;
   max-width: 80%;
   align-self: center;
-  padding-bottom: 15px;
-  padding-horizontal: 5px;
 `
 
 interface BackButtonContainerProps {

@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import styled, { ThemeProps } from 'styled-components/native'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { ThemeModel } from '@core/styled/models'
 
@@ -83,19 +82,4 @@ export const CharadeFieldInnerContainer = styled.View<CharadeFieldInnerContainer
   align-self: center;
   position: absolute;
   top: 0;
-`
-
-interface CharadeFieldContentTextProps {
-  isError: boolean;
-}
-
-const getCharadeFieldContentTextColor = R.ifElse(
-  R.propSatisfies(Boolean, 'isError'),
-  R.always(COLOR.FIRE_BRICK),
-  getThemeProp('textPrimary')
-)
-
-export const CharadeFieldContentText = styled.Text<CharadeFieldContentTextProps & ThemeProps<ThemeModel>>`
-  font-size: ${TEXT_SIZE.M}px;
-  color: ${getCharadeFieldContentTextColor};
 `
