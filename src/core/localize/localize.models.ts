@@ -44,6 +44,8 @@ export interface Localization {
   guideline_search_history_headline: 'guideline_search_history_headline',
   guideline_search_history: 'guideline_search_history',
   allow_duplicated_letters: 'allow_duplicated_letters',
+  alert_letters_slider_title: 'alert_letters_slider_title',
+  alert_letters_slider_description: 'alert_letters_slider_description',
   about_author: 'about_author',
   failed: 'failed',
   success: 'success',

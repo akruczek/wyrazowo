@@ -1,7 +1,7 @@
 ## 1.17.0 DASHBOARD REBORN
 ### Added
 - Unlocked full potential of search engine by allow to search words up to 15 letters!
-- Tooltip warning for letters slider
+- Alert warning for letters slider
 
 ### Changed
 - Dashboar UI and UX

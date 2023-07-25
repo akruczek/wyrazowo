@@ -2,13 +2,15 @@ import * as React from 'react'
 import { SpacingView } from '@core/styled'
 import { Tx } from '@core/tx'
 import { noop } from '@core/noop/noop'
+import { AlertIcon } from '@core/alert-icon/alert-icon'
+import { useLocalize } from '@core/hooks/use-localize.hook'
 import { renderLetterSliderLabel } from './components/letter-slider-label/letter-slider-label'
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
 import {
-  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar, LetterSliderWarningIcon
+  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar
 } from './letter-slider.styled'
 
 interface Props {
@@ -17,6 +19,7 @@ interface Props {
 }
 
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {
+  const localize = useLocalize()
   const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
@@ -25,7 +28,13 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
     <SpacingView spacings="XS S" type="padding">
       <LetterSliderTopLabelBar>
         <Tx error={isWarning} tx={`${min} - ${max}`} bold />
-        {isWarning ? <LetterSliderWarningIcon /> : null}
+
+        <AlertIcon
+          title={localize().alert_letters_slider_title}
+          description={localize().alert_letters_slider_description}
+          isVisible={isWarning}
+          type="error"
+        />
       </LetterSliderTopLabelBar>
 
       <LetterSlider
