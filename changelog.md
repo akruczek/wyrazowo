@@ -4,7 +4,7 @@
 - Alert warning for letters slider
 
 ### Changed
-- Dashboar UI and UX
+- Dashboard UI and UX
 - More tab UI consistency
 - Charade switch migrated to generic checkbox
 
