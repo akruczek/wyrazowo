@@ -71,6 +71,11 @@ export interface StyledTxProps {
   error?: boolean;
 
   /**
+   * Apply warning font color
+   */
+  warning?: boolean;
+
+  /**
    * Apply OK font color
    */
   ok?: boolean;

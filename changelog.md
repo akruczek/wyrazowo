@@ -6,6 +6,10 @@
 ### Changed
 - Dashboar UI and UX
 - More tab UI consistency
+- Charade switch migrated to generic checkbox
+
+### Improved
+- Counter UI
 
 ## 1.16.0 UX CLEAN UP
 ### Improved

@@ -44,6 +44,7 @@
   "guideline_search_history_headline": "Search history",
   "guideline_search_history": "From green button you can access your search history. Tap any element from history to see results.",
   "allow_duplicated_letters": "Allow duplicated letters",
+  "words_length": "Words length",
   "alert_letters_slider_title": "Long words length",
   "alert_letters_slider_description": "Searching words with more than 10 letters may take a while. Be patient.",
   "about_author": "About Author",
