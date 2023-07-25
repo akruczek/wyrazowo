@@ -1,12 +1,10 @@
 import * as React from 'react'
-import { COLOR } from '@core/colors/colors.constants'
 import { CustomCounter } from '@core/custom-counter/custom-counter'
 import { useLocalize } from '@core/hooks/use-localize.hook'
-import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { Template } from '@core/template/template'
 import { PlayButton } from '@core/play-button/play-button'
-import { Tx } from '@core/tx'
-import { CharadeSwitchWrapper, CharadeSeparator } from './charade.styled'
+import { CustomCheckbox } from '@core/custom-checkbox/custom-checkbox'
+import { CharadeSeparator } from './charade.styled'
 import { useCharadePlay } from './hooks'
 
 export const Charade = () => {
@@ -15,19 +13,23 @@ export const Charade = () => {
 
   return (
     <Template type="charade">
-      <CustomCounter value={count} range={[ 3, 9 ]} setValue={setCount} />
+      <CustomCounter
+        label={localize().words_length}
+        value={count}
+        range={[ 3, 9 ]}
+        colorBreakpoints={[ 4, 6, 7 ]}
+        setValue={setCount}
+      />
+
       <PlayButton type="charade" onPress={handlePlayCharade} />
 
       <CharadeSeparator />
 
-      <Tx tx={localize().allow_duplicated_letters} bold center />
-      <CharadeSwitchWrapper>
-        <CustomSwitch
-          color={COLOR.DARK_SEA_GREEN}
-          defaultValue={allowDuplicatedLetters}
-          onValueChange={setAllowDuplicatedLetters}
-        />
-      </CharadeSwitchWrapper>
+      <CustomCheckbox
+        defaultValue={allowDuplicatedLetters}
+        onChange={setAllowDuplicatedLetters}
+        label={localize().allow_duplicated_letters}
+      />
     </Template>
   )
 }

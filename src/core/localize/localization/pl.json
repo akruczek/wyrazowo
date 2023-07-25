@@ -44,6 +44,7 @@
   "guideline_search_history_headline": "Historia wyszukiwania",
   "guideline_search_history": "Zielony przycisk pokaże Ci listę z historią wszystkich wyszukiwań - dotknij dowolny element aby zoabczyć historyczne wyniki.",
   "allow_duplicated_letters": "Zezwalaj na duplikaty liter",
+  "words_length": "Długość wyrazów",
   "alert_letters_slider_title": "Długie wyrazy",
   "alert_letters_slider_description": "Wyszukiwanie wyrazów o długości większej niż 10 liter może zając dłuższą chwilę. Bądź cierpliwy.",
   "about_author": "O Autorze",

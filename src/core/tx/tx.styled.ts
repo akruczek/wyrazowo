@@ -9,6 +9,7 @@ import { StyledTxProps } from './tx.models'
 const getFontColor = (props: ThemeProps<ThemeModel> & StyledTxProps) => {
   if (props.error) return COLOR.FIRE_BRICK
   if (props.ok) return COLOR.DARK_SEA_GREEN
+  if (props.warning) return COLOR.GOLD
   if (props.white) return COLOR.WHITE
   if (props.black) return COLOR.BLACK
   if (props.link) return COLOR.DODGER_BLUE
