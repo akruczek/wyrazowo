@@ -26,7 +26,7 @@ export const CustomCheckbox = ({ defaultValue, label, onChange }: Props) => {
         {value ? <CustomCheckboxCheckmarkIcon name="check-bold" value={value} /> : null}
       </CustomCheckboxBox>
 
-      <Tx ok={value} tx={label} bolder />
+      <Tx tx={label} bolder />
     </CustomCheckboxTouchableWrapper>
   )
 }
