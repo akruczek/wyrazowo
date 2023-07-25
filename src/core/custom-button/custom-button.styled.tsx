@@ -23,6 +23,7 @@ export const CustomButtonContainer = styled.TouchableOpacity.attrs<CustomButtonC
   justify-content: center;
   align-items: center;
   align-self: center;
+  border: 0.5px solid ${COLOR.DIM_GREY_LIGHTER};
   padding: ${SPACING.XS}px ${SPACING.M}px;
   border-radius: 30px;
   background-color: ${getCustomButtonContainerBackgroundColor};

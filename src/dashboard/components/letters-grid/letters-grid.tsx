@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { LetterCard } from '@core/letter-card/letter-card'
-import { LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
+import { ALL_LETTERS_SORTED, LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { RowAroundContainer } from '@core/styled'
 import { RESPONSIVE } from '@core/responsive/responsive'
 
 interface Props {
-  letters: string[];
+  letters?: string[];
   handleSelectLetter: (letter: string, index: number) => void;
   handleLongPress?: () => void;
   selectable?: boolean;
@@ -28,7 +28,7 @@ export const LettersGrid = ({
 
   return (
     <>
-      {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (
+      {R.splitEvery(8, letters ?? ALL_LETTERS_SORTED).map((lettersRow: string[], rowIndex: number) => (
         <RowAroundContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <LetterCard
@@ -39,6 +39,7 @@ export const LettersGrid = ({
               fontSize={RESPONSIVE.WIDTH(6.6)}
               selectable={selectable}
               selectedLetters={selectedLetters}
+              disabled={selectedLetters?.length === 15}
             />
           ))}
         </RowAroundContainer>

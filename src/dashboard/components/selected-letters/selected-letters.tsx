@@ -3,31 +3,37 @@ import { LetterCard } from '@core/letter-card/letter-card'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { SpacingView } from '@core/styled'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
-import { SelectedLettersContainer } from './selected-letters.styled'
+import { SelectedLettersAddSoapContainer, SelectedLettersContainer } from './selected-letters.styled'
 
 interface Props {
   selectedLetters: string[];
   handleDeselectLetter: (index: number) => () => void;
   onLongPressSelectedLetter: (index: number) => () => void;
+  handleSelectLetter: (letter: string) => void;
+  handleLongPress: () => void;
 }
 
-export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }: Props) => {
+export const SelectedLetters = ({
+  selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress,
+}: Props) => {
   const getContent = (letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER)
     ? LETTER_SOAP
     : letter.includes(LETTER_INDEX_SEPARATOR)
       ? letter.split(LETTER_INDEX_SEPARATOR)?.[0]
       : letter
 
+  const handleAddSoapLetter = () => handleSelectLetter(LETTER_SOAP)
+
   return (
-    <SpacingView spacings="0 0 XL 0">
+    <SpacingView spacings="XL 0">
       <SelectedLettersContainer>
-        {selectedLetters.slice(0, 7).map((letter: string, index: number) => (
+        {selectedLetters.slice(0, 8).map((letter: string, index: number) => (
           <LetterCard
             key={`selected-letter-${letter}-${index}`}
             onPress={handleDeselectLetter(index)}
             onLongPress={onLongPressSelectedLetter(index)}
             content={getContent(letter)}
-            size={RESPONSIVE.WIDTH(12.8)}
+            size={RESPONSIVE.WIDTH(12)}
             fontSize={RESPONSIVE.WIDTH(6.6)}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}
@@ -37,7 +43,7 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
       </SelectedLettersContainer>
 
       <SelectedLettersContainer>
-        {selectedLetters.slice(7).map((letter: string, index: number) => (
+        {selectedLetters.slice(8).map((letter: string, index: number) => (
           <LetterCard
             key={`selected-letter-${letter}-${7 + index}`}
             onPress={handleDeselectLetter(7 + index)}
@@ -45,11 +51,25 @@ export const SelectedLetters = ({ selectedLetters, onLongPressSelectedLetter, ha
             content={getContent(letter)}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}
-            size={RESPONSIVE.WIDTH(12.8)}
+            size={RESPONSIVE.WIDTH(12)}
             fontSize={RESPONSIVE.WIDTH(6.6)}
             withMargin
           />
         ))}
+
+
+        <SelectedLettersAddSoapContainer>
+          <LetterCard
+            key="selected-letter-add-soap"
+            onPress={handleAddSoapLetter}
+            onLongPress={handleLongPress}
+            content="+?"
+            size={RESPONSIVE.WIDTH(12)}
+            fontSize={RESPONSIVE.WIDTH(6.6)}
+            disabled={selectedLetters.length === 15}
+            withMargin
+          />
+        </SelectedLettersAddSoapContainer>
       </SelectedLettersContainer>
     </SpacingView>
   )

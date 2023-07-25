@@ -29,6 +29,10 @@ export const CustomCounterTextContainer = styled.View`
 
 interface CustomCounterButtonContainerProps {
   disabled: boolean;
+  ok?: boolean;
+  link?: boolean;
+  warning?: boolean;
+  error?: boolean;
 }
 
 const getCustomCounterButtonContainerOpacity = R.ifElse(
@@ -37,30 +41,32 @@ const getCustomCounterButtonContainerOpacity = R.ifElse(
   R.always(1),
 )
 
+const getCustomCounterButtonContainerColor = (props: CustomCounterButtonContainerProps) => {
+  if (props.ok) return COLOR.DARK_SEA_GREEN
+  if (props.link) return COLOR.DODGER_BLUE
+  if (props.warning) return COLOR.GOLD
+  if (props.error) return COLOR.FIRE_BRICK
+  return COLOR.DIM_GREY_LIGHTER
+}
+
 export const CustomCounterButtonContainer = styled.TouchableOpacity<CustomCounterButtonContainerProps>`
   width: ${RESPONSIVE.WIDTH(10)}px;
   height: ${RESPONSIVE.WIDTH(10)}px;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${COLOR.DIM_GREY_LIGHTER};
+  border: 1px solid ${getCustomCounterButtonContainerColor};
   border-radius: 10px;
   opacity: ${getCustomCounterButtonContainerOpacity};
 `
 
-export const CustomCounterLabel = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'format-letter-spacing',
-  color: getThemeProp('textPrimary')(props),
-  size: TEXT_SIZE.L,
-}))``
+export const CustomCounterMinusIcon = styled(MaterialCommunityIcons)
+  .attrs<CustomCounterButtonContainerProps>(props => ({
+    color: getCustomCounterButtonContainerColor(props),
+    size: TEXT_SIZE.XXL,
+  }))``
 
-export const CustomCounterMinusIcon = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'minus',
-  color: getThemeProp('textPrimary')(props),
-  size: TEXT_SIZE.XXL,
-}))``
-
-export const CustomCounterPlusIcon = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'plus',
-  color: getThemeProp('textPrimary')(props),
-  size: TEXT_SIZE.XXL,
-}))``
+export const CustomCounterPlusIcon = styled(MaterialCommunityIcons)
+  .attrs<CustomCounterButtonContainerProps>(props => ({
+    color: getCustomCounterButtonContainerColor(props),
+    size: TEXT_SIZE.XXL,
+  }))``

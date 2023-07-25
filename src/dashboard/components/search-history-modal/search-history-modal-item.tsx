@@ -4,7 +4,6 @@ import { Modalize } from 'react-native-modalize'
 import { Tx } from '@core/tx'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
-import { LetterSliderLengthIcon } from '@core/letters-slider/letter-slider.styled'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { PossibleWordsModal } from '../possible-words-modal/possible-words-modal'
@@ -46,7 +45,6 @@ export const SearchHistoryModalItem = ({
   return (
     <View>
       <SearchHistoryModalItemContainer>
-        <LetterSliderLengthIcon />
         <Tx tx={`${wordLengthToDisplay}, (${getDateToDisplay()})`} spacings="0 0 0 XXS" bold />
       </SearchHistoryModalItemContainer>
 

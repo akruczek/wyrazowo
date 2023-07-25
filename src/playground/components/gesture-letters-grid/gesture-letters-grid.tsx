@@ -5,16 +5,16 @@ import { PanResponderGestureState, GestureResponderEvent } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { useNavigation } from '@react-navigation/native'
 import { LetterCard } from '@core/letter-card/letter-card'
-import { ALL_LETTERS_SORTED, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
+import { ALL_LETTERS_SORTED } from '@core/letter-card/letter-card.constants'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { RowAroundContainer } from '@core/styled'
-import { noop } from '@core/noop/noop'
+import { RESPONSIVE } from '@core/responsive/responsive'
 import { useGestureLettersIndexes } from '../../hooks/use-gesture-letters-indexes.hook'
 import { useGestureLettersInitialCoords } from '../../hooks/use-gesture-letters-initial-coords'
 import { GestureLettersGridArrow } from './gesture-letters-grid-arrow'
 import { SCREEN } from '../../../navigation/navigation.constants'
-import { ClearLettersButtonIcon, SearchButtonIcon } from '../../../dashboard/components/dashboard-buttons-and-modals/dashboard-buttons.styled'
+import { ClearLettersButtonIcon } from '../../../dashboard/components/dashboard-buttons-and-modals/dashboard-buttons.styled'
 import {
   GestureLetterButtonsContainer, GestureLetterCardsBackground, GestureLetterCardsBottomArrowWrapper,
   GestureLetterCardsPagingStateText, GestureLetterCardsTopArrowWrapper, GestureLetterCardsUserSelectedLettersIcon,
@@ -32,7 +32,6 @@ export const GestureLettersGrid = ({
   onDragRelease, handleClearPlayground, userSelectedLetters, selectedLetters,
 }: Props) => {
   const navigation = useNavigation<any>()
-  const letters = [ ...ALL_LETTERS_SORTED, LETTER_SOAP, LETTER_SOAP, LETTER_SOAP ]
 
   const { incrementIndex, decrementIndex, minReached, maxReached, visibleIndex, pagingState } =
     useGestureLettersIndexes()
@@ -74,7 +73,7 @@ export const GestureLettersGrid = ({
       <GestureLetterCardsUserSelectedLettersText y={getInitialY()} children={` ${userSelectedLetters?.length}`} />
       <GestureLetterCardsPagingStateText y={getInitialY()} children={`${pagingState[0]} / ${pagingState[1]}`} />
 
-      {R.splitEvery(7, letters).map((lettersRow: string[], rowIndex: number) => (rowIndex >= visibleIndex && rowIndex <= visibleIndex + 1) ? (
+      {R.splitEvery(8, ALL_LETTERS_SORTED).map((lettersRow: string[], rowIndex: number) => (rowIndex >= visibleIndex && rowIndex <= visibleIndex + 1) ? (
         <RowAroundContainer key={String(lettersRow)}>
           {lettersRow.map((letter: string, index: number) => (
             <Draggable
@@ -84,7 +83,11 @@ export const GestureLettersGrid = ({
               onDragRelease={onDragRelease(letter)}
               shouldReverse
             >
-              <LetterCard content={letter} />
+              <LetterCard
+                size={RESPONSIVE.WIDTH(12)}
+                fontSize={RESPONSIVE.WIDTH(6.6)}
+                content={letter}
+              />
             </Draggable>
           ))}
         </RowAroundContainer>

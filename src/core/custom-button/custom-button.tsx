@@ -29,11 +29,7 @@ export const CustomButton = ({
   }
 
   return (
-    <CustomButtonContainer
-      style={genericShadow}
-      onPress={handlePress}
-      {...{ invisible, color, minHeight }}
-    >
+    <CustomButtonContainer onPress={handlePress} {...{ invisible, color, minHeight }}>
       {title ? <Tx tx={title} white bold /> : children ?? null}
     </CustomButtonContainer>
   )

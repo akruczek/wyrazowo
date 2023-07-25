@@ -13,7 +13,6 @@ import { RESPONSIVE } from '@core/responsive/responsive'
 import { authService } from '@core/auth/auth-service'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
-import { genericShadow } from './src/core/shadow/shadow.constants'
 import { MoreNavigation } from './src/more/more.navigation'
 import { setDarkThemeEnabledAction } from './src/settings/store/settings.slice'
 import { darkThemeEnabledSelector } from './src/settings/store/settings.selectors'
@@ -66,7 +65,7 @@ export const AppNavigation = () => {
       <Tab.Navigator
         inactiveColor={COLOR.SLATE_GREY}
         activeColor={activeColor}
-        barStyle={{ backgroundColor: getBackgroundColor(), ...genericShadow }}
+        barStyle={{ backgroundColor: getBackgroundColor(), borderTopWidth: 1, borderColor: COLOR.DIM_GREY_LIGHTER }}
         labeled={false}
         sceneAnimationType="opacity"
         sceneAnimationEnabled

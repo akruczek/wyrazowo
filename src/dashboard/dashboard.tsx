@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
@@ -12,6 +11,7 @@ import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './compo
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { SCREEN } from '../navigation/navigation.constants'
+import { DashboardBottomContent } from './dashboard.styled'
 
 export const Dashboard = () => {
   useDashboardRehydration()
@@ -32,7 +32,7 @@ export const Dashboard = () => {
   } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled)
 
   const isPremium = useIsPremium()
-  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 14, isPremium ? 14 : 9 ]
+  const sliderDefaultValues: LetterSliderDefaultValues = [ 2, 8, 2, 15, isPremium ? 15 : 9 ]
 
   const onLongPressSelectedLetter = (index: number) => () => {
     if (isForceIndexAvailable(selectedLetters[index])) {
@@ -51,18 +51,20 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Template type="dashboard" leftContentConfig={leftContentConfig} flex>
-      <SelectedLetters {...{ selectedLetters, onLongPressSelectedLetter, handleDeselectLetter }} />
+    <Template type="dashboard" leftContentConfig={leftContentConfig}>
+      <SelectedLetters {...{
+        selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}
+      />
 
-      <View>
-        <LettersGrid {...{ letters, handleSelectLetter, handleLongPress }} />
+      <DashboardBottomContent>
+        <LettersGrid {...{ handleSelectLetter, selectedLetters, handleLongPress }} />
         <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
         <DashboardButtonsAndModals {...{
           selectedLetters, handleClearSelectedLetters, soapCharactersIndexes, handleForceIndex, onSelectSoapLetters,
           soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
           letters, possibleWords, forceIndexModalizeRef }}
         />
-      </View>
+      </DashboardBottomContent>
     </Template>
   ), [ selectedLetters, letters, possibleWords ])
 }

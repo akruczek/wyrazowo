@@ -6,23 +6,20 @@ import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { LettersGrid } from '../letters-grid/letters-grid'
 import { SetSoapButtonIcon, SoapLetterModalContainer } from './soap-letter-modal.styled'
-import { toggleSelectedSoapLetters, filterSoapLetters } from '../../helpers'
+import { toggleSelectedSoapLetters } from '../../helpers'
 
 interface Props {
   modalizeRef: React.MutableRefObject<any>;
   onSelectSoapLetters: (soapLetters: string[]) => void;
-  letters: string[];
 }
 
-export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: Props) => {
+export const SoapLetterModal = ({ onSelectSoapLetters, modalizeRef }: Props) => {
   const modalOffset = useModalTopOffset()
   const [ selectedSoapLetters, setSelectedSoapLetters ] = React.useState<string[]>([])
 
   const toggleSelectedSoapLetter = (letter: string) => setSelectedSoapLetters(
     toggleSelectedSoapLetters<string[]>(letter)
   )
-
-  const filteredLetters = filterSoapLetters(letters)
 
   const onSetSoapLetters = () => {
     onSelectSoapLetters(selectedSoapLetters)
@@ -45,7 +42,6 @@ export const SoapLetterModal = ({ letters, onSelectSoapLetters, modalizeRef }: P
     >
       <SoapLetterModalContainer>
         <LettersGrid
-          letters={filteredLetters}
           handleSelectLetter={toggleSelectedSoapLetter}
           selectedLetters={selectedSoapLetters}
           selectable

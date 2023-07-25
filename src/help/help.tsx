@@ -17,7 +17,7 @@ export const Help = () => {
 
   const renderItem = ({ item: { title, icon, index, iconColor, error, ok, link, hidden } }: { item: any }) =>
     hidden ? null : (
-      <ListedOption {...{ error, link, ok, title }}>
+      <ListedOption {...{ error, link, ok, title }} staticHeight>
         <TouchableOpacity
           hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={() => navigation.navigate(SCREEN.MORE_HELP_GUIDELINE, { index })}
