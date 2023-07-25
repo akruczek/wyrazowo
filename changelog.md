@@ -1,3 +1,10 @@
+## 1.17.0 DASHBOARD REBORN
+### Added
+- Unlocked full potential of search engine by allow to search words up to 15 letters!
+
+### Changed
+- Dashboar UI and UX
+
 ## 1.16.0 UX CLEAN UP
 ### Improved
 - UI and UX consistency

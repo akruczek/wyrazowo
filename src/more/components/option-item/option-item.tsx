@@ -32,7 +32,7 @@ export const OptionItem = ({
 
   if (values !== undefined) {
     return (
-      <ListedOption {...{ title, withPadding }}>
+      <ListedOption {...{ title, withPadding }} staticHeight>
         <MultiToggle
           values={values}
           value={value}
@@ -45,14 +45,14 @@ export const OptionItem = ({
 
   if (value !== undefined) {
     return (
-      <ListedOption {...{ title, withPadding }}>
+      <ListedOption {...{ title, withPadding }} staticHeight>
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
       </ListedOption>
     )
   }
 
   return (
-    <ListedOption {...{ title, withPadding }}>
+    <ListedOption {...{ title, withPadding }} staticHeight>
       <OptionItemTouchableOpacity onPress={onChange} onLongPress={handleDeactivatePremium}>
         {imageUrl ? (
           <OptionItemImage source={{ uri: imageUrl }} />

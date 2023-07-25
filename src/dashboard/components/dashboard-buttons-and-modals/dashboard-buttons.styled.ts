@@ -25,5 +25,5 @@ export const HistoryButtonIcon = styled(MaterialCommunityIcons).attrs({
 export const DashboardButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
-  padding-bottom: ${SPACING.S}px;
+  padding-bottom: ${SPACING.XL}px;
 `

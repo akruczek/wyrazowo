@@ -26,7 +26,6 @@ export const LettersGrid = ({
       ? undefined
       : () => handleLongPress && R.equals(letter, LETTER_SOAP) ? handleLongPress() : undefined
 
-  console.log(selectedLetters?.length)
   return (
     <>
       {R.splitEvery(8, letters ?? ALL_LETTERS_SORTED).map((lettersRow: string[], rowIndex: number) => (

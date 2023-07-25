@@ -25,7 +25,7 @@ export const SelectedLetters = ({
   const handleAddSoapLetter = () => handleSelectLetter(LETTER_SOAP)
 
   return (
-    <SpacingView spacings="0 0 XL 0">
+    <SpacingView spacings="XL 0">
       <SelectedLettersContainer>
         {selectedLetters.slice(0, 8).map((letter: string, index: number) => (
           <LetterCard

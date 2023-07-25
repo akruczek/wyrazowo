@@ -10,10 +10,11 @@ interface Props {
   error?: boolean;
   ok?: boolean;
   link?: boolean;
+  staticHeight?: boolean;
 }
 
-export const ListedOption = ({ title, withPadding, XS, error, ok, link, children }: Props) => (
-  <ListedOptionContainer withPadding={withPadding}>
+export const ListedOption = ({ title, withPadding, XS, error, ok, link, staticHeight, children }: Props) => (
+  <ListedOptionContainer {...{ withPadding, staticHeight }}>
     <Tx tx={title} {...{ XS, error, ok, link }} bolder />
     {children}
   </ListedOptionContainer>
