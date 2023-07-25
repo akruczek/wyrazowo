@@ -8,7 +8,7 @@ import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
 import {
-  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar, LetterSliderWarningIcon
 } from './letter-slider.styled'
 
 interface Props {
@@ -17,14 +17,15 @@ interface Props {
 }
 
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {
-  const { min, max, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
+  const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
 
   return (
     <SpacingView spacings="XS S" type="padding">
       <LetterSliderTopLabelBar>
-        <Tx tx={`${min} - ${max}`} bold />
+        <Tx error={isWarning} tx={`${min} - ${max}`} bold />
+        {isWarning ? <LetterSliderWarningIcon /> : null}
       </LetterSliderTopLabelBar>
 
       <LetterSlider

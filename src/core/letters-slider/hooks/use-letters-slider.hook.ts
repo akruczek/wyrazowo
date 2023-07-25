@@ -7,6 +7,7 @@ import { LetterSliderDefaultValues } from '../models'
 interface UseLettersSlider {
   min: number;
   max: number;
+  isWarning: boolean;
   defaultMin: number;
   defaultMax: number;
   onValueChanged: (min: number, max: number) => void;
@@ -22,9 +23,11 @@ export const useLettersSlider = (
   const DEFAULT_MIN = defaultMin ?? 2
   const DEFAULT_MAX = defaultMax ?? 15
   const BLOCK_MAX = blockMax ?? 9
+  const WARNING_STEP = 10
 
   const [ min, setMin ] = React.useState(defaultValueMin ?? DEFAULT_MIN)
   const [ max, setMax ] = React.useState(defaultValueMax ?? 8)
+  const isWarning = React.useMemo(() => max > WARNING_STEP, [ max ])
 
   const onValueChanged = (_min: number, _max: number) => {
     if (_max <= BLOCK_MAX) {
@@ -48,5 +51,5 @@ export const useLettersSlider = (
     }
   }
 
-  return { min, max, defaultMin: DEFAULT_MIN, defaultMax: DEFAULT_MAX, onValueChanged }
+  return { min, max, isWarning, defaultMin: DEFAULT_MIN, defaultMax: DEFAULT_MAX, onValueChanged }
 }
