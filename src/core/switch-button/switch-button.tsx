@@ -31,9 +31,9 @@ export const SwitchButton = ({ value, labels, colors, elementsInRowCount, onChan
               color={colors?.[getIndex(groupIndex, index)]}
               onPress={_onChange(getIndex(groupIndex, index))}
               isActive={isActive(getIndex(groupIndex, index))}
-              key={localize()[label]}
+              key={label}
             >
-              <Tx tx={label} white={isActive(getIndex(groupIndex, index))} themeColor="textSecondary" bold />
+              <Tx tx={localize()[label]} white={isActive(getIndex(groupIndex, index))} themeColor="textSecondary" bold />
             </SwitchButtonContainer>
           ))}
         </SwitchButtonsContainer>

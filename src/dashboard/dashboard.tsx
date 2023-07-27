@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
@@ -16,7 +15,6 @@ import { DashboardBottomContent } from './dashboard.styled'
 
 export const Dashboard = () => {
   useDashboardRehydration()
-  const navigation = useNavigation<any>()
   const forceIndexModalizeRef = React.useRef<Modalize>(null)
   const forceIndexLetterIndexRef = React.useRef<null | number>(null)
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
@@ -42,17 +40,8 @@ export const Dashboard = () => {
     }
   }
 
-  const handleSwitchToPlayground = () => {
-    navigation.navigate(SCREEN.DASHBOARD_PLAYGROUND)
-  }
-
-  const leftContentConfig = {
-    onPress: handleSwitchToPlayground,
-    icon: 'checkerboard',
-  }
-
   return React.useMemo(() => (
-    <Template type="dashboard" leftContentConfig={leftContentConfig}>
+    <Template type="dashboard" leftScreen={SCREEN.DASHBOARD_PLAYGROUND} leftIcon="checkerboard">
       <Tx local="selected_letters" bolder disabled center />
       <SelectedLetters {...{
         selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}

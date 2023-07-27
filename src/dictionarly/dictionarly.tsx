@@ -4,20 +4,15 @@ import { SwitchButton } from '@core/switch-button/switch-button'
 import { Template } from '@core/template/template'
 import { PlayButton } from '@core/play-button/play-button'
 import { Tx } from '@core/tx'
+import { SCREEN } from 'navigation/navigation.constants'
 import { usePlayDictionarly } from './hooks'
 import { DictionarlySeparator } from './dictionarly.styled'
 
 export const Dictionarly = () => {
-  const { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength, difficulty, setDifficulty } =
-    usePlayDictionarly()
-
-  const leftContentConfig = {
-    onPress: handleNavigateToDictionary,
-    icon: 'book-alphabet',
-  }
+  const { handlePlay, wordsLength, setWordsLength, difficulty, setDifficulty } = usePlayDictionarly()
 
   return (
-    <Template type="dictionary" local="dictionarly" leftContentConfig={leftContentConfig}>
+    <Template type="dictionary" local="dictionarly" leftIcon="book-alphabet" leftScreen={SCREEN.DICTIONARY_DICTIONARY}>
       <Tx local="words_length" disabled bolder center />
 
       <SwitchButton

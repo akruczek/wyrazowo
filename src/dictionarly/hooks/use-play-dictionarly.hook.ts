@@ -5,7 +5,6 @@ import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
 
 interface UsePlayDictionarly {
   handlePlay: () => void;
-  handleNavigateToDictionary: () => void;
   wordsLength: number;
   setWordsLength: React.Dispatch<React.SetStateAction<number>>;
   difficulty: number;
@@ -29,9 +28,5 @@ export const usePlayDictionarly = (): UsePlayDictionarly => {
     navigation.navigate(SCREEN.DICTIONARY_PLAY, { word, wordsLength, difficulty })
   }
 
-  const handleNavigateToDictionary = () => {
-    navigation.navigate(SCREEN.DICTIONARY_DICTIONARY)
-  }
-
-  return { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength, difficulty, setDifficulty }
+  return { handlePlay, wordsLength, setWordsLength, difficulty, setDifficulty }
 }

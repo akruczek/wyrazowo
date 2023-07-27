@@ -123,18 +123,6 @@ export const HeaderLeftButtonContainer = styled.TouchableOpacity.attrs({
   align-items: center;
 `
 
-export const HeaderLeftButtonIndicator = styled.View`
-  position: absolute;
-  z-index: 1;
-  elevation: 1;
-  left: -2px;
-  top: -2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 8px;
-  background-color: ${COLOR.FIRE_BRICK};
-`
-
 interface HeaderLeftIconProps {
   icon: string;
 }
