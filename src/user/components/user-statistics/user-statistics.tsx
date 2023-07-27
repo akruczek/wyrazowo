@@ -2,7 +2,6 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { ActivityIndicator } from 'react-native'
 import { RealTimeDatabaseUserModel } from '@core/real-time-database/real-time-database.models'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Tx } from '@core/tx'
 import {
   UserStatisticsContainer, UserStatisticsDictionarlyIcon, UserStatisticsFailureIcon, UserStatisticsHeadRow,
@@ -14,7 +13,6 @@ interface Props {
 }
 
 export const UserStatistics = ({ userData }: Props) => {
-  const localize = useLocalize()
   const getPointsSum = R.add(
     userData?.points?.dictionarly?.value ?? 0,
     userData?.points?.charade?.value ?? 0,
@@ -23,14 +21,14 @@ export const UserStatistics = ({ userData }: Props) => {
   return userData ? (
     <UserStatisticsContainer>
       <UserStatisticsHeadRow>
-        <Tx tx={localize().statistics_headline} spacings="0 S 0 0" bold />
+        <Tx local="statistics_headline" spacings="0 S 0 0" bold />
         <UserStatisticsPointsIcon />
         <Tx tx={getPointsSum} spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsHeadRow>
         <UserStatisticsDictionarlyIcon />
-        <Tx tx={localize().dictionarly} spacings="S 0 S XXS" S />
+        <Tx local="dictionarly" spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>
@@ -50,7 +48,7 @@ export const UserStatistics = ({ userData }: Props) => {
 
       <UserStatisticsHeadRow>
         <UserStatisticsCharadeIcon />
-        <Tx tx={localize().charade} spacings="S 0 S XXS" S />
+        <Tx local="charade" spacings="S 0 S XXS" S />
       </UserStatisticsHeadRow>
 
       <UserStatisticsRow withMargin>

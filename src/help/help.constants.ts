@@ -1,7 +1,7 @@
 import { COLOR } from '@core/colors/colors.constants'
 import { Localization } from '@core/localize/localize.models'
 
-export const getHelpData = (localize: () => Localization) => [
+export const getHelpData = (localize: () => typeof Localization) => [
   {
     title: localize().dashboard,
     icon: 'home-search',

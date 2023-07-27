@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { SPACING, getThemeProp } from '@core/styled'
+import { SPACING } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { TEXT_SIZE } from '@core/text/text.constants'
@@ -14,11 +14,6 @@ export const CustomCounterContainer = styled.View`
   width: 100%;
   margin: ${SPACING.S}px 0 ${SPACING.M}px;
   height: 50px;
-`
-
-export const CustomCounterLabelIconContainer = styled.View`
-  align-self: center;
-  margin-top: ${SPACING.S}px;
 `
 
 export const CustomCounterTextContainer = styled.View`

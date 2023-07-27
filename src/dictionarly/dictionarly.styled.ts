@@ -1,6 +1,4 @@
 import styled from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING, getThemeProp } from '@core/styled'
 import { BOTTOM_NAVIGATION_HEIGHT } from '../navigation/navigation.constants'
 
@@ -15,23 +13,6 @@ export const DictionarlyButtonsContainer = styled.View<DictionarlyButtonsContain
   position: absolute;
   align-self: center;
   bottom: ${getDictionarlyButtonsContainerBottom}px;
-`
-
-export const DictionarlyWordsLengthIcon = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'format-letter-spacing',
-  color: getThemeProp('textPrimary')(props),
-  size: TEXT_SIZE.L,
-}))`
-  align-self: center;
-  margin-top: ${SPACING.S}px;
-`
-
-export const DictionarlyDifficultyIcon = styled(MaterialCommunityIcons).attrs(props => ({
-  name: 'transfer-up',
-  color: getThemeProp('textPrimary')(props),
-  size: TEXT_SIZE.L,
-}))`
-  align-self: center;
 `
 
 export const DictionarlySeparator = styled.View`

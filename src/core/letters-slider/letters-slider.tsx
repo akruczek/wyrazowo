@@ -3,7 +3,6 @@ import { SpacingView } from '@core/styled'
 import { Tx } from '@core/tx'
 import { noop } from '@core/noop/noop'
 import { AlertIcon } from '@core/alert-icon/alert-icon'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { renderLetterSliderLabel } from './components/letter-slider-label/letter-slider-label'
 import { renderLetterSliderRail } from './components/letter-slider-rail/letter-slider-rail'
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
@@ -19,7 +18,6 @@ interface Props {
 }
 
 export const LettersSlider = ({ onChange, defaultValues }: Props) => {
-  const localize = useLocalize()
   const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
 
   const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
@@ -30,8 +28,8 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
         <Tx error={isWarning} tx={`${min} - ${max}`} bold />
 
         <AlertIcon
-          title={localize().alert_letters_slider_title}
-          description={localize().alert_letters_slider_description}
+          titleLocal="alert_letters_slider_title"
+          descriptionLocal="alert_letters_slider_description"
           isVisible={isWarning}
           type="error"
         />

@@ -30,7 +30,7 @@ export const DictionarlyPlay = () => {
   const backButtonAlert = progress === steps ? undefined : leaveGameAlert
 
   return (
-    <Template type="dictionary" title={localize().dictionarly} backButtonAlert={backButtonAlert} backButton flex>
+    <Template type="dictionary" local="dictionarly" backButtonAlert={backButtonAlert} backButton flex>
       <ProgressIndicator {...{ progress, steps, onStepTouchEnd }} />
 
       <DictionarlyKeyboardAvoidingView>

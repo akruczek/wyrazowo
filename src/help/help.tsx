@@ -28,7 +28,7 @@ export const Help = () => {
     )
 
   return (
-    <Template type="more" title={localize().help.toUpperCase()} backButton flex>
+    <Template type="more" local="help" backButton flex>
       <FlatList renderItem={renderItem} data={getHelpData(localize)} />
     </Template>
   )

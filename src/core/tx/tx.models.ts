@@ -66,6 +66,11 @@ export interface StyledTxProps {
   link?: boolean;
 
   /**
+   * Apply disabled font color
+   */
+  disabled?: boolean;
+
+  /**
    * Apply error font color
    */
   error?: boolean;
@@ -79,6 +84,16 @@ export interface StyledTxProps {
    * Apply OK font color
    */
   ok?: boolean;
+
+  /**
+   * Apply suffix at the end of content
+   */
+  suffix?: string | number;
+
+  /**
+   * Apply prefix at the beginning of content
+   */
+  prefix?: string | number;
 
   /**
    * Apply white font color

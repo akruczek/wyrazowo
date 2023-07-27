@@ -41,23 +41,23 @@ export const DeveloperSearchHistory = () => {
   }
 
   return (
-    <Template type="more" title={localize().search_history.toUpperCase()} backButton>
+    <Template type="more" local="search_history" backButton>
       <OptionItem
-        title={localize().clear_search_history}
+        local="clear_search_history"
         icon="trash-can-outline"
         onChange={handleClearSearchHistory}
         withPadding
       />
 
       <OptionItem
-        title={localize().save_search_history}
+        local="save_search_history"
         icon="content-save-move-outline"
         onChange={handleSaveSearchHistory}
         withPadding
       />
 
       <OptionItem
-        title={localize().import_search_history}
+        local="import_search_history"
         icon="file-import-outline"
         onChange={handleImportSearchHistory}
         withPadding

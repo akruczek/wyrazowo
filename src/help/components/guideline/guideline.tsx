@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { useNavigation } from '@react-navigation/native'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { Tx } from '@core/tx'
+import { Localization } from '@core/localize/localize.models'
 import { GUIDELINE } from './guideline.constants'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 import {
@@ -32,13 +32,11 @@ export const Guideline = () => {
     if (!isMin) setGuidelineIndex(R.dec)
   }
 
-  const localize = useLocalize()
-
   return (
-    <Template type="more" title={(localize() as any)[`guideline_${id}_headline`]} backButton>
+    <Template type="more" local={`guideline_${id}_headline` as Localization} backButton>
       <GuidelineContainer>
         <GuidelineGif source={{ uri }} />
-        <Tx tx={(localize() as any)[`guideline_${id}`]} spacings="L 0 0" S center />
+        <Tx local={`guideline_${id}` as Localization} spacings="L 0 0" S center />
       </GuidelineContainer>
 
       <GuidelineButtonsContainer>

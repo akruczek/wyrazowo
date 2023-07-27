@@ -13,6 +13,7 @@ const getFontColor = (props: ThemeProps<ThemeModel> & StyledTxProps) => {
   if (props.white) return COLOR.WHITE
   if (props.black) return COLOR.BLACK
   if (props.link) return COLOR.DODGER_BLUE
+  if (props.disabled) return COLOR.DIM_GREY
   return getThemeProp(props.themeColor ?? 'textPrimary')(props)
 }
 
@@ -31,8 +32,7 @@ const getTxFontSize = ({ XXXS, XXS, XS, S, M, L, XL, XXL, XXXL }: StyledTxProps)
 
 const getShadow = ({ shadow }: StyledTxProps) => shadow ? `
   text-shadow-color: ${COLOR.DIM_GREY};
-  text-shadow-offset: -1px 1px;
-  text-shadow-radius: 10px;
+  text-shadow-radius: 7px;
 ` : ''
 
 const getTxFontWeight = ({ bold, bolder }: StyledTxProps) => {

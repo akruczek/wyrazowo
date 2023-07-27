@@ -48,6 +48,7 @@ export const HeaderText = styled(Tx).attrs({
   white: true,
   bold: true,
   shadow: true,
+  uppercase: true,
   spacings: '0 XXS M XXS',
   spacingType: 'padding',
 })<HeaderTextProps & TextProps>`

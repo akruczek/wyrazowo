@@ -7,6 +7,7 @@ import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { ScreenType } from '@core/models'
 import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
+import { Localization } from '@core/localize/localize.models'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize } from './hooks/use-header-text-size.hook'
 import {
@@ -16,7 +17,7 @@ import {
 
 export interface HeaderProps {
   type: ScreenType;
-  title?: string;
+  local?: keyof typeof Localization;
   backButton?: boolean;
   backButtonAlert?: Function;
   onTouchEnd?: () => void;
@@ -24,7 +25,7 @@ export interface HeaderProps {
   leftContentConfig?: HeaderSideContentConfig;
 }
 
-export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: HeaderProps) => {
+export const Header = ({ type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: HeaderProps) => {
   const navigation = useNavigation()
   const { top: topInset } = useSafeAreaInsets()
   const localize = useLocalize()
@@ -55,11 +56,7 @@ export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, r
           </BackButtonContainer>
         ) : null}
 
-        <HeaderText
-          headerTextSize={headerTextSize}
-          onLayout={onHeaderTextLayout}
-          children={` ${title ?? localize()[type]} `}
-        />
+        <HeaderText headerTextSize={headerTextSize} onLayout={onHeaderTextLayout} local={local ?? type} />
 
         {leftContentConfig ? (
           <HeaderLeftButtonContainer

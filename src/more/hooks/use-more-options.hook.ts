@@ -59,47 +59,47 @@ export const useMoreOptions = (): UseMoreOptions => {
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: displayName,
+        tx: displayName,
         onChange: () => navigation.navigate(SCREEN.MORE_USER),
         imageUrl,
       },
       {
-        title: localize().language,
+        local: 'language',
         values: Object.values(LANGUAGE_CODES),
         labels: LANGUAGE_LABELS,
         value: languageCode ?? SYSTEM_LANGUAGE,
         onChange: handleChangeLanguage,
       },
       {
-        title: localize().theme,
+        local: 'theme',
         values: [ 0, 1, -1 ],
         labels: [ localize().light, localize().dark, localize().auto ],
         value: darkThemeEnabled,
         onChange: handleChangeTheme,
       },
       {
-        title: localize().haptic_feedback,
+        local: 'haptic_feedback',
         value: !!hapticFeedbackEnabled,
         onChange: handleChangeHapticFeedback,
       },
       {
-        title: 'Scrabble Mania',
+        local: 'scrabblemania',
         onChange: () => navigation.navigate(SCREEN.MORE_MANIA),
         icon: 'web',
       },
       {
-        title: localize().help,
+        local: 'help',
         onChange: () => navigation.navigate(SCREEN.MORE_HELP),
         icon: 'help',
       },
       {
-        title: localize().advanced_settings,
+        local: 'advanced_settings',
         onChange: () => navigation.navigate(SCREEN.DEVELOPER),
         icon: 'wrench',
         // TODO: hidden: !__DEV__,
       },
       {
-        title: localize().about_author,
+        local: 'about_author',
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },

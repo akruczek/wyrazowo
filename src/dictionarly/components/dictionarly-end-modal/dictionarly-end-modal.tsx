@@ -3,7 +3,6 @@ import { Modalize } from 'react-native-modalize'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { Tx } from '@core/tx'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, state, word }: Props) => {
-  const localize = useLocalize()
   const navigation = useNavigation<any>()
   const uid = useSelector(userUidSelector)
   const [ end, setEnd ] = React.useState(false)
@@ -51,11 +49,11 @@ export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, stat
   return (
     <DictionarlyEndModalize ref={modalizeRef} onOpened={onOpened} onClose={onClose}>
       <DictionarlyEndModalContainer>
-        <Tx tx={state ? localize().success : localize().failed} XL />
+        <Tx local={state ? 'success' : 'failed'} XL />
         <Tx tx={word} error={!state} ok={!!state} XL />
 
         <DictionarlyEndModalButtonsContainer>
-          <CustomButton color={COLOR.DODGER_BLUE} onPress={navigation.goBack} title={localize().try_again} />
+          <CustomButton color={COLOR.DODGER_BLUE} onPress={navigation.goBack} local="try_again" />
         </DictionarlyEndModalButtonsContainer>
       </DictionarlyEndModalContainer>
     </DictionarlyEndModalize>

@@ -3,7 +3,7 @@ import { noop } from '../noop/noop'
 import { Localization } from '@core/localize/localize.models'
 
 export const leaveGameAlert = (
-  localize: () => Localization,
+  localize: () => typeof Localization,
   onLeave: () => void,
 ) => {
   Alert.alert(localize().leave_game_title, localize().leave_game_description, [

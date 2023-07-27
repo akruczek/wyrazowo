@@ -2,7 +2,6 @@ import * as React from 'react'
 import { GestureResponderEvent, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { selectedLettersSelector } from '../dashboard/store/dashboard.selectors'
 import { SCREEN } from '../navigation/navigation.constants'
@@ -17,7 +16,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Playground = () => {
   const navigation = useNavigation<any>()
-  const localize = useLocalize()
   const advancedSearchModalizeRef = React.useRef<any>(null)
   const [ advancedSearchIndexes, setAdvancedSearchIndexes ] = React.useState<[ number, number ] | null>(null)
   const ref = React.useRef<View>(null)
@@ -101,7 +99,7 @@ export const Playground = () => {
   const { bottom: bottomInset } = useSafeAreaInsets()
 
   return (
-    <Template type="dashboard" title={localize().playground.toUpperCase()} leftContentConfig={leftContentConfig}>
+    <Template type="dashboard" local="playground" leftContentConfig={leftContentConfig}>
       <PlaygroundZoom>
         <View ref={ref}>
           <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />

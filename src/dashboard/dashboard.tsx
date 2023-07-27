@@ -6,6 +6,7 @@ import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
 import { Template } from '@core/template/template'
+import { Tx } from '@core/tx'
 import { isForceIndexAvailable } from './helpers'
 import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
@@ -52,6 +53,7 @@ export const Dashboard = () => {
 
   return React.useMemo(() => (
     <Template type="dashboard" leftContentConfig={leftContentConfig}>
+      <Tx local="selected_letters" bolder disabled center />
       <SelectedLetters {...{
         selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}
       />

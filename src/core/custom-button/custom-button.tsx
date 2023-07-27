@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { Tx } from '@core/tx'
+import { Localization } from '@core/localize/localize.models'
 import { COLOR } from '../colors/colors.constants'
 import { useHapticFeedback } from '../hooks/use-haptic-feedback.hook'
-import { genericShadow } from '../shadow/shadow.constants'
 import { CustomButtonContainer } from './custom-button.styled'
 
 interface Props {
-  title?: string;
+  tx?: string | number;
+  local?: keyof typeof Localization;
   minHeight?: number;
   children?: any;
   invisible?: boolean;
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export const CustomButton = ({
-  title, minHeight, children, invisible, color, withHaptic, onPress,
+  tx, local, minHeight, children, invisible, color, withHaptic, onPress,
 }: Props) => {
   const { triggerHaptic } = useHapticFeedback()
 
@@ -30,7 +31,7 @@ export const CustomButton = ({
 
   return (
     <CustomButtonContainer onPress={handlePress} {...{ invisible, color, minHeight }}>
-      {title ? <Tx tx={title} white bold /> : children ?? null}
+      {tx || local ? <Tx {...{ tx, local }} white bold /> : children ?? null}
     </CustomButtonContainer>
   )
 }

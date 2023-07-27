@@ -1,3 +1,10 @@
+## 1.18.0 ???
+### Added
+- Dashboard, Charde and Dictionarly titles and labels
+
+### Technical
+- Generic localization migration
+
 ## 1.17.0 DASHBOARD REBORN
 ### Added
 - Unlocked full potential of search engine by allow to search words up to 15 letters!
