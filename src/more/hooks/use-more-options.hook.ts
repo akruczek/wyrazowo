@@ -52,10 +52,6 @@ export const useMoreOptions = (): UseMoreOptions => {
   const handleChangeTheme = (value: 0 | 1 | -1) =>
     dispatch(setDarkThemeEnabledAction(value))
 
-  const handleChangeLanguage = (newLanguageCode: LANGUAGE_CODES) => {
-    dispatch(setLanguageCodeAction(newLanguageCode))
-  }
-
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
@@ -68,7 +64,7 @@ export const useMoreOptions = (): UseMoreOptions => {
         values: Object.values(LANGUAGE_CODES),
         labels: LANGUAGE_LABELS,
         value: languageCode ?? SYSTEM_LANGUAGE,
-        onChange: handleChangeLanguage,
+        onChange: () => navigation.navigate(SCREEN.MORE_LANGUAGE),
       },
       {
         local: 'theme',

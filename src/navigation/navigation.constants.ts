@@ -14,6 +14,7 @@ export enum SCREEN {
   CHARADE_PLAY = 'Charade-Play',
   MORE = 'More',
   MORE_MAIN = 'More-Main',
+  MORE_LANGUAGE = 'More-Language',
   MORE_MANIA = 'More-Mania',
   MORE_HELP = 'More-Help',
   MORE_AUTHOR = 'More-Author',

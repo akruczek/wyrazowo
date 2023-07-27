@@ -68,6 +68,8 @@ export enum Localization {
   cancel = 'cancel',
   clear = 'clear',
   confirm = 'confirm',
+  change_language = 'change_language',
+  change_language_description = 'change_language_description',
   language = 'language',
 }
 

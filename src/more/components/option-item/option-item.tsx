@@ -9,6 +9,7 @@ import { noop } from '@core/noop/noop'
 import { Localization } from '@core/localize/localize.models'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage, OptionItemTouchableOpacity } from './option-item.styled'
+import { Tx } from '@core/tx'
 
 interface Props {
   local?: keyof typeof Localization;
@@ -20,6 +21,7 @@ interface Props {
   values?: any[];
   labels?: any[];
   icon?: string;
+  emoji?: string;
   imageUrl?: string;
   iconColor?: COLOR;
   hidden?: boolean;
@@ -27,7 +29,7 @@ interface Props {
 }
 
 export const OptionItem = ({
-  local, tx, suffix, value, values, labels, imageUrl, hidden, withPadding, icon, iconColor,
+  local, tx, suffix, value, values, labels, imageUrl, hidden, withPadding, icon, emoji, iconColor,
   onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
@@ -61,7 +63,11 @@ export const OptionItem = ({
         {imageUrl ? (
           <OptionItemImage source={{ uri: imageUrl }} />
         ) : (
-          <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
+          emoji ? (
+            <Tx tx={emoji} XL />
+          ) : (
+            <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
+          )
         )}
       </OptionItemTouchableOpacity>
     </ListedOption>

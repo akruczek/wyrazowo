@@ -1,16 +1,15 @@
 import { COLOR } from '@core/colors/colors.constants'
-import { Localization } from '@core/localize/localize.models'
 
-export const getHelpData = (localize: () => typeof Localization) => [
+export const HELP_DATA = [
   {
-    title: localize().dashboard,
+    local: 'dashboard',
     icon: 'home-search',
     index: 0,
     iconColor: COLOR.FIRE_BRICK,
     error: true,
   },
   {
-    title: localize().dictionary,
+    local: 'dictionary',
     icon: 'book-alphabet',
     index: 1,
     iconColor: COLOR.DODGER_BLUE,
@@ -18,7 +17,7 @@ export const getHelpData = (localize: () => typeof Localization) => [
     hidden: true,
   },
   {
-    title: localize().charade,
+    local: 'charade',
     icon: 'grid',
     index: 2,
     iconColor: COLOR.DARK_SEA_GREEN,
