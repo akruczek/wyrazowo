@@ -1,6 +1,6 @@
 import styled, { ThemeProps } from 'styled-components/native'
 import { SPACING, ThemeModel, getThemeProp } from '@core/styled'
-import { RESPONSIVE } from '@core/responsive/responsive';
+import { RESPONSIVE } from '@core/responsive/responsive'
 
 interface ListedOptionContainerProps {
   withPadding?: boolean;

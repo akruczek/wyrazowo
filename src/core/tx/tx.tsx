@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StyledTx } from './tx.styled'
 import { StyledTxProps } from './tx.models'
 import { Localization } from '@core/localize/localize.models'
-import { useLocalize } from '@core/hooks/use-localize.hook';
+import { useLocalize } from '@core/hooks/use-localize.hook'
 
 interface Props extends StyledTxProps {
   tx?: string | number;

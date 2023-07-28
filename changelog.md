@@ -1,6 +1,7 @@
-## 1.18.0 ???
+## 1.18.0 LOCALIZATION IMPROVEMENTS
 ### Added
 - Dashboard, Charde and Dictionarly titles and labels
+- New language settings
 
 ### Technical
 - Generic localization migration
