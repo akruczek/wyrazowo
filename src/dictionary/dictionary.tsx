@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
-import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { DictionaryDefinitions, DictionaryButtons, DictionaryCustomizeRandom } from './components'
@@ -11,7 +10,6 @@ import { DictionaryTextInput } from './dictionary.styled'
 
 export const Dictionary = () => {
   const localize = useLocalize()
-  const navigation = useNavigation<any>()
   const customizeRandomModalizeRef = React.useRef<Modalize & any>(null)
   const { onApply, onClear, isFilterActive, filtersRef } = useDictionaryRandomFilters()
 
@@ -20,10 +18,6 @@ export const Dictionary = () => {
 
   const { definitions } = useWordDefinitions(wordFromDB)
 
-  const handlePlayDictionarly = () => {
-    navigation.navigate(SCREEN.DICTIONARY_DICTIONARLY)
-  }
-
   const rightContentConfig = {
     onPress: handlePressRandom,
     onLongPress: handleLongPressRandom,
@@ -31,13 +25,13 @@ export const Dictionary = () => {
     indicator: isFilterActive,
   }
 
-  const leftContentConfig = {
-    onPress: handlePlayDictionarly,
-    icon: 'gamepad-variant',
-  }
-
   return (
-    <Template type="dictionary" {...{ rightContentConfig, leftContentConfig }}>
+    <Template
+      type="dictionary"
+      leftIcon="gamepad-variant"
+      leftScreen={SCREEN.DICTIONARY_DICTIONARLY}
+      rightContentConfig={rightContentConfig}
+    >
       <DictionaryTextInput
         placeholder={`${localize().search_for_word}...`}
         onChange={handleChange}

@@ -8,7 +8,7 @@ export const Mania = () => {
   const uri = 'https://scrabblemania.pl'
 
   return MANIA_ENABLED ? (
-    <Template type="more" title="SCRABBLEMANIA" backButton>
+    <Template type="more" local="scrabblemania" backButton>
       <WebView
         source={{ uri }}
         originWhitelist={['*']}

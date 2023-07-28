@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { ActivityIndicator, ScrollView } from 'react-native'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { SpacingView } from '@core/styled'
 import { Tx } from '@core/tx'
 
@@ -11,26 +10,22 @@ interface Props {
   definitions: string[] | null;
 }
 
-export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definitions }: Props) => {
-  const localize = useLocalize()
-
-  return (
-    <ScrollView scrollEnabled={false}>
-      {isPending ? (
-        <SpacingView spacings="XXXL 0 0 0">
-          <ActivityIndicator size="large" />
-        </SpacingView>
-      ) : (wordFromDB && !definitions?.length) || !state ? (
-        <SpacingView spacings="L S 0">
-          <Tx tx={localize().no_definitions_found} spacings="0 0 S 0" S bold center />
-        </SpacingView>
-      ) : (
-        <SpacingView spacings="L S 0">
-          {definitions?.map((definition: string, index: number) => (
-            <Tx tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
-          ))}
-        </SpacingView>
-      )}
-    </ScrollView>
-  )
-}
+export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definitions }: Props) => (
+  <ScrollView scrollEnabled={false}>
+    {isPending ? (
+      <SpacingView spacings="XXXL 0 0 0">
+        <ActivityIndicator size="large" />
+      </SpacingView>
+    ) : (wordFromDB && !definitions?.length) || !state ? (
+      <SpacingView spacings="L S 0">
+        <Tx local="no_definitions_found" spacings="0 0 S 0" S bold center />
+      </SpacingView>
+    ) : (
+      <SpacingView spacings="L S 0">
+        {definitions?.map((definition: string, index: number) => (
+          <Tx tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
+        ))}
+      </SpacingView>
+    )}
+  </ScrollView>
+)

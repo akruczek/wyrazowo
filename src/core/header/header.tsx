@@ -1,44 +1,37 @@
 import * as React from 'react'
 import { StatusBar } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useNavigation } from '@react-navigation/native'
 import { genericLightShadow } from '@core/shadow/shadow.constants'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { ScreenType } from '@core/models'
 import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
+import { Localization } from '@core/localize/localize.models'
+import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
-import { useHeaderTextSize } from './hooks/use-header-text-size.hook'
+import { useHeaderTextSize, useHeaderPress } from './hooks'
 import {
-  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderLeftButtonIndicator,
-  HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar, HeaderText,
+  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderText,
+  HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar,
 } from './header.styled'
 
 export interface HeaderProps {
   type: ScreenType;
-  title?: string;
+  local?: keyof typeof Localization;
   backButton?: boolean;
   backButtonAlert?: Function;
   onTouchEnd?: () => void;
   rightContentConfig?: HeaderSideContentConfig;
-  leftContentConfig?: HeaderSideContentConfig;
+  leftIcon?: string;
+  leftScreen?: SCREEN;
 }
 
-export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftContentConfig }: HeaderProps) => {
-  const navigation = useNavigation()
+export const Header = ({
+  type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftIcon, leftScreen,
+}: HeaderProps) => {
   const { top: topInset } = useSafeAreaInsets()
-  const localize = useLocalize()
   const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
-
+  const { onBackPress, onLeftIconPress } = useHeaderPress(leftScreen, backButtonAlert)
   const color = screenTypeToColorMap[type]
-
-  const onBackPress = () => {
-    if (backButtonAlert) {
-      backButtonAlert(localize, navigation.goBack)
-    } else {
-      navigation.goBack()
-    }
-  }
 
   return (
     <>
@@ -48,28 +41,18 @@ export const Header = ({ type, title, backButton, backButtonAlert, onTouchEnd, r
         <StatusBar backgroundColor="transparent" translucent />
       )}
 
-      <HeaderContainer onTouchEnd={onTouchEnd} {...{ color, topInset }}>
+      <HeaderContainer {...{ color, topInset, onTouchEnd }}>
         {backButton ? (
           <BackButtonContainer onPress={onBackPress} topInset={topInset}>
             <BackButtonIcon />
           </BackButtonContainer>
         ) : null}
 
-        <HeaderText
-          headerTextSize={headerTextSize}
-          onLayout={onHeaderTextLayout}
-          children={` ${title ?? localize()[type]} `}
-        />
+        <HeaderText headerTextSize={headerTextSize} onLayout={onHeaderTextLayout} local={local ?? type} />
 
-        {leftContentConfig ? (
-          <HeaderLeftButtonContainer
-            onPress={leftContentConfig.onPress}
-            onLongPress={leftContentConfig.onLongPress}
-            style={genericLightShadow}
-            topInset={topInset}
-          >
-            {leftContentConfig.indicator ? <HeaderLeftButtonIndicator /> : null}
-            <HeaderLeftIcon icon={leftContentConfig.icon} />
+        {(leftIcon && leftScreen) ? (
+          <HeaderLeftButtonContainer onPress={onLeftIconPress} style={genericLightShadow} topInset={topInset} >
+            <HeaderLeftIcon icon={leftIcon} />
           </HeaderLeftButtonContainer>
         ) : null}
 

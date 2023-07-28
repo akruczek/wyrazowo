@@ -1,10 +1,18 @@
+## 1.18.0 LOCALIZATION IMPROVEMENTS
+### Added
+- Dashboard, Charde and Dictionarly titles and labels
+- New language settings
+
+### Technical
+- Generic localization migration
+
 ## 1.17.0 DASHBOARD REBORN
 ### Added
 - Unlocked full potential of search engine by allow to search words up to 15 letters!
 - Alert warning for letters slider
 
 ### Changed
-- Dashboar UI and UX
+- Dashboard UI and UX
 - More tab UI consistency
 - Charade switch migrated to generic checkbox
 

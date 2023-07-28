@@ -6,17 +6,22 @@ import { COLOR } from '@core/colors/colors.constants'
 import { MultiToggle } from '@core/multi-toggle/multi-toggle'
 import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { noop } from '@core/noop/noop'
+import { Localization } from '@core/localize/localize.models'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage, OptionItemTouchableOpacity } from './option-item.styled'
+import { Tx } from '@core/tx'
 
 interface Props {
-  title: string;
+  local?: keyof typeof Localization;
+  tx?: string | number;
+  suffix?: string | number;
   onChange?: (newValue: any) => void;
   handleDeactivatePremium?: () => void;
   value?: any;
   values?: any[];
   labels?: any[];
   icon?: string;
+  emoji?: string;
   imageUrl?: string;
   iconColor?: COLOR;
   hidden?: boolean;
@@ -24,7 +29,8 @@ interface Props {
 }
 
 export const OptionItem = ({
-  title, value, values, labels, imageUrl, hidden, withPadding, icon, iconColor, onChange, handleDeactivatePremium,
+  local, tx, suffix, value, values, labels, imageUrl, hidden, withPadding, icon, emoji, iconColor,
+  onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
 
@@ -32,7 +38,7 @@ export const OptionItem = ({
 
   if (values !== undefined) {
     return (
-      <ListedOption {...{ title, withPadding }} staticHeight>
+      <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
         <MultiToggle
           values={values}
           value={value}
@@ -45,19 +51,23 @@ export const OptionItem = ({
 
   if (value !== undefined) {
     return (
-      <ListedOption {...{ title, withPadding }} staticHeight>
+      <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
       </ListedOption>
     )
   }
 
   return (
-    <ListedOption {...{ title, withPadding }} staticHeight>
+    <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
       <OptionItemTouchableOpacity onPress={onChange} onLongPress={handleDeactivatePremium}>
         {imageUrl ? (
           <OptionItemImage source={{ uri: imageUrl }} />
         ) : (
-          <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
+          emoji ? (
+            <Tx tx={emoji} XL />
+          ) : (
+            <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
+          )
         )}
       </OptionItemTouchableOpacity>
     </ListedOption>

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { LetterCard } from '@core/letter-card/letter-card'
-import { CustomModalize } from '@core/custom-modalize/cutom-modalize';
+import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { ForceIndexModalContainer } from './force-index-modal.styled'
 
 interface Props {

@@ -29,6 +29,7 @@
   "by_letters": "letters",
   "load_more": "Load more",
   "leave": "Leave",
+  "scrabblemania": "Scrabblemania",
   "leave_game_title": "Leave game?",
   "leave_game_description": "Are you sure you want to leave the game? You will lose points!",
   "guideline_basic_search_headline": "Basic search",
@@ -47,6 +48,8 @@
   "words_length": "Words length",
   "alert_letters_slider_title": "Long words length",
   "alert_letters_slider_description": "Searching words with more than 10 letters may take a while. Be patient.",
+  "difficulty": "Difficulty",
+  "selected_letters": "Selected letters",
   "about_author": "About Author",
   "failed": "Failed!",
   "success": "Success!",
@@ -65,5 +68,7 @@
   "cancel": "Cancel",
   "clear": "Clear",
   "confirm": "Confirm",
+  "change_language": "Change language",
+  "change_language_description": "To change language you need to restart app",
   "language": "Language"
 }

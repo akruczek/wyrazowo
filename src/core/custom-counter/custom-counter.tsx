@@ -1,19 +1,20 @@
 import * as React from 'react'
 import { Tx } from '@core/tx'
+import { Localization } from '@core/localize/localize.models'
 import {
-  CustomCounterButtonContainer, CustomCounterContainer, CustomCounterLabelIconContainer,
+  CustomCounterButtonContainer, CustomCounterContainer,
   CustomCounterMinusIcon, CustomCounterPlusIcon, CustomCounterTextContainer,
 } from './custom-counter.styled'
 
 interface Props {
   value: number;
-  label?: string,
+  local?: keyof typeof Localization,
   colorBreakpoints?: [ number, number, number ];
   range: [ number, number ];
   setValue: (value: number) => void;
 }
 
-export const CustomCounter = ({ value, label, colorBreakpoints, range, setValue }: Props) => {
+export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue }: Props) => {
   const handleDecrement = () => {
     if (value > range[0]) {
       setValue(value - 1)
@@ -35,9 +36,7 @@ export const CustomCounter = ({ value, label, colorBreakpoints, range, setValue 
 
   return (
     <>
-      <CustomCounterLabelIconContainer>
-        <Tx tx={label} bolder />
-      </CustomCounterLabelIconContainer>
+      <Tx local={local} disabled bolder center />
 
       <CustomCounterContainer>
         <CustomCounterButtonContainer disabled={value === range[0]} onPress={handleDecrement} {...colorProps}>

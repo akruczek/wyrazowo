@@ -2,7 +2,7 @@ import { Localization } from '@core/localize/localize.models'
 import { Alert } from 'react-native'
 
 export const saveSearchHistoryAlert = (
-  localize: () => Localization,
+  localize: () => typeof Localization,
   onPress: () => void,
 ) => {
   Alert.alert(localize().save_search_history, localize().overwrite_search_history_confirmation, [

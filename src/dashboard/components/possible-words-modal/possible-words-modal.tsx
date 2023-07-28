@@ -4,7 +4,6 @@ import { ActivityIndicator, FlatList } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { SpacingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
@@ -29,7 +28,6 @@ interface Props {
 export const PossibleWordsModal = ({
   possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
-  const localize = useLocalize()
   const modalOffset = useModalTopOffset()
   const wordDetailsModalRef = React.useRef<any>(null)
 
@@ -64,7 +62,7 @@ export const PossibleWordsModal = ({
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
                 <SpacingView key={wordsGroup.join('')} spacings="0 0 S XXS">
-                  <Tx tx={`${wordsGroup[0].length} ${localize().by_letters}`} spacings="0 0 XXS" />
+                  <Tx prefix={`${wordsGroup[0].length} `} local="by_letters" spacings="0 0 XXS" />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>

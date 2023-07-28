@@ -1,13 +1,10 @@
 import * as React from 'react'
 import { TouchableOpacity, Linking } from 'react-native'
 import { Tx } from '@core/tx'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { AuthorGithubIcon, AuthorRowContainer, AuthorLinkedInIcon } from './author.styled'
 
 export const Author = () => {
-  const localize = useLocalize()
-
   const onGithubPress = () => {
     Linking.openURL('https://github.com/akruczek')
   }
@@ -17,7 +14,7 @@ export const Author = () => {
   }
 
   return (
-    <Template type="more" title={localize().about_author} backButton>
+    <Template type="more" local="about_author" backButton>
       <Tx tx="Adam Kruczek" spacings="XXS L" bold />
 
       <AuthorRowContainer>

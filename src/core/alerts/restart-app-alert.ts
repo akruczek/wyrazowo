@@ -1,20 +1,20 @@
 import { Alert } from 'react-native'
-import { noop } from '../noop/noop'
 import { Localization } from '@core/localize/localize.models'
+import { noop } from '../noop/noop'
 
-export const leaveGameAlert = (
+export const restartAppAlert = (
   localize: () => typeof Localization,
-  onLeave: () => void,
+  onConfirm: () => void,
 ) => {
-  Alert.alert(localize().leave_game_title, localize().leave_game_description, [
+  Alert.alert(localize().change_language, localize().change_language_description, [
     {
       text: localize().cancel,
       onPress: noop,
     },
     {
-      text: localize().leave,
+      text: localize().confirm,
       style: 'destructive',
-      onPress: onLeave,
+      onPress: onConfirm,
     }
   ])
 }

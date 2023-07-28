@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
-import { LANGUAGE_LABELS } from '@core/localize/localize.constants'
 import { SYSTEM_LANGUAGE } from '@core/system-language/system-language'
 import { MoreOption } from '../more.models'
 import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
 import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
 import {
-  setDarkThemeEnabledAction, setHapticFeedbackEnabledAction, setLanguageCodeAction,
+  setDarkThemeEnabledAction, setHapticFeedbackEnabledAction,
 } from '../../settings/store/settings.slice'
 
 type Options = [
@@ -52,54 +51,48 @@ export const useMoreOptions = (): UseMoreOptions => {
   const handleChangeTheme = (value: 0 | 1 | -1) =>
     dispatch(setDarkThemeEnabledAction(value))
 
-  const handleChangeLanguage = (newLanguageCode: LANGUAGE_CODES) => {
-    dispatch(setLanguageCodeAction(newLanguageCode))
-  }
-
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
       {
-        title: displayName,
+        tx: displayName,
         onChange: () => navigation.navigate(SCREEN.MORE_USER),
         imageUrl,
       },
       {
-        title: localize().language,
-        values: Object.values(LANGUAGE_CODES),
-        labels: LANGUAGE_LABELS,
-        value: languageCode ?? SYSTEM_LANGUAGE,
-        onChange: handleChangeLanguage,
+        local: 'language',
+        onChange: () => navigation.navigate(SCREEN.MORE_LANGUAGE),
+        icon: 'translate',
       },
       {
-        title: localize().theme,
+        local: 'theme',
         values: [ 0, 1, -1 ],
         labels: [ localize().light, localize().dark, localize().auto ],
         value: darkThemeEnabled,
         onChange: handleChangeTheme,
       },
       {
-        title: localize().haptic_feedback,
+        local: 'haptic_feedback',
         value: !!hapticFeedbackEnabled,
         onChange: handleChangeHapticFeedback,
       },
       {
-        title: 'Scrabble Mania',
+        local: 'scrabblemania',
         onChange: () => navigation.navigate(SCREEN.MORE_MANIA),
         icon: 'web',
       },
       {
-        title: localize().help,
+        local: 'help',
         onChange: () => navigation.navigate(SCREEN.MORE_HELP),
         icon: 'help',
       },
       {
-        title: localize().advanced_settings,
+        local: 'advanced_settings',
         onChange: () => navigation.navigate(SCREEN.DEVELOPER),
         icon: 'wrench',
         // TODO: hidden: !__DEV__,
       },
       {
-        title: localize().about_author,
+        local: 'about_author',
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },

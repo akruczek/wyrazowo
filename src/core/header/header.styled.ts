@@ -48,6 +48,7 @@ export const HeaderText = styled(Tx).attrs({
   white: true,
   bold: true,
   shadow: true,
+  uppercase: true,
   spacings: '0 XXS M XXS',
   spacingType: 'padding',
 })<HeaderTextProps & TextProps>`
@@ -120,18 +121,6 @@ export const HeaderLeftButtonContainer = styled.TouchableOpacity.attrs({
   left: 10px;
   justify-content: center;
   align-items: center;
-`
-
-export const HeaderLeftButtonIndicator = styled.View`
-  position: absolute;
-  z-index: 1;
-  elevation: 1;
-  left: -2px;
-  top: -2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 8px;
-  background-color: ${COLOR.FIRE_BRICK};
 `
 
 interface HeaderLeftIconProps {

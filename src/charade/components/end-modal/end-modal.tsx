@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Modalize } from 'react-native-modalize'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export const EndModal = ({ modalizeRef, success, word }: Props) => {
-  const localize = useLocalize()
   const navigation = useNavigation<any>()
   const uid = useSelector(userUidSelector)
 
@@ -41,11 +39,11 @@ export const EndModal = ({ modalizeRef, success, word }: Props) => {
   return (
     <CharadeEndModalize ref={modalizeRef} onOpened={onOpened}>
       <EndModalContainer>
-        <Tx tx={success ? localize().success : localize().failed} spacings="0 0 L 0" XXL bold center />
+        <Tx local={success ? 'success' : 'failed'} spacings="0 0 L 0" XXL bold center />
         <Tx tx={word.toUpperCase()} spacings="0 0 L 0" XXL bold center />
 
         <EndModalButtonsContainer>
-          <CustomButton color={COLOR.DARK_SEA_GREEN} onPress={handleTryAgain} title={localize().try_again} />
+          <CustomButton color={COLOR.DARK_SEA_GREEN} onPress={handleTryAgain} local="try_again" />
         </EndModalButtonsContainer>
       </EndModalContainer>
     </CharadeEndModalize>

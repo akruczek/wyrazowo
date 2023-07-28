@@ -1,9 +1,12 @@
 import * as React from 'react'
-import { ListedOptionContainer } from './listed-option.styled'
 import { Tx } from '@core/tx'
+import { Localization } from '@core/localize/localize.models'
+import { ListedOptionContainer } from './listed-option.styled'
 
 interface Props {
-  title: string;
+  local?: keyof typeof Localization;
+  tx?: string | number;
+  suffix?: string | number;
   withPadding?: boolean;
   children?: JSX.Element;
   XS?: boolean;
@@ -13,9 +16,9 @@ interface Props {
   staticHeight?: boolean;
 }
 
-export const ListedOption = ({ title, withPadding, XS, error, ok, link, staticHeight, children }: Props) => (
+export const ListedOption = ({ local, suffix, tx, withPadding, XS, error, ok, link, staticHeight, children }: Props) => (
   <ListedOptionContainer {...{ withPadding, staticHeight }}>
-    <Tx tx={title} {...{ XS, error, ok, link }} bolder />
+    <Tx {...{ XS, error, ok, link, local, tx, suffix }} bolder />
     {children}
   </ListedOptionContainer>
 )

@@ -1,41 +1,35 @@
 import * as React from 'react'
-import { useLocalize } from '@core/hooks/use-localize.hook'
 import { COLOR } from '@core/colors/colors.constants'
 import { SwitchButton } from '@core/switch-button/switch-button'
 import { Template } from '@core/template/template'
 import { PlayButton } from '@core/play-button/play-button'
+import { Tx } from '@core/tx'
+import { SCREEN } from 'navigation/navigation.constants'
 import { usePlayDictionarly } from './hooks'
-import { DictionarlyDifficultyIcon, DictionarlySeparator, DictionarlyWordsLengthIcon } from './dictionarly.styled'
+import { DictionarlySeparator } from './dictionarly.styled'
 
 export const Dictionarly = () => {
-  const localize = useLocalize()
-  const { handlePlay, handleNavigateToDictionary, wordsLength, setWordsLength, difficulty, setDifficulty } =
-    usePlayDictionarly()
-
-  const leftContentConfig = {
-    onPress: handleNavigateToDictionary,
-    icon: 'book-alphabet',
-  }
+  const { handlePlay, wordsLength, setWordsLength, difficulty, setDifficulty } = usePlayDictionarly()
 
   return (
-    <Template type="dictionary" title={localize().dictionarly} leftContentConfig={leftContentConfig}>
-      <DictionarlyWordsLengthIcon />
+    <Template type="dictionary" local="dictionarly" leftIcon="book-alphabet" leftScreen={SCREEN.DICTIONARY_DICTIONARY}>
+      <Tx local="words_length" disabled bolder center />
 
       <SwitchButton
         onChange={setWordsLength}
         value={wordsLength}
-        labels={[ localize().short, localize().long ]}
+        labels={[ 'short', 'long' ]}
         colors={[ COLOR.DARK_SEA_GREEN, COLOR.FIRE_BRICK ]}
       />
 
       <DictionarlySeparator />
 
-      <DictionarlyDifficultyIcon />
+      <Tx local="difficulty" disabled bolder center />
       <SwitchButton
         onChange={setDifficulty}
         value={difficulty}
         elementsInRowCount={2}
-        labels={[ localize().easy, localize().normal, localize().hard, localize().very_hard ]}
+        labels={[ 'easy', 'normal', 'hard', 'very_hard' ]}
         colors={[ COLOR.DARK_SEA_GREEN, COLOR.DODGER_BLUE, COLOR.GOLD, COLOR.FIRE_BRICK ]}
       />
 

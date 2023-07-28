@@ -26,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new DBModulePackage());
           packages.add(new FSModulePackage());
+          packages.add(new RestartModulePackage());
           return packages;
         }
 
