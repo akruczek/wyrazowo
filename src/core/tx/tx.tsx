@@ -13,10 +13,10 @@ interface Props extends StyledTxProps {
 export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
   const localize = useLocalize()
 
-  const getChildren = React.useCallback(() => {
+  const getChildren = () => {
     const base = children ?? localize()[local as keyof typeof Localization] ?? tx
     return `${styledTxProps.prefix ?? ''}${base}${styledTxProps.suffix ?? ''}`
-  }, [ children, tx, local, styledTxProps.prefix, styledTxProps.suffix ])
+  }
 
   return (
     <StyledTx children={getChildren()} {...styledTxProps} />

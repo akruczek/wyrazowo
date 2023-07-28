@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import { DevSettings } from 'react-native'
+import { DevSettings, NativeModules } from 'react-native'
 import { LANGUAGE_EMOJIS, LANGUAGE_LABELS } from '@core/localize/localize.constants'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { restartAppAlert } from '@core/alerts/restart-app-alert'
@@ -21,7 +21,11 @@ export const LanguageItem = ({ item, index }: Props) => {
     restartAppAlert(localize, () => {
       dispatch(setLanguageCodeAction(item))
       setTimeout(() => {
-        DevSettings.reload()
+        if (__DEV__) {
+          DevSettings.reload()
+        } else {
+          NativeModules?.RestartModule?.restartApp?.()
+        }
       })
     })
   }
