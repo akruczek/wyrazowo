@@ -14,7 +14,11 @@ export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
   const localize = useLocalize()
 
   const getChildren = () => {
-    const base = children ?? localize()[local as keyof typeof Localization] ?? tx
+    if (children) {
+      return children
+    }
+
+    const base = localize()[local as keyof typeof Localization] ?? tx
     return `${styledTxProps.prefix ?? ''}${base}${styledTxProps.suffix ?? ''}`
   }
 

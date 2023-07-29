@@ -1,10 +1,14 @@
+## 1.18.1
+### Fixed
+- Dictionarly words
+
 ## 1.18.0 LOCALIZATION IMPROVEMENTS
 ### Added
-- Dashboard, Charde and Dictionarly titles and labels
+- Dashboard, Charade and Dictionarly titles and labels
 - New language settings
 
 ### Technical
-- Generic localization migration
+- Generic Localization migration
 
 ## 1.17.0 DASHBOARD REBORN
 ### Added
