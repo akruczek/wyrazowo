@@ -1,9 +1,9 @@
 import { Alert } from 'react-native'
+import { Localization, LocalizeParams } from '@core/localize/localize.models'
 import { noop } from '../noop/noop'
-import { Localization } from '@core/localize/localize.models'
 
 export const leaveGameAlert = (
-  localize: () => typeof Localization,
+  localize: (params?: LocalizeParams) => typeof Localization,
   onLeave: () => void,
 ) => {
   Alert.alert(localize().leave_game_title, localize().leave_game_description, [

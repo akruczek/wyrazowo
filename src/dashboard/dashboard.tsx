@@ -6,6 +6,7 @@ import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
 import { Template } from '@core/template/template'
 import { Tx } from '@core/tx'
+import { useNewVersionAlert } from '@core/hooks/use-new-version-alert.hook'
 import { isForceIndexAvailable } from './helpers'
 import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
@@ -18,6 +19,8 @@ export const Dashboard = () => {
   const forceIndexModalizeRef = React.useRef<Modalize>(null)
   const forceIndexLetterIndexRef = React.useRef<null | number>(null)
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
+
+  useNewVersionAlert()
 
   const {
     letters, selectedLetters,

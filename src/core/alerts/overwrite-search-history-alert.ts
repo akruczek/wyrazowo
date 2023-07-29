@@ -1,8 +1,8 @@
-import { Localization } from '@core/localize/localize.models'
 import { Alert } from 'react-native'
+import { Localization, LocalizeParams } from '@core/localize/localize.models'
 
 export const overwriteSearchHistoryAlert = (
-  localize: () => typeof Localization,
+  localize: (params?: LocalizeParams) => typeof Localization,
   onPress: () => void,
 ) => {
   Alert.alert(localize().are_you_sure, localize().overwrite_search_history_confirmation, [
