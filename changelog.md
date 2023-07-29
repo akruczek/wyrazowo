@@ -1,3 +1,8 @@
+## 1.19.0
+### Added
+- New theme settings
+- New Author screen content
+
 ## 1.18.1
 ### Fixed
 - Dictionarly words

@@ -68,6 +68,8 @@
   "cancel": "Cancel",
   "clear": "Clear",
   "confirm": "Confirm",
+  "on": "on",
+  "off": "off",
   "change_language": "Change language",
   "change_language_description": "To change language you need to restart app",
   "language": "Language"

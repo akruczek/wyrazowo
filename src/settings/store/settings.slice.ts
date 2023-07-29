@@ -4,11 +4,12 @@ import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { LANGUAGE_CODES } from '@core/localize/localize.models'
 import { NumberFlag } from '@core/models'
+import { ThemeNumberFlag } from '@core/styled/theme'
 
 export interface SettingsState {
   hapticFeedbackEnabled: NumberFlag;
   nativeSearchEngineEnabled: NumberFlag;
-  darkThemeEnabled: 0 | 1 | -1;
+  darkThemeEnabled: ThemeNumberFlag;
   premium: number;
   languageCode: null | LANGUAGE_CODES;
 }
@@ -33,7 +34,7 @@ export const settingsSlice = createSlice({
       Storage.set(STORAGE_KEY.NATIVE_SEARCH_ENGINE_ENABLED, String(action.payload))
       state.nativeSearchEngineEnabled = action.payload
     },
-    setDarkThemeEnabledAction: (state, action: PayloadAction<0 | 1 | -1>) => {
+    setDarkThemeEnabledAction: (state, action: PayloadAction<ThemeNumberFlag>) => {
       Storage.set(STORAGE_KEY.DARK_THEME_ENABLED, String(action.payload))
       state.darkThemeEnabled = action.payload
     },

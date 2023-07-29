@@ -8,17 +8,22 @@ interface Props {
   tx?: string | number;
   suffix?: string | number;
   withPadding?: boolean;
-  children?: JSX.Element;
+  children?: JSX.Element | null;
   XS?: boolean;
   error?: boolean;
   ok?: boolean;
+  onPress?: () => void;
+  onLongPress?: () => void;
   link?: boolean;
   staticHeight?: boolean;
+  uppercase?: boolean;
 }
 
-export const ListedOption = ({ local, suffix, tx, withPadding, XS, error, ok, link, staticHeight, children }: Props) => (
-  <ListedOptionContainer {...{ withPadding, staticHeight }}>
-    <Tx {...{ XS, error, ok, link, local, tx, suffix }} bolder />
+export const ListedOption = ({
+  local, suffix, tx, withPadding, XS, error, ok, link, staticHeight, onPress, onLongPress, children, uppercase,
+}: Props) => (
+  <ListedOptionContainer {...{ withPadding, staticHeight, onPress, onLongPress }}>
+    <Tx {...{ XS, error, ok, link, local, tx, suffix, uppercase }} bolder />
     {children}
   </ListedOptionContainer>
 )

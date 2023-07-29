@@ -15,6 +15,8 @@ export enum SCREEN {
   MORE = 'More',
   MORE_MAIN = 'More-Main',
   MORE_LANGUAGE = 'More-Language',
+  MORE_THEME = 'More-Theme',
+  MORE_HAPTIC = 'More-Haptic',
   MORE_MANIA = 'More-Mania',
   MORE_HELP = 'More-Help',
   MORE_AUTHOR = 'More-Author',

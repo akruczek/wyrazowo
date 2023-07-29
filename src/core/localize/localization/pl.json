@@ -68,6 +68,8 @@
   "cancel": "Anuluj",
   "clear": "Wyczyść",
   "confirm": "Potwierdź",
+  "on": "Włącz",
+  "off": "Wyłącz",
   "change_language": "Zmiana języka",
   "change_language_description": "Aby zmienić język musisz ponownie uruchomić aplikację",
   "language": "Język"

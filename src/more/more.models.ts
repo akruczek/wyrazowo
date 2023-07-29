@@ -1,13 +1,11 @@
 import { COLOR } from '@core/colors/colors.constants'
 import { Localization } from '@core/localize/localize.models'
 
-export interface MoreOption<V> {
+export interface MoreOption {
   tx?: string
   suffix?: string;
   local?: keyof typeof Localization;
-  onChange?: (newValue: V) => void;
-  value?: V;
-  values?: V[];
+  onChange?: () => void;
   icon?: string;
   iconColor?: COLOR;
   hidden?: boolean;
