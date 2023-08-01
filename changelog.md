@@ -7,6 +7,7 @@
 
 ### Technical
 - Upgrade React Native to 0.72.3
+- Upgrade Firebase SDK to 18
 
 ## 1.18.1
 ### Fixed
