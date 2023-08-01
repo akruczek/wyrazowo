@@ -1,7 +1,6 @@
 import styled from 'styled-components/native'
 
-export const OptionItemTouchableOpacity = styled.TouchableOpacity.attrs(({ onPress }) => ({
-  activeOpacity: Number(!onPress),
+export const OptionItemTouchableOpacity = styled.Pressable.attrs(({ onPress }) => ({
   hitSlop: {
     top: 10,
     right: 10,

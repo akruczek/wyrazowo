@@ -21,4 +21,8 @@ export const theme = {
   dark: DARK,
 }
 
+export const THEME_LABELS: ('light' | 'dark' | 'auto')[] = [ 'light', 'dark', 'auto' ]
+
+export type ThemeNumberFlag = -1 | 0 | 1
+
 export const getThemeProp = (prop: keyof typeof LIGHT) => (props: ThemeProps<ThemeModel>) => props?.theme?.[prop]

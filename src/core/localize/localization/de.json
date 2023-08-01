@@ -51,6 +51,9 @@
   "difficulty": "Schwierigkeit",
   "selected_letters": "Ausgewählte Buchstaben",
   "about_author": "Über den Autor",
+  "new_version_title": "Neue Version verfügbar",
+  "new_version_description_ios": "{{version}} Version wyrzowo App steht jetzt zum Download in der TestFlight-App zur Verfügung",
+  "new_version_description_android": "{{version}} Version wyrazowo App ist jetzt zum Download in App Distribution verfügbar",
   "failed": "Fehlgeschlagen!",
   "success": "Erfolg!",
   "try_again": "versuchen Sie es erneut",
@@ -68,6 +71,8 @@
   "cancel": "Abbrechen",
   "clear": "Löschen",
   "confirm": "Bestätigen",
+  "on": "Aktivieren",
+  "off": "Ausschalten",
   "change_language": "Sprache ändern",
   "change_language_description": "Die Sprache zu ändern, müssen Sie die App neu starten",
   "language": "Sprache"

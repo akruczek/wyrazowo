@@ -12,6 +12,14 @@ export const AuthorGithubIcon = styled(MaterialCommunityIcons).attrs(props => ({
   margin-right: ${SPACING.XS}px;
 `
 
+export const AuthorRepoIcon = styled(MaterialCommunityIcons).attrs((props) => ({
+  name: 'source-repository',
+  color: getThemeProp('textSecondary')(props),
+  size: TEXT_SIZE.XXXL,
+}))`
+  margin-right: ${SPACING.XS}px;
+`
+
 export const AuthorLinkedInIcon = styled(MaterialCommunityIcons).attrs(props => ({
   name: 'linkedin',
   color: getThemeProp('textSecondary')(props),
@@ -24,4 +32,12 @@ export const AuthorRowContainer = styled.View`
   flex-direction: row;
   margin: ${SPACING.S}px ${SPACING.M}px;
   align-items: center;
+  align-self: center;
+`
+
+export const AuthorImage = styled.Image`
+  width: 200px;
+  height: 200px;
+  align-self: center;
+  border-radius: 100px;
 `

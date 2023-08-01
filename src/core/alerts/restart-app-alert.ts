@@ -1,9 +1,9 @@
 import { Alert } from 'react-native'
-import { Localization } from '@core/localize/localize.models'
+import { Localization, LocalizeParams } from '@core/localize/localize.models'
 import { noop } from '../noop/noop'
 
 export const restartAppAlert = (
-  localize: () => typeof Localization,
+  localize: (params?: LocalizeParams) => typeof Localization,
   onConfirm: () => void,
 ) => {
   Alert.alert(localize().change_language, localize().change_language_description, [

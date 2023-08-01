@@ -1,3 +1,14 @@
+## 1.19.0
+### Added
+- New theme settings
+- New haptic feedback settings
+- Update alert
+- New Author screen content
+
+### Technical
+- Upgrade React Native to 0.72.3
+- Upgrade Firebase SDK to 18
+
 ## 1.18.1
 ### Fixed
 - Dictionarly words

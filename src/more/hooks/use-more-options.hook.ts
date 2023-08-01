@@ -1,28 +1,21 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import wrzw from 'wrzw'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { useLocalize } from '@core/hooks/use-localize.hook'
-import { LANGUAGE_CODES } from '@core/localize/localize.models'
-import { SYSTEM_LANGUAGE } from '@core/system-language/system-language'
 import { MoreOption } from '../more.models'
-import { darkThemeEnabledSelector, hapticFeedbackEnabledSelector, languageCodeSelector } from '../../settings/store/settings.selectors'
+import { hapticFeedbackEnabledSelector } from '../../settings/store/settings.selectors'
 import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
-import {
-  setDarkThemeEnabledAction, setHapticFeedbackEnabledAction,
-} from '../../settings/store/settings.slice'
 
 type Options = [
-  MoreOption<undefined>,
-  MoreOption<LANGUAGE_CODES>,
-  MoreOption<0 | 1 | -1>,
-  MoreOption<boolean>,
-  MoreOption<undefined>,
-  MoreOption<undefined>,
-  MoreOption<undefined>,
-  MoreOption<undefined>,
+  MoreOption,
+  MoreOption,
+  MoreOption,
+  MoreOption,
+  MoreOption,
+  MoreOption,
+  MoreOption,
+  MoreOption,
 ] | []
 
 interface UseMoreOptions {
@@ -30,13 +23,9 @@ interface UseMoreOptions {
 }
 
 export const useMoreOptions = (): UseMoreOptions => {
-  const dispatch = useDispatch()
-  const localize = useLocalize()
   const navigation = useNavigation<any>()
 
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
-  const languageCode = useSelector(languageCodeSelector)
-  const darkThemeEnabled = useSelector(darkThemeEnabledSelector)
   const imageUrl = useSelector(userImageSelector)
   const displayName = useSelector(userDisplayNameSelector)
 
@@ -44,12 +33,6 @@ export const useMoreOptions = (): UseMoreOptions => {
     R.isNil,
     [ hapticFeedbackEnabled ],
   )
-
-  const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
-    dispatch(setHapticFeedbackEnabledAction(wrzw.toNumberFlag(_hapticFeedbackEnabled)))
-
-  const handleChangeTheme = (value: 0 | 1 | -1) =>
-    dispatch(setDarkThemeEnabledAction(value))
 
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
@@ -65,15 +48,14 @@ export const useMoreOptions = (): UseMoreOptions => {
       },
       {
         local: 'theme',
-        values: [ 0, 1, -1 ],
-        labels: [ localize().light, localize().dark, localize().auto ],
-        value: darkThemeEnabled,
-        onChange: handleChangeTheme,
+        onChange: () => navigation.navigate(SCREEN.MORE_THEME),
+        icon: 'theme-light-dark',
       },
       {
         local: 'haptic_feedback',
-        value: !!hapticFeedbackEnabled,
-        onChange: handleChangeHapticFeedback,
+        // value: !!hapticFeedbackEnabled,
+        onChange: () => navigation.navigate(SCREEN.MORE_HAPTIC),
+        icon: 'vibrate',
       },
       {
         local: 'scrabblemania',
@@ -96,7 +78,7 @@ export const useMoreOptions = (): UseMoreOptions => {
         onChange: () => navigation.navigate(SCREEN.MORE_AUTHOR),
         icon: 'account-question',
       },
-    ], [ hapticFeedbackEnabled, isPending, languageCode, darkThemeEnabled, displayName, imageUrl ])
+    ], [ isPending, displayName, imageUrl ])
 
     return { getOptions }
 }

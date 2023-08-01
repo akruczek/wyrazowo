@@ -13,7 +13,7 @@ const getListedOptionContainerMargin = ({ withPadding }: ListedOptionContainerPr
 const getListedOptionContainerMinHeight = ({ staticHeight }: ListedOptionContainerProps) =>
   staticHeight ? `min-height: ${RESPONSIVE.WIDTH(13)}px;` : `padding-bottom: ${SPACING.XXS}px;`
 
-export const ListedOptionContainer = styled.View<ThemeProps<ThemeModel> & ListedOptionContainerProps>`
+export const ListedOptionContainer = styled.Pressable<ThemeProps<ThemeModel> & ListedOptionContainerProps>`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 ${SPACING.M}px;

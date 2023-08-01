@@ -51,6 +51,9 @@ export enum Localization {
   difficulty = 'difficulty',
   selected_letters = 'selected_letters',
   about_author = 'about_author',
+  new_version_title = 'new_version_title',
+  new_version_description_ios = 'new_version_description_ios',
+  new_version_description_android = 'new_version_description_android',
   failed = 'failed',
   success = 'success',
   try_again = 'try_again',
@@ -68,6 +71,8 @@ export enum Localization {
   cancel = 'cancel',
   clear = 'clear',
   confirm = 'confirm',
+  on = 'on',
+  off = 'off',
   change_language = 'change_language',
   change_language_description = 'change_language_description',
   language = 'language',
@@ -78,3 +83,5 @@ export enum LANGUAGE_CODES {
   EN = 'en',
   DE = 'de',
 }
+
+export type LocalizeParams = { [key: string]: string }

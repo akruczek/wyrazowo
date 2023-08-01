@@ -3,73 +3,61 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useTheme } from 'styled-components/native'
 import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
-import { MultiToggle } from '@core/multi-toggle/multi-toggle'
 import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { noop } from '@core/noop/noop'
 import { Localization } from '@core/localize/localize.models'
-import { ListedOption } from '../listed-option/listed-option'
-import { OptionItemImage, OptionItemTouchableOpacity } from './option-item.styled'
 import { Tx } from '@core/tx'
+import { ListedOption } from '../listed-option/listed-option'
+import { OptionItemImage } from './option-item.styled'
 
 interface Props {
   local?: keyof typeof Localization;
   tx?: string | number;
   suffix?: string | number;
-  onChange?: (newValue: any) => void;
+  onChange?: () => void;
   handleDeactivatePremium?: () => void;
   value?: any;
-  values?: any[];
-  labels?: any[];
   icon?: string;
   emoji?: string;
   imageUrl?: string;
   iconColor?: COLOR;
   hidden?: boolean;
   withPadding?: boolean;
+  uppercase?: boolean;
 }
 
 export const OptionItem = ({
-  local, tx, suffix, value, values, labels, imageUrl, hidden, withPadding, icon, emoji, iconColor,
+  local, tx, suffix, value, imageUrl, hidden, withPadding, icon, emoji, iconColor, uppercase,
   onChange, handleDeactivatePremium,
 }: Props) => {
   const theme = useTheme() as ThemeModel
 
   if (hidden) return null
 
-  if (values !== undefined) {
-    return (
-      <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
-        <MultiToggle
-          values={values}
-          value={value}
-          labels={labels}
-          onChange={onChange}
-        />
-      </ListedOption>
-    )
-  }
-
   if (value !== undefined) {
     return (
-      <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
+      <ListedOption {...{ local, tx, suffix, withPadding, uppercase }} staticHeight>
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
       </ListedOption>
     )
   }
 
   return (
-    <ListedOption {...{ local, tx, suffix, withPadding }} staticHeight>
-      <OptionItemTouchableOpacity onPress={onChange} onLongPress={handleDeactivatePremium}>
-        {imageUrl ? (
-          <OptionItemImage source={{ uri: imageUrl }} />
-        ) : (
-          emoji ? (
-            <Tx tx={emoji} XL />
-          ) : (
-            <MaterialCommunityIcons name={icon ?? 'help'} color={iconColor ?? theme.textPrimary} size={28} />
-          )
-        )}
-      </OptionItemTouchableOpacity>
+    <ListedOption
+      onPress={onChange}
+      onLongPress={handleDeactivatePremium}
+      {...{ local, tx, suffix, withPadding, uppercase }}
+      staticHeight
+    >
+      {imageUrl ? (
+        <OptionItemImage source={{ uri: imageUrl }} />
+      ) : (
+        emoji ? (
+          <Tx tx={emoji} XL />
+        ) : icon ? (
+          <MaterialCommunityIcons name={icon} color={iconColor ?? theme.textPrimary} size={28} />
+        ) : null
+      )}
     </ListedOption>
   )
 }
