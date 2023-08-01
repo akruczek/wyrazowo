@@ -5,6 +5,9 @@
 - Update alert
 - New Author screen content
 
+### Technical
+- Upgrade React Native to 0.72.3
+
 ## 1.18.1
 ### Fixed
 - Dictionarly words
