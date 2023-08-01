@@ -1,13 +1,11 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import wrzw from 'wrzw'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { MoreOption } from '../more.models'
 import { hapticFeedbackEnabledSelector } from '../../settings/store/settings.selectors'
 import { userDisplayNameSelector, userImageSelector } from '../../user/store/user.selectors'
 import { SCREEN } from '../../navigation/navigation.constants'
-import { setHapticFeedbackEnabledAction } from '../../settings/store/settings.slice'
 
 type Options = [
   MoreOption,
@@ -25,7 +23,6 @@ interface UseMoreOptions {
 }
 
 export const useMoreOptions = (): UseMoreOptions => {
-  const dispatch = useDispatch()
   const navigation = useNavigation<any>()
 
   const hapticFeedbackEnabled = useSelector(hapticFeedbackEnabledSelector)
@@ -36,9 +33,6 @@ export const useMoreOptions = (): UseMoreOptions => {
     R.isNil,
     [ hapticFeedbackEnabled ],
   )
-
-  // const handleChangeHapticFeedback = (_hapticFeedbackEnabled: boolean) =>
-  //   dispatch(setHapticFeedbackEnabledAction(wrzw.toNumberFlag(_hapticFeedbackEnabled)))
 
   const getOptions: () => Options =
     React.useCallback(() => isPending ? [] : [
