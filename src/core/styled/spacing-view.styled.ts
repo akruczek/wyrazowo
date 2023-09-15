@@ -1,6 +1,7 @@
 // tslint-disable
 import styled from 'styled-components/native'
 import { parseSpacings } from './helpers/parse-margin.helper'
+import { getRTLFlexDirection } from './helpers/rtl.helper';
 
 interface SpacingViewProps {
   /**
@@ -21,6 +22,8 @@ interface SpacingViewProps {
    * Default fallback to margin
    */
   type?: 'margin' | 'padding';
+
+  RTL?: boolean;
 }
 
 const getSpacing = (props: SpacingViewProps) => {

@@ -6,6 +6,7 @@ import { LetterCard } from '@core/letter-card/letter-card'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { PossibleWordsModal } from '../possible-words-modal/possible-words-modal'
 import { SearchHistoryModalItemContainer } from './search-history-modal.styled'
 
@@ -17,6 +18,8 @@ interface Props {
 export const SearchHistoryModalItem = ({
   item, soapCharactersIndexes,
 }: Props) => {
+  const RTL = useRTL()
+
   const modalizeRef = React.useRef<Modalize>(null)
   const selectedLetters = [ ...item.selectedLetters ].sort()
 
@@ -24,7 +27,10 @@ export const SearchHistoryModalItem = ({
     modalizeRef?.current?.open?.()
   }
 
-  const wordLengthToDisplay = `${item.wordLength[0]} - ${item.wordLength[1]}`
+  const wordLengthToDisplay = RTL
+    ? `${item.wordLength[0]} - ${item.wordLength[1]}`.split("").reverse().join("")
+    : `${item.wordLength[0]} - ${item.wordLength[1]}`
+
   const getDateToDisplay = () => {
     const DD = new Date(item.timestamp).getDate()
     const _MM = new Date(item.timestamp).getMonth() + 1
@@ -33,6 +39,10 @@ export const SearchHistoryModalItem = ({
 
     return `${DD}-${MM}-${YYYY}`
   }
+
+  const itemHeaderContent = RTL
+    ? `(${getDateToDisplay()}) ،${wordLengthToDisplay}`
+    : `${wordLengthToDisplay}, (${getDateToDisplay()})`
 
   const _soapCharactersIndexes = (letter: string) => soapCharactersIndexes(letter, selectedLetters)
 
@@ -44,11 +54,11 @@ export const SearchHistoryModalItem = ({
 
   return (
     <View>
-      <SearchHistoryModalItemContainer>
-        <Tx tx={`${wordLengthToDisplay}, (${getDateToDisplay()})`} spacings="0 0 0 XXS" bold />
+      <SearchHistoryModalItemContainer RTL={RTL}>
+        <Tx tx={itemHeaderContent} spacings="0 0 0 XXS" bold />
       </SearchHistoryModalItemContainer>
 
-      <SearchHistoryModalItemContainer onPress={handleSearchFromHistory} withBorder>
+      <SearchHistoryModalItemContainer RTL={RTL} onPress={handleSearchFromHistory} withBorder>
         {selectedLetters.map((letter: string, index: number) => (
           <LetterCard
             key={`history-letter-card-${letter}-${index}`}

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { getRTLFlexDirection } from './helpers/rtl.helper'
 
 /**
  * Flex container with:
@@ -9,6 +10,6 @@ import styled from 'styled-components/native'
  */
 
 export const RowAroundContainer = styled.View`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
 `

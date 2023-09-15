@@ -22,6 +22,11 @@ export interface StyledTxProps {
   center?: boolean;
 
   /**
+   * Apply "text-align: right" style
+   */
+  right?: boolean;
+
+  /**
    * Apply "text-transform: uppercase" style
    */
   uppercase?: boolean;
