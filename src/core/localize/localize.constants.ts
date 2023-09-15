@@ -3,6 +3,7 @@ export const LANGUAGE_LABELS = [
   'English',
   'Deutsch',
   'عربي',
+  'עִברִית',
 ]
 
 export const LANGUAGE_EMOJIS = [
@@ -10,4 +11,5 @@ export const LANGUAGE_EMOJIS = [
   '🇬🇧',
   '🇩🇪',
   '🇸🇦',
+  '🇮🇱',
 ]

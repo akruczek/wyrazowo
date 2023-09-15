@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Template } from '@core/template/template'
 import { Tx } from '@core/tx'
 import { Localization } from '@core/localize/localize.models'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { GUIDELINE } from './guideline.constants'
 import { getNavigationParam } from '../../../navigation/navigation.helpers'
 import {
@@ -12,6 +13,7 @@ import {
 } from './guideline.styled'
 
 export const Guideline = () => {
+  const RTL = useRTL()
   const navigation = useNavigation<any>()
   const [ guidelineIndex, setGuidelineIndex ] = React.useState(0)
 
@@ -39,15 +41,15 @@ export const Guideline = () => {
         <Tx local={`guideline_${id}` as Localization} spacings="L 0 0" S center />
       </GuidelineContainer>
 
-      <GuidelineButtonsContainer>
+      <GuidelineButtonsContainer RTL={RTL}>
         <GuidelineButtonContainer invisible={isMin} onPress={goBack}>
-          <GuidelineBackIcon />
+          <GuidelineBackIcon RTL={RTL} />
         </GuidelineButtonContainer>
 
         <Tx tx={`${guidelineIndex + 1}/${GUIDELINE[index].length}`} />
 
         <GuidelineButtonContainer invisible={isMax} onPress={goNext}>
-          <GuidelineNextIcon />
+          <GuidelineNextIcon RTL={RTL} />
         </GuidelineButtonContainer>
       </GuidelineButtonsContainer>
     </Template>

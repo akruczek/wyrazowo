@@ -2,6 +2,7 @@ import * as React from 'react'
 import { KeyboardType, ReturnKeyType, View } from 'react-native'
 import { Tx } from '@core/tx'
 import { CustomTextInputStyled } from './custom-text-input.styled'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 
 interface Props {
   state?: boolean | null;
@@ -25,21 +26,18 @@ export const CustomTextInput = ({
   errorMessage, keyboardType, children, blurOnSubmit, disabled,
   onChange, onSubmit,
 }: Props) => {
+  const RTL = useRTL()
+
   return (
     <View>
       <CustomTextInputStyled
-        maxLength={maxLength}
-        value={value}
-        state={state}
         editable={!disabled}
         onChangeText={onChange}
-        autoCapitalize={autoCapitalize}
-        placeholder={placeholder}
         onSubmitEditing={onSubmit}
-        keyboardType={keyboardType}
-        returnKeyType={returnKeyType}
-        returnKeyLabel={returnKeyLabel}
-        blurOnSubmit={blurOnSubmit}
+        {...{
+          maxLength, value, state,autoCapitalize, placeholder, keyboardType,
+          returnKeyType, returnKeyLabel, blurOnSubmit, RTL
+        }}
       />
       {children ?? null}
       {(state === false && errorMessage) ? <Tx tx={errorMessage} absolute={[ null, null, -10, 10 ]} XS error /> : null}

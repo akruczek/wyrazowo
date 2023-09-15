@@ -15,7 +15,7 @@ interface Props {
 
 export const LanguageItem = ({ item, index }: Props) => {
   const localize = useLocalize()
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
  
   const onChange = () => {
     restartAppAlert(localize, () => {

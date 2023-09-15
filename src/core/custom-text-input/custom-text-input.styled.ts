@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { SPACING } from '@core/styled'
+import { TextInputProps } from 'react-native'
+import { SPACING, getRTLTextAlignment } from '@core/styled'
 import { COLOR } from '../colors/colors.constants'
 import { TEXT_SIZE } from '../text/text.constants'
 
@@ -20,12 +21,13 @@ const getCustomTextInputStyledTextColor = R.cond([
   [ R.T, R.always(COLOR.FIRE_BRICK) ],
 ])
 
-export const CustomTextInputStyled = styled.TextInput.attrs(({ placeholder }) => ({
+export const CustomTextInputStyled = styled.TextInput.attrs(({ placeholder }: TextInputProps) => ({
   placeholder: placeholder ?? '',
   placeholderTextColor: COLOR.DIM_GREY_LIGHTER,
 }))<CustomTextInputStyledProps>`
   height: 50px;
   border-bottom-width: 1.5px;
+  text-align: ${getRTLTextAlignment};
   border-bottom-color: ${getCustomTextInputStyledBorderColor};
   margin: ${SPACING.S}px;
   padding: ${SPACING.XXS}px;

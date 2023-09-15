@@ -84,6 +84,7 @@ export enum LANGUAGE_CODES {
   EN = 'en',
   DE = 'de',
   AR = 'ar',
+  HE = "he",
 }
 
 export type LocalizeParams = { [key: string]: string }

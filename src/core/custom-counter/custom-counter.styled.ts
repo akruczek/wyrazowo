@@ -1,13 +1,13 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { SPACING } from '@core/styled'
+import { SPACING, ThemeModel, getRTLFlexDirection } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { TEXT_SIZE } from '@core/text/text.constants'
 
 export const CustomCounterContainer = styled.View`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -55,13 +55,13 @@ export const CustomCounterButtonContainer = styled.TouchableOpacity<CustomCounte
 `
 
 export const CustomCounterMinusIcon = styled(MaterialCommunityIcons)
-  .attrs<CustomCounterButtonContainerProps>(props => ({
+  .attrs<CustomCounterButtonContainerProps>((props: ThemeProps<ThemeModel>) => ({
     color: getCustomCounterButtonContainerColor(props),
     size: TEXT_SIZE.XXL,
   }))``
 
 export const CustomCounterPlusIcon = styled(MaterialCommunityIcons)
-  .attrs<CustomCounterButtonContainerProps>(props => ({
+  .attrs<CustomCounterButtonContainerProps>((props: ThemeProps<ThemeModel>) => ({
     color: getCustomCounterButtonContainerColor(props),
     size: TEXT_SIZE.XXL,
   }))``

@@ -5,17 +5,20 @@ import { useTheme } from 'styled-components/native'
 import { SCREEN } from 'navigation/navigation.constants'
 import { useNavigation } from '@react-navigation/native'
 import { ThemeModel } from '@core/styled/models'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { Template } from '@core/template/template'
 import { ListedOption } from '../more/components'
 import { HELP_DATA } from './help.constants'
 
 export const Help = () => {
+  const RTL = useRTL()
+
   const navigation = useNavigation<any>()
   const theme = useTheme() as ThemeModel
 
   const renderItem = ({ item: { local, icon, index, iconColor, error, ok, link, hidden } }: { item: any }) =>
     hidden ? null : (
-      <ListedOption {...{ error, link, ok, local }} staticHeight>
+      <ListedOption {...{ error, link, ok, local, RTL }} staticHeight>
         <TouchableOpacity
           hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
           onPress={() => navigation.navigate(SCREEN.MORE_HELP_GUIDELINE, { index })}

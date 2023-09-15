@@ -1,9 +1,9 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
-import { SPACING } from '@core/styled'
+import { ThemeModel, getRTLFlexDirection } from '@core/styled'
 import { TEXT_SIZE } from '@core/text/text.constants'
 
 interface CustomCheckboxStyledProps {
@@ -23,7 +23,6 @@ export const CustomCheckboxBox = styled.View<CustomCheckboxStyledProps>`
   align-items: center;
   border: 1px solid ${getCustomCheckboxColor};
   border-radius: 10px;
-  margin-right: ${SPACING.S}px;
 `
 
 interface CustomCheckboxTouchableWrapperProps {
@@ -37,13 +36,14 @@ const getCustomCheckboxContainerOpacity = R.ifElse(
 )
 
 export const CustomCheckboxTouchableWrapper = styled.Pressable<CustomCheckboxTouchableWrapperProps>`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   align-items: center;
   align-self: center;
   opacity: ${getCustomCheckboxContainerOpacity};
 `
 
-export const CustomCheckboxCheckmarkIcon = styled(MaterialCommunityIcons).attrs<CustomCheckboxStyledProps>(props => ({
-  color: getCustomCheckboxColor(props),
-  size: TEXT_SIZE.L,
-}))<CustomCheckboxStyledProps>``
+export const CustomCheckboxCheckmarkIcon = styled(MaterialCommunityIcons)
+  .attrs<CustomCheckboxStyledProps>((props: ThemeProps<ThemeModel>) => ({
+    color: getCustomCheckboxColor(props),
+    size: TEXT_SIZE.L,
+  }))<CustomCheckboxStyledProps>``
