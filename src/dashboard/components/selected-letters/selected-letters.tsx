@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { SpacingView } from '@core/styled'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { SelectedLettersAddSoapContainer, SelectedLettersContainer } from './selected-letters.styled'
 
@@ -16,6 +16,8 @@ interface Props {
 export const SelectedLetters = ({
   selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress,
 }: Props) => {
+  const RTL = useRTL()
+
   const getContent = (letter: string) => letter.includes(LETTER_SOAP_PLACEHOLDER)
     ? LETTER_SOAP
     : letter.includes(LETTER_INDEX_SEPARATOR)
@@ -26,7 +28,7 @@ export const SelectedLetters = ({
 
   return (
     <>
-      <SelectedLettersContainer>
+      <SelectedLettersContainer RTL={RTL}>
         {selectedLetters.slice(0, 8).map((letter: string, index: number) => (
           <LetterCard
             key={`selected-letter-${letter}-${index}`}
@@ -42,7 +44,7 @@ export const SelectedLetters = ({
         ))}
       </SelectedLettersContainer>
 
-      <SelectedLettersContainer>
+      <SelectedLettersContainer RTL={RTL}>
         {selectedLetters.slice(8).map((letter: string, index: number) => (
           <LetterCard
             key={`selected-letter-${letter}-${7 + index}`}

@@ -5,6 +5,7 @@ import { ListedOptionContainer } from './listed-option.styled'
 
 interface Props {
   local?: keyof typeof Localization;
+  RTL?: boolean;
   tx?: string | number;
   suffix?: string | number;
   withPadding?: boolean;
@@ -20,9 +21,9 @@ interface Props {
 }
 
 export const ListedOption = ({
-  local, suffix, tx, withPadding, XS, error, ok, link, staticHeight, onPress, onLongPress, children, uppercase,
+  local, RTL, suffix, tx, withPadding, XS, error, ok, link, staticHeight, onPress, onLongPress, children, uppercase,
 }: Props) => (
-  <ListedOptionContainer {...{ withPadding, staticHeight, onPress, onLongPress }}>
+  <ListedOptionContainer {...{ withPadding, staticHeight, onPress, onLongPress, RTL }}>
     <Tx {...{ XS, error, ok, link, local, tx, suffix, uppercase }} bolder />
     {children}
   </ListedOptionContainer>

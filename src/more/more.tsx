@@ -9,7 +9,7 @@ import { MoreFlatList } from './more.styled'
 
 export const More = () => {
   const { getOptions } = useMoreOptions()
-  const renderItem = ({ item }: { item: MoreOption<any> }) => <OptionItem {...item} />
+  const renderItem = ({ item }: { item: MoreOption }) => <OptionItem {...item} />
 
   return (
     <Template type="more" flex>

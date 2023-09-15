@@ -43,7 +43,11 @@ const getTxFontWeight = ({ bold, bolder }: StyledTxProps) => {
 
 const getTextDecoration = ({ underline }: StyledTxProps) => underline ? 'text-decoration: underline;' : ''
 const getTextTranform = ({ uppercase }: StyledTxProps) => uppercase ? 'text-transform: uppercase;' : ''
-const getTxAlignment = ({ center }: StyledTxProps) => center ? 'text-align: center;' : ''
+const getTxAlignment = ({ center, right }: StyledTxProps) => center
+  ? 'text-align: center;'
+  : right
+    ? 'text-align: right;'
+    : ''
 
 const getSpacing = (props: StyledTxProps) => {
   const spacingType = props.spacingType ?? 'margin'

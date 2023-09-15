@@ -4,6 +4,7 @@ import { LetterCard } from '@core/letter-card/letter-card'
 import { ALL_LETTERS_SORTED, LETTER_EMPTY, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { RowAroundContainer } from '@core/styled'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 
 interface Props {
   letters?: string[];
@@ -16,6 +17,8 @@ interface Props {
 export const LettersGrid = ({
   letters, selectable, selectedLetters, handleSelectLetter, handleLongPress,
 }: Props) => {
+  const RTL = useRTL()
+  
   const onPress = (letter: string, rowIndex: number, index: number) =>
     R.equals(letter, LETTER_EMPTY)
       ? undefined
@@ -29,7 +32,7 @@ export const LettersGrid = ({
   return (
     <>
       {R.splitEvery(8, letters ?? ALL_LETTERS_SORTED).map((lettersRow: string[], rowIndex: number) => (
-        <RowAroundContainer key={String(lettersRow)}>
+        <RowAroundContainer key={String(lettersRow)} RTL={RTL}>
           {lettersRow.map((letter: string, index: number) => (
             <LetterCard
               key={`letter-card-${letter}-${index}`}

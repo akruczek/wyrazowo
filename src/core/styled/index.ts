@@ -8,3 +8,6 @@ export { theme } from './theme'
 export { getThemeProp } from './theme'
 export { SPACING } from './models'
 export type { ThemeModel } from './models'
+export {
+  getRTLFlexDirection, getRTLColumnAlignItems, getRTLRotation, getRTLTextAlignment,
+} from './helpers/rtl.helper'

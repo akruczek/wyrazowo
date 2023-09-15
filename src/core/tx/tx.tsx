@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { StyledTx } from './tx.styled'
-import { StyledTxProps } from './tx.models'
 import { Localization } from '@core/localize/localize.models'
 import { useLocalize } from '@core/hooks/use-localize.hook'
+import { StyledTx } from './tx.styled'
+import { StyledTxProps } from './tx.models'
 
 interface Props extends StyledTxProps {
   tx?: string | number;
@@ -23,6 +23,6 @@ export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
   }
 
   return (
-    <StyledTx children={getChildren()} {...styledTxProps} />
+    <StyledTx children={getChildren()} RTL={Boolean(localize().rtl)} {...styledTxProps} />
   )
 }

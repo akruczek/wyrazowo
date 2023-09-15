@@ -1,10 +1,11 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
+import { ThemeModel, getRTLFlexDirection, getRTLRotation } from '@core/styled'
 
 const GIF_PIXEL_RATION = 258 / 559
 const GIF_HEIGHT = RESPONSIVE.HEIGHT(50)
@@ -27,7 +28,7 @@ export const GuidelineGif = styled.Image.attrs({
 `
 
 export const GuidelineButtonsContainer = styled.View`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
   align-items: center;
   width: 100%;
@@ -59,15 +60,19 @@ export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisib
   opacity: ${getGuidelineButtonContainerOpacity};
 `
 
-export const GuidelineNextIcon = styled(MaterialCommunityIcons).attrs(props => ({
+export const GuidelineNextIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
   name: 'arrow-right-bold',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.XL,
-}))``
+}))`
+  ${getRTLRotation}
+`
 
-export const GuidelineBackIcon = styled(MaterialCommunityIcons).attrs(props => ({
+export const GuidelineBackIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
   name: 'arrow-left-bold',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.XL,
-}))``
+}))`
+  ${getRTLRotation}
+`
 

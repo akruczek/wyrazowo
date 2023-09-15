@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
-import { SPACING } from '@core/styled'
+import { SPACING, getRTLFlexDirection } from '@core/styled'
 
 export const ClearLettersButtonIcon = styled(MaterialCommunityIcons).attrs({
   name: 'close-outline',
@@ -23,7 +23,7 @@ export const HistoryButtonIcon = styled(MaterialCommunityIcons).attrs({
 })``
 
 export const DashboardButtonsContainer = styled.View`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
   padding-bottom: ${SPACING.XL}px;
 `

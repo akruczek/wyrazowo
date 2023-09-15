@@ -8,6 +8,7 @@ import { SpacingView } from '@core/styled'
 import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { Tx } from '@core/tx'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { useWordDetail } from '../../hooks/use-word-detail.hook'
@@ -28,6 +29,7 @@ interface Props {
 export const PossibleWordsModal = ({
   possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
+  const RTL = useRTL()
   const modalOffset = useModalTopOffset()
   const wordDetailsModalRef = React.useRef<any>(null)
 
@@ -61,11 +63,11 @@ export const PossibleWordsModal = ({
               scrollEnabled={false}
               data={getWordsByLettersCount()}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <SpacingView key={wordsGroup.join('')} spacings="0 0 S XXS">
-                  <Tx prefix={`${wordsGroup[0].length} `} local="by_letters" spacings="0 0 XXS" />
+                <SpacingView key={wordsGroup.join('')} RTL={RTL} spacings="0 0 S XXS">
+                  <Tx right={RTL} prefix={`${wordsGroup[0].length} `} local="by_letters" spacings="0 0 XXS" />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
-                    <PossibleWordsLetterCardsContainer scrollEnabled={word?.length > 8} key={word}>
+                    <PossibleWordsLetterCardsContainer RTL={RTL} scrollEnabled={word?.length > 8} key={word}>
                       {word.toUpperCase().split('').map((letter: string, index: number) => (
                         <LetterCard
                           key={`letter-card-${letter}-${index}`}

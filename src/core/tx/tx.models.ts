@@ -22,6 +22,11 @@ export interface StyledTxProps {
   center?: boolean;
 
   /**
+   * Apply "text-align: right" style
+   */
+  right?: boolean;
+
+  /**
    * Apply "text-transform: uppercase" style
    */
   uppercase?: boolean;
@@ -154,4 +159,9 @@ export interface StyledTxProps {
    * Apply 42px font size
    */
   XXXL?: boolean;
+
+  /**
+   * Apply RTL support for spacing purpose
+   */
+  RTL?: boolean;
 }

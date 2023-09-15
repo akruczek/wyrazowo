@@ -4,6 +4,7 @@ import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { RowAroundContainer } from '@core/styled'
 import { Tx } from '@core/tx'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { getWordPoints } from '../../helpers'
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const WordDetailsHeadline = ({ word }: Props) => {
+  const RTL = useRTL()
+
   const letters = R.pipe(
     R.toUpper,
     R.split(''),
@@ -20,7 +23,7 @@ export const WordDetailsHeadline = ({ word }: Props) => {
     <>
       <Tx tx={`${word} (${getWordPoints(word)})`} spacings="0 0 S 0" XL bold center uppercase />
 
-      <RowAroundContainer>
+      <RowAroundContainer RTL={RTL}>
         {letters.map((letter: string, index: number) => (
           <LetterCard
             key={`details-letter-card-${letter}-${index}`}

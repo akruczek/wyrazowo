@@ -1,4 +1,5 @@
 export enum Localization {
+  rtl = 'rtl',
   premium = 'premium',
   are_you_sure = 'are_you_sure',
   clear_search_history_confirmation = 'clear_search_history_confirmation',
@@ -82,6 +83,8 @@ export enum LANGUAGE_CODES {
   PL = 'pl',
   EN = 'en',
   DE = 'de',
+  AR = 'ar',
+  HE = "he",
 }
 
 export type LocalizeParams = { [key: string]: string }

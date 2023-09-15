@@ -1,4 +1,21 @@
-## 1.19.0
+## 1.21.0
+### Fixed
+- Android search result gesture handling when back from background
+- RTL support for slider
+
+### Technical
+- Custom slider implementation
+
+## 1.20.0
+### Added
+- RTL support
+- Arabic and Hebrew languages support
+
+### Technical
+- Upgrade React Native to 0.72.4
+- Upgrade dependencies
+
+## 1.19.0 MORE SETTINGS
 ### Added
 - New theme settings
 - New haptic feedback settings

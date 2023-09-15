@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { SPACING } from '@core/styled'
+import { TouchableOpacityProps } from 'react-native'
+import { SPACING, getRTLFlexDirection } from '@core/styled'
 import { COLOR } from '@core/colors/colors.constants'
 
 export const SearchHistoryModalContainer = styled.View`
@@ -20,10 +21,11 @@ const getSearchHistoryModalItemContainerBorderWidth = R.ifElse(
   R.always(0),
 )
 
-export const SearchHistoryModalItemContainer = styled.TouchableOpacity.attrs(({ onPress }) => ({
+export const SearchHistoryModalItemContainer = styled.TouchableOpacity.attrs(({ onPress }: TouchableOpacityProps) => ({
   activeOpacity: !!onPress ? 0.5 : 1,
 }))<SearchHistoryModalItemContainerProps>`
-  flex-flow: row wrap;
+  flex-direction: ${getRTLFlexDirection};
+  flex-wrap: wrap;
   border-bottom-width: ${getSearchHistoryModalItemContainerBorderWidth}px;
   border-bottom-color: ${COLOR.DIM_GREY};
   margin-bottom: ${SPACING.XXS}px;

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Tx } from '@core/tx'
 import { Localization } from '@core/localize/localize.models'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import {
   CustomCounterButtonContainer, CustomCounterContainer,
   CustomCounterMinusIcon, CustomCounterPlusIcon, CustomCounterTextContainer,
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue }: Props) => {
+  const RTL = useRTL()
+
   const handleDecrement = () => {
     if (value > range[0]) {
       setValue(value - 1)
@@ -38,7 +41,7 @@ export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue 
     <>
       <Tx local={local} disabled bolder center />
 
-      <CustomCounterContainer>
+      <CustomCounterContainer RTL={RTL}>
         <CustomCounterButtonContainer disabled={value === range[0]} onPress={handleDecrement} {...colorProps}>
           <CustomCounterMinusIcon name="minus" {...colorProps} />
         </CustomCounterButtonContainer>

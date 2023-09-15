@@ -11,6 +11,7 @@ import { useSearchHistory } from '../../../dashboard/hooks/use-search-history-mo
 import {
   ClearLettersButtonIcon, DashboardButtonsContainer, HistoryButtonIcon, SearchButtonIcon,
 } from './dashboard-buttons.styled'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 
 interface Props {
   selectedLetters: string[];
@@ -33,6 +34,8 @@ export const DashboardButtonsAndModals = ({
   soapCharactersIndexes, forceIndexLetterIndexRef, onSelectSoapLetters, possibleWords,
   soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexModalizeRef,
 }: Props) => {
+  const RTL = useRTL()
+
   const modalizeRef = React.useRef<Modalize>(null)
   const { historyModalizeRef, openHistoryModal, historyAvailable, setHistoryAvailable } = useSearchHistory()
 
@@ -51,7 +54,7 @@ export const DashboardButtonsAndModals = ({
 
   return (
     <>
-      <DashboardButtonsContainer>
+      <DashboardButtonsContainer RTL={RTL}>
         <CustomButton
           color={COLOR.DARK_SEA_GREEN}
           onPress={openHistoryModal}
