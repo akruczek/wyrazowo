@@ -1,9 +1,10 @@
 {
+  "rtl": false,
   "premium": "Premium",
   "are_you_sure": "Are you sure?",
   "clear_search_history_confirmation": "Do you really want to clear your search history?",
   "save_search_history": "Save search history",
-  "save_search_history_confirmation": "This action will save (or overwrite!) current sear history in your device storage.",
+  "save_search_history_confirmation": "This action will save (or overwrite!) current search history in your device storage.",
   "overwrite_search_history_confirmation": "This will overwrite your current search history with previously saved one.",
   "import_search_history": "Import search history",
   "enter_premium_code": "Enter Premium code",

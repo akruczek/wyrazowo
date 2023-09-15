@@ -7,6 +7,7 @@ import { CustomSwitch } from '@core/custom-switch/custom-switch'
 import { noop } from '@core/noop/noop'
 import { Localization } from '@core/localize/localize.models'
 import { Tx } from '@core/tx'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage } from './option-item.styled'
 
@@ -30,6 +31,7 @@ export const OptionItem = ({
   local, tx, suffix, value, imageUrl, hidden, withPadding, icon, emoji, iconColor, uppercase,
   onChange, handleDeactivatePremium,
 }: Props) => {
+  const RTL = useRTL()
   const theme = useTheme() as ThemeModel
 
   if (hidden) return null
@@ -46,7 +48,7 @@ export const OptionItem = ({
     <ListedOption
       onPress={onChange}
       onLongPress={handleDeactivatePremium}
-      {...{ local, tx, suffix, withPadding, uppercase }}
+      {...{ local, tx, suffix, withPadding, uppercase, RTL }}
       staticHeight
     >
       {imageUrl ? (

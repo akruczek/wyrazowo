@@ -6,6 +6,7 @@ import { isPlatform } from '@core/is-platform/is-platform'
 import { ScreenType } from '@core/models'
 import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
 import { Localization } from '@core/localize/localize.models'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize, useHeaderPress } from './hooks'
@@ -28,6 +29,7 @@ export interface HeaderProps {
 export const Header = ({
   type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftIcon, leftScreen,
 }: HeaderProps) => {
+  const RTL = useRTL()
   const { top: topInset } = useSafeAreaInsets()
   const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
   const { onBackPress, onLeftIconPress } = useHeaderPress(leftScreen, backButtonAlert)
@@ -41,10 +43,10 @@ export const Header = ({
         <StatusBar backgroundColor="transparent" translucent />
       )}
 
-      <HeaderContainer {...{ color, topInset, onTouchEnd }}>
+      <HeaderContainer {...{ color, topInset, onTouchEnd, RTL }}>
         {backButton ? (
           <BackButtonContainer onPress={onBackPress} topInset={topInset}>
-            <BackButtonIcon />
+            <BackButtonIcon RTL={RTL} />
           </BackButtonContainer>
         ) : null}
 

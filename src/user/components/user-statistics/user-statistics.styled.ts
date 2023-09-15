@@ -1,16 +1,18 @@
 import * as R from 'ramda'
-import styled from 'styled-components/native'
+import styled, { ThemeProps } from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { SPACING, getThemeProp } from '@core/styled'
+import { SPACING, ThemeModel, getThemeProp, getRTLColumnAlignItems, getRTLFlexDirection } from '@core/styled'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { COLOR } from '@core/colors/colors.constants'
 
 export const UserStatisticsContainer = styled.View`
   margin: ${SPACING.XS}px ${SPACING.L}px 0;
+  align-items: ${getRTLColumnAlignItems};
 `
 
 interface UserStatisticsRowProps {
   withMargin?: boolean;
+  RTL?: boolean;
 }
 
 const UserStatisticsRowMarginBottom = R.ifElse(
@@ -20,13 +22,13 @@ const UserStatisticsRowMarginBottom = R.ifElse(
 )
 
 export const UserStatisticsHeadRow = styled.View<UserStatisticsRowProps>`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   align-items: center;
   margin-bottom: ${UserStatisticsRowMarginBottom}px;
 `
 
 export const UserStatisticsRow = styled.View<UserStatisticsRowProps>`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   align-items: center;
   margin-left: ${SPACING.L}px;
   margin-bottom: ${UserStatisticsRowMarginBottom}px;
@@ -50,13 +52,13 @@ export const UserStatisticsFailureIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.M,
 })``
 
-export const UserStatisticsDictionarlyIcon = styled(MaterialCommunityIcons).attrs((props) => ({
+export const UserStatisticsDictionarlyIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
   name: 'book-alphabet',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.M,
 }))``
 
-export const UserStatisticsCharadeIcon = styled(MaterialCommunityIcons).attrs((props) => ({
+export const UserStatisticsCharadeIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
   name: 'grid',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.M,

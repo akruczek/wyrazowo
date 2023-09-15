@@ -9,10 +9,12 @@ import { TEXT_SIZE } from '@core/text/text.constants'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
 import { ThemeModel } from '@core/styled/models'
 import { Tx } from '@core/tx'
+import { getRTLFlexDirection, getRTLRotation } from '@core/styled'
 
 interface HeaderContainerProps {
   topInset: number;
   color: COLOR;
+  RTL?: boolean;
 }
 
 const HEADER_HEIGHT = 75
@@ -29,7 +31,7 @@ export const HeaderContainer = styled(LinearGradient).attrs((props: HeaderContai
   start: { x: 0, y: 0 },
   end: { x: 0, y: 1 },
 }))<HeaderContainerProps>`
-  flex-direction: row;
+  flex-direction: ${getRTLFlexDirection};
   height: ${getHeaderHeight}px;
   background-color: ${R.propOr(COLOR.GOLD, 'color')};
   margin-top: -${getMarginTop}px;
@@ -83,11 +85,13 @@ export const BackButtonContainer = styled.TouchableOpacity.attrs({
   align-items: center;
 `
 
-export const BackButtonIcon = styled(MaterialCommunityIcons).attrs(props => ({
+export const BackButtonIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
   name: 'chevron-left',
   color: getThemeProp('textSecondary')(props),
   size: TEXT_SIZE.XXXL,
-}))``
+}))`
+  ${getRTLRotation}
+`
 
 interface HeaderStatusBarProps {
   color: COLOR;

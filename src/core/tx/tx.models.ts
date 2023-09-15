@@ -154,4 +154,9 @@ export interface StyledTxProps {
    * Apply 42px font size
    */
   XXXL?: boolean;
+
+  /**
+   * Apply RTL support for spacing purpose
+   */
+  RTL?: boolean;
 }
