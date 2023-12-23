@@ -6,11 +6,16 @@ import { noop } from "@core/noop/noop"
 interface UseGesturesEnabled {
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   panGestureEnabled: boolean;
+  resetFlag: boolean;
+  setResetFlag: (flag: boolean) => void;
 }
 
-// Walk-around for android gestures issues when back from background
+/**
+ * Walk-around for gestures issues
+ */
 export const useGesturesEnabled = (): UseGesturesEnabled => {
   const [ panGestureEnabled, setPanGestureEnabled ] = React.useState(true)
+  const [ resetFlag, setResetFlag ] = React.useState(true)
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (panGestureEnabled && event.nativeEvent.contentOffset.y) {
@@ -24,6 +29,8 @@ export const useGesturesEnabled = (): UseGesturesEnabled => {
 
   return {
     onScroll: isPlatform("android") ? onScroll : noop,
-    panGestureEnabled
+    panGestureEnabled,
+    resetFlag,
+    setResetFlag,
   }
 }

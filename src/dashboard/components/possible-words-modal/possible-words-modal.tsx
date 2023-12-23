@@ -37,15 +37,22 @@ export const PossibleWordsModal = ({
     onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
   } = useWordDetail(possibleWords, wordDetailsModalRef)
 
-  const { onScroll, panGestureEnabled } = useGesturesEnabled()
+  const { onScroll, panGestureEnabled, resetFlag, setResetFlag } = useGesturesEnabled()
 
-  return (
+  const _onClosed = () => {
+    onClosed?.()
+
+    setResetFlag(false)
+    setTimeout(() => setResetFlag(true))
+  }
+
+  return resetFlag ? (
     <Portal>
       <CustomModalize
         reference={modalizeRef}
         modalTopOffset={modalOffset}
         onOpened={onOpened}
-        onClosed={onClosed}
+        onClosed={_onClosed}
         disableScrollIfPossible
         panGestureEnabled={panGestureEnabled}
         scrollViewProps={{ onScroll, showsVerticalScrollIndicator: false }}
@@ -95,5 +102,5 @@ export const PossibleWordsModal = ({
 
       <WordDetailsModal word={detailedWord} modalizeRef={wordDetailsModalRef} />
     </Portal>
-  )
+  ) : null
 }

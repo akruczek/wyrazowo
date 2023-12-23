@@ -1,6 +1,7 @@
 ## 1.21.0 MAINTENANCE
 ### Fixed
 - Android gestures issues on possible words modal when back from background
+- Wrong letter indexes while performing actions on selected letters in second row
 
 ### Improved
 - Removed vertical scroll indicator on possible words modal
