@@ -9,6 +9,7 @@
 ### Technical
 - Upgrade React Native to 0.73.1
 - Upgrade dependencies
+- Upgrade cocoa-pods
 - Migrate native android codebase from Java to Kotlin
 - Migrate from npm to yarn
 - Migrate from openjdk@11 to openjdk@17
