@@ -9,9 +9,9 @@ import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { Tx } from '@core/tx'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { useGesturesEnabled, useWordDetail } from '../../hooks'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
-import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import {
   NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
@@ -37,6 +37,8 @@ export const PossibleWordsModal = ({
     onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
   } = useWordDetail(possibleWords, wordDetailsModalRef)
 
+  const { onScroll, panGestureEnabled } = useGesturesEnabled()
+
   return (
     <Portal>
       <CustomModalize
@@ -45,6 +47,8 @@ export const PossibleWordsModal = ({
         onOpened={onOpened}
         onClosed={onClosed}
         disableScrollIfPossible
+        panGestureEnabled={panGestureEnabled}
+        scrollViewProps={{ onScroll, showsVerticalScrollIndicator: false }}
         avoidKeyboardLikeIOS
         useNativeDriver
       >

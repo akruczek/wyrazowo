@@ -1,13 +1,17 @@
 ## 1.21.0 MAINTENANCE
 ### Fixed
-- ???
+- Android gestures issues on possible words modal when back from background
+
+### Improved
+- Removed vertical scroll indicator on possible words modal
 
 ### Technical
 - Upgrade React Native to 0.73.1
 - Upgrade dependencies
-- Migrate from Java to Kotlin
+- Migrate native android codebase from Java to Kotlin
 - Migrate from npm to yarn
 - Migrate from openjdk@11 to openjdk@17
+- Removed unused logs
 
 ## 1.20.0 RTL
 ### Added
