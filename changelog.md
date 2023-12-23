@@ -7,6 +7,7 @@
 - Upgrade dependencies
 - Migrate from Java to Kotlin
 - Migrate from npm to yarn
+- Migrate from openjdk@11 to openjdk@17
 
 ## 1.20.0 RTL
 ### Added
