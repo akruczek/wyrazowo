@@ -90,7 +90,7 @@ export const AppNavigation = () => {
         sceneAnimationType="opacity"
         sceneAnimationEnabled
       >
-        {screens.map(({ name, component, icon }, index) => (
+        {screens.map(({ name, component, icon }) => (
           <Tab.Screen
             key={name}
             name={name}

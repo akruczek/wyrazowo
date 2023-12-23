@@ -1,12 +1,14 @@
-## 1.21.0
+## 1.21.0 MAINTENANCE
 ### Fixed
-- Android search result gesture handling when back from background
-- RTL support for slider
+- ???
 
 ### Technical
-- Custom slider implementation
+- Upgrade React Native to 0.73.1
+- Upgrade dependencies
+- Migrate from Java to Kotlin
+- Migrate from npm to yarn
 
-## 1.20.0
+## 1.20.0 RTL
 ### Added
 - RTL support
 - Arabic and Hebrew languages support
