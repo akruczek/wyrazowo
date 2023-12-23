@@ -1,12 +1,20 @@
-## 1.21.0
+## 1.21.0 MAINTENANCE
 ### Fixed
-- Android search result gesture handling when back from background
-- RTL support for slider
+- Android gestures issues on possible words modal when back from background
+- Wrong letter indexes while performing actions on selected letters in second row
+
+### Improved
+- Removed vertical scroll indicator on possible words modal
 
 ### Technical
-- Custom slider implementation
+- Upgrade React Native to 0.73.1
+- Upgrade dependencies
+- Migrate native android codebase from Java to Kotlin
+- Migrate from npm to yarn
+- Migrate from openjdk@11 to openjdk@17
+- Removed unused logs
 
-## 1.20.0
+## 1.20.0 RTL
 ### Added
 - RTL support
 - Arabic and Hebrew languages support

@@ -9,9 +9,9 @@ import { useModalTopOffset } from '@core/hooks/use-modal-top-offset.hook'
 import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { Tx } from '@core/tx'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { useGesturesEnabled, useWordDetail } from '../../hooks'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
-import { useWordDetail } from '../../hooks/use-word-detail.hook'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
 import {
   NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
@@ -37,14 +37,25 @@ export const PossibleWordsModal = ({
     onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
   } = useWordDetail(possibleWords, wordDetailsModalRef)
 
-  return (
+  const { onScroll, panGestureEnabled, resetFlag, setResetFlag } = useGesturesEnabled()
+
+  const _onClosed = () => {
+    onClosed?.()
+
+    setResetFlag(false)
+    setTimeout(() => setResetFlag(true))
+  }
+
+  return resetFlag ? (
     <Portal>
       <CustomModalize
         reference={modalizeRef}
         modalTopOffset={modalOffset}
         onOpened={onOpened}
-        onClosed={onClosed}
+        onClosed={_onClosed}
         disableScrollIfPossible
+        panGestureEnabled={panGestureEnabled}
+        scrollViewProps={{ onScroll, showsVerticalScrollIndicator: false }}
         avoidKeyboardLikeIOS
         useNativeDriver
       >
@@ -91,5 +102,5 @@ export const PossibleWordsModal = ({
 
       <WordDetailsModal word={detailedWord} modalizeRef={wordDetailsModalRef} />
     </Portal>
-  )
+  ) : null
 }

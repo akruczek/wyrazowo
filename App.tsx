@@ -5,7 +5,7 @@ import { authService } from '@core/auth/auth-service'
 import { store } from './src/store/store'
 import { AppNavigation } from './App.navigation'
 
-export const App = (): JSX.Element => {
+export const App = (): React.JSX.Element => {
   React.useEffect(authService.init, [])
 
   return (

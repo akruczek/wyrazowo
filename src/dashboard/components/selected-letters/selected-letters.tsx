@@ -47,9 +47,9 @@ export const SelectedLetters = ({
       <SelectedLettersContainer RTL={RTL}>
         {selectedLetters.slice(8).map((letter: string, index: number) => (
           <LetterCard
-            key={`selected-letter-${letter}-${7 + index}`}
-            onPress={handleDeselectLetter(7 + index)}
-            onLongPress={onLongPressSelectedLetter(7 + index)}
+            key={`selected-letter-${letter}-${8 + index}`}
+            onPress={handleDeselectLetter(8 + index)}
+            onLongPress={onLongPressSelectedLetter(8 + index)}
             content={getContent(letter)}
             multiLetter={letter.includes(LETTER_SOAP_PLACEHOLDER)}
             forcedIndex={letter.split(LETTER_INDEX_SEPARATOR)?.[1]}

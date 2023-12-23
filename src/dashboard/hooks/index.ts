@@ -5,3 +5,4 @@ export { useSelectLetter } from './use-select-letter.hook'
 export { useSoapModal } from './use-soap-modal.hook'
 export { useWordDefinitions } from './use-word-definitions.hook'
 export { useWordDetail } from './use-word-detail.hook'
+export { useGesturesEnabled } from "./use-gestures-enabled.hook"
