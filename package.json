@@ -59,13 +59,22 @@
     "babel-jest": "^29.6.3",
     "babel-plugin-module-resolver": "^5.0.0",
     "detox": "^20.16.0",
-    "detox-cli": "^20.0.0",
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "^2.8.8",
     "react-test-renderer": "18.2.0",
     "typescript": "5.0.4"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/wyrazowo.app",
+        "build": "xcodebuild -workspace ios/wyrazowo.xcworkspace -scheme wyrazowo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 15"
+      }
+    }
   },
   "engines": {
     "node": ">=18"
