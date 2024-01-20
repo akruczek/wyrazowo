@@ -1,3 +1,4 @@
+import { device, expect } from "detox"
 import { COLOR } from "@core/colors/colors.constants"
 
 describe('Example', () => {
