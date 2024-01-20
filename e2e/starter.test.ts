@@ -1,3 +1,5 @@
+import { COLOR } from "@core/colors/colors.constants"
+
 describe('Example', () => {
   beforeAll(async () => {
     await device.launchApp();
@@ -8,6 +10,8 @@ describe('Example', () => {
     await element(by.id("nav_bar_dictionary")).atIndex(0).tap()
     await element(by.id("nav_bar_more")).atIndex(0).tap()
     await element(by.id("more_option_theme")).tap()
+    await element(by.id("more_option_dark")).tap()
+    await expect(element(by.id(`more_option_dark_icon_${COLOR.WHITE}`))).toBeVisible()
   })
 
   // beforeEach(async () => {
