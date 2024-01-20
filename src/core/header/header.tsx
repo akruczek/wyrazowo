@@ -10,6 +10,7 @@ import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize, useHeaderPress } from './hooks'
+import { getTestID } from '../../../e2e/helpers/get-test-id.helper'
 import {
   BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderText,
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar,
@@ -53,7 +54,12 @@ export const Header = ({
         <HeaderText headerTextSize={headerTextSize} onLayout={onHeaderTextLayout} local={local ?? type} />
 
         {(leftIcon && leftScreen) ? (
-          <HeaderLeftButtonContainer onPress={onLeftIconPress} style={genericLightShadow} topInset={topInset} >
+          <HeaderLeftButtonContainer
+            onPress={onLeftIconPress}
+            style={genericLightShadow}
+            topInset={topInset}
+            testID={getTestID("header_left_icon")}
+          >
             <HeaderLeftIcon icon={leftIcon} />
           </HeaderLeftButtonContainer>
         ) : null}
@@ -64,6 +70,7 @@ export const Header = ({
             onLongPress={rightContentConfig.onLongPress}
             style={genericLightShadow}
             topInset={topInset}
+            testID={getTestID("header_right_icon")}
           >
             {rightContentConfig.indicator ? <HeaderRightButtonIndicator /> : null}
             <HeaderRightIcon icon={rightContentConfig.icon} />

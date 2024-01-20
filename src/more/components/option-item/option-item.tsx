@@ -10,6 +10,7 @@ import { Tx } from '@core/tx'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage } from './option-item.styled'
+import { getTestID } from '../../../../e2e/helpers/get-test-id.helper'
 
 interface Props {
   local?: keyof typeof Localization;
@@ -38,7 +39,11 @@ export const OptionItem = ({
 
   if (value !== undefined) {
     return (
-      <ListedOption {...{ local, tx, suffix, withPadding, uppercase }} staticHeight>
+      <ListedOption
+        {...{ local, tx, suffix, withPadding, uppercase }}
+        testID={getTestID("more_option", local)}
+        staticHeight
+      >
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
       </ListedOption>
     )
@@ -48,6 +53,7 @@ export const OptionItem = ({
     <ListedOption
       onPress={onChange}
       onLongPress={handleDeactivatePremium}
+      testID={getTestID("more_option", local)}
       {...{ local, tx, suffix, withPadding, uppercase, RTL }}
       staticHeight
     >

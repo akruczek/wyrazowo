@@ -13,6 +13,7 @@ interface Props {
   XS?: boolean;
   error?: boolean;
   ok?: boolean;
+  testID?: string;
   onPress?: () => void;
   onLongPress?: () => void;
   link?: boolean;
@@ -21,9 +22,9 @@ interface Props {
 }
 
 export const ListedOption = ({
-  local, RTL, suffix, tx, withPadding, XS, error, ok, link, staticHeight, onPress, onLongPress, children, uppercase,
+  local, RTL, suffix, tx, withPadding, XS, error, ok, testID, link, staticHeight, onPress, onLongPress, children, uppercase,
 }: Props) => (
-  <ListedOptionContainer {...{ withPadding, staticHeight, onPress, onLongPress, RTL }}>
+  <ListedOptionContainer {...{ withPadding, staticHeight, onPress, onLongPress, testID, RTL }}>
     <Tx {...{ XS, error, ok, link, local, tx, suffix, uppercase }} bolder />
     {children}
   </ListedOptionContainer>

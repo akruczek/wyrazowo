@@ -5,7 +5,7 @@ import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ThemeProvider } from 'styled-components/native'
-import { ActivityIndicator, ColorSchemeName, LayoutAnimation, useColorScheme } from 'react-native'
+import { ActivityIndicator, ColorSchemeName, useColorScheme } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { theme as themeModel } from '@core/styled/theme'
 import { useRehydrateStore } from '@core/hooks/use-rehydrate-store.hook'
@@ -13,6 +13,7 @@ import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { authService } from '@core/auth/auth-service'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { TestView } from '@core/test-view/test-view'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
 import { MoreNavigation } from './src/more/more.navigation'
@@ -87,6 +88,7 @@ export const AppNavigation = () => {
         activeColor={activeColor}
         barStyle={{ backgroundColor: getBackgroundColor(), borderTopWidth: 1, borderColor: COLOR.DIM_GREY_LIGHTER }}
         labeled={false}
+        testID="nav_bar"
         sceneAnimationType="opacity"
         sceneAnimationEnabled
       >
@@ -96,7 +98,11 @@ export const AppNavigation = () => {
             name={name}
             component={component}
             options={{
-              tabBarIcon: ({ color }) => <MaterialCommunityIcons name={icon} {...{ color, size }} />
+              tabBarIcon: ({ color }) => (
+                <TestView t={`nav_bar_${name.toLowerCase()}`}>
+                  <MaterialCommunityIcons name={icon} {...{ color, size }} />
+                </TestView>
+              )
             }}
           />
         ))}
