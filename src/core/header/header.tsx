@@ -58,7 +58,7 @@ export const Header = ({
             onPress={onLeftIconPress}
             style={genericLightShadow}
             topInset={topInset}
-            testID={getTestID("header_left_icon")}
+            testID={getTestID('header_left_icon')}
           >
             <HeaderLeftIcon icon={leftIcon} />
           </HeaderLeftButtonContainer>
@@ -70,7 +70,7 @@ export const Header = ({
             onLongPress={rightContentConfig.onLongPress}
             style={genericLightShadow}
             topInset={topInset}
-            testID={getTestID("header_right_icon")}
+            testID={getTestID('header_right_icon')}
           >
             {rightContentConfig.indicator ? <HeaderRightButtonIndicator /> : null}
             <HeaderRightIcon icon={rightContentConfig.icon} />

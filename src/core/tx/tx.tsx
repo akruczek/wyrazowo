@@ -6,11 +6,12 @@ import { StyledTxProps } from './tx.models'
 
 interface Props extends StyledTxProps {
   tx?: string | number;
+  testID?: string;
   local?: keyof typeof Localization;
   children?: React.ReactNode;
 }
 
-export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
+export const Tx = ({ tx, testID, local, children, ...styledTxProps }: Props) => {
   const localize = useLocalize()
 
   const getChildren = () => {
@@ -23,6 +24,11 @@ export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
   }
 
   return (
-    <StyledTx children={getChildren()} RTL={Boolean(localize().rtl)} {...styledTxProps} />
+    <StyledTx
+      children={getChildren()}
+      RTL={Boolean(localize().rtl)}
+      testID={testID}
+      {...styledTxProps}
+    />
   )
 }
