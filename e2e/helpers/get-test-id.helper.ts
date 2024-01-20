@@ -1,6 +1,7 @@
 import ui from '@core/localize/localization/ui.json'
 
-export const getTestID = (t: string, suffix?: string) => {
+export const getTestID = (t: string, suffixes?: (string | undefined)[]) => {
   const base = (ui as any)?.[t] ?? 'unknown_test_id'
-  return `${base}${suffix ? `_${suffix}` : ''}`
+  const _suffixes = suffixes ? suffixes.map(suffix => `_${suffix}`) : ''
+  return `${base}${_suffixes}`
 }

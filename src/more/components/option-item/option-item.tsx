@@ -8,6 +8,7 @@ import { noop } from '@core/noop/noop'
 import { Localization } from '@core/localize/localize.models'
 import { Tx } from '@core/tx'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { TestView } from '@core/test-view/test-view'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage } from './option-item.styled'
 import { getTestID } from '../../../../e2e/helpers/get-test-id.helper'
@@ -41,7 +42,7 @@ export const OptionItem = ({
     return (
       <ListedOption
         {...{ local, tx, suffix, withPadding, uppercase }}
-        testID={getTestID("more_option", local)}
+        testID={getTestID("more_option", [ local ])}
         staticHeight
       >
         <CustomSwitch defaultValue={value} onValueChange={onChange ?? noop} />
@@ -53,7 +54,7 @@ export const OptionItem = ({
     <ListedOption
       onPress={onChange}
       onLongPress={handleDeactivatePremium}
-      testID={getTestID("more_option", local)}
+      testID={getTestID("more_option", [ local ])}
       {...{ local, tx, suffix, withPadding, uppercase, RTL }}
       staticHeight
     >
@@ -63,7 +64,9 @@ export const OptionItem = ({
         emoji ? (
           <Tx tx={emoji} XL />
         ) : icon ? (
-          <MaterialCommunityIcons name={icon} color={iconColor ?? theme.textPrimary} size={28} />
+          <TestView t={getTestID("more_option", [ local, "icon", iconColor ?? theme.textPrimary ])}>
+            <MaterialCommunityIcons name={icon} color={iconColor ?? theme.textPrimary} size={28} />
+          </TestView>
         ) : null
       )}
     </ListedOption>
