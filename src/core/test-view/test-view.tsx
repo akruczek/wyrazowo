@@ -1,15 +1,16 @@
 import * as React from 'react'
-import ui from '@core/localize/localization/ui.json'
 import { View } from 'react-native'
+import { getTestID } from '../../../e2e/helpers/get-test-id.helper'
 
 interface Props {
   t: string;
+  p?: (string | undefined)[];
   children?: any;
 }
 
-export const TestView = ({ t, children }: Props) => {
+export const TestView = ({ t, p, children }: Props) => {
   return (
-    <View testID={(ui as any)?.[t] ?? 'missing_test_id'}>
+    <View testID={getTestID(t, p)}>
       {children}
     </View>
   )

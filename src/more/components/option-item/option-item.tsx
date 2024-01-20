@@ -64,7 +64,7 @@ export const OptionItem = ({
         emoji ? (
           <Tx tx={emoji} XL />
         ) : icon ? (
-          <TestView t={getTestID("more_option", [ local, "icon", iconColor ?? theme.textPrimary ])}>
+          <TestView t="more_option" p={[ local, "icon", iconColor ?? theme.textPrimary ]}>
             <MaterialCommunityIcons name={icon} color={iconColor ?? theme.textPrimary} size={28} />
           </TestView>
         ) : null
