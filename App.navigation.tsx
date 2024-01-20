@@ -99,7 +99,7 @@ export const AppNavigation = () => {
             component={component}
             options={{
               tabBarIcon: ({ color }) => (
-                <TestView t={`nav_bar_${name.toLowerCase()}`}>
+                <TestView t="nav_bar" p={[ name.toLocaleLowerCase() ]}>
                   <MaterialCommunityIcons name={icon} {...{ color, size }} />
                 </TestView>
               )

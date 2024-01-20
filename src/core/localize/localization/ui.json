@@ -1,8 +1,5 @@
 {
-  "nav_bar_dashboard": "nav_bar_dashboard",
-  "nav_bar_dictionary": "nav_bar_dictionary",
-  "nav_bar_charade": "nav_bar_charade",
-  "nav_bar_more": "nav_bar_more",
+  "nav_bar": "nav_bar",
   "header_left_icon": "header_left_icon",
   "header_right_icon": "header_right_icon",
   "more_option": "more_option",

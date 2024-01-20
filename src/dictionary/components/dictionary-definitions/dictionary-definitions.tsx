@@ -23,7 +23,7 @@ export const DictionaryDefinitions = ({ isPending, wordFromDB, state, definition
     ) : (
       <SpacingView spacings="L S 0">
         {definitions?.map((definition: string, index: number) => (
-          <Tx tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
+          <Tx key={`${definition}${index}`} tx={`${index + 1}. ${definition}`} spacings="0 0 S 0" S bold center />
         ))}
       </SpacingView>
     )}

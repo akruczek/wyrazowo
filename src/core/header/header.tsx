@@ -7,6 +7,7 @@ import { ScreenType } from '@core/models'
 import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
 import { Localization } from '@core/localize/localize.models'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { testID } from '@core/localize/testID'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize, useHeaderPress } from './hooks'
@@ -58,7 +59,7 @@ export const Header = ({
             onPress={onLeftIconPress}
             style={genericLightShadow}
             topInset={topInset}
-            testID={getTestID('header_left_icon')}
+            testID={getTestID(testID().header_left_icon)}
           >
             <HeaderLeftIcon icon={leftIcon} />
           </HeaderLeftButtonContainer>
@@ -70,7 +71,7 @@ export const Header = ({
             onLongPress={rightContentConfig.onLongPress}
             style={genericLightShadow}
             topInset={topInset}
-            testID={getTestID('header_right_icon')}
+            testID={getTestID(testID().header_right_icon)}
           >
             {rightContentConfig.indicator ? <HeaderRightButtonIndicator /> : null}
             <HeaderRightIcon icon={rightContentConfig.icon} />
