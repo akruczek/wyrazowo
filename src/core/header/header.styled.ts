@@ -10,7 +10,7 @@ import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-st
 import { ThemeModel } from '@core/styled/models'
 import { Tx } from '@core/tx'
 import { getRTLFlexDirection, getRTLRotation } from '@core/styled'
-import { getTestID } from '../../../e2e/helpers/get-test-id.helper'
+import { getTestID } from '@e2e/helpers'
 
 interface HeaderContainerProps {
   topInset: number;

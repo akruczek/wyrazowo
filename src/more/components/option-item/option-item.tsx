@@ -10,9 +10,9 @@ import { Tx } from '@core/tx'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { TestView } from '@core/test-view/test-view'
 import { testID } from '@core/localize/testID'
+import { getTestID } from '@e2e/helpers'
 import { ListedOption } from '../listed-option/listed-option'
 import { OptionItemImage } from './option-item.styled'
-import { getTestID } from '../../../../e2e/helpers/get-test-id.helper'
 
 interface Props {
   local?: keyof typeof Localization;

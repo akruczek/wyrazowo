@@ -14,6 +14,7 @@
     "baseUrl": "./src",
     "paths": {
       "@core/*": [ "core/*" ],
+      "@e2e/*": [ "../e2e/*" ],
       "wrzw": [ "core/wrzw/index.ts" ],
       "@assets/*": [ "assets/*" ]
     },

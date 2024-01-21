@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { View } from 'react-native'
-import { getTestID } from '../../../e2e/helpers/get-test-id.helper'
+import { getTestID } from '@e2e/helpers'
 
 interface Props {
   t: string;

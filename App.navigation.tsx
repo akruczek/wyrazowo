@@ -14,6 +14,7 @@ import { RESPONSIVE } from '@core/responsive/responsive'
 import { authService } from '@core/auth/auth-service'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { TestView } from '@core/test-view/test-view'
+import { testID } from '@core/localize/testID'
 import { COLOR } from './src/core/colors/colors.constants'
 import { SCREEN } from './src/navigation/navigation.constants'
 import { MoreNavigation } from './src/more/more.navigation'
@@ -88,7 +89,7 @@ export const AppNavigation = () => {
         activeColor={activeColor}
         barStyle={{ backgroundColor: getBackgroundColor(), borderTopWidth: 1, borderColor: COLOR.DIM_GREY_LIGHTER }}
         labeled={false}
-        testID="nav_bar"
+        testID={testID().nav_bar}
         sceneAnimationType="opacity"
         sceneAnimationEnabled
       >
@@ -99,7 +100,7 @@ export const AppNavigation = () => {
             component={component}
             options={{
               tabBarIcon: ({ color }) => (
-                <TestView t="nav_bar" p={[ name.toLocaleLowerCase() ]}>
+                <TestView t={testID().nav_bar} p={[ name.toLocaleLowerCase() ]}>
                   <MaterialCommunityIcons name={icon} {...{ color, size }} />
                 </TestView>
               )

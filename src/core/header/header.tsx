@@ -8,10 +8,10 @@ import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
 import { Localization } from '@core/localize/localize.models'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import { testID } from '@core/localize/testID'
+import { getTestID } from '@e2e/helpers'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize, useHeaderPress } from './hooks'
-import { getTestID } from '../../../e2e/helpers/get-test-id.helper'
 import {
   BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderText,
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar,
