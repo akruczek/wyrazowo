@@ -13,6 +13,7 @@ import { useGesturesEnabled, useWordDetail } from '../../hooks'
 import { getWordPoints } from '../../../dashboard/helpers'
 import { WordDetailsModal } from '../word-details-modal/word-details-modal'
 import { PossibleWordsModalFooter } from './possible-words-modal-footer'
+import { SearchHistoryFilters } from '../possible-words-filters/possible-words-filters'
 import {
   NoResultsFoundIcon, PossibleWordsContainer, PossibleWordsLetterCardsContainer, SearchingDatabaseContainer,
 } from './possible-words-modal.styled'
@@ -46,6 +47,8 @@ export const PossibleWordsModal = ({
     setTimeout(() => setResetFlag(true))
   }
 
+  const data = React.useMemo(() => getWordsByLettersCount(), [])
+
   return resetFlag ? (
     <Portal>
       <CustomModalize
@@ -72,10 +75,13 @@ export const PossibleWordsModal = ({
             <FlatList
               maxToRenderPerBatch={10}
               scrollEnabled={false}
-              data={getWordsByLettersCount()}
+              data={data}
+              ListHeaderComponent={() => (
+                <SearchHistoryFilters maxLength={data?.[0]?.[0]?.length} />
+              )}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
-                <SpacingView key={wordsGroup.join('')} RTL={RTL} spacings="0 0 S XXS">
-                  <Tx right={RTL} prefix={`${wordsGroup[0].length} `} local="by_letters" spacings="0 0 XXS" />
+                <SpacingView key={wordsGroup.join('')} RTL={RTL} spacings="0 0 S 0">
+                  <Tx right={RTL} prefix={`${wordsGroup[0].length} `} local="by_letters" spacings="0 0 XXS XXS" />
 
                   {R.sortWith([ R.descend(getWordPoints) ], wordsGroup).map((word: string) => (
                     <PossibleWordsLetterCardsContainer RTL={RTL} scrollEnabled={word?.length > 8} key={word}>

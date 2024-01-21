@@ -1,3 +1,16 @@
+## 1.22.0 AUTOMATION
+### Added
+- TODO: letters count filter to search history result modal
+
+### Fixed
+- TODO: android back to foreground gestures issue
+
+### Improved
+- Possible words modal UI
+
+### Technical
+- Added detox - UI automation framework and few basic tests
+
 ## 1.21.0 MAINTENANCE
 ### Fixed
 - Android gestures issues on possible words modal when back from background

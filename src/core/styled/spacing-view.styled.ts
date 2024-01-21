@@ -18,7 +18,7 @@ interface SpacingViewProps {
   spacings: string;
 
   /**
-   * Define spaing type (margin or padding)
+   * Define spacing type (margin or padding)
    * Default fallback to margin
    */
   type?: 'margin' | 'padding';

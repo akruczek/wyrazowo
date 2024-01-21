@@ -8,7 +8,7 @@ import { SPACING, getRTLFlexDirection } from '@core/styled'
 export const PossibleWordsContainer = styled.View`
   width: 100%;
   height: 100%;
-  margin: ${SPACING.S}px ${SPACING.XXS}px 0;
+  margin-top: ${SPACING.S}px;
 `
 
 export const SearchingDatabaseContainer = styled.View`
@@ -29,6 +29,7 @@ export const PossibleWordsLetterCardsContainer = styled.ScrollView
     showsHorizontalScrollIndicator: false,
     contentContainerStyle: {
       flexDirection: getRTLFlexDirection(props),
+      paddingHorizontal: SPACING.XS,
     }
   }))`
     flex-direction: ${getRTLFlexDirection};
