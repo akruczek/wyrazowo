@@ -1,22 +1,28 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { SearchHistoryFiltersItem, SearchHistoryFiltersList } from './possible-words-filters.styled'
-import { Tx } from '@core/tx';
+import { Pressable } from 'react-native'
+import {
+  SearchHistoryFiltersItem, SearchHistoryFiltersItemTx, SearchHistoryFiltersList,
+} from './possible-words-filters.styled'
 
 interface Props {
   maxLength: number;
+  selectedFilter: number | null;
+  selectFilter: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-export const SearchHistoryFilters = ({ maxLength }: Props) => {
+export const SearchHistoryFilters = ({ maxLength, selectedFilter, selectFilter }: Props) => {
   const data = R.pipe<[number], number[], number[]>(
     R.times(R.inc),
     R.reverse,
   )(maxLength ?? 0)
 
   const renderFilterItem = ({ item }: { item: number }) => (
-    <SearchHistoryFiltersItem onPress={() => console.log(item)}>
-      <Tx tx={item} />
-    </SearchHistoryFiltersItem>
+    <Pressable onPress={() => selectFilter(item)}>
+      <SearchHistoryFiltersItem isSelected={selectedFilter === item}>
+        <SearchHistoryFiltersItemTx tx={item} />
+      </SearchHistoryFiltersItem>
+    </Pressable>
   )
 
   return (

@@ -8,7 +8,6 @@ import { SPACING, getRTLFlexDirection } from '@core/styled'
 export const PossibleWordsContainer = styled.View`
   width: 100%;
   height: 100%;
-  margin-top: ${SPACING.S}px;
 `
 
 export const SearchingDatabaseContainer = styled.View`

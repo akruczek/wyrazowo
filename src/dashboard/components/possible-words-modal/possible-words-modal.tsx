@@ -33,6 +33,7 @@ export const PossibleWordsModal = ({
   const RTL = useRTL()
   const modalOffset = useModalTopOffset()
   const wordDetailsModalRef = React.useRef<any>(null)
+  const [ selectedFilter, selectFilter ] = React.useState<number | null>(null)
 
   const {
     onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
@@ -46,8 +47,6 @@ export const PossibleWordsModal = ({
     setResetFlag(false)
     setTimeout(() => setResetFlag(true))
   }
-
-  const data = React.useMemo(() => getWordsByLettersCount(), [])
 
   return resetFlag ? (
     <Portal>
@@ -75,9 +74,12 @@ export const PossibleWordsModal = ({
             <FlatList
               maxToRenderPerBatch={10}
               scrollEnabled={false}
-              data={data}
-              ListHeaderComponent={() => (
-                <SearchHistoryFilters maxLength={data?.[0]?.[0]?.length} />
+              data={getWordsByLettersCount()}
+              ListHeaderComponent={(
+                <SearchHistoryFilters
+                  maxLength={getWordsByLettersCount()?.[0]?.[0]?.length}
+                  {...{ selectedFilter, selectFilter }}
+                />
               )}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (
                 <SpacingView key={wordsGroup.join('')} RTL={RTL} spacings="0 0 S 0">
