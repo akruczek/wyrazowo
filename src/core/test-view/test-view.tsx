@@ -1,16 +1,17 @@
 import * as React from 'react'
 import { View } from 'react-native'
-import { getTestID } from '@e2e/helpers'
+import { testID } from '@core/localize/testID'
+import { TestIDs } from '@core/localize/testID.models'
 
 interface Props {
-  t: string;
+  t: keyof typeof TestIDs;
   p?: (string | undefined)[];
   children?: any;
 }
 
 export const TestView = ({ t, p, children }: Props) => {
   return (
-    <View testID={getTestID(t, p)}>
+    <View testID={testID(t, p)}>
       {children}
     </View>
   )

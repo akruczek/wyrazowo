@@ -10,7 +10,7 @@ import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-st
 import { ThemeModel } from '@core/styled/models'
 import { Tx } from '@core/tx'
 import { getRTLFlexDirection, getRTLRotation } from '@core/styled'
-import { getTestID } from '@e2e/helpers'
+import { testID } from '@core/localize/testID'
 
 interface HeaderContainerProps {
   topInset: number;
@@ -54,7 +54,7 @@ export const HeaderText = styled(Tx).attrs((props: HeaderTextProps & TextProps) 
   uppercase: true,
   spacings: '0 XXS M XXS',
   spacingType: 'padding',
-  testID: getTestID('template_background', [ getThemeProp('backgroundPrimary')(props) ])
+  testID: testID('template_background', [ getThemeProp('backgroundPrimary')(props) ])
 }))<HeaderTextProps & TextProps>`
   font-size: ${R.propOr(TEXT_SIZE.XL, 'headerTextSize')}px;
   max-width: 80%;
