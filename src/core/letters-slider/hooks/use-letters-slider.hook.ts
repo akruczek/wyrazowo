@@ -16,6 +16,7 @@ interface UseLettersSlider {
 export const useLettersSlider = (
   onChange: (minMax: [ number, number ]) => void,
   [ defaultValueMin, defaultValueMax, defaultMin, defaultMax, blockMax ]: LetterSliderDefaultValues | [],
+  lengthFilter: number | null,
 ): UseLettersSlider => {
   const navigation = useNavigation<any>()
   const alertDebounceTimeRef = React.useRef(new Date().getTime())
@@ -50,6 +51,12 @@ export const useLettersSlider = (
       alertDebounceTimeRef.current = new Date().getTime()
     }
   }
+
+  React.useEffect(() => {
+    if (lengthFilter) {
+      onValueChanged(lengthFilter, lengthFilter)
+    }
+  }, [ lengthFilter ])
 
   return { min, max, isWarning, defaultMin: DEFAULT_MIN, defaultMax: DEFAULT_MAX, onValueChanged }
 }

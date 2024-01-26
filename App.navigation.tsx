@@ -89,7 +89,7 @@ export const AppNavigation = () => {
         activeColor={activeColor}
         barStyle={{ backgroundColor: getBackgroundColor(), borderTopWidth: 1, borderColor: COLOR.DIM_GREY_LIGHTER }}
         labeled={false}
-        testID={testID().nav_bar}
+        testID={testID('nav_bar')}
         sceneAnimationType="opacity"
         sceneAnimationEnabled
       >
@@ -100,7 +100,7 @@ export const AppNavigation = () => {
             component={component}
             options={{
               tabBarIcon: ({ color }) => (
-                <TestView t={testID().nav_bar} p={[ name.toLocaleLowerCase() ]}>
+                <TestView t="nav_bar" p={[ name.toLocaleLowerCase() ]}>
                   <MaterialCommunityIcons name={icon} {...{ color, size }} />
                 </TestView>
               )

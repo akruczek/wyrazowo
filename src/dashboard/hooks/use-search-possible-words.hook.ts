@@ -15,6 +15,8 @@ interface UseSearchPossibleWords {
   searchPossibleWords: () => void;
   onLengthChange: (minMax: [ number, number ]) => void;
   clearPossibleWords: () => void;
+  lengthFilter: number | null;
+  setLengthFilter: (lengthFilter: number | null) => void;
 }
 
 export const useSearchPossibleWords = (
@@ -30,6 +32,7 @@ export const useSearchPossibleWords = (
     selectedLettersRef.current = selectedLetters
   }, [ selectedLetters ])
 
+  const [ lengthFilter, setLengthFilter ] = React.useState<number | null>(null)
   const [ possibleWords, setPossibleWords ] = React.useState<string[]>([])
   const [ noWordsFound, setNoWordsFound ] = React.useState<boolean>(false)
 
@@ -42,7 +45,7 @@ export const useSearchPossibleWords = (
     })
 
     Storage.set(STORAGE_KEY.SEARCH_RESULT, JSON.stringify([ getDataToSave(), ...savedResultRef.current ]))
-  }, [ selectedLetters ])
+  }, [ selectedLetters, lengthFilter ])
 
   const resultsCallback = (result: string[]) => {
     setNoWordsFound(wrzw.isE(result))
@@ -80,7 +83,13 @@ export const useSearchPossibleWords = (
     } else {
       searchWords()
     }
-  }, [ selectedLetters ])
+  }, [ selectedLetters, lengthFilter ])
+
+  React.useEffect(() => {
+    if (lengthFilter) {
+      searchPossibleWords()
+    }
+  }, [ lengthFilter ])
 
   const onLengthChange = (minMax: [ number, number ]) => {
     if (!wrzw.compareJoined(minMax, wordLengthRef.current)) {
@@ -93,5 +102,8 @@ export const useSearchPossibleWords = (
     setNoWordsFound(false)
   }
 
-  return { possibleWords, noWordsFound, searchPossibleWords, onLengthChange, clearPossibleWords }
+  return {
+    possibleWords, noWordsFound, lengthFilter,
+    searchPossibleWords, onLengthChange, clearPossibleWords, setLengthFilter,
+  }
 }

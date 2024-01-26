@@ -30,7 +30,8 @@ export const Dashboard = () => {
   const { handleLongPress, onSelectSoapLetters, soapModalizeRef } = useSoapModal(handleSelectLetter)
 
   const {
-    possibleWords, onLengthChange, noWordsFound, searchPossibleWords, clearPossibleWords,
+    possibleWords, lengthFilter, noWordsFound,
+    searchPossibleWords, clearPossibleWords, onLengthChange, setLengthFilter,
   } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled)
 
   const isPremium = useIsPremium()
@@ -52,11 +53,15 @@ export const Dashboard = () => {
 
       <DashboardBottomContent>
         <LettersGrid {...{ handleSelectLetter, selectedLetters, handleLongPress }} />
-        <LettersSlider onChange={onLengthChange} defaultValues={sliderDefaultValues} />
+        <LettersSlider
+          onChange={onLengthChange}
+          defaultValues={sliderDefaultValues}
+          lengthFilter={lengthFilter}
+        />
         <DashboardButtonsAndModals {...{
           selectedLetters, handleClearSelectedLetters, soapCharactersIndexes, handleForceIndex, onSelectSoapLetters,
           soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexLetterIndexRef,
-          letters, possibleWords, forceIndexModalizeRef }}
+          possibleWords, lengthFilter, setLengthFilter, forceIndexModalizeRef }}
         />
       </DashboardBottomContent>
     </Template>

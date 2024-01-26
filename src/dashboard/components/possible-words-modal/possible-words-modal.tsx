@@ -22,18 +22,20 @@ interface Props {
   possibleWords: string[];
   noWordsFound: boolean;
   modalizeRef: React.MutableRefObject<any>;
+  lengthFilter: number | null;
+  setLengthFilter: (lengthFilter: number | null) => void;
   onOpened?: () => void;
   onClosed?: () => void;
   soapCharactersIndexes: (letter: string) => number[];
 }
 
 export const PossibleWordsModal = ({
-  possibleWords, noWordsFound, modalizeRef, onOpened, onClosed, soapCharactersIndexes,
+  possibleWords, noWordsFound, modalizeRef, lengthFilter,
+  setLengthFilter, onOpened, onClosed, soapCharactersIndexes,
 }: Props) => {
   const RTL = useRTL()
   const modalOffset = useModalTopOffset()
   const wordDetailsModalRef = React.useRef<any>(null)
-  const [ selectedFilter, selectFilter ] = React.useState<number | null>(null)
 
   const {
     onLongPressWord, getWordsByLettersCount, detailedWord, loadMore, isPending, maxReached,
@@ -43,9 +45,9 @@ export const PossibleWordsModal = ({
 
   const _onClosed = () => {
     onClosed?.()
-
     setResetFlag(false)
     setTimeout(() => setResetFlag(true))
+    setLengthFilter(null)
   }
 
   return resetFlag ? (
@@ -57,7 +59,11 @@ export const PossibleWordsModal = ({
         onClosed={_onClosed}
         disableScrollIfPossible
         panGestureEnabled={panGestureEnabled}
-        scrollViewProps={{ onScroll, showsVerticalScrollIndicator: false }}
+        scrollViewProps={{
+          onScroll,
+          showsVerticalScrollIndicator: false,
+          bounces: false,
+        }}
         avoidKeyboardLikeIOS
         useNativeDriver
       >
@@ -78,7 +84,7 @@ export const PossibleWordsModal = ({
               ListHeaderComponent={(
                 <SearchHistoryFilters
                   maxLength={getWordsByLettersCount()?.[0]?.[0]?.length}
-                  {...{ selectedFilter, selectFilter }}
+                  {...{ lengthFilter, setLengthFilter }}
                 />
               )}
               renderItem={({ item: wordsGroup }: { item: string[] }) => (

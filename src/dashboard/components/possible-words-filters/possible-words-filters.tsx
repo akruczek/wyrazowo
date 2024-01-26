@@ -7,19 +7,25 @@ import {
 
 interface Props {
   maxLength: number;
-  selectedFilter: number | null;
-  selectFilter: React.Dispatch<React.SetStateAction<number | null>>;
+  lengthFilter: number | null;
+  setLengthFilter: (lengthFilter: number | null) => void;
 }
 
-export const SearchHistoryFilters = ({ maxLength, selectedFilter, selectFilter }: Props) => {
+export const SearchHistoryFilters = ({ maxLength, lengthFilter, setLengthFilter }: Props) => {
+  const initialMaxLength = React.useRef<number | null>(null)
+
+  React.useEffect(() => {
+    initialMaxLength.current = maxLength
+  }, [])
+
   const data = R.pipe<[number], number[], number[]>(
     R.times(R.inc),
     R.reverse,
-  )(maxLength ?? 0)
+  )(initialMaxLength.current ?? maxLength ?? 0)
 
   const renderFilterItem = ({ item }: { item: number }) => (
-    <Pressable onPress={() => selectFilter(item)}>
-      <SearchHistoryFiltersItem isSelected={selectedFilter === item}>
+    <Pressable onPress={() => setLengthFilter(item)}>
+      <SearchHistoryFiltersItem isSelected={lengthFilter === item}>
         <SearchHistoryFiltersItemTx tx={item} />
       </SearchHistoryFiltersItem>
     </Pressable>

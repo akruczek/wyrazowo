@@ -15,10 +15,12 @@ import {
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
   defaultValues: LetterSliderDefaultValues | [],
+  lengthFilter: number | null;
 }
 
-export const LettersSlider = ({ onChange, defaultValues }: Props) => {
-  const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } = useLettersSlider(onChange, defaultValues)
+export const LettersSlider = ({ onChange, lengthFilter, defaultValues }: Props) => {
+  const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } =
+    useLettersSlider(onChange, defaultValues, lengthFilter)
 
   const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
 

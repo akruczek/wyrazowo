@@ -18,9 +18,10 @@ interface Props {
   soapModalizeRef: React.MutableRefObject<Modalize | null>;
   forceIndexLetterIndexRef: React.MutableRefObject<number | null>;
   noWordsFound: boolean;
-  letters: string[];
   possibleWords: string[];
   forceIndexModalizeRef: React.MutableRefObject<Modalize | null>;
+  lengthFilter: number | null;
+  setLengthFilter: (lengthFilter: number | null) => void;
   handleClearSelectedLetters: () =>  void;
   handleForceIndex: (letterIndex: number, forceIndex: number) => void;
   soapCharactersIndexes: (letter: string) => number[];
@@ -30,7 +31,7 @@ interface Props {
 }
 
 export const DashboardButtonsAndModals = ({
-  selectedLetters, handleClearSelectedLetters, handleForceIndex, letters,
+  selectedLetters, lengthFilter, setLengthFilter, handleClearSelectedLetters, handleForceIndex,
   soapCharactersIndexes, forceIndexLetterIndexRef, onSelectSoapLetters, possibleWords,
   soapModalizeRef, noWordsFound, searchPossibleWords, clearPossibleWords, forceIndexModalizeRef,
 }: Props) => {
@@ -87,11 +88,8 @@ export const DashboardButtonsAndModals = ({
         />
 
         <PossibleWordsModal
-          possibleWords={possibleWords}
-          modalizeRef={modalizeRef}
           onClosed={clearPossibleWords}
-          soapCharactersIndexes={soapCharactersIndexes}
-          noWordsFound={noWordsFound}
+          {...{ modalizeRef, possibleWords, lengthFilter, noWordsFound, setLengthFilter, soapCharactersIndexes }}
         />
 
         <ForceIndexModal
