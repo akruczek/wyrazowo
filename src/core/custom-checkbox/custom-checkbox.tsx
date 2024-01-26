@@ -2,10 +2,11 @@ import * as React from 'react'
 import { LayoutAnimation } from 'react-native'
 import { Tx } from '@core/tx'
 import { Localization } from '@core/localize/localize.models'
+import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { testID } from '@core/localize/testID'
 import {
   CustomCheckboxBox, CustomCheckboxCheckmarkIcon, CustomCheckboxTouchableWrapper,
 } from './custom-checkbox.styled'
-import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 
 interface Props {
   defaultValue?: boolean;
@@ -25,7 +26,11 @@ export const CustomCheckbox = ({ defaultValue, local, onChange }: Props) => {
   }
 
   return (
-    <CustomCheckboxTouchableWrapper onPress={handleChange} {...{ value, RTL }}>
+    <CustomCheckboxTouchableWrapper
+      onPress={handleChange}
+      testID={testID('checkbox')}
+      {...{ value, RTL }}
+    >
       <CustomCheckboxBox value={value}>
         {value ? <CustomCheckboxCheckmarkIcon name="check-bold" value={value} /> : null}
       </CustomCheckboxBox>

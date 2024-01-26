@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Tx } from '@core/tx'
+import { testID } from '@core/localize/testID'
 import { Localization } from '@core/localize/localize.models'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 import {
@@ -42,15 +43,29 @@ export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue 
       <Tx local={local} disabled bolder center />
 
       <CustomCounterContainer RTL={RTL}>
-        <CustomCounterButtonContainer disabled={value === range[0]} onPress={handleDecrement} {...colorProps}>
+        <CustomCounterButtonContainer
+          disabled={value === range[0]}
+          onPress={handleDecrement}
+          testID={testID('counter', [ 'minus' ])}
+          {...colorProps}
+        >
           <CustomCounterMinusIcon name="minus" {...colorProps} />
         </CustomCounterButtonContainer>
 
         <CustomCounterTextContainer>
-          <Tx tx={value} {...colorProps} />
+          <Tx
+            tx={value}
+            testID={testID('counter', [ 'value' ])}
+            {...colorProps}
+          />
         </CustomCounterTextContainer>
 
-        <CustomCounterButtonContainer disabled={value === range[1]} onPress={handleIncrement} {...colorProps}>
+        <CustomCounterButtonContainer
+          disabled={value === range[1]}
+          onPress={handleIncrement}
+          testID={testID('counter', [ 'plus' ])}
+          {...colorProps}
+        >
           <CustomCounterPlusIcon name="plus" {...colorProps} />
         </CustomCounterButtonContainer>
       </CustomCounterContainer>

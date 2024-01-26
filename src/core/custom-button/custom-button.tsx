@@ -8,6 +8,7 @@ import { CustomButtonContainer } from './custom-button.styled'
 interface Props {
   tx?: string | number;
   local?: keyof typeof Localization;
+  testID?: string;
   minHeight?: number;
   children?: any;
   invisible?: boolean;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export const CustomButton = ({
-  tx, local, minHeight, children, invisible, color, withHaptic, onPress,
+  tx, local, testID, minHeight, children, invisible, color, withHaptic, onPress,
 }: Props) => {
   const { triggerHaptic } = useHapticFeedback()
 
@@ -30,7 +31,7 @@ export const CustomButton = ({
   }
 
   return (
-    <CustomButtonContainer onPress={handlePress} {...{ invisible, color, minHeight }}>
+    <CustomButtonContainer onPress={handlePress} {...{ invisible, testID, color, minHeight }}>
       {tx || local ? <Tx {...{ tx, local }} white bold /> : children ?? null}
     </CustomButtonContainer>
   )
