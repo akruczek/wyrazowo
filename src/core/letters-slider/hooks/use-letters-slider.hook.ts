@@ -10,7 +10,9 @@ interface UseLettersSlider {
   isWarning: boolean;
   defaultMin: number;
   defaultMax: number;
+  isInitialValue: boolean;
   onValueChanged: (min: number, max: number) => void;
+  restoreSlider: () => void;
 }
 
 export const useLettersSlider = (
@@ -21,6 +23,7 @@ export const useLettersSlider = (
   const navigation = useNavigation<any>()
   const alertDebounceTimeRef = React.useRef(new Date().getTime())
 
+  const INITIAL_VALUE: [ number, number ] = [ 2, 8 ]
   const DEFAULT_MIN = defaultMin ?? 2
   const DEFAULT_MAX = defaultMax ?? 15
   const BLOCK_MAX = blockMax ?? 9
@@ -52,11 +55,21 @@ export const useLettersSlider = (
     }
   }
 
+  const restoreSlider = () => {
+    onValueChanged(...INITIAL_VALUE)
+  }
+
   React.useEffect(() => {
     if (lengthFilter) {
       onValueChanged(lengthFilter, lengthFilter)
     }
   }, [ lengthFilter ])
 
-  return { min, max, isWarning, defaultMin: DEFAULT_MIN, defaultMax: DEFAULT_MAX, onValueChanged }
+  return {
+    min, max, isWarning,
+    defaultMin: DEFAULT_MIN,
+    defaultMax: DEFAULT_MAX,
+    isInitialValue: min === INITIAL_VALUE[0] && max === INITIAL_VALUE[1],
+    onValueChanged, restoreSlider,
+  }
 }

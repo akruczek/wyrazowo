@@ -9,7 +9,8 @@ import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
 import {
-  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar
+  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar, LetterSliderWrapper,
+  LettersSliderContainer, LettersSliderRestoreIconContainer, LettersSliderRestoreIconStyled,
 } from './letter-slider.styled'
 
 interface Props {
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export const LettersSlider = ({ onChange, lengthFilter, defaultValues }: Props) => {
-  const { min, max, isWarning, defaultMin, defaultMax, onValueChanged } =
+  const { min, max, isWarning, defaultMin, defaultMax, isInitialValue, onValueChanged, restoreSlider } =
     useLettersSlider(onChange, defaultValues, lengthFilter)
 
   const _renderLetterSliderThumb = (name: 'low' | 'high') => renderLetterSliderThumb(name, [ min, max ])
@@ -37,25 +38,33 @@ export const LettersSlider = ({ onChange, lengthFilter, defaultValues }: Props) 
         />
       </LetterSliderTopLabelBar>
 
-      <LetterSlider
-        step={1}
-        renderThumb={_renderLetterSliderThumb}
-        renderRail={renderLetterSliderRail}
-        renderRailSelected={noop}
-        renderLabel={renderLetterSliderLabel(defaultMin, defaultMax)}
-        renderNotch={noop}
-        onValueChanged={onValueChanged}
-        min={defaultMin}
-        max={defaultMax}
-        low={min}
-        high={max}
-        floatingLabel
-      />
+      <LettersSliderContainer>
+        <LetterSliderWrapper>
+          <LetterSlider
+            step={1}
+            renderThumb={_renderLetterSliderThumb}
+            renderRail={renderLetterSliderRail}
+            renderRailSelected={noop}
+            renderLabel={renderLetterSliderLabel(defaultMin, defaultMax)}
+            renderNotch={noop}
+            onValueChanged={onValueChanged}
+            min={defaultMin}
+            max={defaultMax}
+            low={min}
+            high={max}
+            floatingLabel
+          />
 
-      <LetterSliderBottomLabelBar>
-        <Tx tx={defaultMin} spacings="0 XXS 0 S" bold />
-        <Tx tx={defaultMax} spacings="0 XXS 0 S" bold />
-      </LetterSliderBottomLabelBar>
+          <LetterSliderBottomLabelBar>
+            <Tx tx={defaultMin} spacings="0 XXS 0 S" bold />
+            <Tx tx={defaultMax} spacings="0 XXS 0 S" bold />
+          </LetterSliderBottomLabelBar>
+        </LetterSliderWrapper>
+
+        <LettersSliderRestoreIconContainer onPress={restoreSlider}>
+          <LettersSliderRestoreIconStyled isInitialValue={isInitialValue} name="restore" />
+        </LettersSliderRestoreIconContainer>
+      </LettersSliderContainer>
     </SpacingView>
   )
 }

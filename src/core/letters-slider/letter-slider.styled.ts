@@ -16,8 +16,12 @@ export const LetterSliderTopLabelBar = styled.View`
   align-items: center;
 `
 
+export const LetterSliderWrapper = styled.View`
+  flex: 1;
+`
+
 export const LetterSlider = styled(RangeSlider)`
-  width: 100%;
+  flex: 1;
 `
 
 export const LetterSliderWarningIcon = styled(MaterialCommunityIcons).attrs({
@@ -27,3 +31,22 @@ export const LetterSliderWarningIcon = styled(MaterialCommunityIcons).attrs({
 })`
   margin-left: ${SPACING.XXS}px;
 `
+
+export const LettersSliderContainer = styled.View`
+  flex-direction: row;
+  flex: 1;
+`
+
+export const LettersSliderRestoreIconContainer = styled.Pressable`
+  margin-top: ${SPACING.XXS}px;
+`
+
+interface LettersSliderRestoreIconStyledProps {
+  isInitialValue: boolean;
+}
+
+export const LettersSliderRestoreIconStyled = styled(MaterialCommunityIcons)
+  .attrs(({ isInitialValue }: LettersSliderRestoreIconStyledProps) => ({
+    color: isInitialValue ? COLOR.BLACK : COLOR.FIRE_BRICK,
+    size: TEXT_SIZE.M,
+  }))<LettersSliderRestoreIconStyledProps>``

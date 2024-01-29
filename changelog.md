@@ -1,6 +1,7 @@
 ## 1.22.0 AUTOMATION
 ### Added
 - TODO: letters count filter to search history result modal
+- TODO: Reset letters slider
 
 ### Fixed
 - TODO: android back to foreground gestures issue
@@ -10,6 +11,7 @@
 
 ### Technical
 - Added detox - UI automation framework and few basic tests
+- TODO: UI Automation for...
 
 ## 1.21.0 MAINTENANCE
 ### Fixed

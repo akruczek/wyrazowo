@@ -1,11 +1,11 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
-import { AlertType } from './alert-icon.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING } from '@core/styled'
+import { AlertType } from './alert-icon.models'
 
-const alertColorsMap = {
+const alertColorsMap: { [ key: string ] : COLOR } = {
   error: COLOR.FIRE_BRICK,
   warning: COLOR.GOLD,
   info: COLOR.DODGER_BLUE,
@@ -16,12 +16,13 @@ interface AlertIconProps {
   type?: AlertType;
 }
 
-export const AlertIconStyled = styled(MaterialCommunityIcons).attrs<AlertIconProps>(({ type }) => ({
-  color: alertColorsMap[type ?? 'info'],
-  size: TEXT_SIZE.M,
-}))`
-  margin: 0 ${SPACING.XXS}px;
-`
+export const AlertIconStyled = styled(MaterialCommunityIcons)
+  .attrs<AlertIconProps>(({ type }: AlertIconProps) => ({
+    color: alertColorsMap[type ?? 'info'],
+    size: TEXT_SIZE.M,
+  }))`
+    margin: 0 ${SPACING.XXS}px;
+  `
 
 export const AlertIconTouchable = styled.TouchableOpacity.attrs({
   hitSlop: {
