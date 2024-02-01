@@ -11,7 +11,6 @@ import { isForceIndexAvailable } from './helpers'
 import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './components'
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
-import { SCREEN } from '../navigation/navigation.constants'
 import { DashboardBottomContent } from './dashboard.styled'
 
 export const Dashboard = () => {
@@ -44,7 +43,7 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Template type="dashboard" leftScreen={SCREEN.DASHBOARD_PLAYGROUND} leftIcon="checkerboard">
+    <Template type="dashboard">
       <Tx local="selected_letters" bolder disabled center />
       <SelectedLetters {...{
         selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}

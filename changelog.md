@@ -1,3 +1,16 @@
+## 1.22.0 WORD EXTENSIONS
+### Added
+- Word extensions
+
+### Changed
+- Moved playground to charade module
+
+### Fixed
+- TODO: android gestures issue when back from background
+
+### Technical
+- Update readme
+
 ## 1.21.0 MAINTENANCE
 ### Fixed
 - Android gestures issues on possible words modal when back from background

@@ -88,7 +88,7 @@ export const Playground = () => {
   const { bottom: bottomInset } = useSafeAreaInsets()
 
   return (
-    <Template type="dashboard" local="playground" leftIcon="magnify" leftScreen={SCREEN.DASHBOARD_SEARCH}>
+    <Template type="charade" local="playground" leftIcon="gamepad-variant" leftScreen={SCREEN.CHARADE_MAIN}>
       <PlaygroundZoom>
         <View ref={ref}>
           <PlaygroundBacklight {...{ onPressColumn, onPressRow, advancedSearchIndexes }} />
