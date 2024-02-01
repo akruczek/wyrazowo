@@ -1,9 +1,9 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLOR } from '@core/colors/colors.constants'
-import { AlertType } from './alert-icon.models'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING } from '@core/styled'
+import { AlertType } from './alert-icon.models'
 
 const alertColorsMap = {
   error: COLOR.FIRE_BRICK,
