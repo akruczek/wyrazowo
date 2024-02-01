@@ -5,7 +5,7 @@ export const BOTTOM_NAVIGATION_HEIGHT = 75
 export enum SCREEN {
   DASHBOARD = 'Dashboard',
   DASHBOARD_SEARCH = 'Dashboard-Search',
-  DASHBOARD_WORD_EXTENSION = 'Dashboard-Word-Extension',
+  DASHBOARD_ADVANCED_SEARCH = 'Dashboard-Advanced-Search',
   DEVELOPER = 'Developer',
   DEVELOPER_MAIN = 'Developer-Main',
   DEVELOPER_SEARCH_HISTORY = 'Developer-Search-History',

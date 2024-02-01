@@ -44,7 +44,7 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Template type="dashboard" leftIcon="arrow-expand-horizontal" leftScreen={SCREEN.DASHBOARD_WORD_EXTENSION}>
+    <Template type="dashboard" leftIcon="cogs" leftScreen={SCREEN.DASHBOARD_ADVANCED_SEARCH}>
       <Tx local="selected_letters" bolder disabled center />
       <SelectedLetters {...{
         selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}

@@ -1,6 +1,6 @@
-## 1.22.0 WORD EXTENSIONS
+## 1.22.0 ADVANCED SEARCH
 ### Added
-- Word extensions
+- Advanced search
 
 ### Changed
 - Moved playground to charade module
