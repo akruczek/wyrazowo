@@ -12,6 +12,7 @@ import { SelectedLetters, LettersGrid, DashboardButtonsAndModals } from './compo
 import { useSelectLetter, useSearchPossibleWords, useSoapModal, useDashboardRehydration } from './hooks'
 import { nativeSearchEngineEnabledSelector } from '../settings/store/settings.selectors'
 import { DashboardBottomContent } from './dashboard.styled'
+import { SCREEN } from 'navigation/navigation.constants'
 
 export const Dashboard = () => {
   useDashboardRehydration()
@@ -43,7 +44,7 @@ export const Dashboard = () => {
   }
 
   return React.useMemo(() => (
-    <Template type="dashboard">
+    <Template type="dashboard" leftIcon="arrow-expand-horizontal" leftScreen={SCREEN.DASHBOARD_WORD_EXTENSION}>
       <Tx local="selected_letters" bolder disabled center />
       <SelectedLetters {...{
         selectedLetters, onLongPressSelectedLetter, handleDeselectLetter, handleSelectLetter, handleLongPress }}

@@ -65,6 +65,8 @@ export enum Localization {
   charade = 'charade',
   playground = 'playground',
   dashboard = 'dashboard',
+  advanced_search = 'advanced_search',
+  word_extension = 'word_extension',
   play = 'play',
   more = 'more',
   help = 'help',
