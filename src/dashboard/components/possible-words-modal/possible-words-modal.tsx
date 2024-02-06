@@ -23,7 +23,7 @@ interface Props {
   modalizeRef: React.MutableRefObject<any>;
   onOpened?: () => void;
   onClosed?: () => void;
-  soapCharactersIndexes: (letter: string) => number[];
+  soapCharactersIndexes: (word: string) => number[];
 }
 
 export const PossibleWordsModal = ({
