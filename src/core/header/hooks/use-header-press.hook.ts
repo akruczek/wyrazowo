@@ -7,7 +7,11 @@ interface UseHeaderPress {
   onLeftIconPress: () => void;
 }
 
-export const useHeaderPress = (leftScreen?: SCREEN, backButtonAlert?: Function): UseHeaderPress => {
+export const useHeaderPress = (
+  leftScreen?: SCREEN,
+  backButtonAlert?: Function,
+  navigationParams?: {[key: string]: any},
+): UseHeaderPress => {
   const navigation = useNavigation<any>()
   const localize = useLocalize()
 
@@ -19,7 +23,7 @@ export const useHeaderPress = (leftScreen?: SCREEN, backButtonAlert?: Function):
     }
   }
 
-  const onLeftIconPress = () => navigation.navigate(leftScreen)
+  const onLeftIconPress = () => navigation.navigate(leftScreen, navigationParams)
 
   return { onBackPress, onLeftIconPress }
 }
