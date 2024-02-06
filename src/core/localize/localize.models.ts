@@ -66,6 +66,7 @@ export enum Localization {
   playground = 'playground',
   dashboard = 'dashboard',
   advanced_search = 'advanced_search',
+  advanced_search_not_supported = 'advanced_search_not_supported',
   word_extension = 'word_extension',
   play = 'play',
   more = 'more',

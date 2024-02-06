@@ -20,6 +20,8 @@ export const AdvancedSearch = () => {
   const RTL = useRTL()
   const modalizeRef = React.useRef<Modalize>(null)
 
+  const [ wordToExtend, setWordToExtend ] = React.useState('')
+
   const navigation = useNavigation()
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
   const selectedLetters = getNavigationParam<string[]>('selectedLetters', navigation)
@@ -39,22 +41,28 @@ export const AdvancedSearch = () => {
 
   return (
     <Template type="dashboard" local="advanced_search" leftIcon="magnify" leftScreen={SCREEN.DASHBOARD_SEARCH}>
-      <Tx local="selected_letters" bolder disabled center />
-      <SelectedLetters selectedLetters={selectedLetters} />
+      {nativeSearchEngineEnabled ? (
+        <>
+          <Tx local="selected_letters" bolder disabled center />
+          <SelectedLetters selectedLetters={selectedLetters} />
 
-      <Tx local="word_extension" bolder disabled center spacings="L 0 0" />
-      <WordExtension />
+          <Tx local="word_extension" bolder disabled center spacings="L 0 0" />
+          <WordExtension {...{ wordToExtend, setWordToExtend }} />
 
-      <AdvancedSearchButtonsContainer RTL={RTL}>
-        <CustomButton invisible={selectedLetters.length < 2} onPress={onSearch} withHaptic>
-          <SearchButtonIcon />
-        </CustomButton>
-      </AdvancedSearchButtonsContainer>
+          <AdvancedSearchButtonsContainer RTL={RTL}>
+            <CustomButton invisible={selectedLetters.length < 2} onPress={onSearch} withHaptic>
+              <SearchButtonIcon />
+            </CustomButton>
+          </AdvancedSearchButtonsContainer>
 
-      <PossibleWordsModal
-        onClosed={clearPossibleWords}
-        {...{ possibleWords, modalizeRef, soapCharactersIndexes, noWordsFound }}
-      />
+          <PossibleWordsModal
+            onClosed={clearPossibleWords}
+            {...{ possibleWords, modalizeRef, soapCharactersIndexes, noWordsFound }}
+          />
+        </>
+      ) : (
+        <Tx local="advanced_search_not_supported" bolder disabled center spacings="0 M" />
+      )}
     </Template>
   )
 }

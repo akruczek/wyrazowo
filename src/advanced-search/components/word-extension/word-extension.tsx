@@ -5,9 +5,12 @@ import {
   WordExtensionContainer, WordExtensionInputContainer, WordExtensionInputIcon, WordExtensionInputWrapper,
 } from './word-extension.styled'
 
-export const WordExtension = () => {
-  const [ wordToExtend, setWordToExtend ] = React.useState('')
+interface Props {
+  wordToExtend: string;
+  setWordToExtend: (wordToExtend: string) => void;
+}
 
+export const WordExtension = ({ wordToExtend, setWordToExtend }: Props) => {
   return (
     <WordExtensionContainer>
       <WordExtensionInputContainer>

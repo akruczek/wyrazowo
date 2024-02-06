@@ -66,6 +66,7 @@
   "playground": "ארגז חול",
   "dashboard": "לחפש",
   "advanced_search": "חיפוש מתקדם",
+  "advanced_search_not_supported": "חיפוש מתקדם נתמך רק עם מנוע חיפוש מקורי",
   "word_extension": "סיומת מילים",
   "play": "לְשַׂחֵק",
   "more": "יותר",

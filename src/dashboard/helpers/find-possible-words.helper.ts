@@ -25,6 +25,7 @@ export const findPossibleWords = async (
   selectedLetters: string[],
   [ minLength, maxLength ]: [ number, number ],
   nativeSearchEngineEnabled: NumberFlag | null,
+  wordToExtend?: string,
 ) => new Promise<string[]>((resolve) => {
   const LOGS_ENABLED = false
   const LOGS_WORD_FILTER = ''
@@ -36,7 +37,7 @@ export const findPossibleWords = async (
 
   // Native search engine (native DBModule)
   if (nativeSearchEngineEnabled) {
-    DB.findPossibleWords(allWords, selectedLetters)
+    DB.findPossibleWords(allWords, selectedLetters, wordToExtend)
     resolve([ NATIVE_DB_TAG ])
     return [ NATIVE_DB_TAG ]
   }

@@ -66,6 +66,7 @@
   "playground": "Sandbox",
   "dashboard": "SEARCH",
   "advanced_search": "ADVANCED SEARCH",
+  "advanced_search_not_supported": "Advanced search is supported only with native search engine",
   "word_extension": "Word extension",
   "play": "PLAY",
   "more": "MORE",

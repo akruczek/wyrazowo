@@ -66,6 +66,7 @@
   "playground": "Sandkasten",
   "dashboard": "SUCHEN",
   "advanced_search": "ERWEITERTE SUCHE",
+  "advanced_search_not_supported": "Erweiterte Suche wird nur mit nativer Suchmaschine unterstützt",
   "word_extension": "Worterweiterung",
   "play": "SPIELEN",
   "more": "MEHR",

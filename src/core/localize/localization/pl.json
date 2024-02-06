@@ -66,6 +66,7 @@
   "playground": "Piaskownica",
   "dashboard": "WYSZUKIWARKA",
   "advanced_search": "ZAAWANSOWANE WYSZUKIWANIE",
+  "advanced_search_not_supported": "Zaawansowane wyszukiwanie jest dostępny wyłącznie przy użyciu natywnej wyszukiwarki",
   "word_extension": "Rozszerzenie wyrazu",
   "play": "GRAJ",
   "more": "WIĘCEJ",

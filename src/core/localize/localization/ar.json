@@ -66,6 +66,7 @@
   "playground": "رمل",
   "dashboard": "يبحث",
   "advanced_search": "البحث المتقدم",
+  "advanced_search_not_supported": "البحث المتقدم مدعوم فقط بمحرك البحث الأصلي",
   "word_extension": "امتداد الكلمة",
   "play": "يلعب",
   "more": "أكثر",
