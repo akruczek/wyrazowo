@@ -22,6 +22,7 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
     fun findPossibleWords(
         allWords: String,
         selectedLetters: String,
+        wordToExtend: String?,
     ): Any {
         val LETTER_SOAP = "?"
         val LETTER_SOAP_PLACEHOLDER = "*"
@@ -119,6 +120,12 @@ class DBModuleManager(reactContext: ReactApplicationContext): ReactContextBaseJa
 
                 if (index === word.length - 1) {
                     satisfiesLetters = 1
+                }
+            }
+
+            if (satisfiesLetters > 0 && wordToExtend != null) {
+                if (!word.uppercase().contains((wordToExtend!!.uppercase()))) {
+                    satisfiesLetters = 0
                 }
             }
 
