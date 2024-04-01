@@ -6,10 +6,11 @@
 - Moved playground to charade module
 
 ### Fixed
-- TODO: android gestures issue when back from background
+- Android gestures issue when back from background
 
 ### Technical
 - Update readme
+- Fixed unhandled promise rejections in offline mode
 
 ## 1.21.0 MAINTENANCE
 ### Fixed

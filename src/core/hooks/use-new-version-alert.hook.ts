@@ -9,15 +9,21 @@ export const useNewVersionAlert = () => {
   const localize = useLocalize({ version: latestVersion })
 
   const fetchRepoTags = async () => {
-    const response = await fetch('https://api.github.com/repos/akruczek/wyrazowo/tags')
-    const json = await response.json()
+    try {
+      const response = await fetch('https://api.github.com/repos/akruczek/wyrazowo/tags')
+      const json = await response.json()
 
-    if (json?.[0]?.name && !json[0].name.includes(packageJson.version)) {
-      setLatestVersion(json[0].name?.split('v')?.[1])
-      setTimeout(() => {
-        newVersionAvailableAlert(localize)
-      })
+      if (json?.[0]?.name && !json[0].name.includes(packageJson.version)) {
+        setLatestVersion(json[0].name?.split('v')?.[1])
+        setTimeout(() => {
+          newVersionAvailableAlert(localize)
+        })
+      }
+    } catch (error: any) {
+      console.log("Error fetching repo tags: ", error?.message ?? "unknown")
+      return
     }
+
   }
 
   React.useEffect(() => {
