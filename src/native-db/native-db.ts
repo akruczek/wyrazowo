@@ -7,10 +7,12 @@ export const DB: NativeDB = {
   findPossibleWords: (
     allWords: string[],
     selectedLetters: string[],
+    wordToExtend?: string,
   ): string[] => {
     _nativeModule.findPossibleWords(
       JSON.stringify(allWords),
       JSON.stringify(selectedLetters),
+      wordToExtend,
     )
 
     return []

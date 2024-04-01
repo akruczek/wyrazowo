@@ -1,16 +1,18 @@
 import * as React from 'react'
 import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
 import { COLOR } from '@core/colors/colors.constants'
+import { noop } from '@core/noop/noop'
 import {
   WordExtensionContainer, WordExtensionInputContainer, WordExtensionInputIcon, WordExtensionInputWrapper,
 } from './word-extension.styled'
 
 interface Props {
   wordToExtend: string;
+  selectedLetters: string[];
   setWordToExtend: (wordToExtend: string) => void;
 }
 
-export const WordExtension = ({ wordToExtend, setWordToExtend }: Props) => {
+export const WordExtension = ({ wordToExtend, selectedLetters, setWordToExtend }: Props) => {
   return (
     <WordExtensionContainer>
       <WordExtensionInputContainer>
@@ -19,11 +21,9 @@ export const WordExtension = ({ wordToExtend, setWordToExtend }: Props) => {
           <CustomTextInput
             onChange={setWordToExtend}
             value={wordToExtend}
-            // state={true}
-            // errorMessage={errorMessage}
             returnKeyType="send"
-            onSubmit={() => null}
-            maxLength={14}
+            onSubmit={noop}
+            maxLength={15 - selectedLetters?.length}
             autoCapitalize="characters"
             color={COLOR.DIM_GREY}
             blurOnSubmit

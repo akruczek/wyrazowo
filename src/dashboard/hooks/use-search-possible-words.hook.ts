@@ -57,7 +57,6 @@ export const useSearchPossibleWords = (
     setNoWordsFound(false)
 
     const searchWords = () => {
-      console.log('length: ', wordLengthRef.current)
       const wordLength: [ number, number ] = wordToExtend
         ? [1, wordToExtend.length + selectedLetters.length]
         : wordLengthRef.current
@@ -91,7 +90,7 @@ export const useSearchPossibleWords = (
     } else {
       searchWords()
     }
-  }, [ selectedLetters ])
+  }, [ selectedLetters, wordToExtend ])
 
   const onLengthChange = (minMax: [ number, number ]) => {
     if (!wrzw.compareJoined(minMax, wordLengthRef.current)) {

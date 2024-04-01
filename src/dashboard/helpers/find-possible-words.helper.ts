@@ -37,9 +37,18 @@ export const findPossibleWords = async (
 
   // Native search engine (native DBModule)
   if (nativeSearchEngineEnabled) {
-    DB.findPossibleWords(allWords, selectedLetters, wordToExtend)
+    const _selectedLetters = wordToExtend
+      ? [ ...selectedLetters, ...wordToExtend.split('').map((char: string) => char.toUpperCase()) ]
+      : selectedLetters
+
+    DB.findPossibleWords(allWords, _selectedLetters, wordToExtend)
     resolve([ NATIVE_DB_TAG ])
     return [ NATIVE_DB_TAG ]
+  }
+
+  // Advanced search is not supported in JS engine
+  if (wordToExtend?.length) {
+    return []
   }
 
   // Map all words from database for specific length

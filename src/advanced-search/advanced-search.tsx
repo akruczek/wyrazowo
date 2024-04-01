@@ -30,7 +30,7 @@ export const AdvancedSearch = () => {
 
   const {
     possibleWords, noWordsFound, searchPossibleWords, clearPossibleWords,
-  } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled)
+  } = useSearchPossibleWords(selectedLetters, nativeSearchEngineEnabled, wordToExtend)
 
   const onSearch = () => {
     modalizeRef?.current?.open()
@@ -47,7 +47,7 @@ export const AdvancedSearch = () => {
           <SelectedLetters selectedLetters={selectedLetters} />
 
           <Tx local="word_extension" bolder disabled center spacings="L 0 0" />
-          <WordExtension {...{ wordToExtend, setWordToExtend }} />
+          <WordExtension {...{ wordToExtend, setWordToExtend, selectedLetters }} />
 
           <AdvancedSearchButtonsContainer RTL={RTL}>
             <CustomButton invisible={selectedLetters.length < 2} onPress={onSearch} withHaptic>
