@@ -23,12 +23,19 @@ export const Author = () => {
     }
   }
 
+  const getRepositoryData = async () => {
+    try {
+      const responseRaw = await fetch('https://api.github.com/repos/akruczek/wyrazowo')
+      const response = await responseRaw.json()
+      setRepositoryLink(response?.['html_url'])
+    } catch (error: any) {
+      console.log("Error fetching repository link: ", error?.message ?? "unknown error")
+      return
+    }
+  }
+
   React.useEffect(() => {
-    fetch('https://api.github.com/repos/akruczek/wyrazowo').then((response: Response) => {
-      response.json().then((response: any) => {
-        setRepositoryLink(response?.['html_url'])
-      })
-    })
+    getRepositoryData()
   }, [])
 
   return (

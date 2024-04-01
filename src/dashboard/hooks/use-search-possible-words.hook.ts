@@ -20,6 +20,7 @@ interface UseSearchPossibleWords {
 export const useSearchPossibleWords = (
   selectedLetters: string[],
   nativeSearchEngineEnabled: NumberFlag | null,
+  wordToExtend?: string,
 ): UseSearchPossibleWords => {
   const selectedLettersRef = React.useRef(selectedLetters)
 
@@ -56,7 +57,16 @@ export const useSearchPossibleWords = (
     setNoWordsFound(false)
 
     const searchWords = () => {
-      findPossibleWords(selectedLetters, wordLengthRef.current, nativeSearchEngineEnabled).then((result: string[]) => {
+      const wordLength: [ number, number ] = wordToExtend
+        ? [1, wordToExtend.length + selectedLetters.length]
+        : wordLengthRef.current
+
+      findPossibleWords(
+        selectedLetters,
+        wordLength,
+        nativeSearchEngineEnabled,
+        wordToExtend,
+      ).then((result: string[]) => {
         if (!R.includes(NATIVE_DB_TAG, result)) {
           resultsCallback(result)
         }
@@ -80,7 +90,7 @@ export const useSearchPossibleWords = (
     } else {
       searchWords()
     }
-  }, [ selectedLetters ])
+  }, [ selectedLetters, wordToExtend ])
 
   const onLengthChange = (minMax: [ number, number ]) => {
     if (!wrzw.compareJoined(minMax, wordLengthRef.current)) {

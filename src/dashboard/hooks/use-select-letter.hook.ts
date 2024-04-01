@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { useDispatch } from 'react-redux'
+import { LayoutAnimation } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ALL_LETTERS_SORTED, LETTER_INDEX_SEPARATOR, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 import { goPremiumAlert } from '@core/alerts/go-premium-alert'
@@ -9,7 +10,6 @@ import { useIsPremium } from '@core/hooks/use-is-premium.hook'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { setSelectedLettersAction } from '../store/dashboard.slice'
 import { getSoapCharactersIndexes } from '../helpers'
-import { LayoutAnimation } from 'react-native'
 
 interface UseSelectLetter {
   letters: string[];

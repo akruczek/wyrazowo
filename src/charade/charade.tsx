@@ -3,6 +3,7 @@ import { CustomCounter } from '@core/custom-counter/custom-counter'
 import { Template } from '@core/template/template'
 import { PlayButton } from '@core/play-button/play-button'
 import { CustomCheckbox } from '@core/custom-checkbox/custom-checkbox'
+import { SCREEN } from '../navigation/navigation.constants'
 import { CharadeSeparator } from './charade.styled'
 import { useCharadePlay } from './hooks'
 
@@ -10,7 +11,7 @@ export const Charade = () => {
   const { handlePlayCharade, count, setCount, allowDuplicatedLetters, setAllowDuplicatedLetters } = useCharadePlay()
 
   return (
-    <Template type="charade">
+    <Template type="charade" leftScreen={SCREEN.CHARADE_PLAYGROUND} leftIcon="checkerboard">
       <CustomCounter
         local="words_length"
         value={count}

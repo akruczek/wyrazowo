@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { DEFAULT_SCREEN_OPTIONS, SCREEN } from '../navigation/navigation.constants'
 import { Charade } from './charade'
 import { CharadePlay } from './components/charade-play/charade-play'
+import { Playground } from '../playground/playground'
 
 const Stack = createNativeStackNavigator()
 
@@ -10,5 +11,6 @@ export const CharadeNavigation = () => (
   <Stack.Navigator screenOptions={DEFAULT_SCREEN_OPTIONS}>
     <Stack.Screen name={SCREEN.CHARADE_MAIN} component={Charade} />
     <Stack.Screen name={SCREEN.CHARADE_PLAY} component={CharadePlay} />
+    <Stack.Screen name={SCREEN.CHARADE_PLAYGROUND} component={Playground} />
   </Stack.Navigator>
 )

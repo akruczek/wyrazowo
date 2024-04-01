@@ -14,11 +14,11 @@
 
 ## Technical
 ### Tech Stack:
-- React Native 71
-- Typescript 4
+- React Native 73
+- Typescript 5
 - Kotlin 1.8
 - Swift 5
-- Styled Components 5
+- Styled Components 6
 - React Native Reanimated 3
 - Ramda
 

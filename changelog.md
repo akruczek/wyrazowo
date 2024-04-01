@@ -1,3 +1,17 @@
+## 1.22.0 ADVANCED SEARCH
+### Added
+- Advanced search
+
+### Changed
+- Moved playground to charade module
+
+### Fixed
+- Android gestures issue when back from background
+
+### Technical
+- Update readme
+- Fixed unhandled promise rejections in offline mode
+
 ## 1.21.0 MAINTENANCE
 ### Fixed
 - Android gestures issues on possible words modal when back from background

@@ -24,15 +24,16 @@ export interface HeaderProps {
   rightContentConfig?: HeaderSideContentConfig;
   leftIcon?: string;
   leftScreen?: SCREEN;
+  navigationParams?: {[key: string]: any};
 }
 
 export const Header = ({
-  type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftIcon, leftScreen,
+  type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftIcon, leftScreen, navigationParams,
 }: HeaderProps) => {
   const RTL = useRTL()
   const { top: topInset } = useSafeAreaInsets()
   const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
-  const { onBackPress, onLeftIconPress } = useHeaderPress(leftScreen, backButtonAlert)
+  const { onBackPress, onLeftIconPress } = useHeaderPress(leftScreen, backButtonAlert, navigationParams)
   const color = screenTypeToColorMap[type]
 
   return (

@@ -23,7 +23,8 @@ import Foundation
   
   @objc func findPossibleWords(
     _ allWords: String,
-    selectedLetters: String
+    selectedLetters: String,
+    wordToExtend: String?
   ) -> String {
     let LETTER_SOAP = "?"
     let LETTER_SOAP_PLACEHOLDER = "*"
@@ -119,6 +120,12 @@ import Foundation
           if (index == word.count - 1) {
             satisfiesLetters = 1
           }
+        }
+      }
+
+      if (satisfiesLetters > 0 && wordToExtend != nil) {
+        if (!word.uppercased().contains((wordToExtend?.uppercased())!)) {
+          satisfiesLetters = 0
         }
       }
 
