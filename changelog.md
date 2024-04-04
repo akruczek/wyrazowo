@@ -1,3 +1,7 @@
+## 1.22.1
+### Fixed
+- Incorrect reading saved results from history for advanced search
+
 ## 1.22.0 ADVANCED SEARCH
 ### Added
 - Advanced search
