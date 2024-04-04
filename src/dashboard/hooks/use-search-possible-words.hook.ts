@@ -75,7 +75,7 @@ export const useSearchPossibleWords = (
 
     const savedResults = await Storage.get<SearchResultModel[]>(STORAGE_KEY.SEARCH_RESULT)
 
-    if (savedResults !== null) {
+    if (!wordToExtend?.length && savedResults !== null) {
       savedResultRef.current = savedResults
       const _selectedLetters = [ ...selectedLetters ]
       const resultAlreadySavedIndex = getResultAlreadySavedIndex(savedResults, _selectedLetters, wordLengthRef)
