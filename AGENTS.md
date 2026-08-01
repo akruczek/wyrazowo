@@ -123,6 +123,7 @@ docs/                this documentation
 | Writing code that matches the existing style | [`docs/10-conventions.md`](docs/10-conventions.md) |
 | Deciding what to modernize or fix | [`docs/11-tech-debt-and-modernization.md`](docs/11-tech-debt-and-modernization.md) |
 | Understanding why something is the way it is | [`docs/12-project-history.md`](docs/12-project-history.md) |
+| Cutting a release, bumping the version, creating a git tag | [`docs/13-release-process.md`](docs/13-release-process.md) |
 
 ---
 

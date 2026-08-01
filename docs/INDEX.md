@@ -47,6 +47,7 @@ Every path is relative to the repository root.
 | The alphabetical guessing game | `src/dictionarly/` |
 | The Scrabble board sandbox | `src/playground/` |
 | App version bump | `scripts/update-version-code.js` |
+| Cut a release / create a git tag | [`13-release-process.md`](13-release-process.md) + `changelog.md` |
 | Path aliases | `tsconfig.json` + `babel.config.js` |
 
 ---
@@ -483,7 +484,7 @@ Every path is relative to the repository root.
 | `firebase.json` | Enables RTDB offline persistence. |
 | `Gemfile` / `Gemfile.lock` / `.ruby-version` / `.bundle/config` | CocoaPods toolchain (Ruby 2.7.4, gems into `vendor/bundle`). |
 | `types.d.ts` | Empty. |
-| `changelog.md` | Full release history. |
+| `changelog.md` | Full release history, newest first. Updated by hand at release time. |
 | `scripts/filter-words-by-length.js` | Splits `slowa.ts` into `slowa{N}.ts`. |
 | `scripts/update-version-code.js` | Bumps the version across package.json, Gradle and the Xcode project. |
 

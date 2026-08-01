@@ -27,6 +27,7 @@ Do not defer it, do not ask whether to do it — just do it, and say what you up
 | A new code pattern or style decision | `docs/10-conventions.md` |
 | Fixing or introducing debt | `docs/11-tech-debt-and-modernization.md` (tick off or add the item) |
 | Shipping a release | `changelog.md` and `docs/12-project-history.md` |
+| The release, versioning or tagging workflow itself | `docs/13-release-process.md` |
 
 ## Rules for the update
 

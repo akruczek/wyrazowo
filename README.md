@@ -36,6 +36,9 @@ native layers ([iOS](./docs/07-native-ios.md), [Android](./docs/08-native-androi
 [build tooling](./docs/09-build-and-tooling.md), [coding conventions](./docs/10-conventions.md) and a
 [modernization backlog](./docs/11-tech-debt-and-modernization.md).
 
+Cutting a new version? Follow the manual checklist in the
+[release process](./docs/13-release-process.md).
+
 > **Note:** the word database (`src/assets/slowa*.ts`) is gitignored and must be regenerated with
 > `scripts/filter-words-by-length.js` before the app will build. See the
 > [setup runbook](./docs/09-build-and-tooling.md#setup-runbook).
