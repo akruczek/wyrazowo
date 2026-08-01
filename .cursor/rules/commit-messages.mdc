@@ -1,0 +1,57 @@
+---
+description: Always propose a detailed commit message; never commit without explicit permission
+alwaysApply: true
+---
+
+# Commits require permission; always propose a message
+
+## Never commit on your own
+
+Do not run `git commit`, `git push`, `git merge`, `git rebase`, `git reset` or `git checkout -b`
+unless the user explicitly asks in that message. Staging with `git add` also waits for permission.
+Reading state (`git status`, `git diff`, `git log`) is always fine.
+
+If the user says "commit this", that permission covers **that commit only** — ask again next time.
+
+## Always end with a proposed commit message
+
+Every response that changed files ends with a proposed commit message, even for small edits and even
+if the user did not ask.
+
+- **One message covering all the changes**, not one per logical commit.
+- **Plain text only.** Print the message itself in a plain code block. Never wrap it in `git commit`,
+  `git add`, heredocs or any other shell syntax — the user copies the text straight into their editor.
+
+## Format
+
+This repository uses `vX.Y.Z lowercase description` as the subject line, matching `git log`:
+
+```
+v1.22.1 fix incorrect reading saved search history for advanced search
+v1.22.0 advanced native search engine android
+```
+
+Use the version from `package.json`. Omit the version prefix only for work outside a release
+(tooling, docs, repo setup). Keep the subject under ~72 characters, imperative and lowercase.
+
+For anything beyond a one-liner, add a body: a blank line, then what changed and **why**, grouped by
+area, with bullets. Mention files only when it aids review.
+
+```
+v1.23.0 move word corpus into native assets
+
+The whole ~42 MB corpus was JSON-serialized across the bridge on every
+search, dominating search time and spiking memory.
+
+- ios: load slowa*.txt from the app bundle in DBModule
+- android: load from app/src/main/assets in DBModuleManager
+- js: pass only the min/max length range to findPossibleWords
+- docs: update 02-search-engine.md and 11-tech-debt-and-modernization.md
+```
+
+## Before proposing
+
+- Run `git status` and `git diff` so the message describes what actually changed, not what you intended.
+- Never include files that look like secrets (keystores, `google-services.json` changes, `.env`);
+  call them out instead.
+- If documentation was updated alongside code (see the documentation rule), mention it in the body.

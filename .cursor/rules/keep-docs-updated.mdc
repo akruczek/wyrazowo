@@ -1,0 +1,41 @@
+---
+description: Keep AGENTS.md and docs/ in sync with every codebase change
+alwaysApply: true
+---
+
+# Documentation must stay current
+
+The docs in `docs/` and `AGENTS.md` are the source of truth for how this project works.
+**Any change to the codebase must include the matching documentation update in the same change.**
+Do not defer it, do not ask whether to do it — just do it, and say what you updated.
+
+## After editing code, check these
+
+| You changed... | Update |
+| --- | --- |
+| A new/renamed/deleted file, hook, helper, selector, action, constant | `docs/INDEX.md` (inventory + symbol index) |
+| Commands, gotchas, stack, conventions summary, repo layout | `AGENTS.md` |
+| Providers, navigation, Redux shape, boot/rehydration | `docs/01-architecture.md` |
+| The matcher (JS/Swift/Kotlin), word DB, `?`/`*`/`!`, scoring, result caching | `docs/02-search-engine.md` |
+| `src/dashboard/`, `src/advanced-search/`, `src/native-db/` | `docs/03-module-dashboard.md` |
+| `src/charade/`, `src/dictionarly/`, `src/dictionary/`, `src/playground/`, `src/mania/`, `src/help/` | `docs/04-modules-games.md` |
+| `src/core/` — theme, spacings, localization, storage, UI kit, alerts | `docs/05-core-infrastructure.md` |
+| Auth, Firebase/RTDB, statistics, premium, `src/more/`, `src/developer/` | `docs/06-user-firebase-premium.md` |
+| Anything in `ios/` | `docs/07-native-ios.md` |
+| Anything in `android/` | `docs/08-native-android.md` |
+| `package.json`, aliases, lint, jest, `scripts/`, versioning, `.gitignore` | `docs/09-build-and-tooling.md` |
+| A new code pattern or style decision | `docs/10-conventions.md` |
+| Fixing or introducing debt | `docs/11-tech-debt-and-modernization.md` (tick off or add the item) |
+| Shipping a release | `changelog.md` and `docs/12-project-history.md` |
+
+## Rules for the update
+
+- Quoted code snippets in docs use `startLine:endLine:filepath` anchors. If you shift lines in a cited
+  file, re-verify the anchor still points at the right code.
+- Adding a new file means adding a row to the inventory table in `docs/INDEX.md`, not just a mention.
+- If a change removes a documented gotcha or known issue, delete it from the doc rather than leaving
+  a stale warning.
+- Search-algorithm changes touch three implementations — confirm the parity table in
+  `docs/02-search-engine.md` still reflects reality.
+- If a change makes a doc section wrong and you cannot fix it fully, say so explicitly instead of
+  leaving it silently inaccurate.

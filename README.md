@@ -7,7 +7,8 @@
 # Wyrazowo - mobile App
 1. [How Wyrazowo can help me?](#how-wyrazowo-can-help-me?)
 2. [Technical](#technical)
-3. [How to use Wyrazowo App?](#how-to-use-wyrazowo-app?)
+3. [Documentation](#documentation)
+4. [How to use Wyrazowo App?](#how-to-use-wyrazowo-app?)
 
 ## How Wyrazowo can help me?
 #### Wyrazowo gives you several tools to help you better validate scrabble games. You can verify the correctness of the words or search the database for suitable letters combinations. You will also find some simple games which can help you to expand your scrabble knowledge.
@@ -21,6 +22,23 @@
 - Styled Components 6
 - React Native Reanimated 3
 - Ramda
+
+## Documentation
+
+Full technical documentation lives in [`docs/`](./docs/INDEX.md).
+
+- [`AGENTS.md`](./AGENTS.md) — start here. Product summary, commands, gotchas and a routing table into the docs.
+- [`docs/INDEX.md`](./docs/INDEX.md) — per-file inventory, symbol index and a task-to-file lookup table.
+
+Deep dives cover the [architecture](./docs/01-architecture.md), the
+[search engine](./docs/02-search-engine.md), every [module](./docs/03-module-dashboard.md), both
+native layers ([iOS](./docs/07-native-ios.md), [Android](./docs/08-native-android.md)),
+[build tooling](./docs/09-build-and-tooling.md), [coding conventions](./docs/10-conventions.md) and a
+[modernization backlog](./docs/11-tech-debt-and-modernization.md).
+
+> **Note:** the word database (`src/assets/slowa*.ts`) is gitignored and must be regenerated with
+> `scripts/filter-words-by-length.js` before the app will build. See the
+> [setup runbook](./docs/09-build-and-tooling.md#setup-runbook).
 
 ## How to use Wyrazowo App?
 ### How to find possible words from given letters?
