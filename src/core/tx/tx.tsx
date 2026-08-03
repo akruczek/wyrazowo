@@ -10,7 +10,7 @@ interface Props extends StyledTxProps {
   children?: React.ReactNode;
 }
 
-export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
+export const Tx = ({ tx, local, children, oneLine, ...styledTxProps }: Props) => {
   const localize = useLocalize()
 
   const getChildren = () => {
@@ -23,6 +23,11 @@ export const Tx = ({ tx, local, children, ...styledTxProps }: Props) => {
   }
 
   return (
-    <StyledTx children={getChildren()} RTL={Boolean(localize().rtl)} {...styledTxProps} />
+    <StyledTx
+      children={getChildren()}
+      RTL={Boolean(localize().rtl)}
+      numberOfLines={oneLine ? 1 : undefined}
+      {...styledTxProps}
+    />
   )
 }

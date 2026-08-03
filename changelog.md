@@ -19,6 +19,7 @@
 - iOS AppDelegate migrated to Swift; PrivacyInfo.xcprivacy added
 - Babel: react-native-worklets/plugin last
 - Gesture Handler 3: replace removed `gestureHandlerRootHOC` with `GestureHandlerRootView` in `App.tsx`
+- Fix invisible Header titles: LinearGradient as absolute background (Fabric); root SafeAreaProvider
 - Target SDK 36; planned release version (package.json may still read 1.22.1 until release scripts run)
 
 ## 1.22.1

@@ -1,14 +1,12 @@
 import * as R from 'ramda'
 import styled from 'styled-components/native'
-import { ThemeProps } from '@core/styled/models'
 import MaterialCommunityIcons from '@core/icon/icon'
-import { TextProps } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import { TextProps } from 'react-native'
 import { getThemeProp } from '@core/styled/theme'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { FocusAwareStatusBar } from '@core/focus-aware-status-bar/focus-aware-status-bar'
-import { ThemeModel } from '@core/styled/models'
 import { Tx } from '@core/tx'
 import { getRTLFlexDirection, getRTLRotation } from '@core/styled'
 
@@ -22,23 +20,39 @@ const HEADER_HEIGHT = 75
 
 const getHeaderHeight = R.pipe(
   R.propOr(0, 'topInset'),
-  R.add(HEADER_HEIGHT)
+  R.add(HEADER_HEIGHT),
 )
 
-const getMarginTop = R.propOr(0, 'topInset')
+const getPaddingTop = R.propOr(0, 'topInset')
 
-export const HeaderContainer = styled(LinearGradient).attrs((props: any) => ({
-  colors: [ props.color, getThemeProp('backgroundPrimary')(props) ],
-  start: { x: 0, y: 0 },
-  end: { x: 0, y: 1 },
-}))<HeaderContainerProps>`
+/**
+ * Plain View hosts the title/buttons. LinearGradient is an absolutely-filled
+ * sibling — react-native-linear-gradient 2.x does not reliably compose children
+ * under Fabric / New Architecture, which made header titles invisible.
+ *
+ * Template omits the top safe-area edge, so the header starts at y=0 and uses
+ * paddingTop (not a negative margin) to clear the status bar / Dynamic Island.
+ */
+export const HeaderContainer = styled.View<HeaderContainerProps>`
   flex-direction: ${getRTLFlexDirection};
   height: ${getHeaderHeight}px;
   background-color: ${R.propOr(COLOR.GOLD, 'color')};
-  margin-top: -${getMarginTop}px;
-  padding-top: ${getMarginTop}px;
+  padding-top: ${getPaddingTop}px;
   justify-content: center;
+  align-items: center;
   z-index: 1;
+  overflow: hidden;
+`
+
+export const HeaderGradient = styled(LinearGradient).attrs({
+  start: { x: 0, y: 0 },
+  end: { x: 0, y: 1 },
+})`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `
 
 interface HeaderTextProps {
@@ -57,7 +71,7 @@ export const HeaderText = styled(Tx).attrs({
 })<HeaderTextProps & TextProps>`
   font-size: ${R.propOr(TEXT_SIZE.XL, 'headerTextSize')}px;
   max-width: 80%;
-  align-self: center;
+  z-index: 2;
 `
 
 interface BackButtonContainerProps {
@@ -84,6 +98,7 @@ export const BackButtonContainer = styled.TouchableOpacity.attrs({
   left: 10px;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `
 
 export const BackButtonIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
@@ -126,6 +141,7 @@ export const HeaderLeftButtonContainer = styled.TouchableOpacity.attrs({
   left: 10px;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `
 
 interface HeaderLeftIconProps {
@@ -158,6 +174,7 @@ export const HeaderRightButtonContainer = styled.TouchableOpacity.attrs({
   right: 10px;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 `
 
 export const HeaderRightButtonIndicator = styled.View`

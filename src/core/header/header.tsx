@@ -1,17 +1,19 @@
 import * as React from 'react'
 import { StatusBar } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTheme } from 'styled-components/native'
 import { genericLightShadow } from '@core/shadow/shadow.constants'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { ScreenType } from '@core/models'
 import { screenTypeToColorMap } from '@core/maps/screen-type-to-color-map'
 import { Localization } from '@core/localize/localize.models'
 import { useRTL } from '@core/localize/hooks/use-rtl.hook'
+import { ThemeModel } from '@core/styled/models'
 import { SCREEN } from '../../navigation/navigation.constants'
 import { HeaderSideContentConfig } from './header.models'
 import { useHeaderTextSize, useHeaderPress } from './hooks'
 import {
-  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderLeftButtonContainer, HeaderText,
+  BackButtonContainer, BackButtonIcon, HeaderContainer, HeaderGradient, HeaderLeftButtonContainer, HeaderText,
   HeaderLeftIcon, HeaderRightButtonContainer, HeaderRightButtonIndicator, HeaderRightIcon, HeaderStatusBar,
 } from './header.styled'
 
@@ -31,6 +33,7 @@ export const Header = ({
   type, local, backButton, backButtonAlert, onTouchEnd, rightContentConfig, leftIcon, leftScreen, navigationParams,
 }: HeaderProps) => {
   const RTL = useRTL()
+  const theme = useTheme() as ThemeModel
   const { top: topInset } = useSafeAreaInsets()
   const { onHeaderTextLayout, headerTextSize } = useHeaderTextSize()
   const { onBackPress, onLeftIconPress } = useHeaderPress(leftScreen, backButtonAlert, navigationParams)
@@ -45,6 +48,11 @@ export const Header = ({
       )}
 
       <HeaderContainer {...{ color, topInset, onTouchEnd, RTL }}>
+        <HeaderGradient
+          colors={[ color, theme.backgroundPrimary ]}
+          pointerEvents="none"
+        />
+
         {backButton ? (
           <BackButtonContainer onPress={onBackPress} topInset={topInset}>
             <BackButtonIcon RTL={RTL} />

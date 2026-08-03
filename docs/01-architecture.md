@@ -106,19 +106,21 @@ on Android and the `withModuleName: "Wyrazowo"` call in `ios/Wyrazowo/AppDelegat
 
 ## Provider tree
 
-```11:24:App.tsx
+```11:27:App.tsx
 export const App = (): React.JSX.Element => {
   React.useEffect(authService.init, [])
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Provider store={store}>
-        <PaperProvider>
-          <NavigationContainer>
-            <AppNavigation />
-          </NavigationContainer>
-        </PaperProvider>
-      </Provider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PaperProvider>
+            <NavigationContainer>
+              <AppNavigation />
+            </NavigationContainer>
+          </PaperProvider>
+        </Provider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   )
 }
@@ -129,17 +131,20 @@ Outer to inner:
 | Level | Provider | Source |
 | --- | --- | --- |
 | 1 | `GestureHandlerRootView` | `App.tsx` |
-| 2 | Redux `Provider` | `App.tsx` |
-| 3 | react-native-paper `PaperProvider` | `App.tsx` |
-| 4 | `NavigationContainer` | `App.tsx` |
-| 5 | `ActivityIndicator` gate while the theme rehydrates | `App.navigation.tsx` |
-| 6 | styled-components `ThemeProvider` | `App.navigation.tsx` |
-| 7 | `createMaterialBottomTabNavigator` from `react-native-paper/react-navigation` | `App.navigation.tsx` |
+| 2 | `SafeAreaProvider` | `App.tsx` |
+| 3 | Redux `Provider` | `App.tsx` |
+| 4 | react-native-paper `PaperProvider` | `App.tsx` |
+| 5 | `NavigationContainer` | `App.tsx` |
+| 6 | `ActivityIndicator` gate while the theme rehydrates | `App.navigation.tsx` |
+| 7 | styled-components `ThemeProvider` | `App.navigation.tsx` |
+| 8 | `createMaterialBottomTabNavigator` from `react-native-paper/react-navigation` | `App.navigation.tsx` |
 
-**Not present at the root:** `SafeAreaProvider`, `BottomSheetModalProvider`, `PortalHost`. Safe-area
-insets are read directly with `useSafeAreaInsets` inside components. Every screen wrapped in
-`Template` gets a `BottomSheetModalProvider` (for `CustomModalize` / `@gorhom/bottom-sheet`) and a
-`PortalHost name="root"` (for `@gorhom/portal`'s `Portal`, e.g. the Playground letter tray).
+**Not present at the root:** `BottomSheetModalProvider`, `PortalHost` — those live in `Template`.
+`SafeAreaProvider` feeds `useSafeAreaInsets` used by `Header`. `TemplateSafeArea` omits the
+top edge; `Header` starts at y=0 and uses `paddingTop: topInset` (no negative margin) so the
+gradient sits under the status bar while the title stays on-screen. `Header` paints
+`LinearGradient` as an absolute background sibling because
+`react-native-linear-gradient` 2.x does not reliably compose children under Fabric.
 `PaperProvider` is required for Paper's material bottom tab navigator and `useTheme` in
 `App.navigation.tsx`.
 

@@ -17,7 +17,10 @@ interface TemplateSafeAreaProps {
   containerHeight?: number;
 }
 
-export const TemplateSafeArea = styled(SafeAreaView)<TemplateSafeAreaProps>`
+// Top edge is handled by Header (gradient under status bar + topInset padding).
+export const TemplateSafeArea = styled(SafeAreaView).attrs({
+  edges: [ 'right', 'bottom', 'left' ],
+})<TemplateSafeAreaProps>`
   flex: 1;
   background-color: ${R.propOr('transparent', 'backgroundColor')};
   ${appendStyleWhenProvided<TemplateSafeAreaProps>('justify-content', 'justifyContent')}

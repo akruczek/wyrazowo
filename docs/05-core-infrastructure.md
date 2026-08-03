@@ -489,6 +489,7 @@ export const Template = ({ flex, children, outChildren, ...headerProps }: Props)
 
 Every screen wrapped in `Template` mounts `BottomSheetModalProvider` and `PortalHost name="root"` so
 modals and portaled overlays work anywhere under a screen header.
+`TemplateSafeArea` uses `edges={['right','bottom','left']}` — the top inset is owned by `Header`.
 
 | Prop | Purpose |
 | --- | --- |
@@ -515,6 +516,10 @@ export interface HeaderProps {
 
 `type` selects the accent color via `screen-type-to-color-map.ts`. The title auto-shrinks when it
 would exceed 75% of the screen width (`useHeaderTextSize`).
+The header container is a plain `View`; `LinearGradient` is an absolutely positioned background
+sibling. Putting title text *inside* `styled(LinearGradient)` hid titles under Fabric
+(`react-native-linear-gradient` 2.x). Height is `75 + topInset` with `paddingTop: topInset`
+(no negative top margin — that pulled the header off-screen once Template stopped padding top).
 
 `HeaderSideContentConfig` is `{ onPress, onLongPress?, icon, indicator? }` — `indicator` draws a dot
 badge. Icons use `@core/icon/icon` (MDI names, same import surface as the old `MaterialCommunityIcons`).

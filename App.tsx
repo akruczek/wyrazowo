@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import { PaperProvider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { authService } from '@core/auth/auth-service'
 import { store } from './src/store/store'
 import { AppNavigation } from './App.navigation'
@@ -12,13 +13,15 @@ export const App = (): React.JSX.Element => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Provider store={store}>
-        <PaperProvider>
-          <NavigationContainer>
-            <AppNavigation />
-          </NavigationContainer>
-        </PaperProvider>
-      </Provider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PaperProvider>
+            <NavigationContainer>
+              <AppNavigation />
+            </NavigationContainer>
+          </PaperProvider>
+        </Provider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   )
 }
