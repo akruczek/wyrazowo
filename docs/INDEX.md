@@ -468,7 +468,7 @@ Every path is relative to the repository root.
 | --- | --- |
 | `App.tsx` | Provider tree: Redux → NavigationContainer → `AppNavigation`. |
 | `App.navigation.tsx` | Bottom tab navigator, theme resolution, tab accent colors. |
-| `index.js` | `AppRegistry.registerComponent` wrapped in `gestureHandlerRootHOC`. |
+| `index.js` | `AppRegistry.registerComponent`; imports `react-native-gesture-handler` first. |
 | `app.json` | `{ name, displayName }` = `Wyrazowo`. |
 | `package.json` | Dependencies, scripts, version `1.22.1` (1.23.0 pending release script). |
 | `package-lock.json` | npm lockfile (added 1.23.0). |

@@ -74,8 +74,8 @@ sequenceDiagram
     Native->>Native: Firebase configure (iOS: FIRApp.configure)
     Native->>Native: SoLoader init, register DB/FS/Restart packages (Android)
     Native->>Index: load JS bundle, render root component "Wyrazowo"
-    Index->>App: gestureHandlerRootHOC(App)
-    App->>App: authService.init() - configure Google Sign-In
+    Index->>App: AppRegistry.registerComponent → App
+    App->>App: GestureHandlerRootView + authService.init()
     App->>Nav: render inside Provider + NavigationContainer
     Nav->>Nav: useRehydrateStore(DARK_THEME_ENABLED)
     Note over Nav: renders ActivityIndicator while isPending
@@ -87,16 +87,16 @@ sequenceDiagram
 
 ### Entry point
 
-`index.js` registers the root component, wrapping it so that `react-native-gesture-handler` works
-across the whole tree:
+`index.js` side-effects `react-native-gesture-handler` first, then registers the root component.
+Gesture Handler 3 removed `gestureHandlerRootHOC`; the root wrapper lives in `App.tsx` instead.
 
 ```1:6:index.js
+import 'react-native-gesture-handler'
 import { AppRegistry } from 'react-native'
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 import { App } from './App'
 import { name as appName } from './app.json'
 
-AppRegistry.registerComponent(appName, () => gestureHandlerRootHOC(App))
+AppRegistry.registerComponent(appName, () => App)
 ```
 
 `appName` comes from `app.json` and is `"Wyrazowo"`, matching `MainActivity.getMainComponentName()`
@@ -106,18 +106,20 @@ on Android and the `withModuleName: "Wyrazowo"` call in `ios/Wyrazowo/AppDelegat
 
 ## Provider tree
 
-```8:21:App.tsx
+```11:24:App.tsx
 export const App = (): React.JSX.Element => {
   React.useEffect(authService.init, [])
 
   return (
-    <Provider store={store}>
-      <PaperProvider>
-        <NavigationContainer>
-          <AppNavigation />
-        </NavigationContainer>
-      </PaperProvider>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <PaperProvider>
+          <NavigationContainer>
+            <AppNavigation />
+          </NavigationContainer>
+        </PaperProvider>
+      </Provider>
+    </GestureHandlerRootView>
   )
 }
 ```
@@ -126,7 +128,7 @@ Outer to inner:
 
 | Level | Provider | Source |
 | --- | --- | --- |
-| 1 | `gestureHandlerRootHOC` | `index.js` |
+| 1 | `GestureHandlerRootView` | `App.tsx` |
 | 2 | Redux `Provider` | `App.tsx` |
 | 3 | react-native-paper `PaperProvider` | `App.tsx` |
 | 4 | `NavigationContainer` | `App.tsx` |

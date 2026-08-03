@@ -80,7 +80,7 @@ node scripts/update-version-code.js 1.22.1 1.23.0   # bump version everywhere
 
 ```
 App.tsx / App.navigation.tsx   root providers and the bottom tab navigator
-index.js                       AppRegistry entry, wrapped in gestureHandlerRootHOC
+index.js                       AppRegistry entry (gesture-handler side-effect import)
 src/
   advanced-search/   word-extension search (native engine only)
   assets/            word database (gitignored) + help GIFs + premium codes
