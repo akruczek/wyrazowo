@@ -243,7 +243,7 @@ Replaced abandoned UI libraries:
 | modalize / portalize | `@gorhom/bottom-sheet` + `@gorhom/portal` via `CustomModalize` + `Template` |
 | `react-native-vector-icons` | `@react-native-vector-icons/material-design-icons` via `@core/icon/icon` |
 | `@react-navigation/material-bottom-tabs` | `react-native-paper/react-navigation` |
-| `react-native-reanimated-zoom` | `react-native-zoom-toolkit` `ResumableZoom` |
+| `react-native-reanimated-zoom` | local `PlaygroundZoom` (Gesture Handler + Reanimated; zoom-toolkit removed after white screen) |
 | `rn-range-slider` | local `RangeSlider` in `src/core/letters-slider/range-slider.tsx` |
 | `react-native-draggable` | local `DraggableLetter` in `src/playground/components/draggable-letter.tsx` |
 

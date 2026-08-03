@@ -11,7 +11,8 @@ import { PLAYGROUND_FIELDS } from './playground.constants'
 import { PlaygroundFieldModel } from './playground.models'
 import { AdvancedSearchModal } from './components/advanced-search-modal/advanced-search-modal'
 import { PlaygroundBacklight } from './components/playground-backlight/playground-backlight'
-import { PlaygroundBottomContainer, PlaygroundFlatList, PlaygroundZoom } from './playground.styled'
+import { PlaygroundZoom } from './components/playground-zoom/playground-zoom'
+import { PlaygroundBottomContainer, PlaygroundFlatList } from './playground.styled'
 
 export const Playground = () => {
   const advancedSearchModalizeRef = React.useRef<any>(null)

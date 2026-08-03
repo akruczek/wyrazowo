@@ -311,9 +311,11 @@ the same pattern as the Dashboard's `wordLengthRef`.
 **Screen:** `Charade-Playground`, reached from the Charade main screen header.
 
 A pinch-zoomable 15×15 Scrabble board where you drag letter tiles onto squares. Zoom uses
-`react-native-zoom-toolkit`'s `ResumableZoom` (styled as `PlaygroundZoom` in `playground.styled.ts`),
-replacing the removed `react-native-reanimated-zoom`. There is no scoring,
-no rules enforcement and no persistence — it is a physical board simulator for planning a move.
+local `PlaygroundZoom` (`components/playground-zoom/playground-zoom.tsx` — Gesture Handler pinch/pan +
+Reanimated). `react-native-zoom-toolkit` `ResumableZoom` was tried during the 1.23.0 modernization but
+white-screened this screen (it targets single sized detail-view children, not a 15×15 `FlatList`
+board). There is no scoring, no rules enforcement and no persistence — it is a physical board
+simulator for planning a move.
 
 ### Board model
 

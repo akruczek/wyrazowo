@@ -383,7 +383,8 @@ Every path is relative to the repository root.
 | `playground.tsx` | The 15×15 board with drag-and-drop letter placement. |
 | `playground.constants.ts` | `PLAYGROUND_FIELD_TYPE` and the 225-cell `PLAYGROUND_FIELDS` layout. |
 | `playground.models.ts` | `PlaygroundFieldModel`. |
-| `playground.styled.ts` | Zoom wrapper, grid list, bottom container. |
+| `playground.styled.ts` | Grid list and bottom container styles. |
+| `components/playground-zoom/playground-zoom.tsx` | Pinch/pan zoom wrapper for the board. |
 | `hooks/use-gesture-letters-indexes.hook.ts` | Paging through alphabet rows. |
 | `hooks/use-gesture-letters-initial-coords.ts` | Absolute X/Y placement of draggable tiles. |
 | `components/draggable-letter.tsx` | Playground draggable tile (gesture-handler + Reanimated). |

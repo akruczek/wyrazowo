@@ -7,9 +7,12 @@
 - Modalize/portalize → @gorhom/bottom-sheet + @gorhom/portal via CustomModalize
 - vector-icons → @react-native-vector-icons/material-design-icons via @core/icon/icon
 - material-bottom-tabs → react-native-paper/react-navigation
-- reanimated-zoom → react-native-zoom-toolkit ResumableZoom
+- reanimated-zoom → local PlaygroundZoom (gesture-handler + Reanimated; zoom-toolkit dropped)
 - rn-range-slider → custom RangeSlider (gesture-handler + Reanimated)
 - react-native-draggable → DraggableLetter component
+
+### Fixed
+- Charade sandbox (Playground) white screen after zoom-toolkit ResumableZoom swap
 
 ### Technical
 - TypeScript 7 for typecheck; TypeScript 6 alias for ESLint API

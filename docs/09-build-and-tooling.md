@@ -421,10 +421,9 @@ There is no CI configuration (`.github/workflows/` does not exist), no PR templa
 | `react-native-reanimated` | `^4.5.3` | animation (requires `react-native-worklets`) |
 | `react-native-worklets` | `^0.11.3` | Reanimated 4 Babel plugin dependency |
 | `react-native-gesture-handler` | `^3.1.0` | gestures |
-| `react-native-zoom-toolkit` | `^5.1.0` | Playground pinch-zoom (`ResumableZoom`) |
-| `react-native-awesome-slider` | `^2.9.0` | listed but unused — dual-thumb slider is local |
+| `react-native-awesome-slider` | — | not used — dual-thumb slider is local `RangeSlider` |
 | `react-native-modalize` / `react-native-portalize` | removed | replaced by `@gorhom/bottom-sheet` / `@gorhom/portal` |
-| `react-native-reanimated-zoom` / `react-native-draggable` / `rn-range-slider` | removed | replaced by zoom-toolkit, `DraggableLetter`, local `RangeSlider` |
+| `react-native-reanimated-zoom` / `react-native-zoom-toolkit` / `react-native-draggable` / `rn-range-slider` | removed | replaced by local `PlaygroundZoom`, `DraggableLetter`, `RangeSlider` |
 | `@gorhom/bottom-sheet` | `^5.2.14` | bottom sheets (`CustomModalize` adapter) |
 | `@react-native-vector-icons/material-design-icons` | `^13.1.2` | icons via `@core/icon/icon` (MDI set, `MaterialDesignIcons.ttf`) |
 | `react-native-linear-gradient` | `^2.8.3` | multi-letter wildcard tiles |
