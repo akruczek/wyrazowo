@@ -5,11 +5,6 @@ import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING } from '@core/styled'
 import { RangeSlider as BaseRangeSlider } from './range-slider'
 
-export const LetterSliderBottomLabelBar = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`
-
 export const LetterSliderTopLabelBar = styled.View`
   flex-direction: row;
   justify-content: center;

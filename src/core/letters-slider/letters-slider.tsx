@@ -8,9 +8,7 @@ import { renderLetterSliderRail } from './components/letter-slider-rail/letter-s
 import { renderLetterSliderThumb } from './components/letter-slider-thumb/letter-slider-thumb'
 import { useLettersSlider } from './hooks/use-letters-slider.hook'
 import { LetterSliderDefaultValues } from './models'
-import {
-  LetterSlider, LetterSliderBottomLabelBar, LetterSliderTopLabelBar
-} from './letter-slider.styled'
+import { LetterSlider, LetterSliderTopLabelBar } from './letter-slider.styled'
 
 interface Props {
   onChange: (minMax: [ number, number ]) => void;
@@ -49,11 +47,6 @@ export const LettersSlider = ({ onChange, defaultValues }: Props) => {
         high={max}
         floatingLabel
       />
-
-      <LetterSliderBottomLabelBar>
-        <Tx tx={defaultMin} spacings="0 XXS 0 S" bold />
-        <Tx tx={defaultMax} spacings="0 XXS 0 S" bold />
-      </LetterSliderBottomLabelBar>
     </SpacingView>
   )
 }
