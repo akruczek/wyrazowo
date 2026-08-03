@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useSelector } from 'react-redux'
 import { Storage } from '@core/storage/storage'
 import { SearchResultModel } from '@core/storage/storage.models'
@@ -14,7 +14,7 @@ interface UseSearchHistory {
 }
 
 export const useSearchHistory = (): UseSearchHistory => {
-  const historyModalizeRef = React.useRef<Modalize>(null)
+  const historyModalizeRef = React.useRef<CustomModalizeRef | null>(null)
   const searchHistoryTimestamp = useSelector(searchHistoryTimestampSelector)
   const [ historyAvailable, setHistoryAvailable ] = React.useState(false)
 

@@ -222,16 +222,23 @@ Internal refs:
 | `wordLengthRef` | Slider range, default `[ 1, 10 ]` — a ref so slider drags don't re-render |
 | `savedResultRef` | Last-read history array, reused when persisting |
 
-The result path is shared by both engines:
+The result path is shared by both engines — `findPossibleWords(...).then(resultsCallback)`:
 
-```48:54:src/dashboard/hooks/use-search-possible-words.hook.ts
+```48:64:src/dashboard/hooks/use-search-possible-words.hook.ts
   const resultsCallback = (result: string[]) => {
     setNoWordsFound(wrzw.isE(result))
     setPossibleWords(result)
     saveResult(result)
   }
 
-  useNativeDBEvents(resultsCallback)
+  const searchPossibleWords = React.useCallback(async () => {
+    ...
+      findPossibleWords(
+        selectedLetters,
+        wordLength,
+        nativeSearchEngineEnabled,
+        wordToExtend,
+      ).then(resultsCallback)
 ```
 
 Cache-first behaviour, skipped for advanced search:
@@ -333,7 +340,7 @@ settings bootstrap. See [`01-architecture.md`](01-architecture.md#settings-rehyd
 
 ### `useGesturesEnabled()`
 
-Android-only workaround: `react-native-modalize`'s pan gesture fights the inner scroll view, so the
+Android-only workaround: `@gorhom/bottom-sheet`'s pan gesture can fight the inner scroll view, so the
 pan handler is disabled once the list is scrolled and re-enabled at the top. On iOS the hook returns
 `noop` handlers.
 
@@ -541,23 +548,22 @@ An auto-capitalizing text input with arrow icons on both sides suggesting the ex
 
 | File | Contents |
 | --- | --- |
-| `native-db.ts` | The `DB` object wrapping `NativeModules.DBModule` |
+| `native-db.ts` | The `DB` object wrapping `NativeModules.DBModule`; returns `Promise<string[]>` |
 | `native-db.models.ts` | The `NativeDB` interface |
-| `native-db.constants.ts` | `NATIVE_DB_TAG = 'NATIVE_DB'` |
-| `hooks/use-native-sb-events.hook.ts` | Event subscription (filename says `sb`, it means `db`) |
 
 ```ts
 interface NativeDB {
-  findPossibleWords: (allWords: string[], selectedLetters: string[], wordToExtend?: string) => string[];
-  _nativeModule: NativeModulesStatic;
+  findPossibleWords: (
+    allWords: string[],
+    selectedLetters: string[],
+    wordToExtend?: string,
+  ) => Promise<string[]>;
 }
 ```
 
-Arguments are JSON-stringified before crossing the bridge, and the return value is a meaningless empty
-array — results arrive on the `findPossibleWordsResult` event instead. The full explanation, including
-the per-platform emitter difference and the known limitations (no request id, no cancellation, global
-`removeAllListeners`), is in
-[`02-search-engine.md`](02-search-engine.md#result-delivery-the-event-trap).
+Arguments are JSON-stringified before crossing the bridge. The native module resolves the Promise with
+the filtered word list when matching completes. See
+[`02-search-engine.md`](02-search-engine.md#result-delivery-promises).
 
 The native implementations themselves are documented in
 [`07-native-ios.md`](07-native-ios.md) and [`08-native-android.md`](08-native-android.md).

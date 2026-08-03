@@ -1,4 +1,4 @@
-import { ThemeProps } from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { ThemeModel } from './models'
 

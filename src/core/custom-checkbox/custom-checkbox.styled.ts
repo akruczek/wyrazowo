@@ -1,6 +1,7 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { COLOR } from '@core/colors/colors.constants'
 import { ThemeModel, getRTLFlexDirection } from '@core/styled'
@@ -43,7 +44,8 @@ export const CustomCheckboxTouchableWrapper = styled.Pressable<CustomCheckboxTou
 `
 
 export const CustomCheckboxCheckmarkIcon = styled(MaterialCommunityIcons)
-  .attrs<CustomCheckboxStyledProps>((props: ThemeProps<ThemeModel>) => ({
+  .attrs<CustomCheckboxStyledProps>((props: any) => ({
+    name: 'check-bold',
     color: getCustomCheckboxColor(props),
     size: TEXT_SIZE.L,
   }))<CustomCheckboxStyledProps>``

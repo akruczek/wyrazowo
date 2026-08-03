@@ -10,7 +10,6 @@ import slowa9 from '@assets/slowa9'
 import { NumberFlag } from '@core/models'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
 import { DB } from '../../native-db/native-db'
-import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
 import { longWordsByLength } from './find-possible-long-words.helper'
 
 export const allWordsByLength = ['', '', slowa2, slowa3, slowa4, slowa5, slowa6, slowa7, slowa8, slowa9]
@@ -42,8 +41,9 @@ export const findPossibleWords = async (
       : selectedLetters
 
     DB.findPossibleWords(allWords, _selectedLetters, wordToExtend)
-    resolve([ NATIVE_DB_TAG ])
-    return [ NATIVE_DB_TAG ]
+      .then(resolve)
+      .catch(() => resolve([]))
+    return
   }
 
   // Advanced search is not supported in JS engine

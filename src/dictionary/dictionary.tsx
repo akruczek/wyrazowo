@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { Template } from '@core/template/template'
 import { DictionaryDefinitions, DictionaryButtons, DictionaryCustomizeRandom } from './components'
@@ -10,7 +10,7 @@ import { DictionaryTextInput } from './dictionary.styled'
 
 export const Dictionary = () => {
   const localize = useLocalize()
-  const customizeRandomModalizeRef = React.useRef<Modalize & any>(null)
+  const customizeRandomModalizeRef = React.useRef<CustomModalizeRef | null>(null)
   const { onApply, onClear, isFilterActive, filtersRef } = useDictionaryRandomFilters()
 
   const { state, word, isPending, wordFromDB, handlePressRandom, handleLongPressRandom, handleChange, onSearch } =

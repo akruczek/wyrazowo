@@ -1,9 +1,9 @@
 import styled from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import RangeSlider from 'rn-range-slider'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING } from '@core/styled'
+import { RangeSlider as BaseRangeSlider } from './range-slider'
 
 export const LetterSliderBottomLabelBar = styled.View`
   flex-direction: row;
@@ -16,7 +16,7 @@ export const LetterSliderTopLabelBar = styled.View`
   align-items: center;
 `
 
-export const LetterSlider = styled(RangeSlider)`
+export const LetterSlider = styled(BaseRangeSlider)`
   width: 100%;
 `
 

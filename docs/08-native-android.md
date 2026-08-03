@@ -21,17 +21,16 @@ Everything under `android/`. A single `:app` module with three custom native mod
 
 ```
 android/
-  build.gradle                  SDK versions, Kotlin 1.8.10, plugin classpaths
+  build.gradle                  SDK 36, Kotlin 2.1.20, plugin classpaths
   settings.gradle               :app + the RN Gradle plugin included build
-  gradle.properties             Hermes on, New Architecture off, Jetifier on
-  gradle/wrapper/               Gradle 8.3
-  local.properties              local SDK path (machine-specific, gitignored in spirit)
+  gradle.properties             Hermes on, New Architecture on, Jetifier on
+  gradle/wrapper/               Gradle 8.x (RN 0.86 template)
+  local.properties              local SDK path (machine-specific)
   app/
     build.gradle                app module config, signing, version
     debug.keystore              ALSO used for release builds
     google-services.json        Firebase config
     proguard-rules.pro          empty (minification is off)
-    src/debug/AndroidManifest.xml
     src/main/
       AndroidManifest.xml
       java/com/wyrazowo/
@@ -47,7 +46,9 @@ android/
         drawable/
 ```
 
-Nine Kotlin files total. There is no `androidTest` or `test` source set.
+Nine Kotlin files total. There is no `androidTest` or `test` source set. The debug-only
+`AndroidManifest.xml` overlay was removed — cleartext for Metro is controlled via Gradle manifest
+placeholders.
 
 **There is no word-database asset in the APK.** The corpus lives in the JS bundle and is passed to
 `DBModule` on every call.
@@ -56,39 +57,30 @@ Nine Kotlin files total. There is no `androidTest` or `test` source set.
 
 ## MainApplication and MainActivity
 
-```13:46:android/app/src/main/java/com/wyrazowo/MainApplication.kt
+```10:27:android/app/src/main/java/com/wyrazowo/MainApplication.kt
 class MainApplication : Application(), ReactApplication {
-    override val reactNativeHost: ReactNativeHost = object : DefaultReactNativeHost(this) {
-        override fun getUseDeveloperSupport(): Boolean {
-            return BuildConfig.DEBUG
-        }
 
-        override fun getPackages(): List<ReactPackage> {
-            val packages: MutableList<ReactPackage> = PackageList(this).packages
-            packages.add(DBModulePackage())
-            packages.add(FSModulePackage())
-            packages.add(RestartModulePackage())
-            return packages
-        }
+  override val reactHost: ReactHost by lazy {
+    getDefaultReactHost(
+      context = applicationContext,
+      packageList =
+        PackageList(this).packages.apply {
+          add(DBModulePackage())
+          add(FSModulePackage())
+          add(RestartModulePackage())
+        },
+    )
+  }
+
+  override fun onCreate() {
+    super.onCreate()
+    loadReactNative(this)
+  }
+}
 ```
 
-The only customization over the RN template is the three `packages.add(...)` lines.
-
-```37:45:android/app/src/main/java/com/wyrazowo/MainApplication.kt
-    override fun onCreate() {
-        super.onCreate()
-        SoLoader.init(this,  /* native exopackage */false)
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            // If you opted-in for the New Architecture, we load the native entry point for this app.
-            load()
-        }
-        ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
-    }
-```
-
-> **Flipper is initialized unconditionally**, in release builds too. The RN template guards this with
-> `if (BuildConfig.DEBUG)`. It ships a debugging tool into production builds; unlike iOS (where Flipper
-> is disabled in the Podfile), Android has it always on.
+The RN 0.86 template uses `ReactHost` / `loadReactNative` instead of the old `ReactNativeHost` +
+`SoLoader` + Flipper bootstrap. **Flipper was removed entirely** — no debug tooling in release builds.
 
 `MainActivity` is minimal:
 
@@ -112,17 +104,14 @@ The component name `"Wyrazowo"` must match `app.json` and `AppRegistry.registerC
 
 ## Native modules
 
-All three extend `ReactContextBaseJavaModule` and expose methods with `@ReactMethod`. None override
-`getConstants()` or use promises — everything is either fire-and-forget or event-based.
+All three extend `ReactContextBaseJavaModule` and expose `@ReactMethod` methods that resolve **Promises**
+(`com.facebook.react.bridge.Promise`). There is no event-based result delivery for search or file I/O.
 
 | Class | JS name | Methods |
 | --- | --- | --- |
-| `DBModuleManager` | `NativeModules.DBModule` | `findPossibleWords` |
-| `FSModuleManager` | `NativeModules.FSModule` | `saveSearchHistory`, `readSearchHistory` |
+| `DBModuleManager` | `NativeModules.DBModule` | `findPossibleWords` → `Promise<string[]>` |
+| `FSModuleManager` | `NativeModules.FSModule` | `saveSearchHistory`, `readSearchHistory` → Promises |
 | `RestartModuleManager` | `NativeModules.RestartModule` | `restartApp` |
-
-There is no equivalent of iOS's `EventEmitter` module — Android emits directly through
-`RCTDeviceEventEmitter`.
 
 ---
 
@@ -161,30 +150,8 @@ legal but confusing.
 
 #### Result delivery
 
-```137:141:android/app/src/main/java/com/wyrazowo/DBModuleManager.kt
-        reactApplicationContext
-            .getJSModule(RCTDeviceEventEmitter::class.java)
-            .emit("findPossibleWordsResult", gson.toJson(filterWords))
-
-        return true
-```
-
-**The payload is a JSON string**, unlike iOS which sends a native array. That is why
-`useNativeDBEvents` calls `JSON.parse` on Android and not on iOS.
-
-#### The dead progress event
-
-```15:19:android/app/src/main/java/com/wyrazowo/DBModuleManager.kt
-    private fun sendProgressEvent(progress: Int) {
-        reactApplicationContext
-            .getJSModule(RCTDeviceEventEmitter::class.java)
-            .emit("searchEngineProgress", progress)
-    }
-```
-
-`sendProgressEvent` is **never called**, and nothing in JS listens for `searchEngineProgress`. It is
-the remains of an abandoned progress-bar feature. Worth keeping in mind if you add progress reporting
-— the plumbing is half-built.
+When matching completes, `promise.resolve(WritableNativeArray)` is called with the filtered words.
+JS receives a `string[]` on the Promise — no `DeviceEventEmitter` subscription and no JSON parse step.
 
 #### Threading
 
@@ -287,32 +254,18 @@ sequenceDiagram
     participant SAF as System file picker
     participant Hook as useReadSearchHistory
 
-    JS->>FSM: readSearchHistory()
+    JS->>FSM: readSearchHistory() Promise
     FSM->>FSA: startActivityForResult(intent, 0)
     FSA->>SAF: ACTION_GET_CONTENT, text/plain
     SAF-->>FSA: onActivityResult(0, uri)
     FSA->>FSA: read the stream line by line
     FSA-->>FSM: setResult(RESULT_OK, "readData")
-    FSM-->>Hook: emit "readSearchHistory" with the file contents
+    FSM-->>Hook: promise.resolve(file contents)
     Hook->>Hook: write to STORAGE_KEY.SEARCH_RESULT, bump the Redux timestamp
 ```
 
-The bridge back into JS is a `BaseActivityEventListener` registered in the module's `init`:
-
-```16:31:android/app/src/main/java/com/wyrazowo/FSModuleManager.kt
-    private val listener: BaseActivityEventListener = object : BaseActivityEventListener() {
-      override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(activity, requestCode, resultCode, data)
-        if (requestCode == 0) {
-          if (resultCode == Activity.RESULT_OK) {
-            reactApplicationContext
-              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-              .emit("readSearchHistory", data!!.getStringExtra("readData"))
-          }
-        }
-      }
-    }
-```
+`FSModuleManager` holds a `pendingReadPromise` and resolves it from an `BaseActivityEventListener`
+when the SAF picker returns — the bridge to JS is the Promise, not an event emit.
 
 Things to know before touching this:
 
@@ -323,8 +276,6 @@ Things to know before touching this:
   SAF intent for reading a user file.
 - The reader appends lines **without newlines**, so multi-line files are concatenated. Fine for the
   single-line JSON the app writes, but it will corrupt anything else.
-- The `WRITE_EXTERNAL_STORAGE` / `READ_EXTERNAL_STORAGE` permissions in the manifest are **not needed**
-  — SAF works without them, and they are ignored on API 29+ anyway.
 
 ---
 
@@ -383,15 +334,13 @@ via `PackageList(this).packages`.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
 | Permission | Needed? |
 | --- | --- |
 | `INTERNET` | Yes — Firebase, sjp.pl, the WebView |
-| `WRITE_EXTERNAL_STORAGE` | No — SAF does not require it |
-| `READ_EXTERNAL_STORAGE` | No — same |
+
+Storage permissions were **removed** in 1.23.0 — SAF does not require them.
 
 Application attributes: `android:allowBackup="false"`, `android:theme="@style/AppTheme"`, launcher and
 round launcher icons from `mipmap`.
@@ -401,18 +350,13 @@ round launcher icons from `mipmap`.
 | Activity | Attributes |
 | --- | --- |
 | `.MainActivity` | `exported="true"`, `launchMode="singleTask"`, `screenOrientation="portrait"`, `windowSoftInputMode="adjustResize"`, `configChanges` for keyboard/orientation/UI mode, LAUNCHER intent filter |
-| `.FSActivity` | only `label` and `name` |
+| `.FSActivity` | `android:exported="false"`, `label`, `name` |
 
-> **`FSActivity` has no `android:exported` attribute.** On Android 12+ (API 31) every activity must
-> declare it explicitly. Because `FSActivity` has no intent filter, the implicit default is `false`,
-> so the build currently succeeds — but this is the kind of thing that breaks on an AGP upgrade, and
-> it is worth adding `android:exported="false"` explicitly. `FSActivity` also has no theme, so it
-> flashes the default window background while the file picker opens.
+`FSActivity` explicitly declares `android:exported="false"` (fixed in 1.23.0). It has no theme, so it
+flashes the default window background while the file picker opens.
 
-### Debug overlay
-
-`src/debug/AndroidManifest.xml` adds `android:usesCleartextTraffic="true"` for Metro, plus the storage
-permissions again. Debug-only.
+Cleartext traffic for Metro is enabled via `android:usesCleartextTraffic="${usesCleartextTraffic}"` on
+the `<application>` tag (Gradle placeholder, debug builds only).
 
 ---
 
@@ -422,14 +366,12 @@ permissions again. Debug-only.
 
 | Property | Value |
 | --- | --- |
-| `minSdkVersion` | 21 (Android 5.0) |
-| `compileSdkVersion` | 34 |
-| `targetSdkVersion` | 34 |
-| `buildToolsVersion` | 34.0.0 |
-| `ndkVersion` | 25.1.8937393 |
-| `kotlinVersion` | 1.8.10 |
-| `googlePlayServicesAuthVersion` | 19.2.0 |
-| `RNNKotlinVersion` | 1.4.31 (declared, unused) |
+| `minSdkVersion` | 24 |
+| `compileSdkVersion` | 36 |
+| `targetSdkVersion` | 36 |
+| `buildToolsVersion` | 36.0.0 |
+| `ndkVersion` | 27.1.12297006 |
+| `kotlinVersion` | 2.1.20 |
 
 Plugin classpaths: Kotlin Gradle plugin, Android Gradle plugin (unpinned version), the React Native
 Gradle plugin, `kotlin-serialization`, and `com.google.gms:google-services:4.3.15`.
@@ -439,32 +381,25 @@ Gradle wrapper: **8.3**.
 ### `app/build.gradle`
 
 Plugins applied: `com.android.application`, `com.google.gms.google-services`, `com.facebook.react`,
-`kotlin-android`, `kotlinx-serialization`.
+`kotlin-android`.
 
 | Setting | Value |
 | --- | --- |
 | `namespace` / `applicationId` | `com.wyrazowo` |
-| `versionCode` | `100221` |
+| `versionCode` | `100221` (until release script bumps to `100230` for 1.23.0) |
 | `versionName` | `1.22.1` |
-| ABI splits | disabled (`enableSeparateBuildPerCPUArchitecture = false`) |
-| ProGuard in release | disabled (`enableProguardInReleaseBuilds = false`) |
-| Architectures | `armeabi-v7a, arm64-v8a, x86, x86_64` |
+| ABI splits | disabled |
+| ProGuard in release | disabled |
+| Architectures | RN 0.86 default ABIs |
 
-Dependencies:
+Dependencies (high level):
 
 | Dependency | Purpose |
 | --- | --- |
 | `com.facebook.react:react-android` | React Native |
-| `com.facebook.react:hermes-android` | Hermes (JSC fallback configured but unused) |
-| `com.facebook.react:flipper-integration` | Flipper |
-| `com.google.code.gson:gson:2.8.9` | JSON in `DBModuleManager` |
-| `org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0` | **unused** — Gson is used instead |
-| `org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0` | Kotlin stdlib (note: 1.8.0 vs the 1.8.10 plugin) |
-| `androidx.swiperefreshlayout:swiperefreshlayout:1.0.0` | RN template default |
-| `com.facebook.fresco:animated-gif:2.+` | **animated GIF support** — required by the Help screen |
-
-The `kotlinx-serialization` plugin and dependency can both be removed; nothing imports them.
-`com.facebook.fresco:animated-gif:2.+` uses a dynamic version, which makes builds non-reproducible.
+| `com.facebook.react:hermes-android` | Hermes |
+| `com.google.code.gson:gson` | JSON parsing in `DBModuleManager` |
+| `com.facebook.fresco:animated-gif` | Help screen GIFs |
 
 ### `gradle.properties`
 
@@ -472,7 +407,7 @@ The `kotlinx-serialization` plugin and dependency can both be removed; nothing i
 | --- | --- |
 | `android.useAndroidX` | `true` |
 | `android.enableJetifier` | `true` — legacy support-library conversion, slows every build |
-| `newArchEnabled` | `false` |
+| `newArchEnabled` | **`true`** — mandatory for Firebase v26 / Reanimated 4 |
 | `hermesEnabled` | `true` |
 | `org.gradle.jvmargs` | `-Xmx2048m -XX:MaxMetaspaceSize=512m` |
 | `org.gradle.parallel` | commented out |
@@ -521,22 +456,10 @@ Three files, following the existing pattern:
    }
    ```
 2. **The package**, `MyModulePackage.kt` — copy `DBModulePackage.kt` and swap the class.
-3. **Register it** in `MainApplication.getPackages()`:
-   ```kotlin
-   packages.add(MyModulePackage())
-   ```
+3. **Register it** in `MainApplication` `reactHost` package list (same `PackageList(...).apply { add(...) }` pattern).
 
-To emit an event:
-
-```kotlin
-reactApplicationContext
-    .getJSModule(RCTDeviceEventEmitter::class.java)
-    .emit("myEvent", payload)
-```
-
-Remember that Android emits through `RCTDeviceEventEmitter` while iOS goes through the `EventEmitter`
-module, so JS subscription code must branch on `Platform.OS` — see
-`src/native-db/hooks/use-native-sb-events.hook.ts`.
+For Promise-returning methods, add a `promise: Promise` parameter and call `promise.resolve(...)` /
+`promise.reject(...)`.
 
 ---
 
@@ -545,19 +468,12 @@ module, so JS subscription code must branch on `Platform.OS` — see
 | Issue | Severity | Detail |
 | --- | --- | --- |
 | Release signed with `debug.keystore` | Critical | Cannot ship to Play; public signing key |
-| Flipper initialized in release builds | High | Debug tooling in production |
 | Whole corpus over the bridge per search | High | ~3.2M strings materialized by Gson per search |
 | Search blocks the native modules thread | High | No coroutines, no cancellation, no progress |
-| `FSActivity` missing `android:exported` | Medium | Required declaration on API 31+; will break on an AGP upgrade |
 | Deprecated `startActivityForResult` | Medium | Should use the Activity Result API |
-| Unnecessary storage permissions | Medium | SAF does not need them |
 | `!==` / `===` on strings and ints | Medium | Referential comparison where structural was intended |
 | Non-null assertions in `DBModuleManager` | Medium | Malformed input crashes |
 | `android.enableJetifier=true` | Low | Legacy, slows builds |
-| Unused `kotlinx-serialization` | Low | Plugin + dependency can be removed |
-| Dynamic version `fresco:animated-gif:2.+` | Low | Non-reproducible builds |
-| Dead `sendProgressEvent` | Low | Never called |
-| Kotlin stdlib 1.8.0 vs plugin 1.8.10 | Low | Version mismatch |
 | No tests | Low | No `test` or `androidTest` source set |
 
 Prioritized alongside the rest of the backlog in

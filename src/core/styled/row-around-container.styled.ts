@@ -9,7 +9,7 @@ import { getRTLFlexDirection } from './helpers/rtl.helper'
  * ```
  */
 
-export const RowAroundContainer = styled.View`
+export const RowAroundContainer = styled.View<{ RTL?: boolean }>`
   flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
 `

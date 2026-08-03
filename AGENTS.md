@@ -27,9 +27,9 @@ Read these before running or changing anything.
    If they are missing, every search silently returns nothing. Check they exist before debugging search.
 2. **`node_modules/` and `ios/Pods/` are absent.** The project cannot build until you install both.
 3. **There are zero tests.** `jest.config.js` exists, no test file does. Do not assume a safety net.
-4. **Native search does not return its results.** `DBModule.findPossibleWords` returns immediately;
-   real results arrive later on the `findPossibleWordsResult` event. JS resolves with the sentinel
-   `NATIVE_DB_TAG` in the meantime. This trips people up constantly — see `docs/02-search-engine.md`.
+4. **Native search is Promise-based.** `DBModule.findPossibleWords` resolves with `string[]` when the
+   native matcher finishes. The JS wrapper in `src/native-db/native-db.ts` forwards that Promise — there
+   is no event listener or sentinel tag. See `docs/02-search-engine.md`.
 5. **The native engine is on by default** (`nativeSearchEngineEnabled: 1`). The JS implementation is a
    fallback and does **not** support word extension.
 6. **Release builds are signed with the debug keystore** on Android. Do not ship as-is.
@@ -41,16 +41,16 @@ Read these before running or changing anything.
 
 | Layer | Technology |
 | --- | --- |
-| Framework | React Native `0.73.1`, React `18.2.0` |
-| Language | TypeScript `5.0.4` (strict), Kotlin `1.8.10`, Swift `5.0`, Objective-C++ |
-| State | Redux Toolkit `1.9` + React Redux `8.1` |
-| Styling | styled-components `6.1` (`/native`) with a custom theme and spacing DSL |
-| Navigation | React Navigation 6 — material bottom tabs + native stacks |
-| Animation | Reanimated `3.6`, Gesture Handler `2.14`, `LayoutAnimation` |
-| Modals | `react-native-modalize` + `react-native-portalize` |
-| Backend | Firebase Auth, Firebase Realtime Database, Google Sign-In |
-| Utilities | Ramda `0.28`, plus the in-repo `wrzw` micro-library |
-| JS engine | Hermes (both platforms). New Architecture is **off**. |
+| Framework | React Native `0.86.2`, React `19.2.3` |
+| Language | TypeScript `7.0` for `tsc` / `yarn typecheck` (strict); Kotlin, Swift |
+| State | Redux Toolkit `2.x` + React Redux `9.x` |
+| Styling | styled-components `6.4` (`/native`) with a custom theme and spacing DSL |
+| Navigation | React Navigation 7 — Paper material bottom tabs + native stacks |
+| Animation | Reanimated `4.x`, Gesture Handler `3.x`, `LayoutAnimation` |
+| Modals | `@gorhom/bottom-sheet` + `@gorhom/portal` |
+| Backend | Firebase Auth / RTDB `26.x` (modular API), Google Sign-In `16.x` |
+| Utilities | Ramda `0.32`, plus the in-repo `wrzw` micro-library |
+| JS engine | Hermes (both platforms). **New Architecture is mandatory** (Firebase v26, Reanimated 4). |
 
 ---
 
@@ -58,15 +58,16 @@ Read these before running or changing anything.
 
 ```bash
 # one-time setup
-yarn install                                  # Node >= 18
-cd ios && bundle install && bundle exec pod install && cd ..   # Ruby 2.7.4, CocoaPods ~> 1.13
+npm install                                   # Node >= 22.11; uses package-lock.json
+cd ios && bundle install && bundle exec pod install && cd ..   # Ruby 3.3.1, CocoaPods via Bundler
 
 # development
-yarn start                                    # Metro
-yarn ios                                      # build + run iOS
-yarn android                                  # build + run Android
-yarn lint                                     # eslint .
-yarn test                                     # jest (currently runs nothing)
+npm start                                     # Metro
+npm run ios                                   # build + run iOS
+npm run android                               # build + run Android
+npm run lint                                  # eslint . (flat eslint.config.js, ESLint 9)
+npm run typecheck                             # TypeScript 7 via @typescript/native
+npm test                                      # jest (currently runs nothing)
 
 # maintenance
 node scripts/filter-words-by-length.js 7      # regenerate src/assets/slowa7.ts (run from scripts/)
@@ -98,7 +99,7 @@ src/
   settings/store/    app-wide settings slice (persisted to AsyncStorage)
   store/             Redux store registration
   user/              profile, Google sign-in, Firebase statistics, premium
-ios/                 4 custom native modules (Swift + .m bridges) + app target
+ios/                 3 custom native modules (Swift + .m bridges) + Swift AppDelegate
 android/             single :app module, 3 custom native modules (Kotlin)
 scripts/             word-list splitter and version bumper
 docs/                this documentation
@@ -167,7 +168,7 @@ export const MyThing = ({ word, onPress }: Props) => {   // named export, arrow 
 
 ## Working agreements
 
-- Run `yarn lint` after changing TypeScript. There is no test suite to fall back on.
+- Run `yarn lint` and `yarn typecheck` after changing TypeScript. There is no test suite to fall back on.
 - Any change to the search algorithm must be applied in **three** places to stay consistent:
   `src/dashboard/helpers/find-possible-words.helper.ts`, `ios/DBModule.swift`, and
   `android/app/src/main/java/com/wyrazowo/DBModuleManager.kt`.

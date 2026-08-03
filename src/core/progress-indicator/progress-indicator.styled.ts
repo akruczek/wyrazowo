@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { getThemeProp } from '@core/styled/theme'

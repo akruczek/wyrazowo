@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useHapticFeedback } from '@core/hooks/use-haptic-feedback.hook'
 import { getRandomWords, getWordFromDB } from '../helpers'
 import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
@@ -17,7 +17,7 @@ interface UseDictionaryWord {
 }
 
 export const useDictionaryWord = (
-  customizeRandomModalizeRef: React.MutableRefObject<Modalize>,
+  customizeRandomModalizeRef: React.MutableRefObject<CustomModalizeRef | null>,
   filtersRef: React.MutableRefObject<DictionaryRandomFiltersModel | null>
 ): UseDictionaryWord => {
   const [ word, setWord ] = React.useState('')

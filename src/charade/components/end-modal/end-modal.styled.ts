@@ -1,14 +1,6 @@
 import styled from 'styled-components/native'
-import { Modalize } from 'react-native-modalize'
 import { RESPONSIVE } from '@core/responsive/responsive'
-import { SPACING, getThemeProp } from '@core/styled'
-
-export const CharadeEndModalize = styled(Modalize).attrs(props => ({
-  adjustToContentHeight: true,
-  modalStyle: {
-    backgroundColor: getThemeProp('backgroundPrimary')(props),
-  }
-}))``
+import { SPACING } from '@core/styled'
 
 export const EndModalContainer = styled.View`
   height: ${RESPONSIVE.HEIGHT(50)}px;

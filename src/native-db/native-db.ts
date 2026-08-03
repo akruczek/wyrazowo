@@ -8,14 +8,10 @@ export const DB: NativeDB = {
     allWords: string[],
     selectedLetters: string[],
     wordToExtend?: string,
-  ): string[] => {
+  ): Promise<string[]> =>
     _nativeModule.findPossibleWords(
       JSON.stringify(allWords),
       JSON.stringify(selectedLetters),
-      wordToExtend,
-    )
-
-    return []
-  },
-  _nativeModule,
+      wordToExtend ?? null,
+    ),
 }

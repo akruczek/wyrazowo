@@ -487,6 +487,9 @@ export const Template = ({ flex, children, outChildren, ...headerProps }: Props)
 )
 ```
 
+Every screen wrapped in `Template` mounts `BottomSheetModalProvider` and `PortalHost name="root"` so
+modals and portaled overlays work anywhere under a screen header.
+
 | Prop | Purpose |
 | --- | --- |
 | `flex` | `justify-content: space-between` on the safe area |
@@ -504,7 +507,7 @@ export interface HeaderProps {
   backButtonAlert?: Function;                  // confirm before going back
   onTouchEnd?: () => void;                     // used by the spy hooks
   rightContentConfig?: HeaderSideContentConfig;
-  leftIcon?: string;                           // MaterialCommunityIcons name
+  leftIcon?: string;                           // MDI icon name (via `@core/icon/icon`)
   leftScreen?: SCREEN;                         // where the left icon navigates
   navigationParams?: {[key: string]: any};
 }
@@ -514,7 +517,38 @@ export interface HeaderProps {
 would exceed 75% of the screen width (`useHeaderTextSize`).
 
 `HeaderSideContentConfig` is `{ onPress, onLongPress?, icon, indicator? }` — `indicator` draws a dot
-badge.
+badge. Icons use `@core/icon/icon` (MDI names, same import surface as the old `MaterialCommunityIcons`).
+
+### `CustomModalize`
+
+**File:** `src/core/custom-modalize/cutom-modalize.tsx` (filename typo is original.)
+
+Adapter around `@gorhom/bottom-sheet`'s `BottomSheetModal`. Replaces the removed `react-native-modalize`
+/ `react-native-portalize` stack. Exposes a ref API compatible with the old Modalize usage:
+
+```ts
+export type CustomModalizeRef = { open: () => void; close: () => void }
+```
+
+Callers pass `reference={modalizeRef}`; `open()` calls `present()`, `close()` calls `dismiss()`.
+Themed via styled-components `useTheme`. Requires `BottomSheetModalProvider` — provided by `Template`.
+
+### `Icon`
+
+**File:** `src/core/icon/icon.tsx`
+
+Single import point for Material Design Icons. Re-exports
+`@react-native-vector-icons/material-design-icons` as default `Icon`, plus named aliases
+`MaterialCommunityIcons` and `MaterialDesignIcons` so existing call sites keep working.
+Font: `MaterialDesignIcons.ttf` (registered in `ios/Wyrazowo/Info.plist`).
+
+### `RangeSlider`
+
+**File:** `src/core/letters-slider/range-slider.tsx`
+
+Dual-thumb range control used by `LettersSlider`. Built with `react-native-gesture-handler` and
+Reanimated 4 — replaces the abandoned `rn-range-slider`. `react-native-awesome-slider` is listed in
+`package.json` but is not wired up; the dual-thumb implementation is local.
 
 ### The rest
 
@@ -525,7 +559,7 @@ badge.
 | `CustomCheckbox` | `defaultValue`, `local`, `onChange` | labeled checkbox, `LayoutAnimation` on toggle |
 | `CustomCounter` | `value`, `range`, `local`, `colorBreakpoints`, `setValue` | minus/plus stepper clamped to `range`; breakpoints recolor the value |
 | `CustomKeyboard` | `onPress`, `greenLetters`, `yellowLetters`, `redLetters` | Polish keyboard with Wordle-style key coloring plus `SEND` and `CLEAR` |
-| `CustomModalize` | `children`, `reference`, ...`ModalizeProps` | themed bottom sheet |
+| `CustomModalize` | `children`, `reference`, snap points / sheet props | themed `@gorhom/bottom-sheet` adapter; `CustomModalizeRef.open` / `.close` |
 | `CustomSwitch` | `defaultValue`, `color`, `onValueChange` | Paper `Switch`, gold track by default |
 | `CustomTextInput` | `value`, `onChange`, `state`, `errorMessage`, `maxLength`, `autoCapitalize`, ... | themed input; `state === false` shows the error message |
 | `LetterCard` | `content`, `size`, `fontSize`, `isSelected`, `multiLetter`, `forcedIndex`, `selectable`, `disabled`, `onPress`, `onLongPress` | the Scrabble tile; gradient variant for multi-letter wildcards, badge for position locks |

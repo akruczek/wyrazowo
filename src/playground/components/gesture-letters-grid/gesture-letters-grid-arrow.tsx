@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { COLOR } from '@core/colors/colors.constants'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { genericLightShadow } from '@core/shadow/shadow.constants'

@@ -9,7 +9,7 @@ interface Props {
   tx?: string | number;
   suffix?: string | number;
   withPadding?: boolean;
-  children?: JSX.Element | null;
+  children?: React.JSX.Element | null;
   XS?: boolean;
   error?: boolean;
   ok?: boolean;

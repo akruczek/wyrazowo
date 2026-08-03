@@ -43,7 +43,7 @@ export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue 
 
       <CustomCounterContainer RTL={RTL}>
         <CustomCounterButtonContainer disabled={value === range[0]} onPress={handleDecrement} {...colorProps}>
-          <CustomCounterMinusIcon name="minus" {...colorProps} />
+          <CustomCounterMinusIcon {...colorProps} />
         </CustomCounterButtonContainer>
 
         <CustomCounterTextContainer>
@@ -51,7 +51,7 @@ export const CustomCounter = ({ value, local, colorBreakpoints, range, setValue 
         </CustomCounterTextContainer>
 
         <CustomCounterButtonContainer disabled={value === range[1]} onPress={handleIncrement} {...colorProps}>
-          <CustomCounterPlusIcon name="plus" {...colorProps} />
+          <CustomCounterPlusIcon {...colorProps} />
         </CustomCounterButtonContainer>
       </CustomCounterContainer>
     </>

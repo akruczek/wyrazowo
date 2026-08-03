@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
-import { LettersSlider } from '@core/letters-slider/letters-slider'
-import { CustomButton } from '@core/custom-button/custom-button'
+import { CustomModalize, CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useForceUpdate } from '@core/hooks/use-force-update.hook'
-import { COLOR } from '@core/colors/colors.constants'
+import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { LetterSliderDefaultValues } from '@core/letters-slider/models'
-import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
+import { CustomButton } from '@core/custom-button/custom-button'
+import { COLOR } from '@core/colors/colors.constants'
 import { DictionaryRandomFiltersModel } from '../../dictionary.models'
 import {
   DictionaryCustomizeRandomButtonsContainer, DictionaryCustomizeRandomContainer,
@@ -13,7 +12,7 @@ import {
 } from './dictionary-customize-random.styled'
 
 interface Props {
-  modalizeRef: React.MutableRefObject<Modalize | null>;
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
   isFilterActive: boolean;
   filtersRef: React.MutableRefObject<null | DictionaryRandomFiltersModel>;
   onApply: (minMax: [ number, number ]) => void;

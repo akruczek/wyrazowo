@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { SCREEN } from 'navigation/navigation.constants'

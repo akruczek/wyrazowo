@@ -34,9 +34,9 @@ Offline persistence is enabled globally via the root `firebase.json`:
 { "react-native": { "database_persistence_enabled": true } }
 ```
 
-Initialization differs per platform: iOS calls `[FIRApp configure]` in `AppDelegate.mm`; Android
-relies on the `com.google.gms.google-services` Gradle plugin plus autolinked
-`@react-native-firebase/app`.
+Initialization differs per platform: iOS configures Firebase from `AppDelegate.swift` / the
+`GoogleService-Info.plist`; Android relies on the `com.google.gms.google-services` Gradle plugin
+plus autolinked `@react-native-firebase/app`.
 
 > **Note the bundle id mismatch.** iOS is `com.akruczek.wyrazowo`, Android is `com.wyrazowo`. Both are
 > registered in the same Firebase project, so this works, but it is easy to trip over when adding a
@@ -54,9 +54,13 @@ Google Sign-In exchanged for a Firebase credential. Three methods:
 | --- | --- | --- |
 | `init` | `() => void` | Configure `GoogleSignin` with the web client id |
 | `googleSignIn` | `() => Promise<false \| UserCredential>` | Play Services check → Google sign-in → Firebase credential |
-| `getCurrentUser` | `() => FirebaseAuthTypes.User \| null` | `auth().currentUser` |
+| `getCurrentUser` | `() => User \| null` | `getAuth().currentUser` |
 
-```6:34:src/core/auth/auth-service.ts
+Uses the **modular** `@react-native-firebase/auth` API (`getAuth`, `GoogleAuthProvider`,
+`signInWithCredential`) and Google Sign-In v16's `{ type, data }` response shape
+(`isSuccessResponse` + `response.data.idToken`).
+
+```6:39:src/core/auth/auth-service.ts
 export const authService: AuthService = {
   init: () => {
     const webClientId = googleServicesJson
@@ -77,10 +81,15 @@ export const authService: AuthService = {
       return false
     }
 
-    const { idToken } = await GoogleSignin.signIn()
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken)
+    const response = await GoogleSignin.signIn()
 
-    return auth().signInWithCredential(googleCredential)
+    if (!isSuccessResponse(response) || !response.data.idToken) {
+      return false
+    }
+
+    const googleCredential = GoogleAuthProvider.credential(response.data.idToken)
+
+    return signInWithCredential(getAuth(), googleCredential)
   },
 ```
 
@@ -127,7 +136,7 @@ in More is what triggers authentication.
 
 ```ts
 interface UserState {
-  authData: FirebaseAuthTypes.User | null;
+  authData: User | null; // from @react-native-firebase/auth
 }
 ```
 
@@ -141,15 +150,16 @@ One action, `setUserAction`. Selectors: `userUidSelector`, `userImageSelector`,
 
 **File:** `src/core/real-time-database/real-time-database.service.ts`
 
-A thin wrapper over `@react-native-firebase/database`. Twelve methods:
+A thin wrapper over the **modular** `@react-native-firebase/database` API
+(`getDatabase`, `ref`, `get`, `onValue`, `set`, `update`, `push`, `remove`, `off`). Twelve methods:
 
 | Method | Purpose |
 | --- | --- |
 | `getRef(endpoint)` | Reference at a path |
-| `readOnce(endpoint, success?, failure?)` | One-shot `value` read |
+| `readOnce(endpoint, success?, failure?)` | One-shot `get` read |
 | `readOnceByRef(reference, success?, failure?)` | One-shot read from an existing ref |
-| `addListener(endpoint, onChanged)` | Subscribe to `value` |
-| `removeListener(endpoint, listener)` | Unsubscribe |
+| `addListener(endpoint, onChanged)` | Subscribe via `onValue`; returns an `Unsubscribe` |
+| `removeListener(endpoint, listener?)` | Unsubscribe via `off` (prefer calling the `Unsubscribe` from `addListener`) |
 | `set(endpoint, value, onComplete?)` | Overwrite a node |
 | `update(endpoint, values, onComplete?)` | Partial update |
 | `push(endpoint)` | Create a child key |
@@ -157,11 +167,8 @@ A thin wrapper over `@react-native-firebase/database`. Twelve methods:
 | `setByReference(ref, values, onComplete?)` | Set on an existing ref |
 | `remove(endpoint, onComplete?)` | Delete a node |
 
-> **Inconsistency to be aware of:** the read/listen methods pass the explicit
-> `REAL_TIME_DATABASE_URL` (`europe-west1`), while `set`, `update`, `push` and `remove` call
-> `.database()` with **no URL**, hitting the default instance. Writes today all go through
-> `setByReference` (which inherits the correct URL from `getRef`), so nothing is broken — but calling
-> `realTimeDatabaseService.set(...)` directly would write to the wrong database.
+All methods use `getDatabase(undefined, REAL_TIME_DATABASE_URL)` so reads and writes hit the same
+`europe-west1` instance.
 
 ### Data shape
 
@@ -189,19 +196,24 @@ export const DEFAULT_USER_POINTS = {
 `useRealTimeUserData` creates the node if missing, then attaches a `value` listener so the User screen
 updates in real time:
 
-```16:40:src/user/hooks/use-real-time-user-data.hook.ts
+```16:38:src/user/hooks/use-real-time-user-data.hook.ts
   const getRealTimeDatabaseData = async (uid: string) => {
-    const realTimeDatabaseUserDataRef = await realTimeDatabaseService.getRef(`/users/${uid}`)
+    const realTimeDatabaseUserDataRef = realTimeDatabaseService.getRef(`/users/${uid}`)
     // Creates user node with DEFAULT_USER_POINTS if missing
     setUserUid(uid)
   }
 
   React.useEffect(() => {
-    if (userUid) {
-      userListener = realTimeDatabaseService.addListener(`/users/${userUid}`, (data) => {
-        setUserData(data.val())
-      })
+    if (!userUid) {
+      return
     }
+
+    const unsubscribe = realTimeDatabaseService.addListener(`/users/${userUid}`, (data) => {
+      setUserData(data.val())
+    })
+
+    return unsubscribe
+  }, [ userUid ])
 ```
 
 ### Security note

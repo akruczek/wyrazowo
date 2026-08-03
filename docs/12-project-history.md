@@ -1,7 +1,7 @@
 # 12 — Project History
 
-Why the codebase looks the way it does. Condensed from `changelog.md` (43 releases, 0.1.0 → 1.22.1)
-and the git log (236 commits, last one April 2024).
+Why the codebase looks the way it does. Condensed from `changelog.md` (44 releases, 0.1.0 → 1.23.0
+planned) and the git log.
 
 Read this when something seems arbitrary — most oddities are the fossil of an earlier decision.
 
@@ -14,6 +14,7 @@ Read this when something seems arbitrary — most oddities are the fossil of an 
 - [Era 6: Design system maturity (1.14.0 – 1.18.x)](#era-6-design-system-maturity-1140--118x)
 - [Era 7: Reaching full potential (1.17.0 – 1.20.0)](#era-7-reaching-full-potential-1170--1200)
 - [Era 8: Modernization and advanced search (1.21.0 – 1.22.1)](#era-8-modernization-and-advanced-search-1210--1221)
+- [Era 9: Dependency modernization (1.23.0)](#era-9-dependency-modernization-1230)
 - [What this explains](#what-this-explains)
 
 ---
@@ -59,6 +60,7 @@ Read this when something seems arbitrary — most oddities are the fossil of an 
 | 1.21.0 | Maintenance | RN 0.73, Java → Kotlin, npm → yarn |
 | 1.22.0 | **Advanced Search** | Word extension |
 | 1.22.1 | — | History fix for advanced search |
+| 1.23.0 | **Dependency Modernization** | RN 0.86, New Architecture, Promise native bridge |
 
 ---
 
@@ -260,8 +262,27 @@ Note the order: the native implementations came **last**, which is why word exte
 Swift and Kotlin and the JS engine explicitly bails out. The same release moved Playground into the
 Charade module.
 
-**1.22.1**, the final commit, fixed "Incorrect reading saved results from history for advanced search"
-— the reason `useSearchPossibleWords` skips the cache when `wordToExtend` is set.
+**1.22.1**, the last release before dormancy, fixed "Incorrect reading saved results from history for
+advanced search" — the reason `useSearchPossibleWords` skips the cache when `wordToExtend` is set.
+
+---
+
+## Era 9: Dependency modernization (1.23.0)
+
+After two years dormant, the stack was brought to React Native **0.86.2** on branch
+`feature/dependency-modernization-0.86`. The release is numbered **1.23.0** (not 2.0.0) because the
+existing `versionCode` scheme concatenates `major × 100 + minor + patch` — a 2.0.0 bump would produce
+`20000`, which Play Store rejects as lower than `1.22.1`'s `100221`.
+
+> **1.23.0 DEPENDENCY MODERNIZATION**
+> - RN 0.86 / React 19 / New Architecture mandatory (Firebase v26, Reanimated 4)
+> - Native search and file I/O return Promises; EventEmitter module deleted
+> - Replaced modalize, vector-icons, material-bottom-tabs, reanimated-zoom, rn-range-slider, draggable
+> - ESLint 9 flat config, TypeScript 7 typecheck, Jest 30, first package-lock.json
+> - Flipper removed; iOS Swift AppDelegate; PrivacyInfo.xcprivacy; targetSdk 36
+
+The Promise-based native bridge is the most important behavioural change for anyone reading search
+code: there is no `NATIVE_DB_TAG`, no `useNativeDBEvents`, and no platform-specific event emitters.
 
 ---
 
@@ -283,6 +304,9 @@ Charade module.
 | Kotlin rather than Java on Android | The 1.21.0 migration |
 | Word extension missing from the JS engine | Native implementations landed last in 1.22.0 |
 | Advanced search bypassing the result cache | The 1.22.1 bug fix |
+| Event-based native search (`NATIVE_DB_TAG`) | Removed in 1.23.0 — native modules now return Promises |
+| `CustomModalize` wrapping gorhom, not Modalize | 1.23.0 library replacements |
+| Dual TypeScript (7 for tsc, 6 for ESLint) | 1.23.0 tooling split |
 | Recurring "second row" letter index bugs | The two-row rack layout, fixed in 1.3.1 and again in 1.21.0 |
 
 The pattern across nine years of releases: **ship the feature, then spend the next release fixing

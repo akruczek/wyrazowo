@@ -12,6 +12,9 @@ export interface ThemeModel {
   textSecondary: COLOR;
 }
 
+/** Local stand-in for styled-components ThemeProps (removed from native exports). */
+export type ThemeProps<T = ThemeModel> = { theme: T }
+
 export enum SPACING {
   XXXS = 2,
   XXS = 4,

@@ -13,6 +13,7 @@ export const SearchHistoryModalContainer = styled.View`
 
 interface SearchHistoryModalItemContainerProps {
   withBorder?: boolean;
+  RTL?: boolean;
 }
 
 const getSearchHistoryModalItemContainerBorderWidth = R.ifElse(

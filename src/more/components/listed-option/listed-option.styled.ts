@@ -1,4 +1,5 @@
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
 import { SPACING, ThemeModel, getRTLFlexDirection, getThemeProp } from '@core/styled'
 import { RESPONSIVE } from '@core/responsive/responsive'
 

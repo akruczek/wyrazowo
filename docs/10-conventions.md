@@ -3,7 +3,7 @@
 These are the conventions actually used in this codebase, derived from the existing code rather than
 from a style guide. Follow them so generated code is indistinguishable from what is already there.
 
-Most of this is **not enforced by tooling** — `.eslintrc.js` is nearly empty and nothing runs on
+Most of this is **not enforced by tooling** — `eslint.config.js` enforces `semi: never` but nothing runs on
 commit. Consistency is maintained by convention only.
 
 - [File naming](#file-naming)
@@ -150,7 +150,7 @@ called as `React.useState`, `React.useEffect`, `React.useRef`, `React.useCallbac
 Observed ordering, top to bottom:
 
 1. `react`
-2. Third-party packages (`ramda`, `react-native`, `react-redux`, navigation, `react-native-modalize`)
+2. Third-party packages (`ramda`, `react-native`, `react-redux`, navigation, `@gorhom/bottom-sheet`)
 3. `wrzw`
 4. `@core/*` aliases
 5. Relative imports from other feature modules (`../navigation/...`)
@@ -159,7 +159,7 @@ Observed ordering, top to bottom:
 
 ```1:15:src/dashboard/dashboard.tsx
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'

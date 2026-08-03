@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalize, CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { LetterCard } from '@core/letter-card/letter-card'
-import { CustomModalize } from '@core/custom-modalize/cutom-modalize'
 import { ForceIndexModalContainer } from './force-index-modal.styled'
 
 interface Props {
-  modalizeRef: React.MutableRefObject<Modalize | null>;
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
   handleForceIndex: (index: number) => void;
 }
 

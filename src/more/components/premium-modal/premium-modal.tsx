@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
-import { Portal } from 'react-native-portalize'
 import { useDispatch } from 'react-redux'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { premiumService } from '@core/premium-service/premium-service'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { COLOR } from '@core/colors/colors.constants'
@@ -12,7 +11,7 @@ import premiumCodes from '../../../assets/premium-codes.json'
 import { PremiumModalButtonIcon, PremiumModalTextInput } from './premium-modal.styled'
 
 interface Props {
-  modalizeRef: React.MutableRefObject<Modalize | null>;
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
 }
 
 export const PremiumModal = ({ modalizeRef }: Props) => {
@@ -36,23 +35,21 @@ export const PremiumModal = ({ modalizeRef }: Props) => {
   }
 
   return (
-    <Portal>
-      <CustomModalize reference={modalizeRef} adjustToContentHeight>
-        <SpacingView spacings="0 0 XXL 0" type="padding">
-          <PremiumModalTextInput
-            placeholder={`${localize().enter_premium_code}...`}
-            onChange={setPremiumCode}
-            value={premiumCode}
-            state={state}
-          />
+    <CustomModalize reference={modalizeRef} adjustToContentHeight>
+      <SpacingView spacings="0 0 XXL 0" type="padding">
+        <PremiumModalTextInput
+          placeholder={`${localize().enter_premium_code}...`}
+          onChange={setPremiumCode}
+          value={premiumCode}
+          state={state}
+        />
 
-          <SpacingView spacings="L 0 0 0">
-            <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>
-              <PremiumModalButtonIcon />
-            </CustomButton>
-          </SpacingView>
+        <SpacingView spacings="L 0 0 0">
+          <CustomButton onPress={applyPremiumCode} color={COLOR.DODGER_BLUE}>
+            <PremiumModalButtonIcon />
+          </CustomButton>
         </SpacingView>
-      </CustomModalize>
-    </Portal>
+      </SpacingView>
+    </CustomModalize>
   )
 }

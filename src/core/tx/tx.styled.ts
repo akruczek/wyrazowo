@@ -1,4 +1,5 @@
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { ThemeModel } from '@core/styled/models'
 import { getThemeProp, parseAbsolute } from '@core/styled'

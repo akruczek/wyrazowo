@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { CustomKeyboard } from '@core/custom-keyboard/custom-keyboard'
 import { CharadePlaygroundRow, CharadePlaygroundRowsList } from './charade-playground.styled'
 import { CharadeField } from '../charade-field/charade-field'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const CharadePlayground = ({ word, allWords, setEnd }: Props) => {
-  const modalizeRef = React.useRef<Modalize | null>(null)
+  const modalizeRef = React.useRef<CustomModalizeRef | null>(null)
 
   const {
     handlePress, onPressLetter,

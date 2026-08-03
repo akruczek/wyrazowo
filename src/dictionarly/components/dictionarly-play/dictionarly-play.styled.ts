@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { CustomTextInput } from '@core/custom-text-input/custom-text-input'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'

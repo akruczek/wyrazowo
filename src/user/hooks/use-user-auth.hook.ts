@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import { User } from '@react-native-firebase/auth'
 import { authService } from '@core/auth/auth-service'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { DEFAULT_IMAGE_URL } from '../../user/store/user.selectors'
@@ -20,7 +20,7 @@ export const useUserAuth = (
   const [ imageUrl, setImageUrl ] = React.useState<string>(DEFAULT_IMAGE_URL)
   const [ displayName, setDisplayName ] = React.useState<string>(localize().user)
 
-  const setUserState = (user: FirebaseAuthTypes.User) => {
+  const setUserState = (user: User) => {
     if (user?.photoURL) {
       setImageUrl(user.photoURL)
     }

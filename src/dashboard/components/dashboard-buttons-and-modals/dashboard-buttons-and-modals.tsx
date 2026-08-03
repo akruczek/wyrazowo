@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
-import { Portal } from 'react-native-portalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { COLOR } from '@core/colors/colors.constants'
 import { CustomButton } from '@core/custom-button/custom-button'
 import { SearchHistoryModal } from '../search-history-modal/search-history-modal'
@@ -15,12 +14,12 @@ import { useRTL } from '@core/localize/hooks/use-rtl.hook'
 
 interface Props {
   selectedLetters: string[];
-  soapModalizeRef: React.MutableRefObject<Modalize | null>;
+  soapModalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
   forceIndexLetterIndexRef: React.MutableRefObject<number | null>;
   noWordsFound: boolean;
   letters: string[];
   possibleWords: string[];
-  forceIndexModalizeRef: React.MutableRefObject<Modalize | null>;
+  forceIndexModalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
   handleClearSelectedLetters: () =>  void;
   handleForceIndex: (letterIndex: number, forceIndex: number) => void;
   soapCharactersIndexes: (letter: string) => number[];
@@ -36,7 +35,7 @@ export const DashboardButtonsAndModals = ({
 }: Props) => {
   const RTL = useRTL()
 
-  const modalizeRef = React.useRef<Modalize>(null)
+  const modalizeRef = React.useRef<CustomModalizeRef | null>(null)
   const { historyModalizeRef, openHistoryModal, historyAvailable, setHistoryAvailable } = useSearchHistory()
 
   const _handleForceIndex = (index: number) => {
@@ -78,29 +77,27 @@ export const DashboardButtonsAndModals = ({
         </CustomButton>
       </DashboardButtonsContainer>
 
-      <Portal>
-        <SearchHistoryModal
-          historyModalizeRef={historyModalizeRef}
-          soapCharactersIndexes={soapCharactersIndexes}
-          historyAvailable={historyAvailable}
-          setHistoryAvailable={setHistoryAvailable}
-        />
+      <SearchHistoryModal
+        historyModalizeRef={historyModalizeRef}
+        soapCharactersIndexes={soapCharactersIndexes}
+        historyAvailable={historyAvailable}
+        setHistoryAvailable={setHistoryAvailable}
+      />
 
-        <PossibleWordsModal
-          possibleWords={possibleWords}
-          modalizeRef={modalizeRef}
-          onClosed={clearPossibleWords}
-          soapCharactersIndexes={soapCharactersIndexes}
-          noWordsFound={noWordsFound}
-        />
+      <PossibleWordsModal
+        possibleWords={possibleWords}
+        modalizeRef={modalizeRef}
+        onClosed={clearPossibleWords}
+        soapCharactersIndexes={soapCharactersIndexes}
+        noWordsFound={noWordsFound}
+      />
 
-        <ForceIndexModal
-          modalizeRef={forceIndexModalizeRef}
-          handleForceIndex={_handleForceIndex}
-        />
+      <ForceIndexModal
+        modalizeRef={forceIndexModalizeRef}
+        handleForceIndex={_handleForceIndex}
+      />
 
-        <SoapLetterModal modalizeRef={soapModalizeRef} onSelectSoapLetters={onSelectSoapLetters} />
-      </Portal>
+      <SoapLetterModal modalizeRef={soapModalizeRef} onSelectSoapLetters={onSelectSoapLetters} />
     </>
   )
 }

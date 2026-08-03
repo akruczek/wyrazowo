@@ -1,3 +1,25 @@
+## 1.23.0 DEPENDENCY MODERNIZATION
+### Changed
+- React Native 0.86.2, React 19.2.3, New Architecture mandatory
+- Navigation 7, Redux Toolkit 2 / react-redux 9, Reanimated 4 + react-native-worklets
+- Firebase modular API v26, Google Sign-In v16, AsyncStorage 3
+- Native modules (DBModule, FSModule, RestartModule) return Promises — no EventEmitter / NATIVE_DB_TAG
+- Modalize/portalize → @gorhom/bottom-sheet + @gorhom/portal via CustomModalize
+- vector-icons → @react-native-vector-icons/material-design-icons via @core/icon/icon
+- material-bottom-tabs → react-native-paper/react-navigation
+- reanimated-zoom → react-native-zoom-toolkit ResumableZoom
+- rn-range-slider → custom RangeSlider (gesture-handler + Reanimated)
+- react-native-draggable → DraggableLetter component
+
+### Technical
+- TypeScript 7 for typecheck; TypeScript 6 alias for ESLint API
+- ESLint 9 flat config (eslint.config.js); Prettier 3.9; Jest 30
+- Restored npm + package-lock.json (dropped yarn.lock); Ruby 3.3.1 / CocoaPods via Bundler
+- Flipper removed; Android FSActivity exported=false; storage permissions removed
+- iOS AppDelegate migrated to Swift; PrivacyInfo.xcprivacy added
+- Babel: react-native-worklets/plugin last
+- Target SDK 36; planned release version (package.json may still read 1.22.1 until release scripts run)
+
 ## 1.22.1
 ### Fixed
 - Incorrect reading saved results from history for advanced search

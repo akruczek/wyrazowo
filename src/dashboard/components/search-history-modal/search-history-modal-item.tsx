@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { View } from 'react-native'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { Tx } from '@core/tx'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP, LETTER_SOAP_PLACEHOLDER } from '@core/letter-card/letter-card.constants'
@@ -20,7 +20,7 @@ export const SearchHistoryModalItem = ({
 }: Props) => {
   const RTL = useRTL()
 
-  const modalizeRef = React.useRef<Modalize>(null)
+  const modalizeRef = React.useRef<CustomModalizeRef | null>(null)
   const selectedLetters = [ ...item.selectedLetters ].sort()
 
   const handleSearchFromHistory = () => {

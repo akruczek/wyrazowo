@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { PortalHost } from '@gorhom/portal'
 import { Header, HeaderProps } from '@core/header/header'
 import { TemplateSafeArea, TemplateHost } from './template.styled'
 
@@ -9,11 +11,14 @@ interface Props extends HeaderProps {
 }
 
 export const Template = ({ flex, children, outChildren, ...headerProps }: Props) => (
-  <TemplateHost>
-    <TemplateSafeArea justifyContent={flex ? 'space-between' : undefined}>
-      <Header {...headerProps} />
-      {children}
-    </TemplateSafeArea>
-    {outChildren}
-  </TemplateHost>
+  <BottomSheetModalProvider>
+    <TemplateHost>
+      <TemplateSafeArea justifyContent={flex ? 'space-between' : undefined}>
+        <Header {...headerProps} />
+        {children}
+      </TemplateSafeArea>
+      {outChildren}
+      <PortalHost name="root" />
+    </TemplateHost>
+  </BottomSheetModalProvider>
 )

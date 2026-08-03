@@ -1,11 +1,12 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { SPACING, ThemeModel, getThemeProp, getRTLColumnAlignItems, getRTLFlexDirection } from '@core/styled'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { COLOR } from '@core/colors/colors.constants'
 
-export const UserStatisticsContainer = styled.View`
+export const UserStatisticsContainer = styled.View<{ RTL?: boolean }>`
   margin: ${SPACING.XS}px ${SPACING.L}px 0;
   align-items: ${getRTLColumnAlignItems};
 `
@@ -52,13 +53,13 @@ export const UserStatisticsFailureIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.M,
 })``
 
-export const UserStatisticsDictionarlyIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
+export const UserStatisticsDictionarlyIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'book-alphabet',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.M,
 }))``
 
-export const UserStatisticsCharadeIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
+export const UserStatisticsCharadeIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'grid',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.M,

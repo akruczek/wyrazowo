@@ -48,7 +48,7 @@ flowchart TB
     Screens --> Fetch
     Screens --> WordDB
     WordDB -->|"JSON over the bridge"| DBModule
-    DBModule -->|"event"| Screens
+    DBModule -->|"Promise string[]"| Screens
     Screens --> FSModule
     Screens --> RestartModule
 ```
@@ -100,21 +100,23 @@ AppRegistry.registerComponent(appName, () => gestureHandlerRootHOC(App))
 ```
 
 `appName` comes from `app.json` and is `"Wyrazowo"`, matching `MainActivity.getMainComponentName()`
-on Android and `self.moduleName` in `AppDelegate.mm` on iOS.
+on Android and the `withModuleName: "Wyrazowo"` call in `ios/Wyrazowo/AppDelegate.swift` on iOS.
 
 ---
 
 ## Provider tree
 
-```8:17:App.tsx
+```8:21:App.tsx
 export const App = (): React.JSX.Element => {
   React.useEffect(authService.init, [])
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <AppNavigation />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   )
 }
@@ -126,15 +128,18 @@ Outer to inner:
 | --- | --- | --- |
 | 1 | `gestureHandlerRootHOC` | `index.js` |
 | 2 | Redux `Provider` | `App.tsx` |
-| 3 | `NavigationContainer` | `App.tsx` |
-| 4 | `ActivityIndicator` gate while the theme rehydrates | `App.navigation.tsx` |
-| 5 | styled-components `ThemeProvider` | `App.navigation.tsx` |
-| 6 | `createMaterialBottomTabNavigator` | `App.navigation.tsx` |
+| 3 | react-native-paper `PaperProvider` | `App.tsx` |
+| 4 | `NavigationContainer` | `App.tsx` |
+| 5 | `ActivityIndicator` gate while the theme rehydrates | `App.navigation.tsx` |
+| 6 | styled-components `ThemeProvider` | `App.navigation.tsx` |
+| 7 | `createMaterialBottomTabNavigator` from `react-native-paper/react-navigation` | `App.navigation.tsx` |
 
-**Not present at the root:** `SafeAreaProvider`, react-native-paper's `PaperProvider`, and
-`PortalProvider`. Safe-area insets are read directly with `useSafeAreaInsets` inside components, and
-`Portal`/`Host` from `react-native-portalize` are mounted locally by the modals that need them. If
-you add a library that expects a root provider, you must add it in `App.tsx` yourself.
+**Not present at the root:** `SafeAreaProvider`, `BottomSheetModalProvider`, `PortalHost`. Safe-area
+insets are read directly with `useSafeAreaInsets` inside components. Every screen wrapped in
+`Template` gets a `BottomSheetModalProvider` (for `CustomModalize` / `@gorhom/bottom-sheet`) and a
+`PortalHost name="root"` (for `@gorhom/portal`'s `Portal`, e.g. the Playground letter tray).
+`PaperProvider` is required for Paper's material bottom tab navigator and `useTheme` in
+`App.navigation.tsx`.
 
 ---
 
@@ -270,7 +275,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 ```
 
-`serializableCheck` is disabled because `user.authData` holds a live `FirebaseAuthTypes.User` object.
+`serializableCheck` is disabled because `user.authData` holds a live Firebase Auth `User` object.
 
 ### State shape
 
@@ -288,7 +293,7 @@ RootState = {
     searchHistoryTimestamp: number            // bumped to force a history re-read
   }
   user: {
-    authData: FirebaseAuthTypes.User | null
+    authData: User | null                     // from @react-native-firebase/auth
   }
 }
 ```

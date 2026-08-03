@@ -14,12 +14,14 @@ interface Props {
 }
 
 export const PlaygroundField = ({ type, fieldRefs, selectedLetters, index, onPress, onLongPress }: Props) => {
+  const Container = PlaygroundFieldContainer as any
+
   return (
-    <PlaygroundFieldContainer
-      ref={ref => { fieldRefs[index] = ref }}
+    <Container
+      ref={(ref: View | null) => { fieldRefs[index] = ref }}
       type={type}
     >
       <PlaygroundFieldContent {...{ type, index, selectedLetters, onPress, onLongPress }} />
-    </PlaygroundFieldContainer>
+    </Container>
   )
 }

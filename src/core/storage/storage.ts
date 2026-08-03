@@ -12,11 +12,11 @@ export const Storage = {
   get: async <T>(key: string, raw?: boolean): Promise<T | null> => {
     try {
       const result = await AsyncStorage.getItem(`@${key}`)
-      return result != null
-        ? raw
-          ? result
-          : JSON.parse(result)
-        : null
+      if (result == null) {
+        return null
+      }
+
+      return (raw ? result : JSON.parse(result)) as T
     } catch (error) {
       return null
     }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { deactivatePremiumAlert } from '@core/alerts/deactivate-premium-alert'
 import { premiumService } from '@core/premium-service/premium-service'
 import { premiumSelector } from '../../settings/store/settings.selectors'
@@ -12,7 +12,7 @@ interface UsePremium {
 }
 
 export const usePremium = (
-  premiumModalRef: React.MutableRefObject<Modalize | null>,
+  premiumModalRef: React.MutableRefObject<CustomModalizeRef | null>,
 ): UsePremium => {
   const dispatch = useDispatch()
   const premium = useSelector(premiumSelector)

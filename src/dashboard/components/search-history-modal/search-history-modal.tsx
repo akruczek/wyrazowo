@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { FlatList } from 'react-native'
-import { Portal } from 'react-native-portalize'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
@@ -35,8 +34,7 @@ export const SearchHistoryModal = ({
   React.useEffect(getSearchHistory, [])
 
   return (
-    <Portal>
-      <CustomModalize
+    <CustomModalize
         reference={historyModalizeRef}
         modalTopOffset={modalOffset}
         onOpen={getSearchHistory}
@@ -55,6 +53,5 @@ export const SearchHistoryModal = ({
           />
         </SearchHistoryModalContainer>
       </CustomModalize>
-    </Portal>
   )
 }

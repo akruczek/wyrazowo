@@ -37,10 +37,10 @@ export const CustomTextInputStyled = styled.TextInput.attrs(
   }))<CustomTextInputStyledProps>`
     height: 50px;
     border-bottom-width: 1.5px;
-    text-align: ${getTextAlignment};
-    border-bottom-color: ${getCustomTextInputStyledBorderColor};
+    text-align: ${getTextAlignment as any};
+    border-bottom-color: ${getCustomTextInputStyledBorderColor as any};
     margin: ${SPACING.S}px;
     padding: ${SPACING.XXS}px;
     font-size: ${TEXT_SIZE.XL}px;
-    color: ${getCustomTextInputStyledTextColor};
+    color: ${getCustomTextInputStyledTextColor as any};
   `

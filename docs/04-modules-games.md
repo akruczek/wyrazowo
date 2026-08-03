@@ -310,7 +310,9 @@ the same pattern as the Dashboard's `wordLengthRef`.
 **Directory:** `src/playground/`
 **Screen:** `Charade-Playground`, reached from the Charade main screen header.
 
-A pinch-zoomable 15×15 Scrabble board where you drag letter tiles onto squares. There is no scoring,
+A pinch-zoomable 15×15 Scrabble board where you drag letter tiles onto squares. Zoom uses
+`react-native-zoom-toolkit`'s `ResumableZoom` (styled as `PlaygroundZoom` in `playground.styled.ts`),
+replacing the removed `react-native-reanimated-zoom`. There is no scoring,
 no rules enforcement and no persistence — it is a physical board simulator for planning a move.
 
 ### Board model
@@ -340,7 +342,7 @@ Placed letters live in a parallel array `selectedLetters: (string | null)[]`, in
 
 ### Drag and drop
 
-Tiles come from `GestureLettersGrid`, a tray of `react-native-draggable` tiles showing 8 letters per
+Tiles come from `GestureLettersGrid`, a tray of `DraggableLetter` components (`src/playground/components/draggable-letter.tsx` — gesture-handler + Reanimated, replacing `react-native-draggable`) showing 8 letters per
 row, 2 rows at a time, paged with arrows (`useGestureLettersIndexes`). Absolute positions are computed
 by `useGestureLettersInitialCoords` from safe-area insets, board height and the bottom tab height.
 

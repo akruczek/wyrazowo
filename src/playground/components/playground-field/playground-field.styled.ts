@@ -10,7 +10,7 @@ export const PLAYGROUND_FIELD_SIZE = (RESPONSIVE.WIDTH() / 15) - PLAYGROUND_FIEL
 
 const addOpacity = (color: COLOR) => `${color}80`
 
-const getFieldBackgroundColor = R.cond([
+const getFieldBackgroundColor: any = (R.cond as any)([
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.RED), R.always(addOpacity(COLOR.FIRE_BRICK)) ],
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.GREEN), R.always(addOpacity(COLOR.DARK_SEA_GREEN)) ],
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.YELLOW), R.always(addOpacity(COLOR.GOLD)) ],
@@ -19,7 +19,7 @@ const getFieldBackgroundColor = R.cond([
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.STAR), R.always(addOpacity(COLOR.FIRE_BRICK)) ],
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.DOUBLE), R.always(`${COLOR.DIM_GREY}30`) ],
   [ R.propEq('type', PLAYGROUND_FIELD_TYPE.TRIPLE), R.always(`${COLOR.DIM_GREY}30`) ],
-])
+]) as any
 
 export const PlaygroundFieldContainer = styled.View`
   width: ${PLAYGROUND_FIELD_SIZE}px;
@@ -28,7 +28,7 @@ export const PlaygroundFieldContainer = styled.View`
   margin-left: ${PLAYGROUND_FIELD_SPACING / PLAYGROUND_SPACING_MULTIPLIER}px;
   margin-right: ${PLAYGROUND_FIELD_SPACING / PLAYGROUND_SPACING_MULTIPLIER}px;
   border-radius: 5px;
-  background-color: ${getFieldBackgroundColor};
+  background-color: ${getFieldBackgroundColor as any};
   justify-content: center;
   align-items: center;
 `

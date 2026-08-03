@@ -1,13 +1,14 @@
-import styled, { ThemeProps } from 'styled-components/native'
-import { Zoom } from 'react-native-reanimated-zoom'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import { ResumableZoom } from 'react-native-zoom-toolkit'
 import { FlatListProps } from 'react-native'
 import { SPACING, ThemeModel } from '@core/styled/models'
 import { isPlatform } from '@core/is-platform/is-platform'
 import { BOTTOM_NAVIGATION_HEIGHT } from 'navigation/navigation.constants'
 import { PLAYGROUND_SPACING_MULTIPLIER } from './components/playground-field/playground-field.styled'
 
-export const PlaygroundZoom = styled(Zoom).attrs({
-  maximumZoomScale: PLAYGROUND_SPACING_MULTIPLIER,
+export const PlaygroundZoom = styled(ResumableZoom).attrs({
+  maxScale: PLAYGROUND_SPACING_MULTIPLIER,
 })`
   flex: 1;
   z-index: 0;

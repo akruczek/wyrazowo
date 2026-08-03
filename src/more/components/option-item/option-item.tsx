@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { useTheme } from 'styled-components/native'
 import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
@@ -15,7 +15,7 @@ interface Props {
   local?: keyof typeof Localization;
   tx?: string | number;
   suffix?: string | number;
-  onChange?: () => void;
+  onChange?: (value?: boolean) => void;
   handleDeactivatePremium?: () => void;
   value?: any;
   icon?: string;

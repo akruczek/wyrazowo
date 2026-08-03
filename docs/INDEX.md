@@ -25,7 +25,7 @@ Every path is relative to the repository root.
 | The main search screen | `src/dashboard/dashboard.tsx` |
 | Search results UI | `src/dashboard/components/possible-words-modal/possible-words-modal.tsx` |
 | Search history | `src/dashboard/hooks/use-search-history-modal.hook.ts`, `src/dashboard/components/search-history-modal/` |
-| The JS↔native bridge for search | `src/native-db/native-db.ts`, `src/native-db/hooks/use-native-sb-events.hook.ts` |
+| The JS↔native bridge for search | `src/native-db/native-db.ts` |
 | Word-extension (advanced) search | `src/advanced-search/advanced-search.tsx` |
 | Theme colors | `src/core/colors/colors.constants.ts` |
 | Light/dark theme tokens | `src/core/styled/theme.ts` |
@@ -130,7 +130,8 @@ Every path is relative to the repository root.
 | `custom-keyboard/custom-keyboard.tsx` | Polish on-screen keyboard with per-key RGY coloring. |
 | `custom-keyboard/custom-keyboard.constants.ts` | Key rows, `SEND` / `CLEAR` keys. |
 | `custom-keyboard/custom-keyboard.styled.ts` | Styles. |
-| `custom-modalize/cutom-modalize.tsx` | Themed `react-native-modalize` wrapper. (Filename typo is original.) |
+| `custom-modalize/cutom-modalize.tsx` | Themed `@gorhom/bottom-sheet` `BottomSheetModal` adapter (`CustomModalizeRef`). (Filename typo is original.) |
+| `icon/icon.tsx` | Re-exports MDI icons from `@react-native-vector-icons/material-design-icons` as `MaterialCommunityIcons` / `Icon`. |
 | `custom-switch/custom-switch.tsx` | Paper `Switch` wrapper. |
 | `custom-switch/custom-switch.styled.ts` | Styles. |
 | `custom-text-input/custom-text-input.tsx` | Themed input with error state. |
@@ -156,6 +157,7 @@ Every path is relative to the repository root.
 | `letter-card/letter-card.tsx` | Scrabble tile component (plain / multi-letter / forced-index variants). |
 | `letter-card/letter-card.constants.ts` | Alphabet, point groups, `LETTER_SOAP`, `LETTER_SOAP_PLACEHOLDER`, `LETTER_INDEX_SEPARATOR`. |
 | `letter-card/letter-card.styled.ts` | Styles. |
+| `letters-slider/range-slider.tsx` | Dual-thumb range control (gesture-handler + Reanimated); replaces `rn-range-slider`. |
 | `letters-slider/letters-slider.tsx` | Dual-thumb word-length range slider with premium gate. |
 | `letters-slider/letter-slider.styled.ts` | Styles. |
 | `letters-slider/models.ts` | `LetterSliderDefaultValues` tuple. |
@@ -197,8 +199,8 @@ Every path is relative to the repository root.
 | `switch-button/switch-button.tsx` | Segmented control. |
 | `switch-button/switch-button.styled.ts` | Styles. |
 | `system-language/system-language.tsx` | Exports `SYSTEM_LANGUAGE` read from the device locale. |
-| `template/template.tsx` | Screen shell: header + safe area content. |
-| `template/template.styled.ts` | Styles. |
+| `template/template.tsx` | Screen shell: header + safe area; wraps content in `BottomSheetModalProvider` and mounts `PortalHost`. |
+| `template/template.styled.ts` | Styles (`TemplateHost`, `TemplateSafeArea`). |
 | `text/text.constants.ts` | `TEXT_SIZE` scale. |
 | `tx/tx.tsx` | Localized text component. |
 | `tx/tx.styled.ts` | `StyledTx` — all text styling props. |
@@ -364,10 +366,8 @@ Every path is relative to the repository root.
 
 | File | Purpose |
 | --- | --- |
-| `native-db.ts` | Wraps `NativeModules.DBModule`; JSON-serializes arguments. |
+| `native-db.ts` | Wraps `NativeModules.DBModule`; returns `Promise<string[]>`. |
 | `native-db.models.ts` | `NativeDB` interface. |
-| `native-db.constants.ts` | `NATIVE_DB_TAG` sentinel. |
-| `hooks/use-native-sb-events.hook.ts` | Subscribes to `findPossibleWordsResult` (platform-specific emitter). |
 
 ### `src/navigation/`
 
@@ -386,6 +386,7 @@ Every path is relative to the repository root.
 | `playground.styled.ts` | Zoom wrapper, grid list, bottom container. |
 | `hooks/use-gesture-letters-indexes.hook.ts` | Paging through alphabet rows. |
 | `hooks/use-gesture-letters-initial-coords.ts` | Absolute X/Y placement of draggable tiles. |
+| `components/draggable-letter.tsx` | Playground draggable tile (gesture-handler + Reanimated). |
 | `components/gesture-letters-grid/gesture-letters-grid.tsx` | Draggable alphabet tray. |
 | `components/gesture-letters-grid/gesture-letters-grid-arrow.tsx` | Paging arrows. |
 | `components/gesture-letters-grid/gesture-letters-grid.styled.ts` | Styles. |
@@ -422,25 +423,20 @@ Every path is relative to the repository root.
 
 | File | Purpose |
 | --- | --- |
-| `DBModule.swift` / `DBModule.m` | Native word search; emits results as an event. |
-| `FSModule.swift` / `FSModule.m` | Search history to Documents file + Keychain. |
+| `DBModule.swift` / `DBModule.m` | Native word search; resolves Promise with `string[]`. |
+| `FSModule.swift` / `FSModule.m` | Search history to Documents file + Keychain; Promises. |
 | `RestartModule.swift` / `RestartModule.m` | Suspends and `exit(0)`s the app. |
-| `RCTEventEmitter.swift` / `RCTEventEmitter.m` | The `EventEmitter` module; declares supported events. |
-| `RCTEventEmitter.h` | Header, **not compiled**. |
-| `RCTEventEmmiter.m` | Dead file, typo name, **not in the build**. |
 | `KeyChainManager.swift` | `DAKeychain` helper used by `FSModule`. |
 | `String+toJSON.swift` | `String.toJSON()` extension. |
-| `Wyrazowo-Bridging-Header.h` | Imports `RCTBridgeModule` / `RCTEventEmitter`. |
-| `WyrazowoTests-Bridging-Header.h` | Test bridging header. |
-| `Wyrazowo/AppDelegate.h` / `.mm` | `RCTAppDelegate` subclass; calls `[FIRApp configure]`. |
-| `Wyrazowo/main.m` | UIKit entry point. |
+| `Wyrazowo-Bridging-Header.h` | Imports `RCTBridgeModule`. |
+| `Wyrazowo/AppDelegate.swift` | RN 0.86 Swift entry; calls `FirebaseApp.configure()`. |
 | `Wyrazowo/Info.plist` | Bundle config, URL schemes, ATS, fonts. |
+| `Wyrazowo/PrivacyInfo.xcprivacy` | Apple privacy manifest. |
 | `Wyrazowo/Wyrazowo.entitlements` | `aps-environment: development`. |
 | `Wyrazowo/LaunchScreen.storyboard` | Launch screen. |
 | `Wyrazowo/Images.xcassets/` | App icons. |
-| `Podfile` / `Podfile.lock` | CocoaPods; static frameworks; `IPHONEOS_DEPLOYMENT_TARGET = 12.4` post-install override. |
+| `Podfile` / `Podfile.lock` | CocoaPods; static frameworks; Ruby 3.3.1 via Bundler. |
 | `GoogleService-Info.plist` | Firebase config. |
-| `WyrazowoTests/WyrazowoTests.m` | Stale RN template smoke test. |
 
 ### Android (`android/`)
 
@@ -474,15 +470,16 @@ Every path is relative to the repository root.
 | `App.navigation.tsx` | Bottom tab navigator, theme resolution, tab accent colors. |
 | `index.js` | `AppRegistry.registerComponent` wrapped in `gestureHandlerRootHOC`. |
 | `app.json` | `{ name, displayName }` = `Wyrazowo`. |
-| `package.json` | Dependencies, scripts, version `1.22.1`. |
-| `tsconfig.json` | `baseUrl: ./src` and the three path aliases. |
-| `babel.config.js` | `module-resolver` aliases, Reanimated plugin. |
-| `metro.config.js` | Default RN config, no customization. |
-| `jest.config.js` | `preset: 'react-native'`. No tests exist. |
-| `.eslintrc.js` | Extends `@react-native`, `semi: false`. |
+| `package.json` | Dependencies, scripts, version `1.22.1` (1.23.0 pending release script). |
+| `package-lock.json` | npm lockfile (added 1.23.0). |
+| `tsconfig.json` | TS7 paths with `./` prefixes; no `baseUrl`. |
+| `babel.config.js` | `module-resolver` aliases, `react-native-worklets/plugin` last. |
+| `metro.config.js` | Default RN 0.86 config. |
+| `jest.config.js` | `@react-native/jest-preset`. No tests exist. |
+| `eslint.config.js` | Flat ESLint 9 config from `@react-native/eslint-config/flat`. |
 | `.prettierrc.js` | `singleQuote: true`, `semi: false`. |
 | `firebase.json` | Enables RTDB offline persistence. |
-| `Gemfile` / `Gemfile.lock` / `.ruby-version` / `.bundle/config` | CocoaPods toolchain (Ruby 2.7.4, gems into `vendor/bundle`). |
+| `Gemfile` / `Gemfile.lock` / `.ruby-version` / `.bundle/config` | CocoaPods toolchain (Ruby 3.3.1, gems into `vendor/bundle`). |
 | `types.d.ts` | Empty. |
 | `changelog.md` | Full release history, newest first. Updated by hand at release time. |
 | `scripts/filter-words-by-length.js` | Splits `slowa.ts` into `slowa{N}.ts`. |
@@ -577,19 +574,10 @@ All keys are prefixed with `@` inside AsyncStorage.
 
 | Module | Method | iOS | Android |
 | --- | --- | --- | --- |
-| `DBModule` | `findPossibleWords(allWordsJSON, selectedLettersJSON, wordToExtend?)` | `ios/DBModule.swift` | `DBModuleManager.kt` |
-| `FSModule` | `saveSearchHistory(json)` | `ios/FSModule.swift` | `FSModuleManager.kt` |
-| `FSModule` | `readSearchHistory()` | same | same |
+| `DBModule` | `findPossibleWords(allWordsJSON, selectedLettersJSON, wordToExtend?)` → `Promise<string[]>` | `ios/DBModule.swift` | `DBModuleManager.kt` |
+| `FSModule` | `saveSearchHistory(json)` → `Promise` | `ios/FSModule.swift` | `FSModuleManager.kt` |
+| `FSModule` | `readSearchHistory()` → `Promise<string>` | same | same |
 | `RestartModule` | `restartApp()` | `ios/RestartModule.swift` | `RestartModuleManager.kt` |
-| `EventEmitter` | (iOS only host for events) | `ios/RCTEventEmitter.swift` | n/a — Android uses `RCTDeviceEventEmitter` |
-
-### Native events
-
-| Event | Payload (iOS) | Payload (Android) | Listener |
-| --- | --- | --- | --- |
-| `findPossibleWordsResult` | `string[]` | JSON string | `src/native-db/hooks/use-native-sb-events.hook.ts` |
-| `readSearchHistory` | `string` | `string` | `src/developer/hooks/use-read-search-history.hook.ts` |
-| `searchEngineProgress` | — | declared but never emitted | none |
 
 ### All hooks
 
@@ -615,7 +603,6 @@ All keys are prefixed with `@` inside AsyncStorage.
 | `useSoapModal` | `src/dashboard/hooks/use-soap-modal.hook.ts` |
 | `useWordDefinitions` | `src/dashboard/hooks/use-word-definitions.hook.ts` |
 | `useWordDetail` | `src/dashboard/hooks/use-word-detail.hook.ts` |
-| `useNativeDBEvents` | `src/native-db/hooks/use-native-sb-events.hook.ts` |
 | `useCharadePlay` | `src/charade/hooks/use-charade-play.hook.ts` |
 | `useCharadePress` | `src/charade/hooks/use-charade-press.hook.ts` |
 | `useCharadeWords` | `src/charade/hooks/use-charade-words.hook.ts` |

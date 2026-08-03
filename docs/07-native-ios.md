@@ -1,14 +1,13 @@
 # 07 — iOS Native Layer
 
-Everything under `ios/`. Four custom native modules written in Swift, exposed through Objective-C
-bridge files.
+Everything under `ios/`. Three custom native modules written in Swift, exposed through Objective-C
+bridge files. The app uses the RN 0.86 Swift `AppDelegate` template.
 
 - [Project structure](#project-structure)
 - [App target settings](#app-target-settings)
 - [AppDelegate](#appdelegate)
 - [Native modules](#native-modules)
   - [DBModule](#dbmodule)
-  - [EventEmitter](#eventemitter)
   - [FSModule](#fsmodule)
   - [RestartModule](#restartmodule)
 - [Supporting Swift files](#supporting-swift-files)
@@ -24,26 +23,21 @@ bridge files.
 
 ```
 ios/
-  Wyrazowo.xcodeproj/           project (objectVersion 54, LastUpgradeCheck 1210)
+  Wyrazowo.xcodeproj/
   Wyrazowo.xcworkspace/         open THIS, not the project
   Wyrazowo/
-    AppDelegate.h / .mm         RCTAppDelegate subclass
-    main.m                      UIKit entry point
+    AppDelegate.swift           RN 0.86 Swift entry (replaces AppDelegate.h/.mm)
     Info.plist
     Wyrazowo.entitlements
+    PrivacyInfo.xcprivacy       Apple privacy manifest (added in 1.23.0)
     LaunchScreen.storyboard
-    Images.xcassets/            app icons
-  WyrazowoTests/                stale RN template test
-  DBModule.swift / .m           word search
-  FSModule.swift / .m           search history file I/O
+    Images.xcassets/
+  DBModule.swift / .m           word search (Promise)
+  FSModule.swift / .m           search history file I/O (Promise)
   RestartModule.swift / .m      process restart
-  RCTEventEmitter.swift / .m    the EventEmitter module
-  RCTEventEmitter.h             header, NOT compiled
-  RCTEventEmmiter.m             dead file (typo), NOT in the build
   KeyChainManager.swift         DAKeychain helper
   String+toJSON.swift           String.toJSON() extension
   Wyrazowo-Bridging-Header.h
-  WyrazowoTests-Bridging-Header.h
   Podfile / Podfile.lock
   GoogleService-Info.plist
 ```
@@ -51,12 +45,8 @@ ios/
 Native sources sit at the `ios/` root rather than inside the `Wyrazowo/` group — unusual, but they are
 correctly referenced by the target.
 
-**Targets:** `Wyrazowo` (app) and `WyrazowoTests`.
-**Schemes:** one shared scheme, `Wyrazowo`.
-
-`WyrazowoTests/WyrazowoTests.m` is the unmodified React Native template test that waits for a view
-containing the text "Welcome to React Native". That text does not exist in this app, so the test would
-fail if anyone ran it. Nobody does.
+**Target:** `Wyrazowo` only (`WyrazowoTests` removed in the RN 0.86 upgrade).
+**Scheme:** one shared scheme, `Wyrazowo`.
 
 ---
 
@@ -71,7 +61,7 @@ fail if anyone ran it. Nobody does.
 | `DEVELOPMENT_TEAM` | `YY88S6TW4F` |
 | `SWIFT_VERSION` | `5.0` |
 | `SWIFT_OBJC_BRIDGING_HEADER` | `Wyrazowo-Bridging-Header.h` |
-| `IPHONEOS_DEPLOYMENT_TARGET` | `12.4` (also forced onto every pod in `post_install`) |
+| `IPHONEOS_DEPLOYMENT_TARGET` | `min_ios_version_supported` from RN 0.86 (via Podfile) |
 | `ENABLE_BITCODE` | `NO` (debug config) |
 | Orientation | Portrait only on iPhone; all orientations on iPad |
 
@@ -80,32 +70,46 @@ The version numbers are kept in sync with `package.json` and Android by
 
 The bridging header exposes React Native's module APIs to Swift:
 
-```5:6:ios/Wyrazowo-Bridging-Header.h
+```5:5:ios/Wyrazowo-Bridging-Header.h
 #import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
 ```
+
+(`RCTEventEmitter.h` import was removed with the deleted `EventEmitter` module.)
 
 ---
 
 ## AppDelegate
 
-`AppDelegate.h` declares `AppDelegate : RCTAppDelegate` (the RN 0.71+ style).
+**File:** `ios/Wyrazowo/AppDelegate.swift` — the RN 0.86 Swift template with Firebase wired in.
 
-```8:17:ios/Wyrazowo/AppDelegate.mm
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  [FIRApp configure];
-  self.moduleName = @"Wyrazowo";
-  // You can add your custom initial props in the dictionary below.
-  // They will be passed down to the ViewController used by React Native.
-  self.initialProps = @{};
+```14:33:ios/Wyrazowo/AppDelegate.swift
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
+    FirebaseApp.configure()
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
-}
+    let delegate = ReactNativeDelegate()
+    let factory = RCTReactNativeFactory(delegate: delegate)
+    delegate.dependencyProvider = RCTAppDependencyProvider()
+
+    reactNativeDelegate = delegate
+    reactNativeFactory = factory
+
+    window = UIWindow(frame: UIScreen.main.bounds)
+
+    factory.startReactNative(
+      withModuleName: "Wyrazowo",
+      in: window,
+      launchOptions: launchOptions
+    )
+
+    return true
+  }
 ```
 
-The only customization over the template is `[FIRApp configure]`. `moduleName` must match
-`app.json`'s `name` and the `AppRegistry.registerComponent` call in `index.js`.
+The only customization over the template is `FirebaseApp.configure()`. `withModuleName: "Wyrazowo"`
+must match `app.json`'s `name` and the `AppRegistry.registerComponent` call in `index.js`.
 
 Bundle resolution is the standard debug/release split — Metro in debug, `main.jsbundle` in release.
 
@@ -116,15 +120,15 @@ and passed to `DBModule` on every call.
 
 ## Native modules
 
-All four use the `RCT_EXTERN_MODULE` pattern: a Swift class annotated `@objc(Name)` plus a `.m` file
-declaring the exported methods.
+All three use the `RCT_EXTERN_MODULE` pattern: a Swift class annotated `@objc(Name)` plus a `.m` file
+declaring the exported methods. Search and file I/O methods take `resolver` / `rejecter` blocks and
+return results through Promises — there is no separate `EventEmitter` module.
 
 | Module | JS name | Methods |
 | --- | --- | --- |
-| `DBModule` | `NativeModules.DBModule` | `findPossibleWords` |
-| `FSModule` | `NativeModules.FSModule` | `saveSearchHistory`, `readSearchHistory` |
+| `DBModule` | `NativeModules.DBModule` | `findPossibleWords` → `Promise<string[]>` |
+| `FSModule` | `NativeModules.FSModule` | `saveSearchHistory`, `readSearchHistory` → Promises |
 | `RestartModule` | `NativeModules.RestartModule` | `restartApp` |
-| `EventEmitter` | `NativeModules.EventEmitter` | (event host only) |
 
 All four return `true` from `requiresMainQueueSetup()`, so all four are **initialized on the main
 thread**, and — because none of them override `methodQueue` — all their methods also **run on the main
@@ -188,13 +192,8 @@ Applied as a post-filter after the normal match:
 
 #### Result delivery
 
-```137:138:ios/DBModule.swift
-    EventEmitter.emitter.sendEvent(withName: "findPossibleWordsResult", body: filterWords)
-    return allWords
-```
-
-The event carries a native `[String]` array (JS receives a real array, unlike Android which sends a
-JSON string). The return value is the input `allWords` echoed back — meaningless, and ignored by JS.
+When matching completes, `resolve(filterWords)` is called with a native `[String]` array. JS receives
+a real `string[]` on the Promise — no event subscription.
 
 #### Behavioural difference from the JS implementation
 
@@ -208,46 +207,6 @@ The Swift `letters` pool **excludes force-index entries**:
 The JS version's equivalent filter omits the `LETTER_INDEX_SEPARATOR` check, so in JS a `"A!3"` entry
 also sits in the plain pool. In practice `"A!3"` never equals a bare character so it can never be
 consumed as one, but the two implementations are not literally identical here.
-
----
-
-### EventEmitter
-
-**Files:** `ios/RCTEventEmitter.swift`, `ios/RCTEventEmitter.m`
-
-The single event host for the whole app. Other modules reach it through the static `emitter` property.
-
-```4:24:ios/RCTEventEmitter.swift
-@objc(EventEmitter)
-open class EventEmitter: RCTEventEmitter {
-  public static var emitter: RCTEventEmitter!
-  
-  private static var eventEmitter: RCTEventEmitter!
-
-  @objc public override static func requiresMainQueueSetup() -> Bool { return true }
-
-  override init() {
-    super.init()
-    EventEmitter.emitter = self
-  }
-  
-  func registerEventEmitter(eventEmitter: RCTEventEmitter) {
-    EventEmitter.eventEmitter = eventEmitter
-  }
-
-  open override func supportedEvents() -> [String] {
-    ["findPossibleWordsResult", "readSearchHistory"]
-  }
-}
-```
-
-Notes:
-
-- The static `emitter` is assigned in `init`, so it is `nil` until React Native instantiates the
-  module. If `DBModule` were somehow called first, `EventEmitter.emitter.sendEvent` would crash on the
-  implicitly-unwrapped optional.
-- `registerEventEmitter` and the private `eventEmitter` field are dead code.
-- iOS declares only two events; Android additionally declares (but never emits) `searchEngineProgress`.
 
 ---
 
@@ -275,13 +234,11 @@ Search history export and import.
     return true
   }
 
-  @objc func readSearchHistory() -> Bool {
-    EventEmitter.emitter.sendEvent(
-      withName: "readSearchHistory",
-      body: DAKeychain.shared["search_history"] ?? ""
-    )
-
-    return true
+  @objc func readSearchHistory(
+    _ resolve: @escaping RCTPromiseResolveBlock,
+    rejecter reject: @escaping RCTPromiseRejectBlock
+  ) {
+    resolve(DAKeychain.shared["search_history"] ?? "")
   }
 ```
 
@@ -290,7 +247,7 @@ The iOS design is quite different from Android's:
 | | iOS | Android |
 | --- | --- | --- |
 | Write target | `Documents/search_history.txt` **and** the Keychain | User-chosen file via the Storage Access Framework |
-| Read source | **the Keychain only** | User-chosen file |
+| Read source | **the Keychain only** (via Promise) | User-chosen file (via Promise after SAF picker) |
 | User interaction | none | system file picker |
 
 Because reading comes from the Keychain rather than the file, **importing a file edited by the user
@@ -298,7 +255,7 @@ outside the app does nothing on iOS** — you get back whatever the app last wro
 so the user can retrieve it via Finder/Files (enabled by `UIFileSharingEnabled` and
 `LSSupportsOpeningDocumentsInPlace` in `Info.plist`).
 
-The `catch {}` swallows write failures silently, and the method returns `true` regardless.
+The `catch {}` swallows write failures silently, and `saveSearchHistory` still resolves `true`.
 
 ---
 
@@ -366,7 +323,7 @@ since iOS 12**. `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` is the modern
 | `NSAppTransportSecurity` | `NSAllowsArbitraryLoads: false`, `NSAllowsLocalNetworking: true` | ATS enforced; local networking for Metro |
 | `UIFileSharingEnabled` | `true` | Exposes Documents in the Files app |
 | `LSSupportsOpeningDocumentsInPlace` | `true` | Same, for in-place editing |
-| `UIAppFonts` | 15 icon fonts | `react-native-vector-icons` |
+| `UIAppFonts` | `MaterialDesignIcons.ttf` | `@react-native-vector-icons/material-design-icons` |
 | `UISupportedInterfaceOrientations` | Portrait only | iPhone |
 | `UISupportedInterfaceOrientations~ipad` | Portrait + both landscapes | iPad |
 | `UIRequiredDeviceCapabilities` | `armv7` | legacy, meaningless on modern 64-bit-only iOS |
@@ -376,7 +333,8 @@ since iOS 12**. `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` is the modern
 Two entries are worth cleaning up: the empty location usage description (an empty purpose string can
 draw review attention) and the `armv7` capability.
 
-There is **no `PrivacyInfo.xcprivacy`**, which Apple has required for new submissions since May 2024.
+There is **a `PrivacyInfo.xcprivacy`** in `ios/Wyrazowo/` (added during the 1.23.0 modernization).
+Review it when adding dependencies that declare required-reason API usage.
 
 ---
 
@@ -395,20 +353,16 @@ entitlement or set it to `production` before an App Store build.
 
 ## Podfile
 
-```28:42:ios/Podfile
+```17:27:ios/Podfile
 target 'Wyrazowo' do
   config = use_native_modules!
+
+  # Required by @react-native-firebase when using static frameworks
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # Enables Flipper.
-    #
-    # Note that if you have use_frameworks! enabled, Flipper will not work and
-    # you should disable the next line.
-    # :flipper_configuration => flipper_config,
-    # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 ```
@@ -419,15 +373,10 @@ Key decisions:
 | --- | --- |
 | `use_frameworks! :linkage => :static` | Required by React Native Firebase; **static frameworks** |
 | `$RNFirebaseAsStaticFramework = true` | Firebase pods as static frameworks |
-| `:flipper_configuration` commented out | **Flipper is disabled on iOS** — it is incompatible with `use_frameworks!` |
-| `post_install` forcing `IPHONEOS_DEPLOYMENT_TARGET = '12.4'` | Overrides the deployment target on **every pod**, ignoring what each pod declares |
+| No Flipper config | **Flipper removed** — incompatible with static frameworks and deprecated in RN 0.86 |
 
 Pods are **not committed**. `bundle exec pod install` is required before the first build; the
-`Gemfile` pins CocoaPods `~> 1.13` and Ruby `2.7.4`.
-
-Forcing 12.4 onto all pods is a blunt instrument that will start failing as dependencies raise their
-minimums. Raising the app's own deployment target (RN 0.73 supports iOS 13.4+) and removing the loop
-is the cleaner path.
+`Gemfile` pins CocoaPods `~> 1.15.2` and Ruby `>= 3.3.0` (`.ruby-version` is `3.3.1`).
 
 ---
 
@@ -455,8 +404,8 @@ Four steps:
    @end
    ```
 3. **Add both files to the `Wyrazowo` target** in Xcode.
-4. If it emits events, add the event name to `supportedEvents()` in `RCTEventEmitter.swift` and send
-   via `EventEmitter.emitter.sendEvent(withName:body:)`.
+4. For Promise-returning methods, add `resolver:` and `rejecter:` to the `.m` bridge and call
+   `resolve(...)` / `reject(...)` from Swift.
 
 Follow the existing convention of matching the Android implementation — see
 [`08-native-android.md`](08-native-android.md).
@@ -469,18 +418,13 @@ Follow the existing convention of matching the Android implementation — see
 | --- | --- | --- |
 | `exit(0)` in `RestartModule` | High | App Store review risk |
 | `aps-environment: development` | High | Wrong for a release build; push is unused anyway |
-| No `PrivacyInfo.xcprivacy` | High | Required by Apple since May 2024 |
 | Search runs on the main thread | High | UI freezes for the duration of a large search |
 | Whole corpus over the bridge per search | High | Tens of MB serialized per call |
 | Force unwraps (`as!`) in `DBModule` | Medium | Malformed input crashes the app |
 | `readSearchHistory` reads the Keychain, not the file | Medium | Import cannot pick up an externally edited file |
 | Deprecated `kSecAttrAccessibleAlwaysThisDeviceOnly` | Medium | Deprecated since iOS 12 |
-| `RCTEventEmmiter.m` dead file | Low | Typo-named leftover, not in the build |
-| `RCTEventEmitter.h` unused | Low | Header not compiled |
 | Empty `NSLocationWhenInUseUsageDescription` | Low | Template leftover |
 | `armv7` in `UIRequiredDeviceCapabilities` | Low | Meaningless today |
-| Stale `WyrazowoTests.m` | Low | Would fail if run |
-| Deployment target forced to 12.4 on all pods | Low | Will break with newer dependencies |
 
 Prioritized alongside the rest of the backlog in
 [`11-tech-debt-and-modernization.md`](11-tech-debt-and-modernization.md).

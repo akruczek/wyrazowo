@@ -8,7 +8,7 @@ that can be built from them. Everything else in the app is secondary.
 - [End-to-end flow](#end-to-end-flow)
 - [The matching algorithm](#the-matching-algorithm)
 - [Three implementations](#three-implementations)
-- [Result delivery: the event trap](#result-delivery-the-event-trap)
+- [Result delivery: Promises](#result-delivery-promises)
 - [Scoring](#scoring)
 - [Wildcard highlighting](#wildcard-highlighting)
 - [Result caching and search history](#result-caching-and-search-history)
@@ -165,7 +165,6 @@ sequenceDiagram
     participant Cache as AsyncStorage
     participant Helper as findPossibleWords
     participant Native as DBModule (Swift/Kotlin)
-    participant Ev as useNativeDBEvents
     participant Modal as PossibleWordsModal
 
     User->>Grid: tap letters
@@ -184,11 +183,10 @@ sequenceDiagram
         Helper->>Helper: build candidate list from slowa files
         alt native engine enabled (default)
             Helper->>Native: findPossibleWords(JSON words, JSON letters, wordToExtend)
-            Helper-->>Hook: resolve([ NATIVE_DB_TAG ])
-            Note over Hook: sentinel - do NOT call resultsCallback
             Native->>Native: filter every candidate
-            Native-->>Ev: emit findPossibleWordsResult
-            Ev->>Hook: resultsCallback(words)
+            Native-->>Helper: resolve Promise(string[])
+            Helper-->>Hook: resolve(words)
+            Hook->>Hook: resultsCallback(words)
         else JS fallback
             Helper->>Helper: filter every candidate in JS
             Helper-->>Hook: resolve(words)
@@ -287,8 +285,8 @@ The same algorithm exists in three languages and **must be kept in sync**.
 | Verdict sentinel | `null` / `true` / `false` | `-1` / `0` / `1` | `-1` / `0` / `1` |
 | Length pre-check | yes | no | no |
 | Word extension | **not supported** | yes | yes |
-| Returns via | resolved Promise | `findPossibleWordsResult` event | `findPossibleWordsResult` event |
-| Result payload | `string[]` | `[String]` | JSON string (Gson) |
+| Returns via | resolved Promise | Promise (`string[]`) | Promise (`WritableNativeArray`) |
+| Result payload | `string[]` | `[String]` | `string[]` (native array to JS) |
 | Threading | JS thread | main thread | native modules thread |
 
 ### Which one runs
@@ -296,15 +294,16 @@ The same algorithm exists in three languages and **must be kept in sync**.
 Controlled by `settings.nativeSearchEngineEnabled`, **default `1` (native)**. Toggled on the
 Developer screen (More → advanced settings).
 
-```39:47:src/dashboard/helpers/find-possible-words.helper.ts
+```38:46:src/dashboard/helpers/find-possible-words.helper.ts
   if (nativeSearchEngineEnabled) {
     const _selectedLetters = wordToExtend
       ? [ ...selectedLetters, ...wordToExtend.split('').map((char: string) => char.toUpperCase()) ]
       : selectedLetters
 
     DB.findPossibleWords(allWords, _selectedLetters, wordToExtend)
-    resolve([ NATIVE_DB_TAG ])
-    return [ NATIVE_DB_TAG ]
+      .then(resolve)
+      .catch(() => resolve([]))
+    return
   }
 ```
 
@@ -323,86 +322,74 @@ the native engine is off, so the path is unreachable.)
 
 ### The bridge wrapper
 
-```6:19:src/native-db/native-db.ts
+```6:17:src/native-db/native-db.ts
 export const DB: NativeDB = {
   findPossibleWords: (
     allWords: string[],
     selectedLetters: string[],
     wordToExtend?: string,
-  ): string[] => {
+  ): Promise<string[]> =>
     _nativeModule.findPossibleWords(
       JSON.stringify(allWords),
       JSON.stringify(selectedLetters),
-      wordToExtend,
-    )
-
-    return []
-  },
-  _nativeModule,
+      wordToExtend ?? null,
+    ),
 }
 ```
 
 **The entire candidate list is JSON-stringified and copied across the bridge on every search.** For a
-2–15 letter search that is tens of megabytes of string. See
+2–15 letter search that is tens of megabytes of string. The native side resolves a Promise with the
+filtered `string[]` when done — no separate event subscription is required. See
 [Performance characteristics](#performance-characteristics).
 
 ---
 
-## Result delivery: the event trap
+## Result delivery: Promises
 
-This is the single most confusing part of the codebase.
+As of the v1.23.0 modernization, all three native modules (`DBModule`, `FSModule`, `RestartModule`)
+expose **Promise-returning** bridge methods. Search results arrive on the same Promise chain as the
+call — there is no `EventEmitter`, no `NATIVE_DB_TAG` sentinel, and no `useNativeDBEvents` hook.
 
-`DBModule.findPossibleWords` is **not** a Promise-returning method. It returns immediately
-(iOS returns the input string; Android returns `true`) and results arrive later as an event. To make
-the JS call site uniform, `findPossibleWords` resolves with a sentinel:
+### Native path
 
-```ts
-// src/native-db/native-db.constants.ts
-export const NATIVE_DB_TAG = 'NATIVE_DB'
+`findPossibleWords` in the helper delegates directly to `DB.findPossibleWords(...).then(resolve)`:
+
+```43:45:src/dashboard/helpers/find-possible-words.helper.ts
+    DB.findPossibleWords(allWords, _selectedLetters, wordToExtend)
+      .then(resolve)
+      .catch(() => resolve([]))
 ```
 
-The caller must check for it and ignore that "result":
+The hook consumes the unified Promise API the same way for both engines:
 
-```69:73:src/dashboard/hooks/use-search-possible-words.hook.ts
-      ).then((result: string[]) => {
-        if (!R.includes(NATIVE_DB_TAG, result)) {
-          resultsCallback(result)
-        }
-      })
+```59:64:src/dashboard/hooks/use-search-possible-words.hook.ts
+      findPossibleWords(
+        selectedLetters,
+        wordLength,
+        nativeSearchEngineEnabled,
+        wordToExtend,
+      ).then(resultsCallback)
 ```
 
-The real results arrive through `useNativeDBEvents`, which uses a different emitter per platform:
-
-```7:18:src/native-db/hooks/use-native-sb-events.hook.ts
-  React.useEffect(() => {
-    const eventEmitter = Platform.OS === 'android' ? null : new NativeEventEmitter(NativeModules.EventEmitter) as any
-
-    if (Platform.OS === 'android') {
-      DeviceEventEmitter.addListener('findPossibleWordsResult', (result: string) => {
-        resultCallback(JSON.parse(result))
-      })
-    } else {
-      eventEmitter.addListener('findPossibleWordsResult', (result: string[]) => {
-        resultCallback(result)
-      })
-    }
-```
-
-| Platform | Emitter | Payload |
+| Platform | Native API | JS receives |
 | --- | --- | --- |
-| iOS | `NativeEventEmitter(NativeModules.EventEmitter)` | `string[]`, used as-is |
-| Android | `DeviceEventEmitter` | JSON string, must be `JSON.parse`d |
+| iOS | `@objc func findPossibleWords(..., resolver:, rejecter:)` | `string[]` |
+| Android | `@ReactMethod fun findPossibleWords(..., promise: Promise)` | `string[]` |
 
-### Implications when changing this code
+On rejection or native crash the helper resolves `[]`, which surfaces as "no words found" rather than
+a spinning modal.
 
-- There is **no request id**. If two searches overlap, the second event overwrites the first result
-  with no way to tell which search it belongs to.
-- There is **no cancellation** and **no timeout**. If the native side throws, the callback simply
-  never fires and the modal spins forever.
-- The cleanup calls `removeAllListeners`, which is global rather than scoped to this subscription, so
-  mounting two consumers of `useNativeDBEvents` and unmounting one kills both.
-- Android declares a `searchEngineProgress` event that is **never emitted** — the helper exists but is
-  dead code.
+### Remaining limitations
+
+- There is still **no request id** — overlapping in-flight searches can race if the UI ever fires two
+  at once (the dashboard does not today).
+- There is **no cancellation** and **no timeout** at the bridge level.
+- There is **no progress reporting** during a long search.
+- Android's old `searchEngineProgress` event helper was removed with the event-based bridge.
+
+Developer search-history import uses the same Promise model:
+`await NativeModules.FSModule.readSearchHistory()` in
+`src/developer/hooks/use-read-search-history.hook.ts`.
 
 ---
 
@@ -581,8 +568,8 @@ board word plus rack can never exceed 15 characters.
 | Bridge cost | full candidate list JSON-serialized per call, results serialized back |
 | Threading (iOS) | main thread — the UI is blocked for the duration |
 | Threading (Android) | native modules thread — the bridge is blocked |
-| Progress reporting | none (Android has a dead `searchEngineProgress` helper) |
-| Paging | none — every match is emitted in one event |
+| Progress reporting | none |
+| Paging | none — every match is returned in one Promise resolution |
 | Cancellation | none |
 | Memory | the whole corpus is a resident set of JS strings once imported |
 

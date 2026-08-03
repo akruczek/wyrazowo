@@ -1,8 +1,7 @@
 # 11 — Tech Debt & Modernization Backlog
 
 An opinionated, prioritized list of what to fix before shipping again, and what to modernize
-afterwards. Written against the state of the repository as of the last commit (April 2024,
-version 1.22.1).
+afterwards. Updated for the **1.23.0 dependency modernization** branch (`feature/dependency-modernization-0.86`).
 
 Each item states the problem, where it lives, and what to do about it.
 
@@ -21,12 +20,12 @@ Each item states the problem, where it lives, and what to do about it.
 
 | # | Item | Effort |
 | --- | --- | --- |
-| **P0** | Missing word database, missing lockfile, Android release keystore | S–M |
-| **P1** | iOS `exit(0)`, `aps-environment`, `PrivacyInfo.xcprivacy`, Flipper in release, `FSActivity` export | S |
+| **P0** | Missing word database, Android release keystore | S–M |
+| **P1** | iOS `exit(0)`, `aps-environment`, premium codes public | S |
 | **P2** | Corpus over the bridge, main/bridge-thread search, no index, no paging or cancellation | L |
-| **P3** | RN 0.73 → current, New Architecture, targetSdk, deprecated APIs | L |
-| **P4** | Search event races, non-atomic Firebase writes, silent error handling, RGY duplicates | M |
-| **P5** | Zero tests, Jetifier, dead code, typos, naming, unused dependencies | S–M |
+| **P3** | Paper deprecated tabs, ESLint 10 blocker, versionCode scheme | S–M |
+| **P4** | Overlapping search races, non-atomic Firebase writes, silent error handling, RGY duplicates | M |
+| **P5** | Zero tests, Jetifier, dead code, typos, naming | S–M |
 
 ---
 
@@ -51,14 +50,12 @@ statically imports `slowa2` … `slowa9` and the long-word helper imports `slowa
 
 Do not leave this as-is. It is the single biggest barrier to picking the project back up.
 
-### P0.2 No lockfile
+### P0.2 No lockfile — **done (1.23.0)**
 
-**Where:** there is no `yarn.lock` or `package-lock.json` in the repository.
+**Was:** no `yarn.lock` or `package-lock.json`.
 
-**Impact:** `yarn install` today resolves different versions than the app was last built with — every
-`^` range has moved for two years. Builds are not reproducible and breakage will look random.
-
-**Fix:** install once, verify the app runs, then commit the resulting lockfile immediately.
+**Now:** `package-lock.json` is committed. A legacy `yarn.lock` may still exist — standardize on one
+package manager per developer to avoid drift.
 
 ### P0.3 Android release builds are signed with the debug keystore
 
@@ -102,42 +99,19 @@ used anywhere in the app.
 
 **Fix:** delete the entitlement. If push is ever added, set it to `production` for release builds.
 
-### P1.3 Missing `PrivacyInfo.xcprivacy`
+### P1.3 Missing `PrivacyInfo.xcprivacy` — **done (1.23.0)**
 
-**Where:** absent from `ios/Wyrazowo/`.
+**Now:** `ios/Wyrazowo/PrivacyInfo.xcprivacy` exists. Review and extend when adding dependencies that
+use required-reason APIs.
 
-**Impact:** Apple has required a privacy manifest for new submissions since May 2024. The app uses
-required-reason APIs (`UserDefaults` via AsyncStorage, file timestamps) and collects data through
-Firebase.
+### P1.4 Flipper in Android release builds — **done (1.23.0)**
 
-**Fix:** add a privacy manifest declaring the `NSPrivacyAccessedAPITypes` in use and the data
-collected (identifiers via Firebase Auth, usage data via RTDB). Check whether the installed Firebase
-and AsyncStorage versions ship their own manifests; if not, upgrade them.
+Flipper and `flipper-integration` were removed from both platforms with the RN 0.86 upgrade.
 
-### P1.4 Flipper initialized in Android release builds
+### P1.5 `FSActivity` export and storage permissions — **done (1.23.0)**
 
-**Where:** `android/app/src/main/java/com/wyrazowo/MainApplication.kt:44`.
-
-```kotlin
-ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
-```
-
-**Impact:** debug tooling shipped to production. The RN template guards this with
-`if (BuildConfig.DEBUG)`.
-
-**Fix:** add the guard, or better, remove Flipper entirely — it is deprecated in favour of the React
-Native DevTools and is already disabled on iOS in the `Podfile`.
-
-### P1.5 `FSActivity` has no `android:exported`
-
-**Where:** `android/app/src/main/AndroidManifest.xml`.
-
-**Impact:** builds currently succeed because the activity has no intent filter, but Android 12+
-requires an explicit declaration and stricter AGP versions will fail the build.
-
-**Fix:** add `android:exported="false"`. While in there, also give it a transparent theme so it does
-not flash a blank window, and remove the unnecessary `WRITE_EXTERNAL_STORAGE` /
-`READ_EXTERNAL_STORAGE` permissions — SAF does not need them.
+`android:exported="false"` is set on `FSActivity`. `READ/WRITE_EXTERNAL_STORAGE` permissions were
+removed from the manifest.
 
 ### P1.6 Premium codes are public
 
@@ -218,8 +192,7 @@ changes their mind, they wait. If two searches overlap, results interleave unpre
 ([P4.1](#p41-search-results-have-no-request-identity)).
 
 **Fix:** add a request id to `findPossibleWords`, emit incremental batches with the id, and add a
-`cancelSearch(id)` method. Android already has a half-built `sendProgressEvent` helper
-(`DBModuleManager.kt:15`) that is never called — wire it up or delete it.
+`cancelSearch(id)` method.
 
 ### P2.5 Search history grows without bound
 
@@ -257,41 +230,46 @@ relative to the board origin, using a single `measure` of the container.
 
 ## P3 — Platform upgrades
 
-### P3.1 React Native 0.73.1 → current
+### P3.1 React Native 0.73 → 0.86 — **done (1.23.0, pending release tag)**
 
-**Impact:** two years of fixes, performance work and tooling improvements; also a prerequisite for
-newer versions of most dependencies and for Apple/Google SDK requirements.
+JS and native tooling are on RN **0.86.2**, React **19.2.3**, Navigation **7**, RTK **2** /
+react-redux **9**, Reanimated **4** + worklets, Firebase modular **v26**, Google Sign-In **v16**,
+AsyncStorage **3**.
 
-**Approach:** upgrade in steps (0.73 → 0.74 → 0.75 → …) using the
-[RN Upgrade Helper](https://react-native-community.github.io/upgrade-helper/), not in one jump.
-Expect friction from:
+Replaced abandoned UI libraries:
 
-- `react-native-paper` 5's material bottom tabs — `@react-navigation/material-bottom-tabs` is
-  deprecated in favour of `react-native-paper`'s own `createMaterialBottomTabNavigator`, and React
-  Navigation 7 changes the API again.
-- `styled-components` 6 typing against newer React types.
-- The custom native modules, which use the old bridge API.
+| Was | Now |
+| --- | --- |
+| modalize / portalize | `@gorhom/bottom-sheet` + `@gorhom/portal` via `CustomModalize` + `Template` |
+| `react-native-vector-icons` | `@react-native-vector-icons/material-design-icons` via `@core/icon/icon` |
+| `@react-navigation/material-bottom-tabs` | `react-native-paper/react-navigation` |
+| `react-native-reanimated-zoom` | `react-native-zoom-toolkit` `ResumableZoom` |
+| `rn-range-slider` | local `RangeSlider` in `src/core/letters-slider/range-slider.tsx` |
+| `react-native-draggable` | local `DraggableLetter` in `src/playground/components/draggable-letter.tsx` |
 
-### P3.2 The New Architecture
+Native modules (`DBModule`, `FSModule`, `RestartModule`) now return **Promises** — the iOS
+`EventEmitter` module, `NATIVE_DB_TAG`, and `use-native-sb-events.hook.ts` were deleted.
 
-**Where:** `android/gradle.properties` `newArchEnabled=false`; iOS has no `RCT_NEW_ARCH_ENABLED`.
+**Remaining before calling 1.23.0 shipped:** run `scripts/update-version-code.js 1.22.1 1.23.0` and
+cut the release.
 
-**Impact:** the old bridge is on its way out; RN 0.76+ defaults to the New Architecture.
+### P3.2 The New Architecture — **done (1.23.0)**
 
-**Approach:** after P3.1, convert the three native modules to TurboModules. This is also the natural
-moment to fix the event-based result delivery — a TurboModule can return a real Promise, which would
-remove `NATIVE_DB_TAG` and the whole event dance ([P4.1](#p41-search-results-have-no-request-identity)).
+**Now:** `android/gradle.properties` has `newArchEnabled=true`. Required by Firebase v26 and
+Reanimated 4. iOS follows the RN 0.86 New Architecture default.
+
+Native modules still use the classic `@objc` / `@ReactMethod` bridge pattern with Promises rather
+than generated TurboModule specs — works under New Architecture but Codegen specs would be cleaner.
 
 ### P3.3 Deprecated Android APIs
 
 | API | Where | Replacement |
 | --- | --- | --- |
 | `startActivityForResult` / `onActivityResult` | `FSModuleManager.kt`, `FSActivity.kt` | Activity Result API (`registerForActivityResult`) |
-| `ACTION_GET_CONTENT` for reading | `FSActivity.kt:30` | `ACTION_OPEN_DOCUMENT` |
+| `ACTION_GET_CONTENT` for reading | `FSActivity.kt` | `ACTION_OPEN_DOCUMENT` |
 | `android.enableJetifier=true` | `gradle.properties` | Remove — no dependency should still need it |
 
-Also bump `targetSdkVersion` beyond 34 as Play deadlines require, and pin the Android Gradle Plugin
-version (it is currently unpinned in `android/build.gradle`).
+`targetSdkVersion` / `compileSdkVersion` were bumped to **36** in 1.23.0.
 
 ### P3.4 Deprecated iOS APIs
 
@@ -301,33 +279,30 @@ version (it is currently unpinned in `android/build.gradle`).
 | `IPHONEOS_DEPLOYMENT_TARGET = 12.4` forced on all pods | `Podfile:56-61` | Raise the app target to 13.4+ and delete the loop |
 | `armv7` in `UIRequiredDeviceCapabilities` | `Info.plist` | Remove |
 
-### P3.5 Dependency modernization
+### P3.5 Dependency and tooling follow-ups
 
-| Dependency | Note |
+| Item | Note |
 | --- | --- |
-| `@react-navigation/material-bottom-tabs` | Deprecated; move to `react-native-paper`'s navigator |
-| `ramda@0.28` | Two majors behind; or drop it — the app uses ~25 functions, most trivially replaceable |
-| `react-native-fs` | **Unused** — remove |
-| `metro-react-native-babel-preset` | Superseded by `@react-native/babel-preset` — remove |
-| `kotlinx-serialization` (plugin + dependency) | **Unused** — Gson is used instead |
-| `com.facebook.fresco:animated-gif:2.+` | Pin the version; `2.+` breaks reproducibility |
-| `@react-native-firebase/*` 18.x | Several majors behind |
+| `react-native-paper` `createMaterialBottomTabNavigator` | Migrated off `@react-navigation/material-bottom-tabs`; Paper marks this helper deprecated since 5.14 — plan a later tab replacement |
+| `ramda@0.32` | Still used pervasively; consider dropping — the app uses ~25 functions |
+| `react-native-awesome-slider` | In `package.json` but unused — dual-thumb slider is the local `RangeSlider` |
+| ESLint 10 | **Blocked:** `eslint-plugin-react` and `@react-native/eslint-config` do not support ESLint 10 yet; pinned at **9.39.5** |
+| Dual `yarn.lock` + `package-lock.json` | Pick one package manager and delete or stop updating the other lockfile |
 
 ---
 
 ## P4 — Correctness and robustness
 
-### P4.1 Search results have no request identity
+### P4.1 Search results have no request identity — **partially fixed (1.23.0)**
 
-**Where:** `src/native-db/hooks/use-native-sb-events.hook.ts`.
+**Was:** event-based delivery with no correlation id; native throws left the modal spinning forever.
 
-Results arrive as a bare event with no correlation to the request. Overlapping searches overwrite each
-other, and there is no timeout — if the native side throws, the results modal spins forever. The
-cleanup also calls `removeAllListeners`, which is global rather than scoped to the subscription.
+**Now:** native modules return Promises; rejections resolve to `[]` in the helper. Overlapping
+in-flight searches can still race if the UI fires two at once, and there is no cancellation or
+timeout.
 
-**Fix:** short term, add a request id and ignore stale events, plus a timeout that surfaces an error
-state. Long term, TurboModules with real Promises ([P3.2](#p32-the-new-architecture)) removes the
-problem entirely.
+**Fix:** add a request id (or abort controller) if concurrent searches become possible; add a timeout
+that surfaces an error state.
 
 ### P4.2 Firebase statistics writes are not atomic
 
@@ -432,17 +407,11 @@ A shared fixture word list would also let the same cases be run against the Swif
 
 | Item | Where |
 | --- | --- |
-| `RCTEventEmmiter.m` | `ios/` — typo-named, not in the build |
-| `RCTEventEmitter.h` | `ios/` — not compiled |
-| `sendProgressEvent` | `DBModuleManager.kt:15` — never called |
-| `registerEventEmitter` + private `eventEmitter` | `RCTEventEmitter.swift:8,17` |
 | `AdvancedSearchModal` | `src/playground/components/` — empty shell |
-| `onPressColumn` / `onPressRow` | `playground.tsx:40-46` — commented-out bodies |
+| `onPressColumn` / `onPressRow` | `playground.tsx` — commented-out bodies |
 | `types.d.ts` | Empty file |
-| `WyrazowoTests.m` | Stale RN template test that would fail |
-| `RNNKotlinVersion` | `android/build.gradle` — declared, unused |
-| `next-env.d.ts` reference | `tsconfig.json:28` — file does not exist |
 | Hidden `HELP_DATA` entries | `src/help/help.constants.ts` — dictionary and charade topics never written |
+| `react-native-awesome-slider` | dependency listed but unused |
 
 ### P5.3 Naming and typos
 
@@ -451,7 +420,6 @@ A shared fixture word list would also let the same cases be run against the Swif
 | `settingsSlice` variable in the dashboard slice | `src/dashboard/store/dashboard.slice.ts` |
 | `cutom-modalize.tsx` | `src/core/custom-modalize/` |
 | `new-version-avaialble-alert.ts` | `src/core/alerts/` |
-| `use-native-sb-events.hook.ts` (should be `db`) | `src/native-db/hooks/` |
 | `WordDetialsDefinitions` | `src/dashboard/components/word-details-modal/` |
 | `useSearchHistory` in `use-search-history-modal.hook.ts` | name/file mismatch |
 | Shadowed `selectedLetters` parameter | `DBModuleManager.kt:34` |
@@ -480,12 +448,13 @@ and polish it accordingly. Leaving a screen labelled "Developer" in a shipped ap
 
 | Missing | Suggestion |
 | --- | --- |
-| CI | A GitHub Actions workflow running `yarn lint`, `tsc --noEmit` and `yarn test` on PRs |
+| CI | A GitHub Actions workflow running `yarn lint`, `yarn typecheck` and `yarn test` on PRs |
 | Pre-commit hooks | `husky` + `lint-staged` |
-| Working ESLint rules | `semi: false` in `.eslintrc.js` is at the top level and ignored; move it under `rules` |
-| `typecheck` script | `"typecheck": "tsc --noEmit"` |
+| ESLint 10 | Blocked until RN eslint config and `eslint-plugin-react` support it |
 | `.nvmrc` | Pin Node alongside `.ruby-version` |
 | Dependency updates | Dependabot or Renovate |
+
+**Done in 1.23.0:** flat `eslint.config.js` with working `semi: never` rule; `"typecheck": "tsc --noEmit"` script.
 
 ### P5.8 Versioning scheme is not monotonic
 
@@ -499,12 +468,9 @@ current scheme, so the first release after the change needs a manual bump above 
 Also fix the bug where `oldVersionCode` is computed from the **new** version's major, which silently
 no-ops the Gradle and pbxproj replacements across a major bump.
 
-### P5.9 Reanimated Babel plugin ordering
+### P5.9 Reanimated Babel plugin ordering — **done (1.23.0)**
 
-**Where:** `babel.config.js:3-4` — `react-native-reanimated/plugin` is listed before
-`module-resolver`. Reanimated documents that its plugin must be last.
-
-It works today, but move it to the end of the array to match the requirement.
+`react-native-worklets/plugin` is listed last in `babel.config.js` (Reanimated 4 requirement).
 
 ---
 
@@ -513,20 +479,22 @@ It works today, but move it to the end of the array to match the requirement.
 ### Phase 1 — Get it running again (days)
 
 1. Recover or regenerate the word database ([P0.1](#p01-the-word-database-is-not-in-the-repository)).
-2. `yarn install`, `pod install`, verify both platforms build, **commit the lockfile**
-   ([P0.2](#p02-no-lockfile)).
+2. `yarn install` (or `npm ci`), `bundle exec pod install`, verify both platforms build.
 3. Fix the Android release keystore ([P0.3](#p03-android-release-builds-are-signed-with-the-debug-keystore)).
-4. Add `android:exported` to `FSActivity` ([P1.5](#p15-fsactivity-has-no-androidexported)).
+4. Run `scripts/update-version-code.js 1.22.1 1.23.0` before tagging the modernization release.
 
-At this point you have a buildable, shippable-in-principle project.
+The lockfile ([P0.2](#p02-no-lockfile)), Flipper removal ([P1.4](#p14-flipper-in-android-release-builds)),
+`FSActivity` export ([P1.5](#p15-fsactivity-export-and-storage-permissions)), privacy manifest
+([P1.3](#p13-missing-privacyinfoxcprivacy)), and RN 0.86 upgrade ([P3.1](#p31-react-native-073--086--done-1230-pending-release-tag))
+are already done on the modernization branch.
 
 ### Phase 2 — Make it safe to change (1–2 weeks)
 
 5. Add tests for the pure helpers, especially the matcher
    ([P5.1](#p51-there-are-no-tests)).
 6. Add CI running lint, typecheck and tests ([P5.7](#p57-missing-project-scaffolding)).
-7. Fix store-compliance items: iOS `exit(0)`, entitlements, privacy manifest, Flipper
-   ([P1.1](#p11-exit0-in-the-ios-restart-module)–[P1.4](#p14-flipper-initialized-in-android-release-builds)).
+7. Fix remaining store-compliance items: iOS `exit(0)`, entitlements
+   ([P1.1](#p11-exit0-in-the-ios-restart-module)–[P1.2](#p12-aps-environment-development-in-the-release-entitlements)).
 
 ### Phase 3 — Fix the core (2–4 weeks)
 
@@ -542,14 +510,14 @@ At this point you have a buildable, shippable-in-principle project.
 The tests from Phase 2 are what make this safe — they let you verify the native rewrite produces
 identical results to the JS reference.
 
-### Phase 4 — Modernize the platform (2–4 weeks)
+### Phase 4 — Modernize the platform (mostly done in 1.23.0)
 
-13. Step RN 0.73 → current ([P3.1](#p31-react-native-0731--current)).
-14. Enable the New Architecture and convert the native modules to TurboModules
-    ([P3.2](#p32-the-new-architecture)) — which lets you delete `NATIVE_DB_TAG` and the event plumbing.
+13. ~~Step RN 0.73 → 0.86~~ ([P3.1](#p31-react-native-073--086--done-1230-pending-release-tag)).
+14. ~~Enable New Architecture~~ ([P3.2](#p32-the-new-architecture--done-1230)).
 15. Replace deprecated Android and iOS APIs ([P3.3](#p33-deprecated-android-apis),
     [P3.4](#p34-deprecated-ios-apis)).
-16. Update or drop dependencies ([P3.5](#p35-dependency-modernization)).
+16. Upgrade ESLint to 10 when ecosystem allows ([P3.5](#p35-dependency-and-tooling-follow-ups));
+    fix `versionCode` scheme before any **2.x** release ([P5.8](#p58-versioning-scheme-is-not-monotonic)).
 
 ### Phase 5 — Polish (ongoing)
 

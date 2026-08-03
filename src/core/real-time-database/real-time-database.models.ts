@@ -1,30 +1,35 @@
-import { FirebaseDatabaseTypes } from '@react-native-firebase/database'
+import {
+  DataSnapshot,
+  DatabaseReference,
+  ThenableReference,
+  Unsubscribe,
+} from '@react-native-firebase/database'
 
 export interface RealTimeDatabaseService {
   getRef: (
     endpoint: string,
-  ) => FirebaseDatabaseTypes.Reference;
+  ) => DatabaseReference;
 
   readOnce: (
     endpoint: string,
-    successCallback?: (data: FirebaseDatabaseTypes.DataSnapshot) => any,
+    successCallback?: (data: DataSnapshot) => any,
     failureCallbackContext?: ((error: Error) => void) | Record<string, any> | null,
-  ) => Promise<FirebaseDatabaseTypes.DataSnapshot>;
+  ) => Promise<DataSnapshot>;
 
   readOnceByRef: (
-    reference: FirebaseDatabaseTypes.ThenableReference,
-    successCallback?: (data: FirebaseDatabaseTypes.DataSnapshot) => any,
+    reference: DatabaseReference,
+    successCallback?: (data: DataSnapshot) => any,
     failureCallbackContext?: ((error: Error) => void) | Record<string, any> | null,
-  ) => Promise<FirebaseDatabaseTypes.DataSnapshot>;
+  ) => Promise<DataSnapshot>;
 
   addListener: (
     endpoint: string,
-    onChanged: (data: FirebaseDatabaseTypes.DataSnapshot) => void,
-  ) => (data: FirebaseDatabaseTypes.DataSnapshot | null) => void;
+    onChanged: (data: DataSnapshot) => void,
+  ) => Unsubscribe;
 
   removeListener: (
     endpoint: string,
-    listener: (a: FirebaseDatabaseTypes.DataSnapshot | null) => void,
+    listener?: (a: DataSnapshot | null) => void,
   ) => void;
 
   set: <T>(
@@ -41,15 +46,15 @@ export interface RealTimeDatabaseService {
 
   push: (
     endpoint: string,
-  ) => FirebaseDatabaseTypes.ThenableReference;
+  ) => ThenableReference;
 
   pushByReference: <T>(
-    reference: FirebaseDatabaseTypes.ThenableReference,
+    reference: DatabaseReference,
     values?: T,
-  ) => FirebaseDatabaseTypes.ThenableReference;
+  ) => ThenableReference;
 
   setByReference: <T>(
-    reference: FirebaseDatabaseTypes.ThenableReference,
+    reference: DatabaseReference,
     values: T,
     onComplete?: (error: Error | null) => void,
   ) => Promise<void>;

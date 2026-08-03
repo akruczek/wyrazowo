@@ -1,5 +1,5 @@
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import auth from '@react-native-firebase/auth'
+import { GoogleSignin, isSuccessResponse } from '@react-native-google-signin/google-signin'
+import { getAuth, GoogleAuthProvider, signInWithCredential } from '@react-native-firebase/auth'
 import googleServicesJson from '../../../android/app/google-services.json'
 import { AuthService } from './auth-service.models'
 
@@ -23,12 +23,17 @@ export const authService: AuthService = {
       return false
     }
 
-    const { idToken } = await GoogleSignin.signIn()
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken)
+    const response = await GoogleSignin.signIn()
 
-    return auth().signInWithCredential(googleCredential)
+    if (!isSuccessResponse(response) || !response.data.idToken) {
+      return false
+    }
+
+    const googleCredential = GoogleAuthProvider.credential(response.data.idToken)
+
+    return signInWithCredential(getAuth(), googleCredential)
   },
   getCurrentUser: () => {
-    return auth().currentUser
+    return getAuth().currentUser
   },
 }

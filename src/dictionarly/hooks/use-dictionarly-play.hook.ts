@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { Keyboard, LayoutAnimation } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { allWordsByLength, longWordsByLength } from '../../dashboard/helpers'
@@ -20,7 +20,7 @@ interface UseDictionarlyPlay {
 
 export const useDictionarlyPlay = (
   setChances: React.Dispatch<React.SetStateAction<number>>,
-  modalizeRef: React.MutableRefObject<Modalize | null>,
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>,
 ): UseDictionarlyPlay => {
   const navigation = useNavigation()
 

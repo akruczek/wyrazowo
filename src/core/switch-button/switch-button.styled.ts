@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { SPACING, ThemeModel } from '@core/styled'
@@ -24,7 +25,7 @@ const getSwitchButtonContainerBackgroundColor: (props: SwitchButtonProps & Theme
   R.always(getThemeProp('backgroundSecondary')),
 )
 
-export const SwitchButtonContainer = styled.TouchableOpacity.attrs(({ isActive }: SwitchButtonProps) => ({
+export const SwitchButtonContainer = styled.TouchableOpacity.attrs(({ isActive }: any) => ({
   activeOpacity: isActive ? 1 : 0.3,
 }))<SwitchButtonProps & ThemeProps<ThemeModel>>`
   border-radius: 15px;

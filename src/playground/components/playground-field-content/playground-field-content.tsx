@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { Tx } from '@core/tx'
 import { COLOR } from '@core/colors/colors.constants'
 import { LetterCard } from '@core/letter-card/letter-card'

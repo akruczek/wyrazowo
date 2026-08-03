@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { SPACING, getRTLFlexDirection } from '@core/styled'
@@ -22,7 +22,7 @@ export const HistoryButtonIcon = styled(MaterialCommunityIcons).attrs({
   size: TEXT_SIZE.L,
 })``
 
-export const DashboardButtonsContainer = styled.View`
+export const DashboardButtonsContainer = styled.View<{ RTL?: boolean }>`
   flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
   padding-bottom: ${SPACING.XL}px;

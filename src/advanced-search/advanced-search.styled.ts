@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import { SPACING, getRTLFlexDirection } from '@core/styled'
 
-export const AdvancedSearchButtonsContainer = styled.View`
+export const AdvancedSearchButtonsContainer = styled.View<{ RTL?: boolean }>`
   flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
   margin-bottom: -${SPACING.XXXS}px;

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { Template } from '@core/template/template'
 import { useLocalize } from '@core/hooks/use-localize.hook'
 import { ProgressIndicator } from '@core/progress-indicator/progress-indicator'
@@ -14,7 +14,7 @@ import {
 
 export const DictionarlyPlay = () => {
   const localize = useLocalize()
-  const modalizeRef = React.useRef<Modalize | null>(null)
+  const modalizeRef = React.useRef<CustomModalizeRef | null>(null)
 
   const { progress, steps, difficulty, setChances } = useDictionarlyPlayProgress(modalizeRef)
 

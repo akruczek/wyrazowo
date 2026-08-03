@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { LETTER_INDEX_SEPARATOR, LETTER_SOAP } from '@core/letter-card/letter-card.constants'
 
-export const isForceIndexAvailable = R.both(
-  R.either(R.propEq('length', 1), R.includes(LETTER_INDEX_SEPARATOR)),
+export const isForceIndexAvailable: (value: string) => boolean = (R.both as any)(
+  (R.either as any)(R.propEq('length', 1), R.includes(LETTER_INDEX_SEPARATOR)),
   R.complement(R.includes(LETTER_SOAP)),
 )

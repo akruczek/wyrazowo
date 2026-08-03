@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
+import { PaperProvider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { authService } from '@core/auth/auth-service'
 import { store } from './src/store/store'
@@ -10,9 +11,11 @@ export const App = (): React.JSX.Element => {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <AppNavigation />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   )
 }

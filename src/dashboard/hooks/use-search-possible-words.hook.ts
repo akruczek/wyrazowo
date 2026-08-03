@@ -1,12 +1,9 @@
 import * as React from 'react'
-import * as R from 'ramda'
 import wrzw from 'wrzw'
 import { NumberFlag } from '@core/models'
 import { Storage } from '@core/storage/storage'
 import { STORAGE_KEY } from '@core/storage/storage.constants'
 import { SearchResultModel } from '@core/storage/storage.models'
-import { NATIVE_DB_TAG } from '../../native-db/native-db.constants'
-import { useNativeDBEvents } from '../../native-db/hooks/use-native-sb-events.hook'
 import { findPossibleWords, updateStorageSearchResult, getResultAlreadySavedIndex } from '../helpers'
 
 interface UseSearchPossibleWords {
@@ -51,8 +48,6 @@ export const useSearchPossibleWords = (
     saveResult(result)
   }
 
-  useNativeDBEvents(resultsCallback)
-
   const searchPossibleWords = React.useCallback(async () => {
     setNoWordsFound(false)
 
@@ -66,11 +61,7 @@ export const useSearchPossibleWords = (
         wordLength,
         nativeSearchEngineEnabled,
         wordToExtend,
-      ).then((result: string[]) => {
-        if (!R.includes(NATIVE_DB_TAG, result)) {
-          resultsCallback(result)
-        }
-      })
+      ).then(resultsCallback)
     }
 
     const savedResults = await Storage.get<SearchResultModel[]>(STORAGE_KEY.SEARCH_RESULT)

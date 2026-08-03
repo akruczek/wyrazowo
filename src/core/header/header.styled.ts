@@ -1,6 +1,7 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { TextProps } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { getThemeProp } from '@core/styled/theme'
@@ -26,7 +27,7 @@ const getHeaderHeight = R.pipe(
 
 const getMarginTop = R.propOr(0, 'topInset')
 
-export const HeaderContainer = styled(LinearGradient).attrs((props: HeaderContainerProps & ThemeProps<ThemeModel>) => ({
+export const HeaderContainer = styled(LinearGradient).attrs((props: any) => ({
   colors: [ props.color, getThemeProp('backgroundPrimary')(props) ],
   start: { x: 0, y: 0 },
   end: { x: 0, y: 1 },
@@ -85,11 +86,11 @@ export const BackButtonContainer = styled.TouchableOpacity.attrs({
   align-items: center;
 `
 
-export const BackButtonIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
+export const BackButtonIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'chevron-left',
   color: getThemeProp('textSecondary')(props),
   size: TEXT_SIZE.XXXL,
-}))`
+}))<{ RTL?: boolean }>`
   ${getRTLRotation}
 `
 
@@ -97,7 +98,7 @@ interface HeaderStatusBarProps {
   color: COLOR;
 }
 
-export const HeaderStatusBar = styled(FocusAwareStatusBar).attrs(({ color }: HeaderStatusBarProps) => ({
+export const HeaderStatusBar = styled(FocusAwareStatusBar).attrs(({ color }: any) => ({
   backgroundColor: color,
   animated: true,
   barStyle: 'light-content',
@@ -131,7 +132,7 @@ interface HeaderLeftIconProps {
   icon: string;
 }
 
-export const HeaderLeftIcon = styled(MaterialCommunityIcons).attrs(({ icon }: HeaderLeftIconProps) => ({
+export const HeaderLeftIcon = styled(MaterialCommunityIcons).attrs(({ icon }: any) => ({
   name: icon,
   color: COLOR.WHITE,
   size: TEXT_SIZE.XL,
@@ -175,7 +176,7 @@ interface HeaderRightIconProps {
   icon: string;
 }
 
-export const HeaderRightIcon = styled(MaterialCommunityIcons).attrs(({ icon }: HeaderRightIconProps) => ({
+export const HeaderRightIcon = styled(MaterialCommunityIcons).attrs(({ icon }: any) => ({
   name: icon,
   color: COLOR.WHITE,
   size: TEXT_SIZE.XL,

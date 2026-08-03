@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
 import { useNavigation } from '@react-navigation/native'
+import { CustomModalize, CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useSelector } from 'react-redux'
 import { Tx } from '@core/tx'
 import { CustomButton } from '@core/custom-button/custom-button'
@@ -8,11 +8,11 @@ import { COLOR } from '@core/colors/colors.constants'
 import { userStatisticsService } from '@core/user-statistics-service/user-statistics-service'
 import { userUidSelector } from '../../../user/store/user.selectors'
 import {
-  DictionarlyEndModalButtonsContainer, DictionarlyEndModalContainer, DictionarlyEndModalize,
+  DictionarlyEndModalButtonsContainer, DictionarlyEndModalContainer,
 } from './dictionarly-end-modal.styled'
 
 interface Props {
-  modalizeRef: React.MutableRefObject<Modalize | null>;
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>;
   wordsLength: number;
   difficulty: number;
   state: boolean | null;
@@ -47,7 +47,7 @@ export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, stat
   const onClose = React.useCallback(() => setEnd(false), [])
 
   return (
-    <DictionarlyEndModalize ref={modalizeRef} onOpened={onOpened} onClose={onClose}>
+    <CustomModalize reference={modalizeRef} adjustToContentHeight onOpened={onOpened} onClose={onClose}>
       <DictionarlyEndModalContainer>
         <Tx local={state ? 'success' : 'failed'} XL />
         <Tx tx={word} error={!state} ok={!!state} XL />
@@ -56,6 +56,6 @@ export const DictionarlyEndModal = ({ modalizeRef, wordsLength, difficulty, stat
           <CustomButton color={COLOR.DODGER_BLUE} onPress={navigation.goBack} local="try_again" />
         </DictionarlyEndModalButtonsContainer>
       </DictionarlyEndModalContainer>
-    </DictionarlyEndModalize>
+    </CustomModalize>
   )
 }

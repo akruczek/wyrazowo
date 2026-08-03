@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Keyboard } from 'react-native'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useNavigation } from '@react-navigation/native'
 import { getNavigationParam } from '../../navigation/navigation.helpers'
 
@@ -12,7 +12,7 @@ interface UseDictionarlyPlayProgress {
 }
 
 export const useDictionarlyPlayProgress = (
-  modalizeRef: React.MutableRefObject<Modalize | null>,
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>,
 ): UseDictionarlyPlayProgress => {
   const navigation = useNavigation()
   const DEFAULT_CHANCES = 12

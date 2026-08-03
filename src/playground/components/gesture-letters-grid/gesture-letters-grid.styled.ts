@@ -1,6 +1,7 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { RESPONSIVE } from '@core/responsive/responsive'
 import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
@@ -104,7 +105,7 @@ export const GestureLetterCardsUserSelectedLettersIconContainer = styled.Touchab
   z-index: 1;
 `
 
-export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs(props => ({
+export const GestureLetterCardsUserSelectedLettersIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'alpha-a-box',
   color: getThemeProp('textSecondary')(props),
   size: 26,

@@ -2,8 +2,6 @@
 //  DBModule.m
 //  Wyrazowo
 //
-//  Created by Adam Kruczek on 03/04/2023.
-//
 
 #import <Foundation/Foundation.h>
 #import "React/RCTBridgeModule.h"
@@ -13,5 +11,7 @@
     (NSString*)allWords
     selectedLetters:(NSString*)selectedLetters
     wordToExtend:(NSString*)wordToExtend
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
   )
 @end

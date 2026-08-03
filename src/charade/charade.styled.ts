@@ -18,7 +18,7 @@ export const CharadeButtonsContainer = styled.View<CharadeButtonsContainerProps>
 export const CharadeSeparator = styled.View`
   border-bottom-width: 1px;
   margin: ${SPACING.S}px;
-  border-bottom-color: ${getThemeProp('textSecondary')}50;
+  border-bottom-color: ${getThemeProp('textSecondary') as any}50;
 `
 
 export const CharadeSwitchWrapper = styled.View`

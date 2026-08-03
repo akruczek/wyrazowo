@@ -27,13 +27,13 @@ The repository as checked out **cannot build**. Three things are missing: `node_
 
 | Tool | Version |
 | --- | --- |
-| Node | `>= 18` (enforced by `package.json` `engines`) |
-| Yarn | v1 (a `yarn.lock` is expected; npm would work but diverges from history) |
-| Ruby | `2.7.4` (`.ruby-version`) |
+| Node | `>= 22.11.0` (enforced by `package.json` `engines`) |
+| Yarn or npm | Either works; **`package-lock.json` is committed** (first lockfile in 1.23.0) |
+| Ruby | `3.3.1` (`.ruby-version`) |
 | Bundler | any recent |
-| Xcode | 14.x or newer, with iOS 12.4+ SDK |
-| JDK | 17 (required by AGP 8 / Gradle 8.3) |
-| Android SDK | Platform 34, Build Tools 34.0.0, NDK 25.1.8937393 |
+| Xcode | 15+ recommended for RN 0.86 |
+| JDK | 17+ |
+| Android SDK | Platform 36, Build Tools 36.0.0, NDK 27.1.12297006 |
 
 ### Steps
 
@@ -83,11 +83,12 @@ Defined in `package.json`:
 | `yarn android` | `react-native run-android` | |
 | `yarn ios` | `react-native run-ios` | |
 | `yarn start` | `react-native start` | Metro |
-| `yarn lint` | `eslint .` | |
-| `yarn test` | `jest` | passes trivially — there are no tests |
+| `yarn lint` | `eslint .` | flat `eslint.config.js` |
+| `yarn typecheck` | `tsc --noEmit` | TypeScript 7 via `@typescript/native` |
+| `yarn test` | `jest` | Jest 30; passes trivially — there are no tests |
 
-There is no `typecheck` script. Run `npx tsc --noEmit` manually; it is the only real static check the
-project has.
+There is no separate typecheck alias beyond `yarn typecheck`. `yarn typecheck:tsc6` runs the ESLint
+API TypeScript 6 install if you need to compare compiler output.
 
 ---
 
@@ -101,33 +102,69 @@ Three aliases, configured in two places that must stay in sync.
 | `@assets/*` | `src/assets/*` |
 | `wrzw` | `src/core/wrzw/index.ts` |
 
-TypeScript (for type resolution):
+TypeScript (extends `@react-native/typescript-config`):
 
-```14:19:tsconfig.json
-    "baseUrl": "./src",
+```1:16:tsconfig.json
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "types": ["jest"],
     "paths": {
-      "@core/*": [ "core/*" ],
-      "wrzw": [ "core/wrzw/index.ts" ],
-      "@assets/*": [ "assets/*" ]
+      "*": ["./src/*"],
+      "@core/*": ["./src/core/*"],
+      "wrzw": ["./src/core/wrzw/index.ts"],
+      "@assets/*": ["./src/assets/*"]
     },
+    "resolveJsonModule": true,
+    "strict": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/Pods"]
+}
 ```
+
+| Setting | Note |
+| --- | --- |
+| No `baseUrl` | Required for TypeScript 7 path resolution |
+| `"*": ["./src/*"]` | Bare imports resolve under `src/` |
+| `paths` use `./` prefixes | TS7-compatible alias form |
+| `strict: true` | On, though `any` is used liberally in navigation code |
+
+### Dual TypeScript install
+
+| Package | Role |
+| --- | --- |
+| `@typescript/native` (`typescript@^7.0.2`) | **`yarn typecheck`** / editor primary — `tsc --noEmit` |
+| `typescript` aliased to `@typescript/typescript6@^6.0.2` | ESLint `@typescript-eslint` parser API only |
+
+Do not bump the ESLint-facing `typescript` package to 7 until `@typescript-eslint` supports it.
 
 Babel (for runtime resolution):
 
-```5:16:babel.config.js
+```1:18:babel.config.js
+module.exports = {
+  presets: ['module:@react-native/babel-preset'],
+  plugins: [
     [
       'module-resolver',
       {
-        root: [ './src' ],
+        root: ['./src'],
         extensions: ['.ios.ts', '.android.ts', '.js', '.ts', '.tsx', '.json'],
         alias: {
           '@core': './src/core',
-          'wrzw': './src/core/wrzw/index.ts',
+          wrzw: './src/core/wrzw/index.ts',
           '@assets': './src/assets',
         },
       },
     ],
+    // Must be listed last
+    'react-native-worklets/plugin',
+  ],
+}
 ```
+
+The **`react-native-worklets/plugin` must stay last** (Reanimated 4 depends on it; the old
+`react-native-reanimated/plugin` is not used).
 
 ### The `package.json` naming trick
 
@@ -152,71 +189,25 @@ only `core` and `assets` have one.
 
 ---
 
-## TypeScript
-
-```1:20:tsconfig.json
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "jsx": "react-native",
-    "lib": ["es2017"],
-    "moduleResolution": "node",
-    "noEmit": true,
-    "strict": true,
-    "resolveJsonModule": true,
-    "target": "esnext",
-    "baseUrl": "./src",
-```
-
-| Setting | Note |
-| --- | --- |
-| `strict: true` | On, though `any` is used liberally in navigation code |
-| `resolveJsonModule` | Required for `premium-codes.json`, the locale JSONs and `google-services.json` |
-| `lib: ["es2017"]` | Conservative; `Array.prototype.flat` (ES2019) is used and relies on Hermes providing it at runtime |
-| `noEmit` | Babel does the transpiling; `tsc` is type-check only |
-| `include` | References `next-env.d.ts`, which does not exist (harmless leftover) |
-
-`types.d.ts` at the root is **empty**. It presumably once declared module types for the `slowa*.ts`
-imports or styled-components theme augmentation.
-
-Notably absent: the styled-components `DefaultTheme` augmentation. Themed props are typed manually via
-`ThemeProps<ThemeModel>` in `getThemeProp` instead.
-
----
-
 ## Babel and Metro
 
-`babel.config.js` has two plugins:
+See the Babel snippet under [Path aliases](#path-aliases) above.
 
-1. `react-native-reanimated/plugin` — **must stay last** in the plugin list (it currently is not last;
-   `module-resolver` follows it, which happens to work but contradicts Reanimated's documented
-   requirement).
-2. `module-resolver` — the aliases above.
-
-`metro.config.js` is the untouched RN 0.73 default:
-
-```ts
-const config = {};
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
-```
-
-No custom transformers, no asset extensions, no resolver overrides. The `slowa*.ts` files are ordinary
-TypeScript modules as far as Metro is concerned, which is why they inflate the bundle.
+`metro.config.js` is the RN 0.86 default — no custom transformers or resolver overrides. The
+`slowa*.ts` files are ordinary TypeScript modules as far as Metro is concerned, which is why they
+inflate the bundle.
 
 ---
 
 ## ESLint and Prettier
 
-```1:5:.eslintrc.js
-module.exports = {
-  root: true,
-  extends: '@react-native',
-  semi: false,
-};
-```
+**ESLint:** flat config in `eslint.config.js` (`.eslintrc.js` deleted). Extends
+`@react-native/eslint-config/flat` with a sanitizer that drops broken plugins (`ft-flow`,
+`eslint-comments`). Enforces `semi: ['error', 'never']` under `rules`.
+
+**Version:** ESLint **9.39.5** — not ESLint 10. `eslint-plugin-react` and the RN shared config do not
+support ESLint 10 yet; treat upgrading as blocked debt (see
+[`11-tech-debt-and-modernization.md`](11-tech-debt-and-modernization.md)).
 
 ```1:4:.prettierrc.js
 module.exports = {
@@ -225,15 +216,7 @@ module.exports = {
 };
 ```
 
-Both are minimal. Two things to be aware of:
-
-- **`semi: false` in `.eslintrc.js` is in the wrong place.** ESLint config takes rules under a `rules`
-  key; a top-level `semi` is ignored. The no-semicolon style is enforced by Prettier and by habit, not
-  by the linter.
-- The `@react-native` shared config brings in the TypeScript parser, React hooks rules and Prettier
-  integration.
-
-There is no `.eslintignore`, no pre-commit hook, no `lint-staged`, and no CI. Nothing runs the linter
+Prettier **3.9.6**. There is no pre-commit hook, no `lint-staged`, and no CI. Nothing runs the linter
 automatically.
 
 ---
@@ -246,11 +229,8 @@ module.exports = {
 };
 ```
 
-**There are no test files in the repository.** No `__tests__` directory, no `*.test.ts`, no
-`*.spec.ts`. `react-test-renderer` and `@types/jest` are installed but unused. The iOS
-`WyrazowoTests` target contains the unmodified RN template test, which would fail if run.
-
-`yarn test` therefore exits successfully having run nothing — do not read that as a green build.
+**There are no test files in the repository.** `jest.config.js` uses `@react-native/jest-preset` (Jest
+**30.4.2**). `yarn test` exits successfully having run nothing — do not read that as a green build.
 
 If you add tests, the highest-value targets are the pure helpers, which have no React or native
 dependencies:
@@ -390,10 +370,8 @@ From `.gitignore`, the entries that matter:
 | `*.keystore` except `debug.keystore` | The debug keystore is committed and is also used for release builds |
 | `local.properties` | Listed as ignored, but `android/local.properties` exists in the working tree with a machine-specific SDK path |
 
-Also worth noting: there is **no `yarn.lock` or `package-lock.json` in the repository**. Dependency
-versions are therefore not pinned, and a fresh `yarn install` will resolve newer patch/minor versions
-than the ones the app was last built against. This is a meaningful reproducibility risk for a project
-that has been dormant for two years.
+Also worth noting: **`package-lock.json` is committed** (added in 1.23.0). A `yarn.lock` also exists
+in the working tree from earlier history — pick one package manager for installs to avoid drift.
 
 ---
 
@@ -434,37 +412,33 @@ There is no CI configuration (`.github/workflows/` does not exist), no PR templa
 
 | Package | Version | Used for |
 | --- | --- | --- |
-| `react-native` | `0.73.1` | framework |
-| `react` | `18.2.0` | |
-| `@reduxjs/toolkit` / `react-redux` | `^1.9.5` / `^8.1.2` | state |
-| `styled-components` | `^6.1.3` | styling |
-| `@react-navigation/*` | `^6.x` | navigation (native, native-stack, material-bottom-tabs) |
-| `react-native-paper` | `^5.9.1` | the material bottom tab bar and `Switch` |
-| `react-native-reanimated` | `^3.6.1` | animation |
-| `react-native-reanimated-zoom` | `^0.3.3` | Playground pinch-zoom |
-| `react-native-gesture-handler` | `^2.14.0` | gestures |
-| `react-native-draggable` | `^3.3.0` | Playground tile dragging |
-| `react-native-modalize` / `react-native-portalize` | `^2.1.1` / `^1.0.7` | bottom sheets |
-| `rn-range-slider` | `^2.2.2` | the word-length slider |
-| `react-native-vector-icons` | `^10.0.0` | icons (MaterialCommunityIcons) |
-| `react-native-linear-gradient` | `^2.6.2` | multi-letter wildcard tiles |
-| `react-native-haptic-feedback` | `^1.14.0` | haptics |
-| `react-native-shake` | `^5.5.2` | the spy/cheat gesture |
-| `react-native-webview` | `^13.3.1` | the Mania screen |
-| `@react-native-async-storage/async-storage` | `^1.19.1` | persistence |
-| `@react-native-firebase/{app,auth,database}` | `^18.3.0` | backend |
-| `@react-native-google-signin/google-signin` | `^10.0.1` | sign-in |
-| `react-native-safe-area-context` / `react-native-screens` | `^4.7.1` / `^3.23.0` | navigation primitives |
-| `ramda` | `^0.28.0` | functional utilities, used pervasively |
-| `react-native-fs` | `^2.20.0` | **unused** — file access goes through the custom `FSModule` |
-
-`react-native-fs` is a removable dependency.
+| `react-native` | `0.86.2` | framework |
+| `react` | `19.2.3` | |
+| `@reduxjs/toolkit` / `react-redux` | `^2.12.0` / `^9.3.0` | state |
+| `styled-components` | `^6.4.4` | styling (`/native`; `ThemeProps` typing is currently loose) |
+| `@react-navigation/native` / `native-stack` | `^7.x` | navigation |
+| `react-native-paper` | `^5.15.3` | material bottom tabs (`react-native-paper/react-navigation`), `PaperProvider`, `Switch` |
+| `react-native-reanimated` | `^4.5.3` | animation (requires `react-native-worklets`) |
+| `react-native-worklets` | `^0.11.3` | Reanimated 4 Babel plugin dependency |
+| `react-native-gesture-handler` | `^3.1.0` | gestures |
+| `react-native-zoom-toolkit` | `^5.1.0` | Playground pinch-zoom (`ResumableZoom`) |
+| `react-native-awesome-slider` | `^2.9.0` | listed but unused — dual-thumb slider is local |
+| `react-native-modalize` / `react-native-portalize` | removed | replaced by `@gorhom/bottom-sheet` / `@gorhom/portal` |
+| `react-native-reanimated-zoom` / `react-native-draggable` / `rn-range-slider` | removed | replaced by zoom-toolkit, `DraggableLetter`, local `RangeSlider` |
+| `@gorhom/bottom-sheet` | `^5.2.14` | bottom sheets (`CustomModalize` adapter) |
+| `@react-native-vector-icons/material-design-icons` | `^13.1.2` | icons via `@core/icon/icon` (MDI set, `MaterialDesignIcons.ttf`) |
+| `react-native-linear-gradient` | `^2.8.3` | multi-letter wildcard tiles |
+| `react-native-haptic-feedback` | `^3.0.0` | haptics |
+| `react-native-shake` | `^6.10.0` | the spy/cheat gesture |
+| `react-native-webview` | `^14.0.1` | the Mania screen |
+| `@react-native-async-storage/async-storage` | `^3.1.1` | persistence (`Storage` wrapper unchanged) |
+| `@react-native-firebase/{app,auth,database}` | `^26.0.0` | backend (modular API only) |
+| `@react-native-google-signin/google-signin` | `^16.1.4` | sign-in (`{ type, data }` response) |
+| `react-native-safe-area-context` / `react-native-screens` | `^5.8.0` / `^4.26.2` | navigation primitives |
+| `ramda` | `^0.32.0` | functional utilities, used pervasively |
 
 ### Development
 
-TypeScript `5.0.4`, ESLint `^8.19.0` with `@react-native/eslint-config`, Prettier `^2.8.8`, Jest
-`^29.6.3`, `babel-plugin-module-resolver` `^5.0.0`, plus the `@react-native/*` `0.73` presets and
-various `@types/*`.
-
-`metro-react-native-babel-preset@0.76.8` is also present, which is the *old* preset superseded by
-`@react-native/babel-preset` (also installed and actually used). It can be removed.
+TypeScript 7 (`@typescript/native`) for `tsc`, TypeScript 6 alias for ESLint API, ESLint **9.39.5**
+(flat config), Prettier **3.9.6**, Jest **30.4.2**, `babel-plugin-module-resolver` `^5.0.2`, plus
+the `@react-native/*` `0.86.2` presets and various `@types/*`.

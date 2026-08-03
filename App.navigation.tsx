@@ -2,8 +2,8 @@ import * as React from 'react'
 import * as R from 'ramda'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme as reactNativePaperUseTheme } from 'react-native-paper'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { ThemeProvider } from 'styled-components/native'
 import { ActivityIndicator, ColorSchemeName, LayoutAnimation, useColorScheme } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,7 +41,7 @@ export const AppNavigation = () => {
     : COLOR.DARK_SLATE_GREY
 
   const getThemeToProvide = () => darkTheme === -1
-    ? themeModel[colorScheme ?? 'light']
+    ? themeModel[colorScheme === 'dark' ? 'dark' : 'light']
     : themeModel[darkTheme ? 'dark' : 'light']
 
   const navigation = useNavigation()
@@ -96,7 +96,9 @@ export const AppNavigation = () => {
             name={name}
             component={component}
             options={{
-              tabBarIcon: ({ color }) => <MaterialCommunityIcons name={icon} {...{ color, size }} />
+              tabBarIcon: ({ color }: { color: string }) => (
+                <MaterialCommunityIcons name={icon as any} {...{ color, size }} />
+              )
             }}
           />
         ))}

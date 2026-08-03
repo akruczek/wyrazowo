@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useSelector } from 'react-redux'
 import { LettersSlider } from '@core/letters-slider/letters-slider'
 import { useIsPremium } from '@core/hooks/use-is-premium.hook'
@@ -16,7 +16,7 @@ import { SCREEN } from '../navigation/navigation.constants'
 
 export const Dashboard = () => {
   useDashboardRehydration()
-  const forceIndexModalizeRef = React.useRef<Modalize>(null)
+  const forceIndexModalizeRef = React.useRef<CustomModalizeRef | null>(null)
   const forceIndexLetterIndexRef = React.useRef<null | number>(null)
   const nativeSearchEngineEnabled = useSelector(nativeSearchEngineEnabledSelector)
 

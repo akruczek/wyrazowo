@@ -72,7 +72,7 @@ open class DAKeychain {
     )
 
     result.setValue(
-      kSecAttrAccessibleAlwaysThisDeviceOnly,
+      kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
       forKey: kSecAttrAccessible as String
     )
 

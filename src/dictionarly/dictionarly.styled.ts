@@ -18,5 +18,5 @@ export const DictionarlyButtonsContainer = styled.View<DictionarlyButtonsContain
 export const DictionarlySeparator = styled.View`
   border-bottom-width: 1px;
   margin: ${SPACING.S}px;
-  border-bottom-color: ${getThemeProp('textSecondary')}50;
+  border-bottom-color: ${getThemeProp('textSecondary') as any}50;
 `

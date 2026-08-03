@@ -27,7 +27,7 @@ export const CustomCheckbox = ({ defaultValue, local, onChange }: Props) => {
   return (
     <CustomCheckboxTouchableWrapper onPress={handleChange} {...{ value, RTL }}>
       <CustomCheckboxBox value={value}>
-        {value ? <CustomCheckboxCheckmarkIcon name="check-bold" value={value} /> : null}
+        {value ? <CustomCheckboxCheckmarkIcon value={value} /> : null}
       </CustomCheckboxBox>
 
       <Tx local={local} spacings="0 0 0 S" disabled bolder />

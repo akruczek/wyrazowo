@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { Template } from '@core/template/template'
@@ -18,7 +18,7 @@ import { getSoapCharactersIndexes } from '../dashboard/helpers'
 
 export const AdvancedSearch = () => {
   const RTL = useRTL()
-  const modalizeRef = React.useRef<Modalize>(null)
+  const modalizeRef = React.useRef<CustomModalizeRef | null>(null)
 
   const [ wordToExtend, setWordToExtend ] = React.useState('')
 

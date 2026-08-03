@@ -18,8 +18,8 @@ export const Developer = () => {
     navigation.navigate(SCREEN.DEVELOPER_SEARCH_HISTORY)
   }
 
-  const handleChangeNativeSearchEngine = (_nativeSearchEngineEnabled: boolean) =>
-    dispatch(setNativeSearchEngineEnabledAction(wrzw.toNumberFlag(_nativeSearchEngineEnabled)))
+  const handleChangeNativeSearchEngine = (_nativeSearchEngineEnabled?: boolean) =>
+    dispatch(setNativeSearchEngineEnabledAction(wrzw.toNumberFlag(!!_nativeSearchEngineEnabled)))
 
   return (
     <Template type="more" local="settings" backButton>

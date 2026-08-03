@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
 import { ActivityIndicator, FlatList } from 'react-native'
-import { Portal } from 'react-native-portalize'
 import { LetterCard } from '@core/letter-card/letter-card'
 import { TEXT_SIZE } from '@core/text/text.constants'
 import { SpacingView } from '@core/styled'
@@ -47,7 +46,7 @@ export const PossibleWordsModal = ({
   }
 
   return resetFlag ? (
-    <Portal>
+    <>
       <CustomModalize
         reference={modalizeRef}
         modalTopOffset={modalOffset}
@@ -101,6 +100,6 @@ export const PossibleWordsModal = ({
       </CustomModalize>
 
       <WordDetailsModal word={detailedWord} modalizeRef={wordDetailsModalRef} />
-    </Portal>
+    </>
   ) : null
 }

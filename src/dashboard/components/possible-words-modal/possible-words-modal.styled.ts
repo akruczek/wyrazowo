@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { ScrollViewProps } from 'react-native'
 import { COLOR } from '@core/colors/colors.constants'
 import { TEXT_SIZE } from '@core/text/text.constants'
@@ -24,13 +24,13 @@ interface PossibleWordsLetterCardsContainerProps extends ScrollViewProps {
 }
 
 export const PossibleWordsLetterCardsContainer = styled.ScrollView
-  .attrs((props: PossibleWordsLetterCardsContainerProps) => ({
+  .attrs((props: any) => ({
     horizontal: true,
     showsHorizontalScrollIndicator: false,
     contentContainerStyle: {
       flexDirection: getRTLFlexDirection(props),
     }
-  }))`
+  }))<PossibleWordsLetterCardsContainerProps>`
     flex-direction: ${getRTLFlexDirection};
   `
 

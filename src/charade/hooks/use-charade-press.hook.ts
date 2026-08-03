@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as R from 'ramda'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { useForceUpdate } from '@core/hooks/use-force-update.hook'
 import { CLEAR_BUTTON_ID, SEND_BUTTON_ID } from '@core/custom-keyboard/custom-keyboard.constants'
 import { createNewContents, updateRGYLetters } from '../helpers'
@@ -23,7 +23,7 @@ export const useCharadePress = (
   word: string,
   allWords: string[],
   setEnd: (success: boolean) => void,
-  modalizeRef: React.MutableRefObject<Modalize | null>,
+  modalizeRef: React.MutableRefObject<CustomModalizeRef | null>,
 ): UseCharadePress => {
   const count = word.length
 

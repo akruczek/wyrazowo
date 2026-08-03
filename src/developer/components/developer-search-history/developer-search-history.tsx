@@ -16,8 +16,7 @@ import { setSearchHistoryTimestampAction } from '../../../dashboard/store/dashbo
 export const DeveloperSearchHistory = () => {
   const localize = useLocalize()
   const dispatch = useDispatch()
-
-  useReadSearchHistory()
+  const { importSearchHistory } = useReadSearchHistory()
 
   const handleClearSearchHistory = () => {
     clearSearchHistoryAlert(localize, () => {
@@ -36,7 +35,7 @@ export const DeveloperSearchHistory = () => {
 
   const handleImportSearchHistory = () => {
     overwriteSearchHistoryAlert(localize, () => {
-      NativeModules.FSModule.readSearchHistory()
+      importSearchHistory()
     })
   }
 

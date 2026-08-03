@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTheme } from 'styled-components/native'
-import { Modalize } from 'react-native-modalize'
+import { CustomModalizeRef } from '@core/custom-modalize/cutom-modalize'
 import { ThemeModel } from '@core/styled/models'
 import { COLOR } from '@core/colors/colors.constants'
 import { Template } from '@core/template/template'
@@ -11,7 +11,7 @@ import { UserStatistics } from './components/user-statistics/user-statistics'
 
 export const User = () => {
   const theme = useTheme() as ThemeModel
-  const premiumModalRef = React.useRef<Modalize | null>(null)
+  const premiumModalRef = React.useRef<CustomModalizeRef | null>(null)
 
   const { userData, getRealTimeDatabaseData } = useRealTimeUserData()
   const { isPremium, handleOpenPremiumModal, handleDeactivatePremium } = usePremium(premiumModalRef)

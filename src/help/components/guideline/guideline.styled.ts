@@ -1,6 +1,7 @@
 import * as R from 'ramda'
-import styled, { ThemeProps } from 'styled-components/native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
+import { ThemeProps } from '@core/styled/models'
+import MaterialCommunityIcons from '@core/icon/icon'
 import { COLOR } from '@core/colors/colors.constants'
 import { getThemeProp } from '@core/styled/theme'
 import { TEXT_SIZE } from '@core/text/text.constants'
@@ -27,7 +28,7 @@ export const GuidelineGif = styled.Image.attrs({
   border-radius: 15px;
 `
 
-export const GuidelineButtonsContainer = styled.View`
+export const GuidelineButtonsContainer = styled.View<{ RTL?: boolean }>`
   flex-direction: ${getRTLFlexDirection};
   justify-content: space-around;
   align-items: center;
@@ -46,7 +47,7 @@ interface GuidelineButtonContainerProps {
   invisible?: boolean;
 }
 
-export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisible }: GuidelineButtonContainerProps) => ({
+export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisible }: any) => ({
   hitSlop: {
     top: 10,
     right: 10,
@@ -60,19 +61,19 @@ export const GuidelineButtonContainer = styled.TouchableOpacity.attrs(({ invisib
   opacity: ${getGuidelineButtonContainerOpacity};
 `
 
-export const GuidelineNextIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
+export const GuidelineNextIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'arrow-right-bold',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.XL,
-}))`
+}))<{ RTL?: boolean }>`
   ${getRTLRotation}
 `
 
-export const GuidelineBackIcon = styled(MaterialCommunityIcons).attrs((props: ThemeProps<ThemeModel>) => ({
+export const GuidelineBackIcon = styled(MaterialCommunityIcons).attrs((props: any) => ({
   name: 'arrow-left-bold',
   color: getThemeProp('textPrimary')(props),
   size: TEXT_SIZE.XL,
-}))`
+}))<{ RTL?: boolean }>`
   ${getRTLRotation}
 `
 

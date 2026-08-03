@@ -2,7 +2,6 @@ import * as React from 'react'
 import { DEFAULT_USER_POINTS } from '@core/real-time-database/real-time-database.constants'
 import { RealTimeDatabaseUserModel } from '@core/real-time-database/real-time-database.models'
 import { realTimeDatabaseService } from '@core/real-time-database/real-time-database.service'
-import { noop } from '@core/noop/noop'
 
 interface UseRealTimeUserData {
   getRealTimeDatabaseData: (uid: string) => Promise<void>;
@@ -14,12 +13,15 @@ export const useRealTimeUserData = (): UseRealTimeUserData => {
   const [ userData, setUserData ] = React.useState<null | RealTimeDatabaseUserModel>(null)
 
   const getRealTimeDatabaseData = async (uid: string) => {
-    const realTimeDatabaseUserDataRef = await realTimeDatabaseService.getRef(`/users/${uid}`)
+    const realTimeDatabaseUserDataRef = realTimeDatabaseService.getRef(`/users/${uid}`)
     let realTimeDatabaseUserData = await realTimeDatabaseService.readOnceByRef(realTimeDatabaseUserDataRef)
 
     if (!realTimeDatabaseUserData.exists()) {
       await realTimeDatabaseService.pushByReference(realTimeDatabaseUserDataRef)
-      await realTimeDatabaseUserDataRef.set({ uid, points: DEFAULT_USER_POINTS })
+      await realTimeDatabaseService.setByReference(realTimeDatabaseUserDataRef, {
+        uid,
+        points: DEFAULT_USER_POINTS,
+      })
       realTimeDatabaseUserData = await realTimeDatabaseService.readOnceByRef(realTimeDatabaseUserDataRef)
     }
 
@@ -27,16 +29,15 @@ export const useRealTimeUserData = (): UseRealTimeUserData => {
   }
 
   React.useEffect(() => {
-    let userListener: any = noop
+    if (!userUid) {
+      return
+    }
 
-    if (userUid) {
-      userListener = realTimeDatabaseService.addListener(`/users/${userUid}`, (data) => {
-        setUserData(data.val())
-      })
-    }
-    return () => {
-      realTimeDatabaseService.removeListener(`/users/${userUid}`, userListener)
-    }
+    const unsubscribe = realTimeDatabaseService.addListener(`/users/${userUid}`, (data) => {
+      setUserData(data.val())
+    })
+
+    return unsubscribe
   }, [ userUid ])
 
   return { userData, getRealTimeDatabaseData }
